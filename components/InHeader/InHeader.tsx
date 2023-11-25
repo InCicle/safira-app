@@ -1,5 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import { IconButton, Avatar, Menu, MenuItem, Stack, Paper, Link, Chip, Box, Typography } from "@mui/material";
+import {
+  IconButton,
+  Avatar,
+  Menu,
+  MenuItem,
+  Stack,
+  Paper,
+  Link,
+  Chip,
+  Box,
+  Typography,
+} from "@mui/material";
 import AppsIcon from "@mui/icons-material/Apps";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
@@ -36,11 +47,19 @@ interface props {
 
 const INCICLE_LOGO = "https://static-incicle.s3.amazonaws.com/logo_incicle.svg";
 
-function getLogoFromCompanies(companyId: string, companies: MeProps["companies"]) {
-  return companies.find(item => item.id === companyId)!?.logo;
+function getLogoFromCompanies(
+  companyId: string,
+  companies: MeProps["companies"]
+) {
+  return companies.find((item) => item.id === companyId)!?.logo;
 }
 
-const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, signOut }) => {
+const InHeader: React.FC<React.PropsWithChildren<props>> = ({
+  user,
+  me,
+  api,
+  signOut,
+}) => {
   // Array of search result on header
   const [resultSearch, setResultSearch] = useState([] as SearchItemInterface[]);
   const [hasResult, setHasResult] = useState(false);
@@ -58,6 +77,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
   function getLogoUrl() {
     let isPublicUrl = true;
     let logoUrl = "";
+    console.log("oi");
 
     if (me?.type === "PERSON") {
       const companyLogo = getLogoFromCompanies(selectedCompany?.id, companies);
@@ -75,7 +95,9 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
   const { logoUrl, isPublicUrl } = getLogoUrl();
 
   useEffect(() => {
-    const contentSideBarElement = document.querySelector(".contentSidebar > div") as any;
+    const contentSideBarElement = document.querySelector(
+      ".contentSidebar > div"
+    ) as any;
     const handleResize = () => {
       if (contentSideBarElement) {
         if (window.innerWidth < 800) {
@@ -102,10 +124,14 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
       if (me?.companies.length > 0) {
         const companySelected = Cookies.get("companySelected");
         if (!companySelected) {
-          Cookies.set("companySelected", me.companies[0].id, { domain: domainName });
+          Cookies.set("companySelected", me.companies[0].id, {
+            domain: domainName,
+          });
           setSelectedCompany(me.companies[0]);
         } else {
-          const comp = me?.companies.find(company => company.id === companySelected);
+          const comp = me?.companies.find(
+            (company) => company.id === companySelected
+          );
           setSelectedCompany(comp);
         }
 
@@ -146,11 +172,15 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
     setAnchorCompanysEl(null);
   }
 
-  function handleOpenMenuProfile(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+  function handleOpenMenuProfile(
+    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) {
     profileMenuRef.current?.openProfileMenu(ev);
   }
 
-  function handleOpenModulesMenu(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+  function handleOpenModulesMenu(
+    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) {
     modulesMenuRef.current?.openDropdown(ev);
   }
 
@@ -183,7 +213,8 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
 
   useEffect(() => {
     function handleResize() {
-      if (window.innerWidth > 1200 && inputBoxClassName.length) setInputBoxClassName("");
+      if (window.innerWidth > 1200 && inputBoxClassName.length)
+        setInputBoxClassName("");
     }
 
     window.addEventListener("resize", handleResize);
@@ -249,8 +280,16 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                   </Link>
 
                   {/* MODULES links */}
-                  <Stack spacing={0} direction="row" className="incicleheader-modules" sx={{ alignItems: "center" }}>
-                    <Stack direction="row" className={`incicleheader-modules-content original`}>
+                  <Stack
+                    spacing={0}
+                    direction="row"
+                    className="incicleheader-modules"
+                    sx={{ alignItems: "center" }}
+                  >
+                    <Stack
+                      direction="row"
+                      className={`incicleheader-modules-content original`}
+                    >
                       {[
                         {
                           text: "Feed",
@@ -311,7 +350,11 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
 
               <section className="incicleheader-content flex-end">
                 <nav>
-                  <Stack spacing={1} direction="row" sx={{ justifyContent: "flex-end", alignItems: "center" }}>
+                  <Stack
+                    spacing={1}
+                    direction="row"
+                    sx={{ justifyContent: "flex-end", alignItems: "center" }}
+                  >
                     {/* COMPANIES */}
                     <div className="incicleheader-companies">
                       {companies.length > 0 && accountType === "PERSON" && (
@@ -321,7 +364,11 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                           size="small"
                           clickable
                           avatar={companiesAvatar()}
-                          label={<span style={{ fontSize: "13px" }}>{maxLetters(selectedCompany?.name, 200)}</span>}
+                          label={
+                            <span style={{ fontSize: "13px" }}>
+                              {maxLetters(selectedCompany?.name, 200)}
+                            </span>
+                          }
                           onDelete={handleOpenMenuCompanys}
                           deleteIcon={<ArrowDropDownIcon />}
                           variant="outlined"
@@ -365,15 +412,27 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                             },
                           },
                         }}
-                        transformOrigin={{ horizontal: "right", vertical: "top" }}
-                        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                        transformOrigin={{
+                          horizontal: "right",
+                          vertical: "top",
+                        }}
+                        anchorOrigin={{
+                          horizontal: "right",
+                          vertical: "bottom",
+                        }}
                       >
                         {companies.map((company, index) => (
-                          <MenuItem key={index} component="li" onClick={() => changeChipContent(index)}>
+                          <MenuItem
+                            key={index}
+                            component="li"
+                            onClick={() => changeChipContent(index)}
+                          >
                             <Avatar alt={company.name}>
                               <WorkIcon />
                             </Avatar>
-                            <span style={{ padding: "0 !important" }}>{company.name}</span>
+                            <span style={{ padding: "0 !important" }}>
+                              {company.name}
+                            </span>
                           </MenuItem>
                         ))}
                       </Menu>
@@ -420,7 +479,9 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                         options={resultSearch}
                         open={hasResult}
                         noOptionsText={
-                          <Typography sx={{ fontSize: "13px !important" }}>Nenhum resultado encontrado</Typography>
+                          <Typography sx={{ fontSize: "13px !important" }}>
+                            Nenhum resultado encontrado
+                          </Typography>
                         }
                         sx={{
                           "& input": {
@@ -429,7 +490,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                             outline: "none",
                           },
                         }}
-                        renderInput={params => (
+                        renderInput={(params) => (
                           <Box
                             ref={params.InputProps.ref}
                             sx={{
@@ -443,7 +504,9 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                           >
                             {inputBoxClassName && (
                               <>
-                                <IconButton onClick={() => setInputBoxClassName("")}>
+                                <IconButton
+                                  onClick={() => setInputBoxClassName("")}
+                                >
                                   <CloseIcon
                                     sx={{
                                       width: "16px !important",
@@ -465,15 +528,23 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                           </Box>
                         )}
                         renderOption={(props, item) => {
-                          return <RenderSearchItem liProps={props} item={item} />;
+                          return (
+                            <RenderSearchItem liProps={props} item={item} />
+                          );
                         }}
                         getOptionLabel={(option: any) => option.name}
                         // @ts-ignore-next-line
-                        onInputChange={(e, value: string) => searchFunction(value)}
+                        onInputChange={(e, value: string) =>
+                          searchFunction(value)
+                        }
                         fullWidth
                       />
 
-                      <IconButton type="submit" sx={{ p: "6px" }} aria-label="search">
+                      <IconButton
+                        type="submit"
+                        sx={{ p: "6px" }}
+                        aria-label="search"
+                      >
                         <SearchIcon
                           sx={{
                             width: "24px !important",
@@ -485,7 +556,10 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                     </Paper>
 
                     {/* MODULES MENU */}
-                    <label className="incicleheader-desktopmodules-label" htmlFor="incicleheader-modules-checkbox">
+                    <label
+                      className="incicleheader-desktopmodules-label"
+                      htmlFor="incicleheader-modules-checkbox"
+                    >
                       <IconButton onClick={handleOpenModulesMenu}>
                         <AppsIcon
                           sx={{
@@ -507,7 +581,10 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                       size="small"
                       style={{ marginRight: 15 }}
                     >
-                      <RenderAvatar sx={{ width: 35, height: 35 }} src={me?.avatar} />
+                      <RenderAvatar
+                        sx={{ width: 35, height: 35 }}
+                        src={me?.avatar}
+                      />
                     </IconButton>
                   </Stack>
                 </nav>
@@ -518,7 +595,10 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
               <section className="incicleheader-content">
                 <nav style={{ alignItems: "center", display: "flex" }}>
                   {/* MODULES MENU */}
-                  <label className="incicleheader-modules-label" htmlFor="incicleheader-modules-checkbox">
+                  <label
+                    className="incicleheader-modules-label"
+                    htmlFor="incicleheader-modules-checkbox"
+                  >
                     <IconButton onClick={handleOpenModulesMenu}>
                       <AppsIcon
                         sx={{
@@ -570,7 +650,9 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                       options={resultSearch}
                       open={hasResult}
                       noOptionsText={
-                        <Typography sx={{ fontSize: "13px !important" }}>Nenhum resultado encontrado</Typography>
+                        <Typography sx={{ fontSize: "13px !important" }}>
+                          Nenhum resultado encontrado
+                        </Typography>
                       }
                       sx={{
                         "& input": {
@@ -579,7 +661,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                           outline: "none",
                         },
                       }}
-                      renderInput={params => (
+                      renderInput={(params) => (
                         <Box
                           ref={params.InputProps.ref}
                           sx={{
@@ -593,7 +675,9 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                         >
                           {inputBoxClassName && (
                             <>
-                              <IconButton onClick={() => setInputBoxClassName("")}>
+                              <IconButton
+                                onClick={() => setInputBoxClassName("")}
+                              >
                                 <CloseIcon
                                   sx={{
                                     width: "16px !important",
@@ -619,11 +703,17 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                       }}
                       getOptionLabel={(option: any) => option.name}
                       // @ts-ignore-next-line
-                      onInputChange={(e, value: string) => searchFunction(value)}
+                      onInputChange={(e, value: string) =>
+                        searchFunction(value)
+                      }
                       fullWidth
                     />
 
-                    <IconButton type="submit" sx={{ p: "6px" }} aria-label="search">
+                    <IconButton
+                      type="submit"
+                      sx={{ p: "6px" }}
+                      aria-label="search"
+                    >
                       <SearchIcon
                         sx={{
                           width: "24px !important",
@@ -673,7 +763,11 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
 
               <section className="incicleheader-content flex-end">
                 <nav>
-                  <Stack spacing={1} direction="row" sx={{ justifyContent: "flex-end", alignItems: "center" }}>
+                  <Stack
+                    spacing={1}
+                    direction="row"
+                    sx={{ justifyContent: "flex-end", alignItems: "center" }}
+                  >
                     {/* NOTIFICATIONS AREA */}
                     {/* {
                       <IconButton size="medium" sx={{ width: 35, height: 35 }} onClick={showNotifications}>
@@ -691,7 +785,10 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                       size="small"
                       style={{ marginRight: 15 }}
                     >
-                      <RenderAvatar sx={{ width: 35, height: 35 }} src={me?.avatar} />
+                      <RenderAvatar
+                        sx={{ width: 35, height: 35 }}
+                        src={me?.avatar}
+                      />
                     </IconButton>
                   </Stack>
                 </nav>
