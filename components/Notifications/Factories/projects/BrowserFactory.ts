@@ -8,6 +8,10 @@ const notificationType = {
   COMPLETED_ACTIVITY: "COMPLETED_ACTIVITY",
   ACTIVITY_COMMENT_QUOTE: "ACTIVITY_COMMENT_QUOTE",
   ACTIVITY_LATE: "ACTIVITY_LATE",
+  ADDED_IN_WORKSPACE: "ADDED_IN_WORKSPACE",
+  ADDED_ADMIN_IN_WORKSPACE: "ADDED_ADMIN_IN_WORKSPACE",
+  REMOVED_ADMIN_FROM_WORKSPACE: "REMOVED_ADMIN_FROM_WORKSPACE",
+  REMOVED_FROM_WORKSPACE: "REMOVED_FROM_WORKSPACE",
 };
 
 const messageGroup = {
@@ -43,6 +47,18 @@ export function createProjectsBrowserNotificationFactory(notification: INotifica
 
     case notificationType.ACTIVITY_LATE:
       return `A atividade "${common?.title_activity}" do projeto "${common?.title_project}" está atrasada`;
+
+    case notificationType.ADDED_IN_WORKSPACE:
+      return `${sender?.name} te adicionou como membro da área de trabalho "${common?.title_workspace}"`;
+
+    case notificationType.ADDED_ADMIN_IN_WORKSPACE:
+      return `${sender?.name} te adicionou como administrador da área de trabalho "${common?.title_workspace}"`;
+
+    case notificationType.REMOVED_FROM_WORKSPACE:
+      return `Você foi removido da área de trabalho "${common?.title_workspace}"`;
+
+    case notificationType.REMOVED_ADMIN_FROM_WORKSPACE:
+      return `Você não é mais administrador da área de trabalho "${common?.title_workspace}"`;
 
     default:
       return "";

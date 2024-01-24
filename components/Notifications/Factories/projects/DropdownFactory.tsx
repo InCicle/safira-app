@@ -20,6 +20,10 @@ const notificationType = {
   COMPLETED_ACTIVITY: "COMPLETED_ACTIVITY",
   ACTIVITY_COMMENT_QUOTE: "ACTIVITY_COMMENT_QUOTE",
   ACTIVITY_LATE: "ACTIVITY_LATE",
+  ADDED_IN_WORKSPACE: "ADDED_IN_WORKSPACE",
+  ADDED_ADMIN_IN_WORKSPACE: "ADDED_ADMIN_IN_WORKSPACE",
+  REMOVED_ADMIN_FROM_WORKSPACE: "REMOVED_ADMIN_FROM_WORKSPACE",
+  REMOVED_FROM_WORKSPACE: "REMOVED_FROM_WORKSPACE",
 };
 
 const messageGroup = {
@@ -32,6 +36,8 @@ const messageGroup = {
 };
 
 const ProjectsDropdownNotificationFactory: React.FC<React.PropsWithChildren<Props>> = ({ notificationItem }) => {
+  const { sender, common } = notificationItem;
+
   const renderActions = () => {
     switch (notificationItem.type) {
       case notificationType.ADDED_IN_ACTIVITY:
@@ -122,6 +128,51 @@ const ProjectsDropdownNotificationFactory: React.FC<React.PropsWithChildren<Prop
               A atividade <NotificationHighlight>"{notificationItem.common?.title_activity}"</NotificationHighlight> do
               projeto <NotificationHighlight>"{notificationItem.common?.title_project}"</NotificationHighlight> está{" "}
               <NotificationHighlight sx={{ color: "#df4c4c" }}>atrasada</NotificationHighlight>
+            </NotificationContentText>
+          </NotificationContainer>
+        );
+      case notificationType.ADDED_IN_WORKSPACE:
+        return (
+          <NotificationContainer
+            url={`${links.web.project}/workspaces/${notificationItem.common?.workspace_id}`}
+            notification={notificationItem}
+          >
+            <NotificationContentText notification={notificationItem}>
+              <NotificationHighlight>"{sender?.name}"</NotificationHighlight> te adicionou como membro da área de
+              trabalho <NotificationHighlight>"{common?.title_workspace}"</NotificationHighlight>.
+            </NotificationContentText>
+          </NotificationContainer>
+        );
+      case notificationType.ADDED_ADMIN_IN_WORKSPACE:
+        return (
+          <NotificationContainer
+            url={`${links.web.project}/workspaces/${notificationItem.common?.workspace_id}`}
+            notification={notificationItem}
+          >
+            <NotificationContentText notification={notificationItem}>
+              <NotificationHighlight>"{sender?.name}"</NotificationHighlight> te adicionou como administrador da área de
+              trabalho <NotificationHighlight>"{common?.title_workspace}"</NotificationHighlight>.
+            </NotificationContentText>
+          </NotificationContainer>
+        );
+      case notificationType.REMOVED_FROM_WORKSPACE:
+        return (
+          <NotificationContainer url={`${links.web.project}`} notification={notificationItem}>
+            <NotificationContentText notification={notificationItem}>
+              Você foi removido da área de trabalho{" "}
+              <NotificationHighlight>"{common?.title_workspace}"</NotificationHighlight>.
+            </NotificationContentText>
+          </NotificationContainer>
+        );
+      case notificationType.REMOVED_ADMIN_FROM_WORKSPACE:
+        return (
+          <NotificationContainer
+            url={`${links.web.project}/workspaces/${notificationItem.common?.workspace_id}`}
+            notification={notificationItem}
+          >
+            <NotificationContentText notification={notificationItem}>
+              Você não é mais administrador da área de trabalho{" "}
+              <NotificationHighlight>"{common?.title_workspace}"</NotificationHighlight>.
             </NotificationContentText>
           </NotificationContainer>
         );

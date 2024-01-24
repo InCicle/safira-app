@@ -13,7 +13,7 @@ import { addToast } from "app/components/Toast";
 import { NotificationDTO } from "app/components/Notifications/DTO/NotificationDTO";
 import { updateSawNotifications } from "app/services/notifier/notifications";
 import { links } from "app/config/links";
-import { NotificationEvent } from "app/providers/NotificationEvent";
+import { NotificationEvent, NotificationEventList } from "app/providers/NotificationEvent";
 
 type NotificationOptionsType = {
   api: AxiosInstance;
@@ -28,6 +28,9 @@ type NotificationOptionsType = {
   defineFavicon(icon: FaviconOptionType): void;
   definePageTitle(content: string | ((title: string) => string)): void;
 };
+
+let DROPDOWN_TIMEOUT: NodeJS.Timeout | null = null;
+const DROPDOWN_DELAY = 800;
 
 export default class NotificationUseCase {
   // presets ----------------------------------------- // --------------------------------------------------------- //
@@ -54,6 +57,7 @@ export default class NotificationUseCase {
     this.executeBrowserTab = this.executeBrowserTab.bind(this);
     this.executeToastNotification = this.executeToastNotification.bind(this);
     this.initializeEvents = this.initializeEvents.bind(this);
+    this.clearEvents = this.clearEvents.bind(this);
     this.executeBrowserNotification = this.executeBrowserNotification.bind(this);
     this.handleOpenDropdown = this.handleOpenDropdown.bind(this);
     this.handleCloseDropdown = this.handleCloseDropdown.bind(this);
@@ -216,7 +220,11 @@ export default class NotificationUseCase {
     this.defineFavicon("incicle-logo");
     this.definePageTitle(this.replacer);
 
-    updateSawNotifications(this.api);
+    clearTimeout(DROPDOWN_TIMEOUT!);
+    
+    DROPDOWN_TIMEOUT = setTimeout(() => {
+      updateSawNotifications(this.api);
+    }, DROPDOWN_DELAY);
   }
 
   handleCloseDropdown() {
@@ -227,7 +235,16 @@ export default class NotificationUseCase {
   // apply events --------------------------------- // ------------------------------------------------------------ //
 
   initializeEvents() {
-    NotificationEvent.on("open_dropdown", this.handleOpenDropdown);
-    NotificationEvent.on("close_dropdown", this.handleCloseDropdown);
+    const [openDropdownKey] = NotificationEvent.on("open_dropdown", this.handleOpenDropdown);
+    const [closeDropdownKey] = NotificationEvent.on("close_dropdown", this.handleCloseDropdown);
+
+    return { openDropdownKey, closeDropdownKey };
+  }
+
+  clearEvents(keys: { openDropdownKey?: string; closeDropdownKey?: string }) {
+    const { openDropdownKey, closeDropdownKey } = keys;
+
+    if (openDropdownKey) NotificationEvent.remove("open_dropdown", openDropdownKey);
+    if (closeDropdownKey) NotificationEvent.remove("close_dropdown", closeDropdownKey);
   }
 }

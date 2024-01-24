@@ -156,10 +156,10 @@ export const incicleModules: InModulesType[] = [
     icon: "https://static-incicle.s3.amazonaws.com/settings.svg",
     iconSize: 46,
     url: `${links.web.settings}`,
-    accountTypes: ["COMPANY"],
+    accountTypes: ["COMPANY", "PERSON"],
     description: {
-      COMPANY: "Gerencie permissões dos colaboradores.",
-      PERSON: null,
+      COMPANY: "Gerencie permissões e outras preferências.",
+      PERSON: "Gerencie as preferências da sua conta.",
     },
   },
   {
@@ -218,14 +218,14 @@ export const incicleCollaboratorsModules: InModulesType[] = [
 ];
 
 export const incicleManagerModule: InModulesType = {
-    title: "Painel do Gestor",
-    slug: MODULE_TYPES.all,
-    icon: "https://static-incicle.s3.amazonaws.com/manager-icon.svg",
-    iconSize: 50,
-    url: links.web.manager,
-    accountTypes: ["PERSON"],
-    description: {
-      COMPANY: null,
-      PERSON: "Gerencie informações e ações da sua equipe.",
-    },
-}
+  title: "Painel do Gestor",
+  slug: MODULE_TYPES.all,
+  icon: "https://static-incicle.s3.amazonaws.com/manager-icon.svg",
+  iconSize: 50,
+  url: links.web.manager,
+  accountTypes: ["PERSON"],
+  description: {
+    COMPANY: null,
+    PERSON: "Gerencie informações e ações da sua equipe.",
+  },
+};

@@ -1,11 +1,15 @@
-import React, { useEffect, useImperativeHandle, useState } from "react";
-import { Box, Divider, IconButton, Menu, Stack, Typography, useTheme } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import { useHeaderProvider } from "app/contexts/HeaderContext";
-import { incicleCollaboratorsModules, incicleManagerModule, incicleModules } from "app/components/InHeader/data/modules";
-import { usePermissions } from "context/Permissions";
-import ModuleMenuItem from "./ModuleMenuItem";
-import { useSocialContext } from "context/SocialContext";
+import React, { useContext, useEffect, useImperativeHandle, useState } from 'react';
+import { Box, Divider, IconButton, Menu, Stack, Typography, useTheme } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { useHeaderProvider } from 'app/contexts/HeaderContext';
+import {
+  incicleCollaboratorsModules,
+  incicleManagerModule,
+  incicleModules,
+} from 'app/components/InHeader/data/modules';
+import { usePermissions } from 'contexts/Permissions';
+import ModuleMenuItem from './ModuleMenuItem';
+import { ProfileContext } from 'contexts/ProfileContext';
 
 export type ModulesMenuRef = {
   openDropdown: (ev: any) => void;
@@ -19,21 +23,21 @@ const breakpointValue = 700;
 const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (props, ref) => {
   const { user } = useHeaderProvider();
   const { breakpoints } = useTheme();
-  const { profiles } = useSocialContext();
+  const { me: profiles } = useContext(ProfileContext);
   const { checkPermission, companyId } = usePermissions();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-  const [activeManagerPanel, setActiveManagerPanel] = useState<boolean>(false)
+  const [activeManagerPanel, setActiveManagerPanel] = useState<boolean>(false);
 
   useEffect(() => {
-    if (user.type === "COMPANY" || !profiles || !profiles.companies) return;
+    if (user.type === 'COMPANY' || !profiles || !profiles.companies) return;
 
     const selectedCompany = profiles.companies.find(company => company.id === companyId);
-    if(!selectedCompany) return;
+    if (!selectedCompany) return;
 
-    if(!!selectedCompany.is_manager_competence || checkPermission(['managers_vacations_list'])) {
+    if (!!selectedCompany.is_manager_competence || checkPermission(['managers_vacations_list'])) {
       setActiveManagerPanel(true);
     }
-  }, [profiles])
+  }, [profiles]);
 
   function openDropdown(ev: any) {
     setAnchorEl(ev.currentTarget);
@@ -63,17 +67,25 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
       onClose={closeDropdown}
       anchorEl={anchorEl}
       PaperProps={{
-        sx: { maxWidth: 680, scrollbarWidth: 'thin', '&::-webkit-scrollbar': { width: '10px', height: '10px' }, "&::-webkit-scrollbar-thumb": {
-          backgroundColor: "#a5a5a5",
-          borderRadius: "7px",
-          boxShadow: "none",
-        },
+        sx: {
+          maxWidth: 680,
+          scrollbarWidth: 'thin',
+          '&::-webkit-scrollbar': {
+            width: '10px',
+            height: '10px',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: '#a5a5a5',
+            borderRadius: '7px',
+            boxShadow: 'none',
+          },
 
-        "&::-webkit-scrollbar-track": {
-          backgroundColor: "#d8d9db",
-          borderRadius: "7px",
-          boxShadow: "none",
-        }, },
+          '&::-webkit-scrollbar-track': {
+            backgroundColor: '#d8d9db',
+            borderRadius: '7px',
+            boxShadow: 'none',
+          },
+        },
       }}
     >
       <Stack
@@ -87,39 +99,39 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
       >
         <Box
           sx={{
-            width: "100%",
-            marginTop: "12px",
-            marginBottom: "16px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "8px",
+            width: '100%',
+            marginTop: '12px',
+            marginBottom: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px',
           }}
         >
           <Typography
             sx={{
-              color: "#008AC1",
-              fontSize: "22px",
-              fontWeight: "bold",
+              color: '#008AC1',
+              fontSize: '22px',
+              fontWeight: 'bold',
             }}
           >
             Módulos
           </Typography>
         </Box>
-        <IconButton sx={{ marginBottom: "8px" }} onClick={closeDropdown}>
+        <IconButton sx={{ marginBottom: '8px' }} onClick={closeDropdown}>
           <CloseIcon />
         </IconButton>
       </Stack>
       <Divider />
       <Box
         sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-          padding: "8px 8px 0",
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+          padding: '8px 8px 0',
           [breakpoints.down(breakpointValue)]: {
-            display: "flex",
-            flexDirection: "column",
+            display: 'flex',
+            flexDirection: 'column',
           },
         }}
       >
@@ -136,48 +148,48 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
 
       {filteredCollaboratorsModules.length > 0 || activeManagerPanel ? (
         <>
-        <Divider />
-        <Box
-          sx={{
-            width: "100%",
-            marginTop: "12px",
-            marginBottom: "16px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "8px",
-          }}
-        >
-          <Typography
+          <Divider />
+          <Box
             sx={{
-              color: "#008AC1",
-              fontSize: "22px",
-              fontWeight: "bold",
+              width: '100%',
+              marginTop: '12px',
+              marginBottom: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
             }}
           >
-            Company
-          </Typography>
-        </Box>
-        <Divider />
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            padding: "8px 8px 0",
-            [breakpoints.down(breakpointValue)]: {
-              display: "flex",
-              flexDirection: "column",
-            },
-          }}
-        >
-          {filteredCollaboratorsModules.map((moduleItem, index) => (
-            <ModuleMenuItem key={index.toString()} module={moduleItem} />
-          ))}
+            <Typography
+              sx={{
+                color: '#008AC1',
+                fontSize: '22px',
+                fontWeight: 'bold',
+              }}
+            >
+              Company
+            </Typography>
+          </Box>
+          <Divider />
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'space-between',
+              padding: '8px 8px 0',
+              [breakpoints.down(breakpointValue)]: {
+                display: 'flex',
+                flexDirection: 'column',
+              },
+            }}
+          >
+            {filteredCollaboratorsModules.map((moduleItem, index) => (
+              <ModuleMenuItem key={index.toString()} module={moduleItem} />
+            ))}
 
-          {activeManagerPanel ? (<ModuleMenuItem module={incicleManagerModule} />) : null}
-        </Box>
-      </>
+            {activeManagerPanel ? <ModuleMenuItem module={incicleManagerModule} /> : null}
+          </Box>
+        </>
       ) : null}
     </Menu>
   );

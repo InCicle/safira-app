@@ -131,12 +131,15 @@ const NotificationSocketProvider: React.FC<React.PropsWithChildren<NotificationS
 
   // create socket connection and apply notification events
   useEffect(() => {
-    notificationUseCase.initializeEvents();
+    const { openDropdownKey, closeDropdownKey } = notificationUseCase.initializeEvents();
 
     createSocketConnection();
     addSocketEvents();
 
-    return removeSocketEvents;
+    return () => {
+      removeSocketEvents();
+      notificationUseCase.clearEvents({ openDropdownKey, closeDropdownKey });
+    };
   }, [notificationUseCase]); // eslint-disable-line
 
   // on notification load
