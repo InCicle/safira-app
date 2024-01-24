@@ -1,8 +1,8 @@
 import React, { useImperativeHandle, useState } from "react";
 import { Divider, Link as MUILink, ListItemIcon, Menu, MenuItem } from "@mui/material";
-import { links } from "app/config/links";
-import { useHeaderProvider } from "app/contexts/HeaderContext";
-import RenderAvatar from "app/components/RenderAvatar";
+import { links } from "@safira/config/links";
+import { useHeaderProvider } from "@safira/contexts/HeaderContext";
+import RenderAvatar from "@safira/components/RenderAvatar";
 import TutorialVideos from "../TutorialVideos";
 
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";

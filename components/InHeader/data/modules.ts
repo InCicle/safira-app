@@ -1,8 +1,8 @@
-import { links } from "app/config/links";
-import { MeProps } from "app/interfaces/Me";
-import { MODULE_TYPES } from "app/interfaces/Notification";
+import { links } from "@safira/config/links";
+import { MeProps } from "@safira/interfaces/Me";
+import { MODULE_TYPES } from "@safira/interfaces/Notification";
 
-import TaskManagerIcon from "app/assets/modules/task_manager.svg";
+import TaskManagerIcon from "@safira/assets/modules/task_manager.svg";
 
 export type InModulesType = {
   title: string;

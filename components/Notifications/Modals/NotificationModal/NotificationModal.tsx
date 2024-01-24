@@ -1,7 +1,7 @@
 import React, { Fragment, ReactNode, useEffect, useImperativeHandle, useState } from "react";
 import { Button, Dialog, DialogActions, SxProps, Theme } from "@mui/material";
 import NotificationModalContent, { NotificationModalContentProps } from "./NotificationModalContent";
-import { useQuery } from "app/hooks/useQuery";
+import { useQuery } from "@safira/hooks/useQuery";
 
 export type NotificationModalProps = NotificationModalContentProps & {
   notificationParams?: {

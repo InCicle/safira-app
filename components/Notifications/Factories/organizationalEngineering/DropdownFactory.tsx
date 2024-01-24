@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 
-import NotificationModal from "app/components/Notifications/Modals/NotificationModal/NotificationModal";
-import { INotificationProps } from "app/interfaces/Notification";
-import { links } from "app/config/links";
+import NotificationModal from "@safira/components/Notifications/Modals/NotificationModal/NotificationModal";
+import { INotificationProps } from "@safira/interfaces/Notification";
+import { links } from "@safira/config/links";
 
 import {
   NotificationContainer,

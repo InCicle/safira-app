@@ -1,5 +1,5 @@
-import { ModulesWeb } from "app/config/links";
-import { MODULE_TYPES } from "app/interfaces/Notification";
+import { ModulesWeb } from "@safira/config/links";
+import { MODULE_TYPES } from "@safira/interfaces/Notification";
 
 export type IncicleModules = {
   title: string;

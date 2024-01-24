@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Box, Grid, Typography, Button } from "@mui/material";
 import { ModalLayout, Logo, Layout } from "./styles";
-import logo from "app/assets/logo_0.svg";
-import scheduleImg from "app/assets/modules/agenda.svg";
-import projectImg from "app/assets/modules/projetos.svg";
-import socialImg from "app/assets/modules/rede_social.svg";
-import feedbackImg from "app/assets/modules/feedback.svg";
-import competenceImg from "app/assets/modules/avaliação_por_competencia.svg";
-import taskmanagerImg from "app/assets/modules/taskmanager.svg";
-import pdImg from "app/assets/modules/personal_department.svg";
-import { useHeaderProvider } from "app/contexts/HeaderContext";
-import { links } from "app/config/links";
+import logo from "@safira/assets/logo_0.svg";
+import scheduleImg from "@safira/assets/modules/agenda.svg";
+import projectImg from "@safira/assets/modules/projetos.svg";
+import socialImg from "@safira/assets/modules/rede_social.svg";
+import feedbackImg from "@safira/assets/modules/feedback.svg";
+import competenceImg from "@safira/assets/modules/avaliação_por_competencia.svg";
+import taskmanagerImg from "@safira/assets/modules/taskmanager.svg";
+import pdImg from "@safira/assets/modules/personal_department.svg";
+import { useHeaderProvider } from "@safira/contexts/HeaderContext";
+import { links } from "@safira/config/links";
 import TutorialVideoButton from "./components/TutorialVideoButton";
 import TutorialDoubleVideoButton from "./components/TutorialDoubleVideoButton";
 

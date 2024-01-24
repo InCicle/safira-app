@@ -2,10 +2,10 @@ import React, { useImperativeHandle, useLayoutEffect, useRef } from "react";
 import { Badge, IconButton, Menu } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 
-import { NotificationEvent } from "app/providers/NotificationEvent";
-import { useNotifications } from "app/hooks/useNotifications";
-import { useQuery } from "app/hooks/useQuery";
-import { useRender } from "app/hooks/useRender";
+import { NotificationEvent } from "@safira/providers/NotificationEvent";
+import { useNotifications } from "@safira/hooks/useNotifications";
+import { useQuery } from "@safira/hooks/useQuery";
+import { useRender } from "@safira/hooks/useRender";
 
 import NotificationsContent from "./NotificationsContent";
 

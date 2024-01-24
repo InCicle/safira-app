@@ -1,4 +1,4 @@
-import { links } from "app/config/links";
+import { links } from "@safira/config/links";
 import { AES, enc, lib } from "crypto-js";
 
 const secret: string = links.secret_key;

@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 
-import { INotificationProps } from "app/interfaces/Notification";
+import { INotificationProps } from "@safira/interfaces/Notification";
 
 import { NotificationDTO } from "../DTO/NotificationDTO";
 

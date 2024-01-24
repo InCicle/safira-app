@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 
-import { INotificationProps } from "app/interfaces/Notification";
-import { links } from "app/config/links";
-import { reduceString } from "app/utils/reduceString";
+import { INotificationProps } from "@safira/interfaces/Notification";
+import { links } from "@safira/config/links";
+import { reduceString } from "@safira/utils/reduceString";
 
 import {
   NotificationContainer,

@@ -1,7 +1,7 @@
 import moment from "moment";
 
-import { reduceString } from "app/utils/reduceString";
-import { INotificationProps } from "app/interfaces/Notification";
+import { reduceString } from "@safira/utils/reduceString";
+import { INotificationProps } from "@safira/interfaces/Notification";
 
 const notificationType = {
   RECEIVED_FEEDBACK: "RECEIVED_FEEDBACK",

@@ -1,5 +1,5 @@
-import { INotificationProps } from "app/interfaces/Notification";
-import { reduceString } from "app/utils/reduceString";
+import { INotificationProps } from "@safira/interfaces/Notification";
+import { reduceString } from "@safira/utils/reduceString";
 
 const notificationType = {
   ENDOMARKETING_COMMUNICATION: "ENDOMARKETING_COMMUNICATION",

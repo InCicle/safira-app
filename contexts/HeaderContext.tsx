@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 import { AxiosInstance } from "axios";
-import { links } from "app/config/links";
-import { INotificationProps } from "app/interfaces/Notification";
-import { IUser } from "app/interfaces/User";
-import { MeProps } from "app/interfaces/Me";
+import { links } from "@safira/config/links";
+import { INotificationProps } from "@safira/interfaces/Notification";
+import { IUser } from "@safira/interfaces/User";
+import { MeProps } from "@safira/interfaces/Me";
 
 export type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 

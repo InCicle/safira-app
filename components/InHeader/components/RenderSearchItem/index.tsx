@@ -1,7 +1,7 @@
 import React from "react";
-import { SearchItemInterface } from "app/interfaces/Search";
-import RenderAvatar from "app/components/RenderAvatar";
-import { links } from "app/config/links";
+import { SearchItemInterface } from "@safira/interfaces/Search";
+import RenderAvatar from "@safira/components/RenderAvatar";
+import { links } from "@safira/config/links";
 
 interface Props {
   item: SearchItemInterface;

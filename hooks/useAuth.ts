@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AuthContext, AuthContextData } from "app/contexts/AuthContext";
+import { AuthContext, AuthContextData } from "@safira/contexts/AuthContext";
 
 export function useAuth(): AuthContextData {
   const context = useContext(AuthContext);

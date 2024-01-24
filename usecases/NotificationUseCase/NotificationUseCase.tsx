@@ -3,17 +3,17 @@
 import React from "react";
 import { AxiosInstance } from "axios";
 
-import notificationLogoImg from "app/assets/icons/incicle-favicon.png";
-import notificationSound from "app/assets/audios/incicle-notification.mp3";
+import notificationLogoImg from "@safira/assets/icons/incicle-favicon.png";
+import notificationSound from "@safira/assets/audios/incicle-notification.mp3";
 
-import { incicleModules } from "app/components/InHeader/data/modules";
-import { INotificationProps } from "app/interfaces/Notification";
-import { FaviconOptionType } from "app/hooks/useHTMLHead";
-import { addToast } from "app/components/Toast";
-import { NotificationDTO } from "app/components/Notifications/DTO/NotificationDTO";
-import { updateSawNotifications } from "app/services/notifier/notifications";
-import { links } from "app/config/links";
-import { NotificationEvent, NotificationEventList } from "app/providers/NotificationEvent";
+import { incicleModules } from "@safira/components/InHeader/data/modules";
+import { INotificationProps } from "@safira/interfaces/Notification";
+import { FaviconOptionType } from "@safira/hooks/useHTMLHead";
+import { addToast } from "@safira/components/Toast";
+import { NotificationDTO } from "@safira/components/Notifications/DTO/NotificationDTO";
+import { updateSawNotifications } from "@safira/services/notifier/notifications";
+import { links } from "@safira/config/links";
+import { NotificationEvent, NotificationEventList } from "@safira/providers/NotificationEvent";
 
 type NotificationOptionsType = {
   api: AxiosInstance;

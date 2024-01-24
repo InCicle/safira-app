@@ -1,15 +1,15 @@
 import React from "react";
 import { MenuItem, Stack, Typography, Box, Theme, SxProps } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
-import { useHeaderProvider } from "app/contexts/HeaderContext";
-import { INotificationProps } from "app/interfaces/Notification";
-import RenderAvatar from "app/components/RenderAvatar";
-import incicleModules from "app/components/InHeader/utils/incicleModules";
+import { useHeaderProvider } from "@safira/contexts/HeaderContext";
+import { INotificationProps } from "@safira/interfaces/Notification";
+import RenderAvatar from "@safira/components/RenderAvatar";
+import incicleModules from "@safira/components/InHeader/utils/incicleModules";
 
 // TimeAgo
 import moment from "moment";
-import TimeAgo from "app/libs/timeago";
-import { links } from "app/config/links";
+import TimeAgo from "@safira/libs/timeago";
+import { links } from "@safira/config/links";
 
 interface IProps {
   notification?: INotificationProps;

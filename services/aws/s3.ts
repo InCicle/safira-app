@@ -1,5 +1,5 @@
 import AWS from "aws-sdk";
-import { links } from "app/config/links";
+import { links } from "@safira/config/links";
 import { GetObjectRequest } from "aws-sdk/clients/s3";
 
 export type BucketType = "incicle" | "projects";

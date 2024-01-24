@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import { reduceString } from "app/utils/reduceString";
-import { INotificationProps } from "app/interfaces/Notification";
+import { reduceString } from "@safira/utils/reduceString";
+import { INotificationProps } from "@safira/interfaces/Notification";
 
 import {
   NotificationContainer,

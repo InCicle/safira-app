@@ -1,6 +1,6 @@
 import { Box, Icon, IconButton, Stack, Tooltip, Typography, useTheme, Link as MUILink } from "@mui/material";
-import { InModulesType } from "app/components/InHeader/data/modules";
-import { useAuth } from "app/hooks/useAuth";
+import { InModulesType } from "@safira/components/InHeader/data/modules";
+import { useAuth } from "@safira/hooks/useAuth";
 import React from "react";
 
 interface ModuleMenuItemProps {

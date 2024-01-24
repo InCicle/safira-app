@@ -1,7 +1,7 @@
 import React from "react";
 
-import { NotificationEvent } from "app/providers/NotificationEvent";
-import { INotificationProps, MODULE_TYPES } from "app/interfaces/Notification";
+import { NotificationEvent } from "@safira/providers/NotificationEvent";
+import { INotificationProps, MODULE_TYPES } from "@safira/interfaces/Notification";
 
 import {
   SocialNetworkDropdownNotificationFactory,

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 
-import { INotificationProps } from "app/interfaces/Notification";
-import { useHeaderProvider } from "app/contexts/HeaderContext";
-import { links } from "app/config/links";
+import { INotificationProps } from "@safira/interfaces/Notification";
+import { useHeaderProvider } from "@safira/contexts/HeaderContext";
+import { links } from "@safira/config/links";
 
 import {
   dateFormat,

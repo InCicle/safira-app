@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 
-import { INotificationProps } from "app/interfaces/Notification";
-import { useHeaderProvider } from "app/contexts/HeaderContext";
-import { reduceString } from "app/utils/reduceString";
+import { INotificationProps } from "@safira/interfaces/Notification";
+import { useHeaderProvider } from "@safira/contexts/HeaderContext";
+import { reduceString } from "@safira/utils/reduceString";
 
 import {
   NotificationContainer,

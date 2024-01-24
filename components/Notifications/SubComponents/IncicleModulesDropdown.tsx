@@ -3,9 +3,9 @@ import { v4 as uuid } from "uuid";
 import { ListItemIcon, Menu, MenuItem, Stack } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
-import { getNotifications } from "app/services/notifier/notifications";
-import { useNotifications } from "app/hooks/useNotifications";
-import { useHeaderProvider } from "app/contexts/HeaderContext";
+import { getNotifications } from "@safira/services/notifier/notifications";
+import { useNotifications } from "@safira/hooks/useNotifications";
+import { useHeaderProvider } from "@safira/contexts/HeaderContext";
 
 import incicleModules from "../../InHeader/utils/incicleModules";
 import { NotificationFilterOptions } from "../enums";

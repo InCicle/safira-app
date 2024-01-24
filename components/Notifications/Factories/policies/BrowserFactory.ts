@@ -1,4 +1,4 @@
-import { INotificationProps } from "app/interfaces/Notification";
+import { INotificationProps } from "@safira/interfaces/Notification";
 
 const notificationType = {
   NEW_POLICY: "NEW_POLICY",

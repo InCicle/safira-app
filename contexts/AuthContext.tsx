@@ -1,10 +1,10 @@
 import React, { createContext, useCallback, useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import { encode, decode } from "app/utils/crypto";
-import { IUser } from "app/interfaces/User";
+import { encode, decode } from "@safira/utils/crypto";
+import { IUser } from "@safira/interfaces/User";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
-import { links } from "app/config/links";
+import { links } from "@safira/config/links";
 
 export interface VerifyTokenData {
   email: string;

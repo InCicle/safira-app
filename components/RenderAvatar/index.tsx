@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Avatar, SxProps, Theme } from "@mui/material";
-import { getS3Object, BucketType } from "app/services/aws/s3";
+import { getS3Object, BucketType } from "@safira/services/aws/s3";
 
-import NoAvatar from "app/assets/profileNotPhoto.svg";
+import NoAvatar from "@safira/assets/profileNotPhoto.svg";
 
 export interface RenderAvatarProps {
   src?: string;

@@ -1,6 +1,6 @@
-import { INotificationProps } from "app/interfaces/Notification";
-import { getGroupType } from "app/utils/getGroupType";
-import { reduceString } from "app/utils/reduceString";
+import { INotificationProps } from "@safira/interfaces/Notification";
+import { getGroupType } from "@safira/utils/getGroupType";
+import { reduceString } from "@safira/utils/reduceString";
 
 const notificationType = {
   USER_GRANT_ADMIN_TO_GROUP: "USER_GRANT_ADMIN_TO_GROUP",

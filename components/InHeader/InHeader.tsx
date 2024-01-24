@@ -9,14 +9,14 @@ import WorkIcon from "@mui/icons-material/Work";
 import { AxiosInstance } from "axios";
 import Cookies from "js-cookie";
 
-import RenderAvatar from "app/components/RenderAvatar";
-import Notifications from "app/components/Notifications";
-import NotificationSocketProvider from "app/contexts/NotificationSocketContext";
-import { SearchItemInterface } from "app/interfaces/Search";
-import { HeaderProvider } from "app/contexts/HeaderContext";
-import { IUser } from "app/interfaces/User";
-import { MeProps } from "app/interfaces/Me";
-import { links } from "app/config/links";
+import RenderAvatar from "@safira/components/RenderAvatar";
+import Notifications from "@safira/components/Notifications";
+import NotificationSocketProvider from "@safira/contexts/NotificationSocketContext";
+import { SearchItemInterface } from "@safira/interfaces/Search";
+import { HeaderProvider } from "@safira/contexts/HeaderContext";
+import { IUser } from "@safira/interfaces/User";
+import { MeProps } from "@safira/interfaces/Me";
+import { links } from "@safira/config/links";
 
 import maxLetters from "./utils/maxLettes";
 import RenderSearchItem from "./components/RenderSearchItem";
@@ -24,7 +24,7 @@ import ModulesMenu, { ModulesMenuRef } from "./components/ModulesMenu";
 import ProfileMenu, { ProfileMenuRef } from "./components/ProfileMenu";
 import { HeaderInStyle } from "./styles";
 import { ToastUI } from "../Toast";
-import { domainName } from "app/contexts/AuthContext";
+import { domainName } from "@safira/contexts/AuthContext";
 import RenderImage from "../RenderImage";
 
 interface props {

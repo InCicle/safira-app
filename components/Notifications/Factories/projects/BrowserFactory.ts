@@ -1,4 +1,4 @@
-import { INotificationProps } from "app/interfaces/Notification";
+import { INotificationProps } from "@safira/interfaces/Notification";
 
 const notificationType = {
   ADDED_IN_ACTIVITY: "ADDED_IN_ACTIVITY",

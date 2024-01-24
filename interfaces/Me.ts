@@ -6,7 +6,7 @@ import {
   ShowFriends,
   ShowLocation,
   ShowProjects,
-} from "app/config/enums";
+} from "@safira/config/enums";
 
 export interface MeCompany {
   id: string;
