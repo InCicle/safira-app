@@ -1,5 +1,5 @@
-import React, { Fragment, ReactNode } from "react";
-import { DialogContent, DialogTitle, useTheme } from "@mui/material";
+import React, { Fragment, ReactNode } from 'react';
+import { DialogContent, DialogTitle, useTheme } from '@mui/material';
 
 export type NotificationModalContentProps = {
   title?: ReactNode;

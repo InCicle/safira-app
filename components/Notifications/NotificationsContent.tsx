@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { Skeleton, Stack, Typography } from "@mui/material";
-import { Waypoint } from "react-waypoint";
+import React, { useState } from 'react';
+import { Skeleton, Stack, Typography } from '@mui/material';
+import { Waypoint } from 'react-waypoint';
 
-import { useNotifications } from "@safira/hooks/useNotifications";
+import { useNotifications } from 'safira-app/hooks/useNotifications';
 
-import NotificationItem from "./SubComponents/NotificationItem";
-import IncicleModulesDropdown from "./SubComponents/IncicleModulesDropdown";
-import MoreOptionsDropdown from "./SubComponents/MoreOptionsDropdown";
+import NotificationItem from './SubComponents/NotificationItem';
+import IncicleModulesDropdown from './SubComponents/IncicleModulesDropdown';
+import MoreOptionsDropdown from './SubComponents/MoreOptionsDropdown';
 
-import { NotificationFilterOptions } from "./enums";
-import { NotificationFiltersType } from "./types";
-import { NotificationWrapper } from "./style";
+import { NotificationFilterOptions } from './enums';
+import { NotificationFiltersType } from './types';
+import { NotificationWrapper } from './style';
 
 const NotificationsContent: React.FC = () => {
   const { notifications, notificationParams, updateNotifications } = useNotifications();
@@ -19,7 +19,7 @@ const NotificationsContent: React.FC = () => {
   const [answerHasNewContent, setAnswerHasNewContent] = useState(true);
   const [notificationFilters, setNotificationFilters] = useState<NotificationFiltersType>({
     type: NotificationFilterOptions.ALL,
-    module_filter: "",
+    module_filter: '',
   });
 
   function handleLoadMoreContent() {
@@ -33,7 +33,7 @@ const NotificationsContent: React.FC = () => {
 
   return (
     <>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ padding: "0 15px" }}>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ padding: '0 15px' }}>
         <Typography variant="h6" fontSize={14}>
           Notificações
         </Typography>
@@ -47,8 +47,8 @@ const NotificationsContent: React.FC = () => {
       />
 
       <NotificationWrapper>
-        <Typography variant="body2" sx={{ padding: "0 15px", color: "#959595", fontSize: "11px" }}>
-          {notificationFilters.type === NotificationFilterOptions.ALL ? "Todas" : "Não lidas"}
+        <Typography variant="body2" sx={{ padding: '0 15px', color: '#959595', fontSize: '11px' }}>
+          {notificationFilters.type === NotificationFilterOptions.ALL ? 'Todas' : 'Não lidas'}
         </Typography>
 
         {notifications.map(item => (
@@ -58,10 +58,10 @@ const NotificationsContent: React.FC = () => {
         {!notifications.length && (
           <Typography
             sx={{
-              width: "100%",
-              fontStyle: "italic",
-              textAlign: "center",
-              color: "#a8a8a8",
+              width: '100%',
+              fontStyle: 'italic',
+              textAlign: 'center',
+              color: '#a8a8a8',
             }}
           >
             Não há notificações no momento
@@ -83,7 +83,7 @@ const NotificationsContent: React.FC = () => {
               </Stack>
             ) : (
               <Stack direction="row" justifyContent="center" alignItems="center">
-                <Typography sx={{ fontSize: "1.5rem", fontWeight: "bold", color: "gray", opacity: 0.5 }}>
+                <Typography sx={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'gray', opacity: 0.5 }}>
                   Isso é tudo!
                 </Typography>
               </Stack>

@@ -1,8 +1,8 @@
-import ScheduleDropdownNotificationFactory from "./DropdownFactory";
+import ScheduleDropdownNotificationFactory from './DropdownFactory';
 
-import ScheduleToastNotificationFactory from "./ToastFactory";
+import ScheduleToastNotificationFactory from './ToastFactory';
 
-import { createScheduleBrowserNotificationFactory } from "./BrowserFactory";
+import { createScheduleBrowserNotificationFactory } from './BrowserFactory';
 
 export {
   ScheduleDropdownNotificationFactory,

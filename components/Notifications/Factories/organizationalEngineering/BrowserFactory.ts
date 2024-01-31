@@ -1,11 +1,11 @@
-import { INotificationProps } from "@safira/interfaces/Notification";
+import { INotificationProps } from 'safira-app/interfaces/Notification';
 
 const notificationType = {
-  EMPLOYEE_LINK_REQUEST: "EMPLOYEE_LINK_REQUEST",
-  EMPLOYEE_LINK_ANSWER: "EMPLOYEE_LINK_ANSWER",
-  EMPLOYEE_UNLINK: "EMPLOYEE_UNLINK",
-  EMPLOYEE_LINK_CANCELED: "EMPLOYEE_LINK_CANCELED",
-  CORPORATE_FEEDBACK: "CORPORATE_FEEDBACK",
+  EMPLOYEE_LINK_REQUEST: 'EMPLOYEE_LINK_REQUEST',
+  EMPLOYEE_LINK_ANSWER: 'EMPLOYEE_LINK_ANSWER',
+  EMPLOYEE_UNLINK: 'EMPLOYEE_UNLINK',
+  EMPLOYEE_LINK_CANCELED: 'EMPLOYEE_LINK_CANCELED',
+  CORPORATE_FEEDBACK: 'CORPORATE_FEEDBACK',
 };
 
 export function createOrganizationalEngineeringBrowserNotificationFactory(notification: INotificationProps) {
@@ -17,7 +17,7 @@ export function createOrganizationalEngineeringBrowserNotificationFactory(notifi
 
     case notificationType.EMPLOYEE_LINK_ANSWER:
       return `${sender.name} ${
-        notification.common.content === "ACCEPTED" ? "aceitou" : "recusou"
+        notification.common.content === 'ACCEPTED' ? 'aceitou' : 'recusou'
       } o convite de vinculação.`;
 
     case notificationType.EMPLOYEE_UNLINK:

@@ -1,8 +1,8 @@
-import SocialNetworkDropdownNotificationFactory from "./DropdownFactory";
+import SocialNetworkDropdownNotificationFactory from './DropdownFactory';
 
-import SocialNetworkToastNotificationFactory from "./ToastFactory";
+import SocialNetworkToastNotificationFactory from './ToastFactory';
 
-import { createSocialNetworkBrowserNotificationFactory } from "./BrowserFactory";
+import { createSocialNetworkBrowserNotificationFactory } from './BrowserFactory';
 
 export {
   SocialNetworkDropdownNotificationFactory,

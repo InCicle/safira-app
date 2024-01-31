@@ -1,10 +1,10 @@
-import React from "react";
-import { Divider, Stack, SxProps, Theme, Typography } from "@mui/material";
-import { CSSDefault } from "@safira/styles/defaultStyles";
+import React from 'react';
+import { Divider, Stack, SxProps, Theme, Typography } from '@mui/material';
+import { CSSDefault } from 'safira-app/styles/defaultStyles';
 
 // Icons
-import Icon404 from "./icons/Icon404";
-import IconBackground from "./icons/IconBackground2";
+import Icon404 from './icons/Icon404';
+import IconBackground from './icons/IconBackground2';
 
 interface Page404Props {
   goToInitialPage: () => void;
@@ -28,12 +28,12 @@ const Page404: React.FC<React.PropsWithChildren<Page404Props>> = ({ goToInitialP
         alignItems="center"
         gap={2}
         sx={{
-          "@media (max-width: 600px)": {
+          '@media (max-width: 600px)': {
             h1: {
-              fontSize: "20px !important",
+              fontSize: '20px !important',
             },
             p: {
-              fontSize: "14px !important",
+              fontSize: '14px !important',
             },
           },
         }}
@@ -48,7 +48,7 @@ const Page404: React.FC<React.PropsWithChildren<Page404Props>> = ({ goToInitialP
         justifyContent="center"
         alignItems="center"
         sx={{
-          "@media (max-width: 600px)": {
+          '@media (max-width: 600px)': {
             maxHeight: 300,
           },
         }}
@@ -63,9 +63,9 @@ const Page404: React.FC<React.PropsWithChildren<Page404Props>> = ({ goToInitialP
           alignItems="center"
           width="100%"
           sx={{
-            transform: "translate(-50%, -50%)",
+            transform: 'translate(-50%, -50%)',
             svg: {
-              width: "90%",
+              width: '90%',
               maxWidth: 500,
               maxHeight: 300,
               aspectRatio: 1,
@@ -78,9 +78,9 @@ const Page404: React.FC<React.PropsWithChildren<Page404Props>> = ({ goToInitialP
           alignItems="center"
           width="100%"
           sx={{
-            maxHeight: "100%",
+            maxHeight: '100%',
             svg: {
-              width: "100%",
+              width: '100%',
               maxWidth: 500,
               maxHeight: 300,
               aspectRatio: 1,
@@ -96,10 +96,10 @@ const Page404: React.FC<React.PropsWithChildren<Page404Props>> = ({ goToInitialP
         marginTop={2}
         sx={{
           span: {
-            cursor: "pointer",
+            cursor: 'pointer',
             fontSize: 12,
-            ":hover": {
-              textDecoration: "underline",
+            ':hover': {
+              textDecoration: 'underline',
             },
           },
         }}
@@ -107,7 +107,7 @@ const Page404: React.FC<React.PropsWithChildren<Page404Props>> = ({ goToInitialP
         <Typography color="#0084C6" fontWeight={600} fontSize={16} component="span" onClick={goBack}>
           Página Anterior
         </Typography>
-        <Divider sx={{ height: 16, border: "1px solid #0084C6" }} />
+        <Divider sx={{ height: 16, border: '1px solid #0084C6' }} />
         <Typography color="#0084C6" fontWeight={600} fontSize={16} component="span" onClick={goToInitialPage}>
           Ir para a página inicial
         </Typography>

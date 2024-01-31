@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import { INotificationProps } from "@safira/interfaces/Notification";
-import { reduceString } from "@safira/utils/reduceString";
+import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { reduceString } from 'safira-app/utils/reduceString';
 
 import {
   NotificationContainer,
   NotificationContentText,
   NotificationHighlight,
-} from "../_abstract/ToastNotificationAbstract";
+} from '../_abstract/ToastNotificationAbstract';
 
 interface IProps {
   notificationItem: INotificationProps;
 }
 
 const notificationType = {
-  ENDOMARKETING_COMMUNICATION: "ENDOMARKETING_COMMUNICATION",
+  ENDOMARKETING_COMMUNICATION: 'ENDOMARKETING_COMMUNICATION',
 };
 
 // @ts-ignore
@@ -28,7 +28,7 @@ const EndomarketingToastNotificationFactory: React.FC<React.PropsWithChildren<IP
         return (
           <NotificationContainer>
             <NotificationContentText>
-              Comunicado:{" "}
+              Comunicado:{' '}
               <NotificationHighlight>"{reduceString(notification.common.content, 100)}"</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>

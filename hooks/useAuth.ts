@@ -1,11 +1,11 @@
-import { useContext } from "react";
-import { AuthContext, AuthContextData } from "@safira/contexts/AuthContext";
+import { useContext } from 'react';
+import { AuthContext, AuthContextData } from 'safira-app/contexts/AuthContext';
 
 export function useAuth(): AuthContextData {
   const context = useContext(AuthContext);
 
   if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
+    throw new Error('useAuth must be used within an AuthProvider');
   }
 
   return context;

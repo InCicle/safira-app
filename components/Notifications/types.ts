@@ -1,4 +1,4 @@
-import { NotificationFilterOptions } from "./enums";
+import { NotificationFilterOptions } from './enums';
 
 export type NotificationFiltersType = {
   type: NotificationFilterOptions;

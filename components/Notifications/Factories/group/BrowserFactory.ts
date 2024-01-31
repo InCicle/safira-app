@@ -1,21 +1,21 @@
-import { INotificationProps } from "@safira/interfaces/Notification";
-import { getGroupType } from "@safira/utils/getGroupType";
-import { reduceString } from "@safira/utils/reduceString";
+import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { getGroupType } from 'safira-app/utils/getGroupType';
+import { reduceString } from 'safira-app/utils/reduceString';
 
 const notificationType = {
-  USER_GRANT_ADMIN_TO_GROUP: "USER_GRANT_ADMIN_TO_GROUP",
-  GROUP_INVITE: "GROUP_INVITE",
-  GROUP_COMMUNICATION: "GROUP_COMMUNICATION",
-  USER_ADDED_TO_GROUP: "USER_ADDED_TO_GROUP",
-  USER_REQUEST_ENTRY_TO_GROUP: "USER_REQUEST_ENTRY_TO_GROUP",
-  BECAME_GROUP_MEMBER: "BECAME_GROUP_MEMBER",
-  USER_KICKED_FROM_GROUP: "USER_KICKED_FROM_GROUP",
-  USER_REVOKE_ADMIN_ON_GROUP: "USER_REVOKE_ADMIN_ON_GROUP",
-  GROUP_PUBLICATION_TYPE_COMMENT: "GROUP_PUBLICATION_TYPE_COMMENT",
-  GROUP_PUBLICATION_TYPE_SHARE: "GROUP_PUBLICATION_TYPE_SHARE",
-  GROUP_PUBLICATION_TYPE_COMMENT_OF_COMMENT: "GROUP_PUBLICATION_TYPE_COMMENT_OF_COMMENT",
-  GROUP_TYPE_CHANGED: "GROUP_TYPE_CHANGED",
-  GROUP_DELETED: "GROUP_DELETED",
+  USER_GRANT_ADMIN_TO_GROUP: 'USER_GRANT_ADMIN_TO_GROUP',
+  GROUP_INVITE: 'GROUP_INVITE',
+  GROUP_COMMUNICATION: 'GROUP_COMMUNICATION',
+  USER_ADDED_TO_GROUP: 'USER_ADDED_TO_GROUP',
+  USER_REQUEST_ENTRY_TO_GROUP: 'USER_REQUEST_ENTRY_TO_GROUP',
+  BECAME_GROUP_MEMBER: 'BECAME_GROUP_MEMBER',
+  USER_KICKED_FROM_GROUP: 'USER_KICKED_FROM_GROUP',
+  USER_REVOKE_ADMIN_ON_GROUP: 'USER_REVOKE_ADMIN_ON_GROUP',
+  GROUP_PUBLICATION_TYPE_COMMENT: 'GROUP_PUBLICATION_TYPE_COMMENT',
+  GROUP_PUBLICATION_TYPE_SHARE: 'GROUP_PUBLICATION_TYPE_SHARE',
+  GROUP_PUBLICATION_TYPE_COMMENT_OF_COMMENT: 'GROUP_PUBLICATION_TYPE_COMMENT_OF_COMMENT',
+  GROUP_TYPE_CHANGED: 'GROUP_TYPE_CHANGED',
+  GROUP_DELETED: 'GROUP_DELETED',
 };
 
 export function createGroupBrowserNotificationFactory(notification: INotificationProps) {
@@ -40,7 +40,7 @@ export function createGroupBrowserNotificationFactory(notification: INotificatio
 
     case notificationType.BECAME_GROUP_MEMBER:
       return `${
-        sender.type === "company" && common.member_type === "ADMIN"
+        sender.type === 'company' && common.member_type === 'ADMIN'
           ? `${sender.name} te nomeou administrador `
           : `Você foi aceito para ser membro`
       } do grupo "${reduceString(common.group_name, 30)}"`;
@@ -69,6 +69,6 @@ export function createGroupBrowserNotificationFactory(notification: INotificatio
       return `O grupo ${reduceString(common.group_name, 30)} que você participava foi excluído`;
 
     default:
-      return "";
+      return '';
   }
 }

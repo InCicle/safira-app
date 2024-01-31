@@ -1,12 +1,12 @@
-import React from "react";
-import { INotificationProps } from "@safira/interfaces/Notification";
+import React from 'react';
+import { INotificationProps } from 'safira-app/interfaces/Notification';
 
-import { NotificationImageBox } from "../Factories/_abstract/ToastNotificationAbstract";
+import { NotificationImageBox } from '../Factories/_abstract/ToastNotificationAbstract';
 import {
   createBrowserNotification,
   createDropdownNotification,
   createToastNotification,
-} from "../Factories/notificationFactory";
+} from '../Factories/notificationFactory';
 
 export class NotificationDTO {
   notification: INotificationProps | null = null;

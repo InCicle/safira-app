@@ -1,5 +1,5 @@
 export function checkLetters(letters: string, len: number) {
-  let value = "";
+  let value = '';
 
   if (letters?.length > len) {
     for (let idx = 0; idx < len; idx++) {

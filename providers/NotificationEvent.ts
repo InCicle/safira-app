@@ -1,4 +1,4 @@
-import { createEmitter } from "./Emitter";
+import { createEmitter } from './Emitter';
 
 export type NotificationEventList = {
   open_dropdown: undefined;

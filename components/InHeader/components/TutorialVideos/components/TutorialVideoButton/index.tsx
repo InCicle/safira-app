@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Box, Typography, Modal } from "@mui/material";
-import { CheckCircle } from "@mui/icons-material";
-import { Layout, WatchButton, ViewedButton } from "./styles";
+import React, { useState } from 'react';
+import { Box, Typography, Modal } from '@mui/material';
+import { CheckCircle } from '@mui/icons-material';
+import { Layout, WatchButton, ViewedButton } from './styles';
 
 interface Props {
   name: string;
@@ -24,10 +24,10 @@ const TutorialVideoButton: React.FC<Props> = ({ name, moduleImg, description, vi
         open={open}
         onClose={handleModal}
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          "& iframe": { border: 0 },
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          '& iframe': { border: 0 },
         }}
       >
         <iframe

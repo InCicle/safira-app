@@ -1,3 +1,3 @@
-import TimeAgo from "./TimeAgo";
+import TimeAgo from './TimeAgo';
 
 export default TimeAgo;

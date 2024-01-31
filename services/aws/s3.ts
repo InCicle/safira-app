@@ -1,10 +1,10 @@
-import AWS from "aws-sdk";
-import { links } from "@safira/config/links";
-import { GetObjectRequest } from "aws-sdk/clients/s3";
+import AWS from 'aws-sdk';
+import { links } from 'safira-app/config/links';
+import { GetObjectRequest } from 'aws-sdk/clients/s3';
 
-export type BucketType = "incicle" | "projects";
+export type BucketType = 'incicle' | 'projects';
 
-export interface GetS3ObjectsPropsInterface extends Omit<GetObjectRequest, "Bucket" | "Key"> {
+export interface GetS3ObjectsPropsInterface extends Omit<GetObjectRequest, 'Bucket' | 'Key'> {
   src: string;
   bucket: BucketType;
 }
@@ -17,16 +17,16 @@ export interface S3ObjectsReturnInterface {
 
 const awsS3 = new AWS.S3();
 
-function getBucketName(bucket: "incicle" | "projects"): string {
+function getBucketName(bucket: 'incicle' | 'projects'): string {
   switch (bucket) {
-    case "incicle":
+    case 'incicle':
       return links.aws.bucket;
 
-    case "projects":
+    case 'projects':
       return links.aws_project.bucket;
 
     default:
-      return "";
+      return '';
   }
 }
 
@@ -40,7 +40,7 @@ async function uint8ToBase64(data: Uint8Array, contentType?: string): Promise<st
   });
 }
 
-function fetchFile(src: string, bucket: string, options?: Omit<GetObjectRequest, "Bucket" | "Key">) {
+function fetchFile(src: string, bucket: string, options?: Omit<GetObjectRequest, 'Bucket' | 'Key'>) {
   return new Promise<AWS.S3.GetObjectOutput>((resolve, reject) => {
     awsS3.getObject({ Bucket: bucket, Key: src, ...options }, (err, response) => {
       if (err) {
@@ -68,13 +68,13 @@ export async function getS3Object({ src, bucket, ...rest }: GetS3ObjectsPropsInt
             }>
    */
 
-  if (bucket === "incicle") {
+  if (bucket === 'incicle') {
     awsS3.config.update({
       accessKeyId: links.aws.access_key_id,
       secretAccessKey: links.aws.secret_access_key,
       region: links.aws.region,
     });
-  } else if (bucket === "projects") {
+  } else if (bucket === 'projects') {
     awsS3.config.update({
       accessKeyId: links.aws_project.access_key_id,
       secretAccessKey: links.aws_project.secret_access_key,

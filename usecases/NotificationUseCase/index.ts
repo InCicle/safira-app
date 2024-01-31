@@ -1,3 +1,3 @@
-import NotificationUseCase from "./NotificationUseCase";
+import NotificationUseCase from './NotificationUseCase';
 
 export { NotificationUseCase };

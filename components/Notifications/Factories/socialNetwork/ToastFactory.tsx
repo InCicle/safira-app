@@ -1,35 +1,35 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
-import { INotificationProps } from "@safira/interfaces/Notification";
-import { useHeaderProvider } from "@safira/contexts/HeaderContext";
-import { reduceString } from "@safira/utils/reduceString";
+import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
+import { reduceString } from 'safira-app/utils/reduceString';
 
 import {
   NotificationContainer,
   NotificationContentText,
   NotificationHighlight,
-} from "../_abstract/ToastNotificationAbstract";
+} from '../_abstract/ToastNotificationAbstract';
 
 interface IProps {
   notificationItem: INotificationProps;
 }
 
 const notificationType = {
-  PUBLICATION_TYPE_LIKE: "PUBLICATION_TYPE_LIKE",
-  PUBLICATION_TYPE_COMMENT: "PUBLICATION_TYPE_COMMENT",
-  PUBLICATION_TYPE_COMMENT_OF_COMMENT: "PUBLICATION_TYPE_COMMENT_OF_COMMENT",
-  PUBLICATION_TYPE_LIKE_COMMENT: "PUBLICATION_TYPE_LIKE_COMMENT",
-  PUBLICATION_TYPE_SHARE: "PUBLICATION_TYPE_SHARE",
-  NEW_FRIEND_REQUEST: "NEW_FRIEND_REQUEST",
-  NEW_FRIEND_RESPONSE: "NEW_FRIEND_RESPONSE",
-  NEW_RECOMMENDATION_REQUEST: "NEW_RECOMMENDATION_REQUEST",
-  NEW_RECOMMENDATION_RECEIVED: "NEW_RECOMMENDATION_RECEIVED",
-  ANSWERED_REQUEST_RECOMMENDATION: "ANSWERED_REQUEST_RECOMMENDATION",
-  BIRTHDAYS_TODAY: "BIRTHDAYS_TODAY",
-  GROUP_PUBLICATION_TYPE_LIKE: "GROUP_PUBLICATION_TYPE_LIKE",
-  GROUP_PUBLICATION_TYPE_LIKE_COMMENT: "GROUP_PUBLICATION_TYPE_LIKE_COMMENT",
-  GROUP_PUBLICATION_REMOVED: "GROUP_PUBLICATION_REMOVED",
-  GROUP_PUBLICATION_COMMENT_REMOVED: "GROUP_PUBLICATION_COMMENT_REMOVED",
+  PUBLICATION_TYPE_LIKE: 'PUBLICATION_TYPE_LIKE',
+  PUBLICATION_TYPE_COMMENT: 'PUBLICATION_TYPE_COMMENT',
+  PUBLICATION_TYPE_COMMENT_OF_COMMENT: 'PUBLICATION_TYPE_COMMENT_OF_COMMENT',
+  PUBLICATION_TYPE_LIKE_COMMENT: 'PUBLICATION_TYPE_LIKE_COMMENT',
+  PUBLICATION_TYPE_SHARE: 'PUBLICATION_TYPE_SHARE',
+  NEW_FRIEND_REQUEST: 'NEW_FRIEND_REQUEST',
+  NEW_FRIEND_RESPONSE: 'NEW_FRIEND_RESPONSE',
+  NEW_RECOMMENDATION_REQUEST: 'NEW_RECOMMENDATION_REQUEST',
+  NEW_RECOMMENDATION_RECEIVED: 'NEW_RECOMMENDATION_RECEIVED',
+  ANSWERED_REQUEST_RECOMMENDATION: 'ANSWERED_REQUEST_RECOMMENDATION',
+  BIRTHDAYS_TODAY: 'BIRTHDAYS_TODAY',
+  GROUP_PUBLICATION_TYPE_LIKE: 'GROUP_PUBLICATION_TYPE_LIKE',
+  GROUP_PUBLICATION_TYPE_LIKE_COMMENT: 'GROUP_PUBLICATION_TYPE_LIKE_COMMENT',
+  GROUP_PUBLICATION_REMOVED: 'GROUP_PUBLICATION_REMOVED',
+  GROUP_PUBLICATION_COMMENT_REMOVED: 'GROUP_PUBLICATION_COMMENT_REMOVED',
 };
 
 // @ts-ignore
@@ -43,7 +43,7 @@ const SocialNetworkToastNotificationFactory: React.FC<React.PropsWithChildren<IP
           <NotificationContainer>
             <NotificationContentText>
               <label>
-                <label style={{ textTransform: "capitalize" }}>{notificationItem.sender.name}</label> te enviou uma
+                <label style={{ textTransform: 'capitalize' }}>{notificationItem.sender.name}</label> te enviou uma
                 solicitação de amizade.
               </label>
             </NotificationContentText>
@@ -58,9 +58,9 @@ const SocialNetworkToastNotificationFactory: React.FC<React.PropsWithChildren<IP
             <NotificationContentText>
               <label>
                 <NotificationHighlight>{notificationItem.sender.name}</NotificationHighlight>
-                {notificationItem.type === notificationType.PUBLICATION_TYPE_LIKE && " gostou da "}
-                {notificationItem.type === notificationType.PUBLICATION_TYPE_COMMENT && " comentou na "}
-                {notificationItem.type === notificationType.PUBLICATION_TYPE_SHARE && " compartilhou "}
+                {notificationItem.type === notificationType.PUBLICATION_TYPE_LIKE && ' gostou da '}
+                {notificationItem.type === notificationType.PUBLICATION_TYPE_COMMENT && ' comentou na '}
+                {notificationItem.type === notificationType.PUBLICATION_TYPE_SHARE && ' compartilhou '}
                 sua publicação
                 {notificationItem.common.content && (
                   <>
@@ -82,18 +82,18 @@ const SocialNetworkToastNotificationFactory: React.FC<React.PropsWithChildren<IP
               <label>
                 <NotificationHighlight>{notificationItem.sender.name}</NotificationHighlight>
                 {notificationItem.type === notificationType.NEW_RECOMMENDATION_REQUEST &&
-                  " solicitou para você uma recomendação"}
+                  ' solicitou para você uma recomendação'}
                 {notificationItem.type === notificationType.NEW_RECOMMENDATION_RECEIVED && (
                   <>
-                    {" "}
-                    fez uma recomendação sobre você:{" "}
+                    {' '}
+                    fez uma recomendação sobre você:{' '}
                     <NotificationHighlight>"{reduceString(notificationItem.common.content, 55)}"</NotificationHighlight>
                   </>
                 )}
                 {notificationItem.type === notificationType.ANSWERED_REQUEST_RECOMMENDATION && (
                   <>
-                    {" "}
-                    respondeu um pedido de recomendação sobre você:{" "}
+                    {' '}
+                    respondeu um pedido de recomendação sobre você:{' '}
                     <NotificationHighlight>"{reduceString(notificationItem.common.content, 55)}"</NotificationHighlight>
                   </>
                 )}
@@ -107,12 +107,12 @@ const SocialNetworkToastNotificationFactory: React.FC<React.PropsWithChildren<IP
           <NotificationContainer>
             <NotificationContentText>
               <NotificationHighlight>{notificationItem.sender.name}</NotificationHighlight>
-              {" gostou do seu comentário"}{" "}
+              {' gostou do seu comentário'}{' '}
               {notificationItem.common.publication_owner_id === profile?.profile_id ? (
-                " na sua publicação "
+                ' na sua publicação '
               ) : (
                 <>
-                  na publicação de{" "}
+                  na publicação de{' '}
                   <NotificationHighlight>{notificationItem.common.publication_owner_name}, </NotificationHighlight>
                 </>
               )}
@@ -126,13 +126,13 @@ const SocialNetworkToastNotificationFactory: React.FC<React.PropsWithChildren<IP
           <NotificationContainer>
             <NotificationContentText>
               <NotificationHighlight>{notificationItem.sender.name} </NotificationHighlight>
-              respondeu seu comentário{" "}
+              respondeu seu comentário{' '}
               {notificationItem.common.publication_owner_id === profile?.profile_id ? (
-                "na sua publicação"
+                'na sua publicação'
               ) : (
                 <>
-                  na publicação de{" "}
-                  <NotificationHighlight>{notificationItem.common.publication_owner_name}</NotificationHighlight>:{" "}
+                  na publicação de{' '}
+                  <NotificationHighlight>{notificationItem.common.publication_owner_name}</NotificationHighlight>:{' '}
                   <NotificationHighlight>"{reduceString(notificationItem.common.content, 35)}"</NotificationHighlight>
                 </>
               )}
@@ -145,8 +145,8 @@ const SocialNetworkToastNotificationFactory: React.FC<React.PropsWithChildren<IP
           <NotificationContainer>
             <NotificationContentText>
               <label>
-                <label style={{ textTransform: "capitalize" }}>{notificationItem.sender.name}</label>
-                {" aceitou seu pedido de amizade"}
+                <label style={{ textTransform: 'capitalize' }}>{notificationItem.sender.name}</label>
+                {' aceitou seu pedido de amizade'}
               </label>
             </NotificationContentText>
           </NotificationContainer>
@@ -167,7 +167,7 @@ const SocialNetworkToastNotificationFactory: React.FC<React.PropsWithChildren<IP
           <NotificationContainer>
             <NotificationContentText>
               <NotificationHighlight>{notificationItem.sender.name}</NotificationHighlight> curtiu uma publicação no
-              grupo{" "}
+              grupo{' '}
               <NotificationHighlight>{reduceString(notificationItem.common.group_name, 30)}</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
@@ -178,7 +178,7 @@ const SocialNetworkToastNotificationFactory: React.FC<React.PropsWithChildren<IP
           <NotificationContainer>
             <NotificationContentText>
               <NotificationHighlight>{notificationItem.sender.name}</NotificationHighlight> curtiu um comentário no
-              grupo{" "}
+              grupo{' '}
               <NotificationHighlight>{reduceString(notificationItem.common.group_name, 30)}</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
@@ -188,7 +188,7 @@ const SocialNetworkToastNotificationFactory: React.FC<React.PropsWithChildren<IP
         return (
           <NotificationContainer>
             <NotificationContentText>
-              Um administrador do grupo removeu sua publicação:{" "}
+              Um administrador do grupo removeu sua publicação:{' '}
               <NotificationHighlight>{reduceString(notificationItem.common.content, 60)}</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
@@ -198,7 +198,7 @@ const SocialNetworkToastNotificationFactory: React.FC<React.PropsWithChildren<IP
         return (
           <NotificationContainer>
             <NotificationContentText>
-              Um administrador do grupo removeu seu comentário:{" "}
+              Um administrador do grupo removeu seu comentário:{' '}
               <NotificationHighlight>{reduceString(notificationItem.common.content, 60)}</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>

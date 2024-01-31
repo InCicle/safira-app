@@ -1,32 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import { reduceString } from "@safira/utils/reduceString";
-import { INotificationProps } from "@safira/interfaces/Notification";
+import { reduceString } from 'safira-app/utils/reduceString';
+import { INotificationProps } from 'safira-app/interfaces/Notification';
 
 import {
   NotificationContainer,
   NotificationContentText,
   NotificationHighlight,
-} from "../_abstract/ToastNotificationAbstract";
+} from '../_abstract/ToastNotificationAbstract';
 
 interface IProps {
   notificationItem: INotificationProps;
 }
 
 const notificationType = {
-  HIRING_PENDING: "HIRING_PENDING",
-  HIRING_UPDATED: "HIRING_UPDATED",
-  HIRING_APPROVED: "HIRING_APPROVED",
-  HIRING_CANCELED: "HIRING_CANCELED",
-  HIRING_CANCELED_BY_CANDIDATE: "HIRING_CANCELED_BY_CANDIDATE",
-  HIRING_ACCEPTED_BY_CANDIDATE: "HIRING_ACCEPTED_BY_CANDIDATE",
-  HIRING_PENDING_DEADLINE: "HIRING_PENDING_DEADLINE",
-  NEW_HIRING: "NEW_HIRING",
-  DOCUMENT_REJECTED: "DOCUMENT_REJECTED",
-  FREE_NOTIFICATION: "FREE_NOTIFICATION",
-  NEW_DOCUMENT: "NEW_DOCUMENT",
-  CANCELED_SOLICITATION_DOCUMENT: "CANCELED_SOLICITATION_DOCUMENT",
-  NEW_SOLICITATION_DOCUMENT: "NEW_SOLICITATION_DOCUMENT",
+  HIRING_PENDING: 'HIRING_PENDING',
+  HIRING_UPDATED: 'HIRING_UPDATED',
+  HIRING_APPROVED: 'HIRING_APPROVED',
+  HIRING_CANCELED: 'HIRING_CANCELED',
+  HIRING_CANCELED_BY_CANDIDATE: 'HIRING_CANCELED_BY_CANDIDATE',
+  HIRING_ACCEPTED_BY_CANDIDATE: 'HIRING_ACCEPTED_BY_CANDIDATE',
+  HIRING_PENDING_DEADLINE: 'HIRING_PENDING_DEADLINE',
+  NEW_HIRING: 'NEW_HIRING',
+  DOCUMENT_REJECTED: 'DOCUMENT_REJECTED',
+  FREE_NOTIFICATION: 'FREE_NOTIFICATION',
+  NEW_DOCUMENT: 'NEW_DOCUMENT',
+  CANCELED_SOLICITATION_DOCUMENT: 'CANCELED_SOLICITATION_DOCUMENT',
+  NEW_SOLICITATION_DOCUMENT: 'NEW_SOLICITATION_DOCUMENT',
 };
 
 const PersonalDepartmentToastNotificationFactory: React.FC<React.PropsWithChildren<IProps>> = ({
@@ -62,7 +62,7 @@ const PersonalDepartmentToastNotificationFactory: React.FC<React.PropsWithChildr
           <NotificationContainer>
             <NotificationContentText>
               <NotificationHighlight>{notification.sender.name}</NotificationHighlight> concluiu seu processo de
-              contratação.{" "}
+              contratação.{' '}
               <NotificationHighlight>"{reduceString(notification.common.content, 60)}"</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
@@ -93,8 +93,8 @@ const PersonalDepartmentToastNotificationFactory: React.FC<React.PropsWithChildr
           <NotificationContainer>
             <NotificationContentText>
               <NotificationHighlight>{notification.sender.name}: </NotificationHighlight> Aceitou iniciar o processo de
-              contratação como{" "}
-              <NotificationHighlight>{reduceString(notification.common.content, 80)}</NotificationHighlight>{" "}
+              contratação como{' '}
+              <NotificationHighlight>{reduceString(notification.common.content, 80)}</NotificationHighlight>{' '}
             </NotificationContentText>
           </NotificationContainer>
         );

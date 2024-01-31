@@ -1,36 +1,36 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
-import { INotificationProps } from "@safira/interfaces/Notification";
-import { useHeaderProvider } from "@safira/contexts/HeaderContext";
-import { reduceString } from "@safira/utils/reduceString";
-import { links } from "@safira/config/links";
+import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
+import { reduceString } from 'safira-app/utils/reduceString';
+import { links } from 'safira-app/config/links';
 
 import {
   NotificationContainer,
   NotificationContentText,
   NotificationHighlight,
-} from "../_abstract/NotificationAbstract";
+} from '../_abstract/NotificationAbstract';
 
 interface IProps {
   notificationItem: INotificationProps;
 }
 
 const notificationType = {
-  PUBLICATION_TYPE_LIKE: "PUBLICATION_TYPE_LIKE",
-  PUBLICATION_TYPE_COMMENT: "PUBLICATION_TYPE_COMMENT",
-  PUBLICATION_TYPE_COMMENT_OF_COMMENT: "PUBLICATION_TYPE_COMMENT_OF_COMMENT",
-  PUBLICATION_TYPE_LIKE_COMMENT: "PUBLICATION_TYPE_LIKE_COMMENT",
-  PUBLICATION_TYPE_SHARE: "PUBLICATION_TYPE_SHARE",
-  NEW_FRIEND_REQUEST: "NEW_FRIEND_REQUEST",
-  NEW_FRIEND_RESPONSE: "NEW_FRIEND_RESPONSE",
-  NEW_RECOMMENDATION_REQUEST: "NEW_RECOMMENDATION_REQUEST",
-  NEW_RECOMMENDATION_RECEIVED: "NEW_RECOMMENDATION_RECEIVED",
-  ANSWERED_REQUEST_RECOMMENDATION: "ANSWERED_REQUEST_RECOMMENDATION",
-  BIRTHDAYS_TODAY: "BIRTHDAYS_TODAY",
-  GROUP_PUBLICATION_TYPE_LIKE: "GROUP_PUBLICATION_TYPE_LIKE",
-  GROUP_PUBLICATION_TYPE_LIKE_COMMENT: "GROUP_PUBLICATION_TYPE_LIKE_COMMENT",
-  GROUP_PUBLICATION_REMOVED: "GROUP_PUBLICATION_REMOVED",
-  GROUP_PUBLICATION_COMMENT_REMOVED: "GROUP_PUBLICATION_COMMENT_REMOVED",
+  PUBLICATION_TYPE_LIKE: 'PUBLICATION_TYPE_LIKE',
+  PUBLICATION_TYPE_COMMENT: 'PUBLICATION_TYPE_COMMENT',
+  PUBLICATION_TYPE_COMMENT_OF_COMMENT: 'PUBLICATION_TYPE_COMMENT_OF_COMMENT',
+  PUBLICATION_TYPE_LIKE_COMMENT: 'PUBLICATION_TYPE_LIKE_COMMENT',
+  PUBLICATION_TYPE_SHARE: 'PUBLICATION_TYPE_SHARE',
+  NEW_FRIEND_REQUEST: 'NEW_FRIEND_REQUEST',
+  NEW_FRIEND_RESPONSE: 'NEW_FRIEND_RESPONSE',
+  NEW_RECOMMENDATION_REQUEST: 'NEW_RECOMMENDATION_REQUEST',
+  NEW_RECOMMENDATION_RECEIVED: 'NEW_RECOMMENDATION_RECEIVED',
+  ANSWERED_REQUEST_RECOMMENDATION: 'ANSWERED_REQUEST_RECOMMENDATION',
+  BIRTHDAYS_TODAY: 'BIRTHDAYS_TODAY',
+  GROUP_PUBLICATION_TYPE_LIKE: 'GROUP_PUBLICATION_TYPE_LIKE',
+  GROUP_PUBLICATION_TYPE_LIKE_COMMENT: 'GROUP_PUBLICATION_TYPE_LIKE_COMMENT',
+  GROUP_PUBLICATION_REMOVED: 'GROUP_PUBLICATION_REMOVED',
+  GROUP_PUBLICATION_COMMENT_REMOVED: 'GROUP_PUBLICATION_COMMENT_REMOVED',
 };
 
 // @ts-ignore
@@ -49,7 +49,7 @@ const SocialNetworkDropdownNotificationFactory: React.FC<React.PropsWithChildren
           >
             <NotificationContentText notification={notification}>
               <label>
-                <label style={{ textTransform: "capitalize" }}>{notification.sender.name}</label> te enviou uma
+                <label style={{ textTransform: 'capitalize' }}>{notification.sender.name}</label> te enviou uma
                 solicitação de amizade.
               </label>
             </NotificationContentText>
@@ -66,8 +66,8 @@ const SocialNetworkDropdownNotificationFactory: React.FC<React.PropsWithChildren
             <NotificationContentText notification={notification}>
               <label>
                 <NotificationHighlight>{notification.sender.name}</NotificationHighlight>
-                {notification.type === notificationType.PUBLICATION_TYPE_LIKE && " gostou da "}
-                {notification.type === notificationType.PUBLICATION_TYPE_SHARE && " compartilhou "}
+                {notification.type === notificationType.PUBLICATION_TYPE_LIKE && ' gostou da '}
+                {notification.type === notificationType.PUBLICATION_TYPE_SHARE && ' compartilhou '}
                 sua publicação
                 {notification.common.content && (
                   <>
@@ -114,18 +114,18 @@ const SocialNetworkDropdownNotificationFactory: React.FC<React.PropsWithChildren
               <label>
                 <NotificationHighlight>{notification.sender.name}</NotificationHighlight>
                 {notification.type === notificationType.NEW_RECOMMENDATION_REQUEST &&
-                  " solicitou para você uma recomendação"}
+                  ' solicitou para você uma recomendação'}
                 {notification.type === notificationType.NEW_RECOMMENDATION_RECEIVED && (
                   <>
-                    {" "}
-                    fez uma recomendação sobre você:{" "}
+                    {' '}
+                    fez uma recomendação sobre você:{' '}
                     <NotificationHighlight>"{reduceString(notification.common.content, 55)}"</NotificationHighlight>
                   </>
                 )}
                 {notification.type === notificationType.ANSWERED_REQUEST_RECOMMENDATION && (
                   <>
-                    {" "}
-                    respondeu um pedido de recomendação sobre você:{" "}
+                    {' '}
+                    respondeu um pedido de recomendação sobre você:{' '}
                     <NotificationHighlight>"{reduceString(notification.common.content, 55)}"</NotificationHighlight>
                   </>
                 )}
@@ -142,12 +142,12 @@ const SocialNetworkDropdownNotificationFactory: React.FC<React.PropsWithChildren
           >
             <NotificationContentText notification={notification}>
               <NotificationHighlight>{notification.sender.name}</NotificationHighlight>
-              {" gostou do seu comentário"}{" "}
+              {' gostou do seu comentário'}{' '}
               {notification.common.publication_owner_id === profile?.profile_id ? (
-                " na sua publicação "
+                ' na sua publicação '
               ) : (
                 <>
-                  na publicação de{" "}
+                  na publicação de{' '}
                   <NotificationHighlight>{notification.common.publication_owner_name}, </NotificationHighlight>
                 </>
               )}
@@ -164,13 +164,13 @@ const SocialNetworkDropdownNotificationFactory: React.FC<React.PropsWithChildren
           >
             <NotificationContentText notification={notification}>
               <NotificationHighlight>{notification.sender.name} </NotificationHighlight>
-              respondeu seu comentário{" "}
+              respondeu seu comentário{' '}
               {notification.common.publication_owner_id === profile?.profile_id ? (
-                "na sua publicação"
+                'na sua publicação'
               ) : (
                 <>
-                  na publicação de{" "}
-                  <NotificationHighlight>{notification.common.publication_owner_name}</NotificationHighlight>:{" "}
+                  na publicação de{' '}
+                  <NotificationHighlight>{notification.common.publication_owner_name}</NotificationHighlight>:{' '}
                   <NotificationHighlight>"{reduceString(notification.common.content, 35)}"</NotificationHighlight>
                 </>
               )}
@@ -186,8 +186,8 @@ const SocialNetworkDropdownNotificationFactory: React.FC<React.PropsWithChildren
           >
             <NotificationContentText notification={notification}>
               <label>
-                <label style={{ textTransform: "capitalize" }}>{notification.sender.name}</label>
-                {" aceitou seu pedido de amizade"}
+                <label style={{ textTransform: 'capitalize' }}>{notification.sender.name}</label>
+                {' aceitou seu pedido de amizade'}
               </label>
             </NotificationContentText>
           </NotificationContainer>
@@ -212,7 +212,7 @@ const SocialNetworkDropdownNotificationFactory: React.FC<React.PropsWithChildren
             notification={notification}
           >
             <NotificationContentText notification={notification}>
-              <NotificationHighlight>{notification.sender.name}</NotificationHighlight> curtiu uma publicação no grupo{" "}
+              <NotificationHighlight>{notification.sender.name}</NotificationHighlight> curtiu uma publicação no grupo{' '}
               <NotificationHighlight>{reduceString(notification.common.group_name, 30)}</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
@@ -225,7 +225,7 @@ const SocialNetworkDropdownNotificationFactory: React.FC<React.PropsWithChildren
             notification={notification}
           >
             <NotificationContentText notification={notification}>
-              <NotificationHighlight>{notification.sender.name}</NotificationHighlight> curtiu um comentário no grupo{" "}
+              <NotificationHighlight>{notification.sender.name}</NotificationHighlight> curtiu um comentário no grupo{' '}
               <NotificationHighlight>{reduceString(notification.common.group_name, 30)}</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
@@ -238,7 +238,7 @@ const SocialNetworkDropdownNotificationFactory: React.FC<React.PropsWithChildren
             notification={notification}
           >
             <NotificationContentText notification={notification}>
-              Um administrador do grupo removeu sua publicação:{" "}
+              Um administrador do grupo removeu sua publicação:{' '}
               <NotificationHighlight>{reduceString(notification.common.content, 60)}</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
@@ -251,7 +251,7 @@ const SocialNetworkDropdownNotificationFactory: React.FC<React.PropsWithChildren
             notification={notification}
           >
             <NotificationContentText notification={notification}>
-              Um administrador do grupo removeu seu comentário:{" "}
+              Um administrador do grupo removeu seu comentário:{' '}
               <NotificationHighlight>{reduceString(notification.common.content, 60)}</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>

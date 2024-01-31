@@ -1,20 +1,20 @@
 export enum MODULE_TYPES {
-  all = "",
-  schedule = "schedule",
-  personal_department = "personal_department",
-  organizational_engineering = "organizational_engineering",
-  endomarketing = "endomarketing",
-  feedback = "feedback",
-  project = "project",
-  evaluation360 = "360",
-  group = "group",
-  social_network = "social_network",
-  recruitment = "recruitment",
-  ombudsman = "ombudsman",
-  climate_research = "climate_research",
-  task_manager = "task_manager",
-  policy = "policy",
-  okr = "okr",
+  all = '',
+  schedule = 'schedule',
+  personal_department = 'personal_department',
+  organizational_engineering = 'organizational_engineering',
+  endomarketing = 'endomarketing',
+  feedback = 'feedback',
+  project = 'project',
+  evaluation360 = '360',
+  group = 'group',
+  social_network = 'social_network',
+  recruitment = 'recruitment',
+  ombudsman = 'ombudsman',
+  climate_research = 'climate_research',
+  task_manager = 'task_manager',
+  policy = 'policy',
+  okr = 'okr',
 }
 
 export interface INotificationCommon {
@@ -26,7 +26,7 @@ export interface INotificationSender {
   id: string;
   name: string;
   username: string;
-  type: "person" | "company";
+  type: 'person' | 'company';
 }
 
 export interface INotificationProps {

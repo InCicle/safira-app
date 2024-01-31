@@ -1,4 +1,4 @@
-export type FaviconOptionType = "new-notification-icon" | "incicle-logo";
+export type FaviconOptionType = 'new-notification-icon' | 'incicle-logo';
 
 export type HeadValuesType = {
   pageTitle: string;
@@ -6,16 +6,16 @@ export type HeadValuesType = {
 };
 
 function createFaviconHandler() {
-  const faviconElement = document.getElementById("favicon-svg");
+  const faviconElement = document.getElementById('favicon-svg');
 
   return {
     defineFavicon(icon: FaviconOptionType) {
       switch (icon) {
-        case "incicle-logo":
-          faviconElement?.setAttribute("href", "https://static-incicle.s3.amazonaws.com/incicle-favicon.svg");
+        case 'incicle-logo':
+          faviconElement?.setAttribute('href', 'https://static-incicle.s3.amazonaws.com/incicle-favicon.svg');
           break;
-        case "new-notification-icon":
-          faviconElement?.setAttribute("href", "https://static-incicle.s3.amazonaws.com/new-notification-favicon.svg");
+        case 'new-notification-icon':
+          faviconElement?.setAttribute('href', 'https://static-incicle.s3.amazonaws.com/new-notification-favicon.svg');
           break;
         default:
           break;
@@ -27,7 +27,7 @@ function createFaviconHandler() {
 function createPageTitleHandler() {
   return {
     definePageTitle(content: ((title: string) => string) | string) {
-      if (typeof content === "string") {
+      if (typeof content === 'string') {
         document.title = content;
         return;
       }

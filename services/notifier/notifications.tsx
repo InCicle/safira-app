@@ -1,6 +1,6 @@
-import { AxiosInstance } from "axios";
-import { links } from "@safira/config/links";
-import { INotificationWrapper } from "@safira/interfaces/Notification";
+import { AxiosInstance } from 'axios';
+import { links } from 'safira-app/config/links';
+import { INotificationWrapper } from 'safira-app/interfaces/Notification';
 
 export type NotificationParamsType = {
   page?: number;

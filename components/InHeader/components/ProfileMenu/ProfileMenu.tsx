@@ -1,14 +1,14 @@
-import React, { useImperativeHandle, useState } from "react";
-import { Divider, Link as MUILink, ListItemIcon, Menu, MenuItem } from "@mui/material";
-import { links } from "@safira/config/links";
-import { useHeaderProvider } from "@safira/contexts/HeaderContext";
-import RenderAvatar from "@safira/components/RenderAvatar";
-import TutorialVideos from "../TutorialVideos";
+import React, { useImperativeHandle, useState } from 'react';
+import { Divider, Link as MUILink, ListItemIcon, Menu, MenuItem } from '@mui/material';
+import { links } from 'safira-app/config/links';
+import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
+import RenderAvatar from 'safira-app/components/RenderAvatar';
+import TutorialVideos from '../TutorialVideos';
 
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import SettingsIcon from "@mui/icons-material/Settings";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import { PlayArrow } from "@mui/icons-material";
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import SettingsIcon from '@mui/icons-material/Settings';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { PlayArrow } from '@mui/icons-material';
 
 export type ProfileMenuRef = {
   openProfileMenu: (ev: any) => void;
@@ -23,8 +23,8 @@ type CustomLinkProps = {
 const CustomLink: React.FC<React.PropsWithChildren<CustomLinkProps>> = ({ children, href, icon }) => (
   <MUILink
     href={href}
-    underline={"none"}
-    sx={{ color: theme => theme.palette.grey[600], display: "flex", alignItems: "center" }}
+    underline={'none'}
+    sx={{ color: theme => theme.palette.grey[600], display: 'flex', alignItems: 'center' }}
   >
     <ListItemIcon>{icon}</ListItemIcon>
     <span>{children}</span>
@@ -47,7 +47,7 @@ const ProfileMenu: React.ForwardRefRenderFunction<ProfileMenuRef> = (props, ref)
   function getMenuItemUrl() {
     const personUrl = `${links.web.social}/friends`;
     const companyUrl = `${links.web.department}/#/collaborators`;
-    return profiles?.type === "PERSON" ? personUrl : profiles?.type === "COMPANY" ? companyUrl : "#";
+    return profiles?.type === 'PERSON' ? personUrl : profiles?.type === 'COMPANY' ? companyUrl : '#';
   }
 
   useImperativeHandle(ref, () => {
@@ -68,47 +68,47 @@ const ProfileMenu: React.ForwardRefRenderFunction<ProfileMenuRef> = (props, ref)
         PaperProps={{
           elevation: 0,
           sx: {
-            overflow: "visible",
-            maxWidth: "250px",
-            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+            overflow: 'visible',
+            maxWidth: '250px',
+            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
             mt: 1.5,
-            "& .MuiAvatar-root": {
+            '& .MuiAvatar-root': {
               width: 32,
               height: 32,
               ml: -0.5,
               mr: 1,
             },
 
-            "&:before": {
+            '&:before': {
               content: '""',
-              display: "block",
-              position: "absolute",
+              display: 'block',
+              position: 'absolute',
               top: 0,
               right: 14,
               width: 10,
               height: 10,
-              bgcolor: "background.paper",
-              transform: "translateY(-50%) rotate(45deg)",
+              bgcolor: 'background.paper',
+              transform: 'translateY(-50%) rotate(45deg)',
               zIndex: 0,
             },
-            "& li, & a": {
+            '& li, & a': {
               fontFamily: '"Open Sans", sans-serif',
-              fontSize: "13px",
+              fontSize: '13px',
             },
             span: {
-              fontSize: "13px",
+              fontSize: '13px',
             },
           },
         }}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem
           sx={{
-            width: "initial !important",
-            textTransform: "capitalize",
-            overflowWrap: "anywhere",
-            whiteSpace: "break-spaces",
+            width: 'initial !important',
+            textTransform: 'capitalize',
+            overflowWrap: 'anywhere',
+            whiteSpace: 'break-spaces',
           }}
         >
           <CustomLink
@@ -117,8 +117,8 @@ const ProfileMenu: React.ForwardRefRenderFunction<ProfileMenuRef> = (props, ref)
               <RenderAvatar
                 src={profiles?.avatar}
                 sx={{
-                  width: "32px !important",
-                  height: "32px !important",
+                  width: '32px !important',
+                  height: '32px !important',
                   marginRight: 15,
                 }}
               />
@@ -132,7 +132,7 @@ const ProfileMenu: React.ForwardRefRenderFunction<ProfileMenuRef> = (props, ref)
         <Divider />
         <MenuItem>
           <CustomLink href={getMenuItemUrl()} icon={<PeopleAltIcon fontSize="small" />}>
-            {profiles?.type === "PERSON" ? "Amigos" : "Colaboradores"}
+            {profiles?.type === 'PERSON' ? 'Amigos' : 'Colaboradores'}
           </CustomLink>
         </MenuItem>
         <MenuItem onClick={() => setOpenTutorial(true)}>

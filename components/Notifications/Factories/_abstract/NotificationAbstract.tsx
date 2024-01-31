@@ -1,15 +1,15 @@
-import React from "react";
-import { MenuItem, Stack, Typography, Box, Theme, SxProps } from "@mui/material";
-import CircleIcon from "@mui/icons-material/Circle";
-import { useHeaderProvider } from "@safira/contexts/HeaderContext";
-import { INotificationProps } from "@safira/interfaces/Notification";
-import RenderAvatar from "@safira/components/RenderAvatar";
-import incicleModules from "@safira/components/InHeader/utils/incicleModules";
+import React from 'react';
+import { MenuItem, Stack, Typography, Box, Theme, SxProps } from '@mui/material';
+import CircleIcon from '@mui/icons-material/Circle';
+import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
+import { INotificationProps } from 'safira-app/interfaces/Notification';
+import RenderAvatar from 'safira-app/components/RenderAvatar';
+import incicleModules from 'safira-app/components/InHeader/utils/incicleModules';
 
 // TimeAgo
-import moment from "moment";
-import TimeAgo from "@safira/libs/timeago";
-import { links } from "@safira/config/links";
+import moment from 'moment';
+import TimeAgo from 'safira-app/libs/timeago';
+import { links } from 'safira-app/config/links';
 
 interface IProps {
   notification?: INotificationProps;
@@ -18,8 +18,8 @@ interface IProps {
 }
 
 TimeAgo.defaultProps = {
-  format: "pt-BR",
-  timeStyle: "mini",
+  format: 'pt-BR',
+  timeStyle: 'mini',
 };
 
 export const preventRedirect = (e: any) => {
@@ -63,52 +63,52 @@ export const NotificationContainer: React.FC<React.PropsWithChildren<IProps>> = 
   return (
     <MenuItem
       style={{
-        whiteSpace: "normal",
-        paddingTop: "10px",
-        paddingBottom: "10px",
-        backgroundColor: notification?.saw ? "initial" : "#EEEEEE",
+        whiteSpace: 'normal',
+        paddingTop: '10px',
+        paddingBottom: '10px',
+        backgroundColor: notification?.saw ? 'initial' : '#EEEEEE',
       }}
       sx={{
-        "&:hover": {
-          backgroundColor: "#F2F3F4!important",
+        '&:hover': {
+          backgroundColor: '#F2F3F4!important',
         },
       }}
-      component={url ? "a" : "div"}
+      component={url ? 'a' : 'div'}
       href={url}
       onClick={handleClick}
     >
-      <Stack direction="row" style={{ width: "100%" }} alignItems="center">
-        <Box sx={{ position: "relative" }}>
+      <Stack direction="row" style={{ width: '100%' }} alignItems="center">
+        <Box sx={{ position: 'relative' }}>
           <RenderAvatar src={notification?.sender.avatar_url} />
 
           {!!notification?.module && (
             <Box
               sx={{
-                position: "absolute",
-                bottom: "-4px",
-                left: "-4px",
-                width: "16px",
-                height: "16px",
-                border: "1px solid #00568b",
-                backgroundColor: "#fff",
-                borderRadius: "50%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                position: 'absolute',
+                bottom: '-4px',
+                left: '-4px',
+                width: '16px',
+                height: '16px',
+                border: '1px solid #00568b',
+                backgroundColor: '#fff',
+                borderRadius: '50%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
             >
               <img
                 src={incicleModules.find(incicleModule => incicleModule.slug === notification.module)?.icon}
                 alt={notification.module}
-                style={{ width: "100%", height: "auto" }}
+                style={{ width: '100%', height: 'auto' }}
               />
             </Box>
           )}
         </Box>
-        <Stack direction="column" spacing={1} style={{ width: "100%", marginRight: "10px" }}>
+        <Stack direction="column" spacing={1} style={{ width: '100%', marginRight: '10px' }}>
           {children}
         </Stack>
-        {!notification?.read && <CircleIcon sx={{ fill: "#00adcb", width: 10 }} />}
+        {!notification?.read && <CircleIcon sx={{ fill: '#00adcb', width: 10 }} />}
       </Stack>
     </MenuItem>
   );
@@ -121,17 +121,17 @@ export const NotificationContentText: React.FC<React.PropsWithChildren<{ notific
   return (
     <Typography
       sx={{
-        lineHeight: "15px",
-        fontSize: "13px !important",
-        width: "100%",
-        overflowWrap: "anywhere",
-        marginRight: "10px",
-        label: { fontSize: "13px" },
-        "*": { cursor: "pointer" },
+        lineHeight: '15px',
+        fontSize: '13px !important',
+        width: '100%',
+        overflowWrap: 'anywhere',
+        marginRight: '10px',
+        label: { fontSize: '13px' },
+        '*': { cursor: 'pointer' },
       }}
     >
       {children}
-      <small className="time-count" style={{ display: "block", fontSize: 11 }}>
+      <small className="time-count" style={{ display: 'block', fontSize: 11 }}>
         <TimeAgo date={notification.createdAt} style={{ fontSize: 11 }} />
       </small>
     </Typography>
@@ -143,9 +143,9 @@ export const NotificationHighlight: React.FC<React.PropsWithChildren<{ sx?: SxPr
     <Typography
       component="label"
       sx={{
-        lineHeight: "15px",
-        color: "#00558E",
-        fontSize: "13px",
+        lineHeight: '15px',
+        color: '#00558E',
+        fontSize: '13px',
         ...sx,
       }}
     >
@@ -154,7 +154,7 @@ export const NotificationHighlight: React.FC<React.PropsWithChildren<{ sx?: SxPr
   );
 };
 
-export const reduceString = (value = "", length: number) => {
+export const reduceString = (value = '', length: number) => {
   /**
    * This function is used to add '...' on strings.
    *
@@ -178,5 +178,5 @@ export const dateFormat = (date: string | Date, format: string) => {
    *
    * return: formated date as string
    */
-  return moment(date).locale("pt-br").format(format);
+  return moment(date).locale('pt-br').format(format);
 };

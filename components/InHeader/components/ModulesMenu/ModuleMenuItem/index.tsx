@@ -1,7 +1,7 @@
-import { Box, Icon, IconButton, Stack, Tooltip, Typography, useTheme, Link as MUILink } from "@mui/material";
-import { InModulesType } from "@safira/components/InHeader/data/modules";
-import { useAuth } from "@safira/hooks/useAuth";
-import React from "react";
+import { Box, Icon, IconButton, Stack, Tooltip, Typography, useTheme, Link as MUILink } from '@mui/material';
+import { InModulesType } from 'safira-app/components/InHeader/data/modules';
+import { useAuth } from 'safira-app/hooks/useAuth';
+import React from 'react';
 
 interface ModuleMenuItemProps {
   module: InModulesType;
@@ -16,40 +16,40 @@ const ModuleMenuItem: React.FC<ModuleMenuItemProps> = ({ module }) => {
   return (
     <Tooltip
       key={module.slug}
-      title={!module.url ? "Módulo disponível em breve" : ""}
+      title={!module.url ? 'Módulo disponível em breve' : ''}
       placement="top"
       arrow
       PopperProps={{
         sx: {
-          "*": {
-            fontSize: "11px !important",
+          '*': {
+            fontSize: '11px !important',
           },
-          bottom: "-20px !important",
+          bottom: '-20px !important',
         },
       }}
     >
       <IconButton
         key={module.title}
         sx={{
-          width: "49%",
-          height: "max-content",
-          borderRadius: "0 !important",
-          fontSize: "18px !important",
+          width: '49%',
+          height: 'max-content',
+          borderRadius: '0 !important',
+          fontSize: '18px !important',
           [breakpoints.down(breakpointValue)]: {
-            width: "100%",
+            width: '100%',
           },
         }}
       >
         <MUILink
-          href={module.url || ""}
+          href={module.url || ''}
           underline="none"
           sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "flex-start",
-            alignItems: "center",
-            gap: "5px",
-            pointerEvents: !module.url ? "none" : "",
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            gap: '5px',
+            pointerEvents: !module.url ? 'none' : '',
           }}
         >
           <Stack justifyContent="center" alignItems="center" sx={{ minWidth: 60, minHeight: 60 }}>
@@ -62,31 +62,31 @@ const ModuleMenuItem: React.FC<ModuleMenuItemProps> = ({ module }) => {
               width={`${module.iconSize}px !important`}
               height={`${module.iconSize}px !important`}
             >
-              <img src={module.icon} alt={module.title} style={{ width: "100%", height: "auto" }} />
+              <img src={module.icon} alt={module.title} style={{ width: '100%', height: 'auto' }} />
             </Icon>
           </Stack>
           <Box
             sx={{
-              textAlign: "left",
+              textAlign: 'left',
             }}
           >
             <Typography
               sx={{
-                color: !module.url ? "#848484" : "#008AC1",
-                fontWeight: "bold",
-                fontSize: "16px",
+                color: !module.url ? '#848484' : '#008AC1',
+                fontWeight: 'bold',
+                fontSize: '16px',
               }}
             >
               {module.title}
             </Typography>
             <Typography
               sx={{
-                color: !module.url ? "#848484" : "#535353",
-                fontSize: "14px",
-                lineHeight: "16px",
+                color: !module.url ? '#848484' : '#535353',
+                fontSize: '14px',
+                lineHeight: '16px',
               }}
             >
-              {user?.type && module.description ? module?.description[user?.type] : ""}
+              {user?.type && module.description ? module?.description[user?.type] : ''}
             </Typography>
           </Box>
         </MUILink>

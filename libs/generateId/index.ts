@@ -1,4 +1,4 @@
-const symbols = "@#$%&*!-_";
+const symbols = '@#$%&*!-_';
 
 type PasswordConfig = {
   amount: number;
@@ -40,5 +40,5 @@ export function generateId({ amount, lowercase, uppercase, numbers, symbols }: P
   }
 
   // @ts-ignore
-  return arr.slice(0, amount).shuffle().join("") as string;
+  return arr.slice(0, amount).shuffle().join('') as string;
 }

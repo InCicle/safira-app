@@ -6,7 +6,7 @@ import {
   ShowFriends,
   ShowLocation,
   ShowProjects,
-} from "@safira/config/enums";
+} from 'safira-app/config/enums';
 
 export interface MeCompany {
   id: string;
@@ -43,7 +43,7 @@ export interface ProfileConfig {
 
 export interface UserConfig {
   auth2f: boolean;
-  default_interface: "LIGHT" | "DARK";
+  default_interface: 'LIGHT' | 'DARK';
   default_language: string;
   id: string;
   user_id: string;
@@ -54,7 +54,7 @@ export interface MeProps {
   username: string;
   name: string;
   logo: string | null;
-  type: "COMPANY" | "PERSON";
+  type: 'COMPANY' | 'PERSON';
   profile_id: string;
   avatar: string;
   companies: MeCompany[];

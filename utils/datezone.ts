@@ -1,11 +1,11 @@
-import moment from "moment";
-import { useHeaderProvider } from "@safira/contexts/HeaderContext";
+import moment from 'moment';
+import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
 
 export function DateZoneHandler(dateValue: string) {
   const { user } = useHeaderProvider();
 
   function getDateTime() {
-    const dateTime = new Date(dateValue).toLocaleString("en-US", {
+    const dateTime = new Date(dateValue).toLocaleString('en-US', {
       timeZone: user.config.default_timezone,
     });
 

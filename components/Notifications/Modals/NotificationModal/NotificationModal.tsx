@@ -1,7 +1,7 @@
-import React, { Fragment, ReactNode, useEffect, useImperativeHandle, useState } from "react";
-import { Button, Dialog, DialogActions, SxProps, Theme } from "@mui/material";
-import NotificationModalContent, { NotificationModalContentProps } from "./NotificationModalContent";
-import { useQuery } from "@safira/hooks/useQuery";
+import React, { Fragment, ReactNode, useEffect, useImperativeHandle, useState } from 'react';
+import { Button, Dialog, DialogActions, SxProps, Theme } from '@mui/material';
+import NotificationModalContent, { NotificationModalContentProps } from './NotificationModalContent';
+import { useQuery } from 'safira-app/hooks/useQuery';
 
 export type NotificationModalProps = NotificationModalContentProps & {
   notificationParams?: {
@@ -36,8 +36,8 @@ const NotificationModal: React.ForwardRefRenderFunction<NotificationModalRef, No
 
     setOpen(false);
 
-    query.delete("notification_id");
-    query.delete("notification_type");
+    query.delete('notification_id');
+    query.delete('notification_type');
   }
 
   useImperativeHandle(ref, () => {
@@ -48,8 +48,8 @@ const NotificationModal: React.ForwardRefRenderFunction<NotificationModalRef, No
   });
 
   useEffect(() => {
-    const notificationId = query.get("notification_id");
-    const notificationType = query.get("notification_type");
+    const notificationId = query.get('notification_id');
+    const notificationType = query.get('notification_type');
     const { id, type } = notificationParams || {};
 
     const hasValue = Boolean(notificationId && notificationType);
@@ -78,10 +78,10 @@ const NotificationModal: React.ForwardRefRenderFunction<NotificationModalRef, No
                 variant="outlined"
                 onClick={handleCloseModal}
                 sx={{
-                  textTransform: "capitalize",
-                  fontSize: "15px",
-                  color: "#00558E",
-                  padding: "5px 15px",
+                  textTransform: 'capitalize',
+                  fontSize: '15px',
+                  color: '#00558E',
+                  padding: '5px 15px',
                 }}
               >
                 Entendido

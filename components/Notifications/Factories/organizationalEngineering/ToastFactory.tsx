@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   NotificationContainer,
   NotificationContentText,
   NotificationHighlight,
-} from "../_abstract/ToastNotificationAbstract";
-import { INotificationProps } from "@safira/interfaces/Notification";
+} from '../_abstract/ToastNotificationAbstract';
+import { INotificationProps } from 'safira-app/interfaces/Notification';
 
 interface IProps {
   notificationItem: INotificationProps;
 }
 
 const notificationType = {
-  EMPLOYEE_LINK_REQUEST: "EMPLOYEE_LINK_REQUEST",
-  EMPLOYEE_LINK_ANSWER: "EMPLOYEE_LINK_ANSWER",
-  EMPLOYEE_UNLINK: "EMPLOYEE_UNLINK",
-  EMPLOYEE_LINK_CANCELED: "EMPLOYEE_LINK_CANCELED",
-  CORPORATE_FEEDBACK: "CORPORATE_FEEDBACK",
+  EMPLOYEE_LINK_REQUEST: 'EMPLOYEE_LINK_REQUEST',
+  EMPLOYEE_LINK_ANSWER: 'EMPLOYEE_LINK_ANSWER',
+  EMPLOYEE_UNLINK: 'EMPLOYEE_UNLINK',
+  EMPLOYEE_LINK_CANCELED: 'EMPLOYEE_LINK_CANCELED',
+  CORPORATE_FEEDBACK: 'CORPORATE_FEEDBACK',
 };
 
 const OrganizationalEngineeringToastNotificationFactory: React.FC<React.PropsWithChildren<IProps>> = ({
@@ -40,8 +40,8 @@ const OrganizationalEngineeringToastNotificationFactory: React.FC<React.PropsWit
         return (
           <NotificationContainer>
             <NotificationContentText>
-              <NotificationHighlight>{notification.sender.name}</NotificationHighlight>{" "}
-              {notification.common.content === "ACCEPTED" ? "aceitou" : "recusou"} o convite de vinculação
+              <NotificationHighlight>{notification.sender.name}</NotificationHighlight>{' '}
+              {notification.common.content === 'ACCEPTED' ? 'aceitou' : 'recusou'} o convite de vinculação
             </NotificationContentText>
           </NotificationContainer>
         );

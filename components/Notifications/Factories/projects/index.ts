@@ -1,8 +1,8 @@
-import ProjectsDropdownNotificationFactory from "./DropdownFactory";
+import ProjectsDropdownNotificationFactory from './DropdownFactory';
 
-import ProjectsToastNotificationFactory from "./ToastFactory";
+import ProjectsToastNotificationFactory from './ToastFactory';
 
-import { createProjectsBrowserNotificationFactory } from "./BrowserFactory";
+import { createProjectsBrowserNotificationFactory } from './BrowserFactory';
 
 export {
   ProjectsDropdownNotificationFactory,

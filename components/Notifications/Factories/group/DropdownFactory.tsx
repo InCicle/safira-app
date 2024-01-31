@@ -1,34 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
-import { INotificationProps } from "@safira/interfaces/Notification";
-import { reduceString } from "@safira/utils/reduceString";
-import { links } from "@safira/config/links";
+import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { reduceString } from 'safira-app/utils/reduceString';
+import { links } from 'safira-app/config/links';
 
 import {
   NotificationContainer,
   NotificationContentText,
   NotificationHighlight,
-} from "../_abstract/NotificationAbstract";
-import { getGroupType } from "@safira/utils/getGroupType";
+} from '../_abstract/NotificationAbstract';
+import { getGroupType } from 'safira-app/utils/getGroupType';
 
 interface IProps {
   notificationItem: INotificationProps;
 }
 
 const notificationType = {
-  USER_GRANT_ADMIN_TO_GROUP: "USER_GRANT_ADMIN_TO_GROUP",
-  GROUP_INVITE: "GROUP_INVITE",
-  GROUP_COMMUNICATION: "GROUP_COMMUNICATION",
-  USER_ADDED_TO_GROUP: "USER_ADDED_TO_GROUP",
-  USER_REQUEST_ENTRY_TO_GROUP: "USER_REQUEST_ENTRY_TO_GROUP",
-  BECAME_GROUP_MEMBER: "BECAME_GROUP_MEMBER",
-  USER_KICKED_FROM_GROUP: "USER_KICKED_FROM_GROUP",
-  USER_REVOKE_ADMIN_ON_GROUP: "USER_REVOKE_ADMIN_ON_GROUP",
-  GROUP_PUBLICATION_TYPE_COMMENT: "GROUP_PUBLICATION_TYPE_COMMENT",
-  GROUP_PUBLICATION_TYPE_SHARE: "GROUP_PUBLICATION_TYPE_SHARE",
-  GROUP_PUBLICATION_TYPE_COMMENT_OF_COMMENT: "GROUP_PUBLICATION_TYPE_COMMENT_OF_COMMENT",
-  GROUP_TYPE_CHANGED: "GROUP_TYPE_CHANGED",
-  GROUP_DELETED: "GROUP_DELETED",
+  USER_GRANT_ADMIN_TO_GROUP: 'USER_GRANT_ADMIN_TO_GROUP',
+  GROUP_INVITE: 'GROUP_INVITE',
+  GROUP_COMMUNICATION: 'GROUP_COMMUNICATION',
+  USER_ADDED_TO_GROUP: 'USER_ADDED_TO_GROUP',
+  USER_REQUEST_ENTRY_TO_GROUP: 'USER_REQUEST_ENTRY_TO_GROUP',
+  BECAME_GROUP_MEMBER: 'BECAME_GROUP_MEMBER',
+  USER_KICKED_FROM_GROUP: 'USER_KICKED_FROM_GROUP',
+  USER_REVOKE_ADMIN_ON_GROUP: 'USER_REVOKE_ADMIN_ON_GROUP',
+  GROUP_PUBLICATION_TYPE_COMMENT: 'GROUP_PUBLICATION_TYPE_COMMENT',
+  GROUP_PUBLICATION_TYPE_SHARE: 'GROUP_PUBLICATION_TYPE_SHARE',
+  GROUP_PUBLICATION_TYPE_COMMENT_OF_COMMENT: 'GROUP_PUBLICATION_TYPE_COMMENT_OF_COMMENT',
+  GROUP_TYPE_CHANGED: 'GROUP_TYPE_CHANGED',
+  GROUP_DELETED: 'GROUP_DELETED',
 };
 
 // @ts-ignore
@@ -44,7 +44,7 @@ const GroupDropdownNotificationFactory: React.FC<React.PropsWithChildren<IProps>
             notification={notification}
           >
             <NotificationContentText notification={notification}>
-              Você agora é administrador do grupo{" "}
+              Você agora é administrador do grupo{' '}
               <NotificationHighlight>{reduceString(notification.common.group_name, 30)}</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
@@ -70,7 +70,7 @@ const GroupDropdownNotificationFactory: React.FC<React.PropsWithChildren<IProps>
             notification={notification}
           >
             <NotificationContentText notification={notification}>
-              <NotificationHighlight>{notification.sender.name}</NotificationHighlight> criou um comunicado no grupo{" "}
+              <NotificationHighlight>{notification.sender.name}</NotificationHighlight> criou um comunicado no grupo{' '}
               <NotificationHighlight>{reduceString(notification.common.group_name, 30)}</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
@@ -83,7 +83,7 @@ const GroupDropdownNotificationFactory: React.FC<React.PropsWithChildren<IProps>
             notification={notification}
           >
             <NotificationContentText notification={notification}>
-              <NotificationHighlight>{notification.sender.name}</NotificationHighlight> incluiu você no grupo{" "}
+              <NotificationHighlight>{notification.sender.name}</NotificationHighlight> incluiu você no grupo{' '}
               <NotificationHighlight>{reduceString(notification.common.group_name, 30)}</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
@@ -97,7 +97,7 @@ const GroupDropdownNotificationFactory: React.FC<React.PropsWithChildren<IProps>
           >
             <NotificationContentText notification={notification}>
               <NotificationHighlight>{notification.sender.name} </NotificationHighlight>
-              solicitou para entrar no grupo{" "}
+              solicitou para entrar no grupo{' '}
               <NotificationHighlight>{reduceString(notification.common.group_name, 30)}</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
@@ -110,7 +110,7 @@ const GroupDropdownNotificationFactory: React.FC<React.PropsWithChildren<IProps>
             notification={notification}
           >
             <NotificationContentText notification={notification}>
-              Você foi removido do grupo{" "}
+              Você foi removido do grupo{' '}
               <NotificationHighlight>{reduceString(notification.common.group_name, 30)}</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
@@ -122,15 +122,15 @@ const GroupDropdownNotificationFactory: React.FC<React.PropsWithChildren<IProps>
             url={`${links.web.social}/group/${notification.common.group_id}/home`}
             notification={notification}
           >
-            {notification.sender.type === "company" && notification.common.member_type === "ADMIN" ? (
+            {notification.sender.type === 'company' && notification.common.member_type === 'ADMIN' ? (
               <NotificationContentText notification={notification}>
                 <NotificationHighlight>{notification.sender.name} </NotificationHighlight>
-                te nomeou administrador do grupo{" "}
+                te nomeou administrador do grupo{' '}
                 <NotificationHighlight>{reduceString(notification.common.group_name, 30)}</NotificationHighlight>
               </NotificationContentText>
             ) : (
               <NotificationContentText notification={notification}>
-                Você foi aceito para ser membro do grupo{" "}
+                Você foi aceito para ser membro do grupo{' '}
                 <NotificationHighlight>{reduceString(notification.common.group_name, 30)}</NotificationHighlight>
               </NotificationContentText>
             )}
@@ -144,7 +144,7 @@ const GroupDropdownNotificationFactory: React.FC<React.PropsWithChildren<IProps>
             notification={notification}
           >
             <NotificationContentText notification={notification}>
-              Você não é mais administrador do grupo{" "}
+              Você não é mais administrador do grupo{' '}
               <NotificationHighlight>{reduceString(notification.common.group_name, 30)}</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
@@ -157,7 +157,7 @@ const GroupDropdownNotificationFactory: React.FC<React.PropsWithChildren<IProps>
             notification={notification}
           >
             <NotificationContentText notification={notification}>
-              <NotificationHighlight>{notification.sender.name}</NotificationHighlight> comentou uma publicação no grupo{" "}
+              <NotificationHighlight>{notification.sender.name}</NotificationHighlight> comentou uma publicação no grupo{' '}
               <NotificationHighlight>{reduceString(notification.common.group_name, 30)}</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
@@ -196,9 +196,9 @@ const GroupDropdownNotificationFactory: React.FC<React.PropsWithChildren<IProps>
             notification={notification}
           >
             <NotificationContentText notification={notification}>
-              O grupo <NotificationHighlight>{reduceString(notification.common.group_name, 30)}</NotificationHighlight>{" "}
-              que você participa mudou seu tipo de{" "}
-              <NotificationHighlight>{getGroupType(notification.common.old_type)}</NotificationHighlight> para{" "}
+              O grupo <NotificationHighlight>{reduceString(notification.common.group_name, 30)}</NotificationHighlight>{' '}
+              que você participa mudou seu tipo de{' '}
+              <NotificationHighlight>{getGroupType(notification.common.old_type)}</NotificationHighlight> para{' '}
               <NotificationHighlight>{getGroupType(notification.common.new_type)}</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
@@ -208,7 +208,7 @@ const GroupDropdownNotificationFactory: React.FC<React.PropsWithChildren<IProps>
         return (
           <NotificationContainer url={`${links.web.social}/groups`} notification={notification}>
             <NotificationContentText notification={notification}>
-              O grupo <NotificationHighlight>{reduceString(notification.common.group_name, 30)}</NotificationHighlight>{" "}
+              O grupo <NotificationHighlight>{reduceString(notification.common.group_name, 30)}</NotificationHighlight>{' '}
               que você participava foi excluído
             </NotificationContentText>
           </NotificationContainer>

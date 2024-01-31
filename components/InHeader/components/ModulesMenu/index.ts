@@ -1,4 +1,4 @@
-import ModulesMenu, { ModulesMenuRef } from "./ModulesMenu";
+import ModulesMenu, { ModulesMenuRef } from './ModulesMenu';
 
 export type { ModulesMenuRef };
 

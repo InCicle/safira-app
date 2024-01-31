@@ -1,32 +1,32 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
-import { INotificationProps } from "@safira/interfaces/Notification";
-import { links } from "@safira/config/links";
+import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { links } from 'safira-app/config/links';
 
 import {
   NotificationContainer,
   NotificationContentText,
   NotificationHighlight,
-} from "../_abstract/NotificationAbstract";
+} from '../_abstract/NotificationAbstract';
 
 interface Props {
   notificationItem: INotificationProps;
 }
 
 const notificationType = {
-  CYCLE_END: "CYCLE_END",
-  OBJECTIVE_END: "OBJECTIVE_END",
-  KEY_RESULT_END: "KEY_RESULT_END",
-  ADDED_ON_ACTION: "ADDED_ON_ACTION",
-  ADDED_ON_OBJECTIVE: "ADDED_ON_OBJECTIVE",
-  ADDED_ON_KEY_RESULT: "ADDED_ON_KEY_RESULT",
-  CYCLE_LATE: "CYCLE_LATE",
-  OBJECTIVE_LATE: "OBJECTIVE_LATE",
-  KEY_RESULT_LATE: "KEY_RESULT_LATE",
-  ACTION_LATE: "ACTION_LATE",
-  REMOVED_FROM_OBJECTIVE: "REMOVED_FROM_OBJECTIVE",
-  REMOVED_FROM_KEY_RESULT: "REMOVED_FROM_KEY_RESULT",
-  REMOVED_FROM_ACTION: "REMOVED_FROM_ACTION",
+  CYCLE_END: 'CYCLE_END',
+  OBJECTIVE_END: 'OBJECTIVE_END',
+  KEY_RESULT_END: 'KEY_RESULT_END',
+  ADDED_ON_ACTION: 'ADDED_ON_ACTION',
+  ADDED_ON_OBJECTIVE: 'ADDED_ON_OBJECTIVE',
+  ADDED_ON_KEY_RESULT: 'ADDED_ON_KEY_RESULT',
+  CYCLE_LATE: 'CYCLE_LATE',
+  OBJECTIVE_LATE: 'OBJECTIVE_LATE',
+  KEY_RESULT_LATE: 'KEY_RESULT_LATE',
+  ACTION_LATE: 'ACTION_LATE',
+  REMOVED_FROM_OBJECTIVE: 'REMOVED_FROM_OBJECTIVE',
+  REMOVED_FROM_KEY_RESULT: 'REMOVED_FROM_KEY_RESULT',
+  REMOVED_FROM_ACTION: 'REMOVED_FROM_ACTION',
 };
 
 const OKRDropdownNotificationFactory: React.FC<Props> = ({ notificationItem }) => {
@@ -38,7 +38,7 @@ const OKRDropdownNotificationFactory: React.FC<Props> = ({ notificationItem }) =
         return (
           <NotificationContainer url={`${links.web.okr}/cycle/${common?.cycle_id}`} notification={notificationItem}>
             <NotificationContentText notification={notificationItem}>
-              Você chegou ao final do ciclo{" "}
+              Você chegou ao final do ciclo{' '}
               <NotificationHighlight>"{notificationItem.common.title}"</NotificationHighlight>. Informe o resultado.
             </NotificationContentText>
           </NotificationContainer>
@@ -50,7 +50,7 @@ const OKRDropdownNotificationFactory: React.FC<Props> = ({ notificationItem }) =
             notification={notificationItem}
           >
             <NotificationContentText notification={notificationItem}>
-              Você chegou ao final do objetivo{" "}
+              Você chegou ao final do objetivo{' '}
               <NotificationHighlight>"{notificationItem.common.title}"</NotificationHighlight>. Informe o resultado.
             </NotificationContentText>
           </NotificationContainer>
@@ -62,7 +62,7 @@ const OKRDropdownNotificationFactory: React.FC<Props> = ({ notificationItem }) =
             notification={notificationItem}
           >
             <NotificationContentText notification={notificationItem}>
-              Você chegou ao final do resultado-chave{" "}
+              Você chegou ao final do resultado-chave{' '}
               <NotificationHighlight>"{notificationItem.common.title}"</NotificationHighlight>. Informe o resultado.
             </NotificationContentText>
           </NotificationContainer>

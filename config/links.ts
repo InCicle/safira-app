@@ -65,15 +65,13 @@ export const links: Modulelinks = {
     access_key_id: process.env.REACT_APP_AWS_BUCKET_INCICLE_ACCESS_KEY_ID,
     bucket: process.env.REACT_APP_AWS_BUCKET_INCICLE_BUCKET_NAME,
     region: process.env.REACT_APP_AWS_BUCKET_INCICLE_REGION,
-    secret_access_key:
-      process.env.REACT_APP_AWS_BUCKET_INCICLE_SECRET_ACCESS_KEY,
+    secret_access_key: process.env.REACT_APP_AWS_BUCKET_INCICLE_SECRET_ACCESS_KEY,
   },
   aws_project: {
     access_key_id: process.env.REACT_APP_AWS_BUCKET_PROJECTS_ACCESS_KEY_ID,
     bucket: process.env.REACT_APP_AWS_BUCKET_BUCKET_PROJECTS_NAME,
     region: process.env.REACT_APP_AWS_BUCKET_PROJECTS_REGION,
-    secret_access_key:
-      process.env.REACT_APP_AWS_BUCKET_PROJECTS_SECRET_ACCESS_KEY,
+    secret_access_key: process.env.REACT_APP_AWS_BUCKET_PROJECTS_SECRET_ACCESS_KEY,
   },
   production: JSON.parse(process.env.REACT_APP_PRODUCTION),
   secret_key: process.env.REACT_APP_SECRET_KEY,

@@ -1,20 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
-import { INotificationProps } from "@safira/interfaces/Notification";
+import { INotificationProps } from 'safira-app/interfaces/Notification';
 
 import {
   NotificationContainer,
   NotificationContentText,
   NotificationHighlight,
-} from "../_abstract/ToastNotificationAbstract";
+} from '../_abstract/ToastNotificationAbstract';
 
 interface Props {
   notificationItem: INotificationProps;
 }
 
 const notificationType = {
-  NEW_POLICY: "NEW_POLICY",
-  POLICY_REVIEW: "POLICY_REVIEW",
+  NEW_POLICY: 'NEW_POLICY',
+  POLICY_REVIEW: 'POLICY_REVIEW',
 };
 
 const PoliciesToastNotificationFactory: React.FC<Props> = ({ notificationItem }) => {

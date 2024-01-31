@@ -8,5 +8,5 @@ export function hash({ amount }: { amount: number }) {
     arr.push(getNumber());
   }
 
-  return arr.slice(0, amount).join("");
+  return arr.slice(0, amount).join('');
 }

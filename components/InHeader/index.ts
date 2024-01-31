@@ -1,3 +1,3 @@
-import InHeader from "./InHeader";
+import InHeader from './InHeader';
 
 export default InHeader;

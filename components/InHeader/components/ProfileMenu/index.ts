@@ -1,4 +1,4 @@
-import ProfileMenu, { ProfileMenuRef } from "./ProfileMenu";
+import ProfileMenu, { ProfileMenuRef } from './ProfileMenu';
 
 export type { ProfileMenuRef };
 

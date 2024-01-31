@@ -1,4 +1,4 @@
-export const reduceString = (value = "", length: number) => {
+export const reduceString = (value = '', length: number) => {
   /**
    * This function is used to add '...' on strings.
    *

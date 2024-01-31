@@ -1,19 +1,19 @@
 /* eslint-disable */
 
-import React from "react";
-import { AxiosInstance } from "axios";
+import React from 'react';
+import { AxiosInstance } from 'axios';
 
-import notificationLogoImg from "@safira/assets/icons/incicle-favicon.png";
-import notificationSound from "@safira/assets/audios/incicle-notification.mp3";
+import notificationLogoImg from 'safira-app/assets/icons/incicle-favicon.png';
+import notificationSound from 'safira-app/assets/audios/incicle-notification.mp3';
 
-import { incicleModules } from "@safira/components/InHeader/data/modules";
-import { INotificationProps } from "@safira/interfaces/Notification";
-import { FaviconOptionType } from "@safira/hooks/useHTMLHead";
-import { addToast } from "@safira/components/Toast";
-import { NotificationDTO } from "@safira/components/Notifications/DTO/NotificationDTO";
-import { updateSawNotifications } from "@safira/services/notifier/notifications";
-import { links } from "@safira/config/links";
-import { NotificationEvent, NotificationEventList } from "@safira/providers/NotificationEvent";
+import { incicleModules } from 'safira-app/components/InHeader/data/modules';
+import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { FaviconOptionType } from 'safira-app/hooks/useHTMLHead';
+import { addToast } from 'safira-app/components/Toast';
+import { NotificationDTO } from 'safira-app/components/Notifications/DTO/NotificationDTO';
+import { updateSawNotifications } from 'safira-app/services/notifier/notifications';
+import { links } from 'safira-app/config/links';
+import { NotificationEvent, NotificationEventList } from 'safira-app/providers/NotificationEvent';
 
 type NotificationOptionsType = {
   api: AxiosInstance;
@@ -35,21 +35,21 @@ const DROPDOWN_DELAY = 800;
 export default class NotificationUseCase {
   // presets ----------------------------------------- // --------------------------------------------------------- //
 
-  private api: NotificationOptionsType["api"] = {} as any;
+  private api: NotificationOptionsType['api'] = {} as any;
   private dropdownOpened: boolean = false;
   private notificationViewCount: number = 0;
 
-  private defineFavicon: NotificationOptionsType["defineFavicon"] = () => {};
-  private definePageTitle: NotificationOptionsType["definePageTitle"] = () => {};
+  private defineFavicon: NotificationOptionsType['defineFavicon'] = () => {};
+  private definePageTitle: NotificationOptionsType['definePageTitle'] = () => {};
 
-  private setBadgeAsInvisible: NotificationOptionsType["setBadgeAsInvisible"] = () => {};
-  private setDropdownOpened: NotificationOptionsType["setDropdownOpened"] = () => {};
-  private setNotifications: NotificationOptionsType["setNotifications"] = () => {};
-  private setNotificationViewCount: NotificationOptionsType["setNotificationViewCount"] = () => {};
+  private setBadgeAsInvisible: NotificationOptionsType['setBadgeAsInvisible'] = () => {};
+  private setDropdownOpened: NotificationOptionsType['setDropdownOpened'] = () => {};
+  private setNotifications: NotificationOptionsType['setNotifications'] = () => {};
+  private setNotificationViewCount: NotificationOptionsType['setNotificationViewCount'] = () => {};
 
   // local  ------------------------------------------ // --------------------------------------------------------- //
 
-  private replacer = (title: string) => title.replace(/\+/, "").replace(/\([\d]+\)\s/g, "");
+  private replacer = (title: string) => title.replace(/\+/, '').replace(/\([\d]+\)\s/g, '');
 
   private checkIfNotAbleToNotify = () => links.production && window.location.origin !== links.web.social;
 
@@ -117,7 +117,7 @@ export default class NotificationUseCase {
 
     try {
       // @ts-ignore
-      const { default: Push } = await import("push.js");
+      const { default: Push } = await import('push.js');
 
       if (!Push.Permission.has()) {
         Push.Permission.request();
@@ -150,7 +150,7 @@ export default class NotificationUseCase {
     const viewCount = count || this.notificationViewCount;
 
     if (viewCount <= 0) {
-      this.defineFavicon("incicle-logo");
+      this.defineFavicon('incicle-logo');
       this.definePageTitle(this.replacer);
 
       this.setBadgeAsInvisible(true);
@@ -158,8 +158,8 @@ export default class NotificationUseCase {
       return;
     }
 
-    this.defineFavicon("new-notification-icon");
-    this.definePageTitle(title => `(${viewCount > 99 ? "+99" : viewCount}) ${this.replacer(title)}`);
+    this.defineFavicon('new-notification-icon');
+    this.definePageTitle(title => `(${viewCount > 99 ? '+99' : viewCount}) ${this.replacer(title)}`);
     this.setBadgeAsInvisible(false);
   }
 
@@ -171,7 +171,7 @@ export default class NotificationUseCase {
 
     if (NotificationImageBox && NotificationComponent) {
       addToast(NotificationComponent, {
-        appearance: "info",
+        appearance: 'info',
         icon: NotificationImageBox,
         closeOnClick: true,
       });
@@ -184,7 +184,7 @@ export default class NotificationUseCase {
 
     try {
       // @ts-ignore
-      const { default: Push } = await import("push.js");
+      const { default: Push } = await import('push.js');
 
       if (!Push.Permission.has()) return;
 
@@ -192,9 +192,9 @@ export default class NotificationUseCase {
       const notificationMessage = notificationDTO.toBrowserAPI();
       const { title } = incicleModules.find(item => item.slug === notification.module) || {};
 
-      Push.create(`${title || ""}`, {
+      Push.create(`${title || ''}`, {
         icon: notificationLogoImg,
-        body: notificationMessage || "",
+        body: notificationMessage || '',
         timeout: 4000,
         onClick() {
           window.focus();
@@ -202,7 +202,7 @@ export default class NotificationUseCase {
           // @ts-ignore
           this?.close();
 
-          NotificationEvent.emit("open_dropdown");
+          NotificationEvent.emit('open_dropdown');
         },
       });
 
@@ -217,11 +217,11 @@ export default class NotificationUseCase {
     this.setDropdownOpened(true);
     this.setNotificationViewCount(0);
 
-    this.defineFavicon("incicle-logo");
+    this.defineFavicon('incicle-logo');
     this.definePageTitle(this.replacer);
 
     clearTimeout(DROPDOWN_TIMEOUT!);
-    
+
     DROPDOWN_TIMEOUT = setTimeout(() => {
       updateSawNotifications(this.api);
     }, DROPDOWN_DELAY);
@@ -235,8 +235,8 @@ export default class NotificationUseCase {
   // apply events --------------------------------- // ------------------------------------------------------------ //
 
   initializeEvents() {
-    const [openDropdownKey] = NotificationEvent.on("open_dropdown", this.handleOpenDropdown);
-    const [closeDropdownKey] = NotificationEvent.on("close_dropdown", this.handleCloseDropdown);
+    const [openDropdownKey] = NotificationEvent.on('open_dropdown', this.handleOpenDropdown);
+    const [closeDropdownKey] = NotificationEvent.on('close_dropdown', this.handleCloseDropdown);
 
     return { openDropdownKey, closeDropdownKey };
   }
@@ -244,7 +244,7 @@ export default class NotificationUseCase {
   clearEvents(keys: { openDropdownKey?: string; closeDropdownKey?: string }) {
     const { openDropdownKey, closeDropdownKey } = keys;
 
-    if (openDropdownKey) NotificationEvent.remove("open_dropdown", openDropdownKey);
-    if (closeDropdownKey) NotificationEvent.remove("close_dropdown", closeDropdownKey);
+    if (openDropdownKey) NotificationEvent.remove('open_dropdown', openDropdownKey);
+    if (closeDropdownKey) NotificationEvent.remove('close_dropdown', closeDropdownKey);
   }
 }

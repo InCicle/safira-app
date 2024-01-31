@@ -1,17 +1,17 @@
-import React, { createContext, useEffect, useState } from "react";
-import { AxiosInstance } from "axios";
-import { Manager } from "socket.io-client";
-import Cookies from "js-cookie";
+import React, { createContext, useEffect, useState } from 'react';
+import { AxiosInstance } from 'axios';
+import { Manager } from 'socket.io-client';
+import Cookies from 'js-cookie';
 
-import { links } from "@safira/config/links";
-import { IUser } from "@safira/interfaces/User";
-import { decode } from "@safira/utils/crypto";
-import { useHTMLHead } from "@safira/hooks/useHTMLHead";
-import { useRender } from "@safira/hooks/useRender";
-import { INotificationProps, INotificationWrapper } from "@safira/interfaces/Notification";
-import { getNotifications, NotificationParamsType } from "@safira/services/notifier/notifications";
+import { links } from 'safira-app/config/links';
+import { IUser } from 'safira-app/interfaces/User';
+import { decode } from 'safira-app/utils/crypto';
+import { useHTMLHead } from 'safira-app/hooks/useHTMLHead';
+import { useRender } from 'safira-app/hooks/useRender';
+import { INotificationProps, INotificationWrapper } from 'safira-app/interfaces/Notification';
+import { getNotifications, NotificationParamsType } from 'safira-app/services/notifier/notifications';
 
-import { NotificationUseCase } from "@safira/usecases/NotificationUseCase";
+import { NotificationUseCase } from 'safira-app/usecases/NotificationUseCase';
 
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
@@ -45,7 +45,7 @@ const defaultParams: NotificationParamsType = {
 };
 
 const manager = new Manager(links.api.notification);
-const socket = manager.socket("/");
+const socket = manager.socket('/');
 
 export const NotificationSocketContext = createContext<NotificationContextProps>({} as any);
 
@@ -113,11 +113,11 @@ const NotificationSocketProvider: React.FC<React.PropsWithChildren<NotificationS
   }
 
   function createSocketConnection() {
-    uniqueCall("create-notification-socket-connection", () => {
-      const decodedToken = decode(Cookies.get("authToken") || "");
+    uniqueCall('create-notification-socket-connection', () => {
+      const decodedToken = decode(Cookies.get('authToken') || '');
 
       socket.io.open();
-      socket.emit("join room", user?.id, decodedToken);
+      socket.emit('join room', user?.id, decodedToken);
     });
   }
 
@@ -145,7 +145,7 @@ const NotificationSocketProvider: React.FC<React.PropsWithChildren<NotificationS
   // on notification load
   useEffect(() => {
     if (notifications.length && !dropdownOpened) {
-      uniqueCall("notification-load", () => {
+      uniqueCall('notification-load', () => {
         notificationUseCase.executeBrowserTab();
       });
     }
@@ -153,7 +153,7 @@ const NotificationSocketProvider: React.FC<React.PropsWithChildren<NotificationS
 
   // on page load
   useEffect(() => {
-    uniqueCall("on-first-load", () => {
+    uniqueCall('on-first-load', () => {
       updateNotifications(defaultParams);
       notificationUseCase.requestPermission();
     });

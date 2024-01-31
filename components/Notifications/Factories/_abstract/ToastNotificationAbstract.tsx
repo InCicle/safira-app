@@ -1,18 +1,18 @@
-import React from "react";
-import { Stack, Typography, Box, Theme, SxProps } from "@mui/material";
+import React from 'react';
+import { Stack, Typography, Box, Theme, SxProps } from '@mui/material';
 
-import RenderAvatar from "@safira/components/RenderAvatar";
-import incicleModules from "@safira/components/InHeader/utils/incicleModules";
-import { NotificationEvent } from "@safira/providers/NotificationEvent";
-import { INotificationProps } from "@safira/interfaces/Notification";
+import RenderAvatar from 'safira-app/components/RenderAvatar';
+import incicleModules from 'safira-app/components/InHeader/utils/incicleModules';
+import { NotificationEvent } from 'safira-app/providers/NotificationEvent';
+import { INotificationProps } from 'safira-app/interfaces/Notification';
 
 // TimeAgo
-import moment from "moment";
-import TimeAgo from "@safira/libs/timeago";
+import moment from 'moment';
+import TimeAgo from 'safira-app/libs/timeago';
 
 TimeAgo.defaultProps = {
-  format: "pt-BR",
-  timeStyle: "mini",
+  format: 'pt-BR',
+  timeStyle: 'mini',
 };
 
 export const preventRedirect = (e: any) => {
@@ -21,23 +21,23 @@ export const preventRedirect = (e: any) => {
 
 export const NotificationContainer: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
   function handleOpenDropdown() {
-    NotificationEvent.emit("open_dropdown");
+    NotificationEvent.emit('open_dropdown');
   }
 
   return (
     <Box
       onClick={handleOpenDropdown}
       sx={{
-        maxWidth: "200px",
-        margin: "0 auto",
-        whiteSpace: "normal",
-        paddingTop: "10px",
-        paddingBottom: "10px",
-        backgroundColor: "initial",
+        maxWidth: '200px',
+        margin: '0 auto',
+        whiteSpace: 'normal',
+        paddingTop: '10px',
+        paddingBottom: '10px',
+        backgroundColor: 'initial',
       }}
     >
-      <Stack direction="row" style={{ width: "100%" }} alignItems="center">
-        <Stack direction="column" spacing={1} style={{ width: "100%", marginRight: "10px" }}>
+      <Stack direction="row" style={{ width: '100%' }} alignItems="center">
+        <Stack direction="column" spacing={1} style={{ width: '100%', marginRight: '10px' }}>
           {children}
         </Stack>
       </Stack>
@@ -47,26 +47,26 @@ export const NotificationContainer: React.FC<React.PropsWithChildren<unknown>> =
 
 export const NotificationImageBox: React.FC<{ notification: INotificationProps }> = ({ notification }) => {
   return (
-    <Box sx={{ position: "relative" }}>
+    <Box sx={{ position: 'relative' }}>
       <RenderAvatar src={notification.sender.avatar_url} />
 
       {!!notification.module && (
         <Box
           sx={{
-            position: "absolute",
-            bottom: "-4px",
-            left: "-4px",
-            width: "16px",
-            height: "16px",
-            border: "1px solid #00568b",
-            backgroundColor: "#fff",
-            borderRadius: "50%",
+            position: 'absolute',
+            bottom: '-4px',
+            left: '-4px',
+            width: '16px',
+            height: '16px',
+            border: '1px solid #00568b',
+            backgroundColor: '#fff',
+            borderRadius: '50%',
           }}
         >
           <img
             src={incicleModules.find(incicleModule => incicleModule.slug === notification.module)?.icon}
             alt={notification.module}
-            style={{ width: "100%", height: "auto" }}
+            style={{ width: '100%', height: 'auto' }}
           />
         </Box>
       )}
@@ -78,13 +78,13 @@ export const NotificationContentText: React.FC<React.PropsWithChildren<unknown>>
   return (
     <Typography
       sx={{
-        lineHeight: "15px",
-        fontSize: "13px !important",
-        width: "100%",
-        overflowWrap: "anywhere",
-        marginRight: "10px",
-        label: { fontSize: "13px" },
-        "*": { cursor: "pointer" },
+        lineHeight: '15px',
+        fontSize: '13px !important',
+        width: '100%',
+        overflowWrap: 'anywhere',
+        marginRight: '10px',
+        label: { fontSize: '13px' },
+        '*': { cursor: 'pointer' },
       }}
     >
       {children}
@@ -97,9 +97,9 @@ export const NotificationHighlight: React.FC<React.PropsWithChildren<{ sx?: SxPr
     <Typography
       component="label"
       sx={{
-        lineHeight: "15px",
-        color: "#00558E",
-        fontSize: "13px",
+        lineHeight: '15px',
+        color: '#00558E',
+        fontSize: '13px',
         ...sx,
       }}
     >
@@ -108,7 +108,7 @@ export const NotificationHighlight: React.FC<React.PropsWithChildren<{ sx?: SxPr
   );
 };
 
-export const reduceString = (value = "", length: number) => {
+export const reduceString = (value = '', length: number) => {
   /**
    * This function is used to add '...' on strings.
    *
@@ -132,5 +132,5 @@ export const dateFormat = (date: string | Date, format: string) => {
    *
    * return: formated date as string
    */
-  return moment(date).locale("pt-br").format(format);
+  return moment(date).locale('pt-br').format(format);
 };

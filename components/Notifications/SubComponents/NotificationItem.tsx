@@ -1,8 +1,8 @@
-import React, { useMemo } from "react";
+import React, { useMemo } from 'react';
 
-import { INotificationProps } from "@safira/interfaces/Notification";
+import { INotificationProps } from 'safira-app/interfaces/Notification';
 
-import { NotificationDTO } from "../DTO/NotificationDTO";
+import { NotificationDTO } from '../DTO/NotificationDTO';
 
 interface Props {
   data: INotificationProps;

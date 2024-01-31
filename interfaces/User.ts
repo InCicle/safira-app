@@ -28,7 +28,7 @@ export interface ICompanies {
 export interface IUser {
   config: {
     auth2f: boolean;
-    default_interface: "LIGHT" | "DARK";
+    default_interface: 'LIGHT' | 'DARK';
     default_language: string;
     default_timezone: string;
     layout_name: string;
@@ -37,6 +37,6 @@ export interface IUser {
   profile_id: string;
   email: string;
   id: string;
-  type: "COMPANY" | "PERSON";
+  type: 'COMPANY' | 'PERSON';
   username: string;
 }

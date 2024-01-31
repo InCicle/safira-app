@@ -1,5 +1,5 @@
-import { AxiosInstance } from "axios";
-import { links } from "@safira/config/links";
+import { AxiosInstance } from 'axios';
+import { links } from 'safira-app/config/links';
 
 export const getNotifications = (api: AxiosInstance, { page = 1, perPage = 10, params = {} }: any) => {
   const response = api.get(`${links.api.notification}/notifications/me?page=${page}&size=${perPage}`, {

@@ -1,19 +1,19 @@
-import { INotificationProps } from "@safira/interfaces/Notification";
+import { INotificationProps } from 'safira-app/interfaces/Notification';
 
 const notificationType = {
-  CYCLE_END: "CYCLE_END",
-  OBJECTIVE_END: "OBJECTIVE_END",
-  KEY_RESULT_END: "KEY_RESULT_END",
-  ADDED_ON_ACTION: "ADDED_ON_ACTION",
-  ADDED_ON_OBJECTIVE: "ADDED_ON_OBJECTIVE",
-  ADDED_ON_KEY_RESULT: "ADDED_ON_KEY_RESULT",
-  CYCLE_LATE: "CYCLE_LATE",
-  OBJECTIVE_LATE: "OBJECTIVE_LATE",
-  KEY_RESULT_LATE: "KEY_RESULT_LATE",
-  ACTION_LATE: "ACTION_LATE",
-  REMOVED_FROM_OBJECTIVE: "REMOVED_FROM_OBJECTIVE",
-  REMOVED_FROM_KEY_RESULT: "REMOVED_FROM_KEY_RESULT",
-  REMOVED_FROM_ACTION: "REMOVED_FROM_ACTION",
+  CYCLE_END: 'CYCLE_END',
+  OBJECTIVE_END: 'OBJECTIVE_END',
+  KEY_RESULT_END: 'KEY_RESULT_END',
+  ADDED_ON_ACTION: 'ADDED_ON_ACTION',
+  ADDED_ON_OBJECTIVE: 'ADDED_ON_OBJECTIVE',
+  ADDED_ON_KEY_RESULT: 'ADDED_ON_KEY_RESULT',
+  CYCLE_LATE: 'CYCLE_LATE',
+  OBJECTIVE_LATE: 'OBJECTIVE_LATE',
+  KEY_RESULT_LATE: 'KEY_RESULT_LATE',
+  ACTION_LATE: 'ACTION_LATE',
+  REMOVED_FROM_OBJECTIVE: 'REMOVED_FROM_OBJECTIVE',
+  REMOVED_FROM_KEY_RESULT: 'REMOVED_FROM_KEY_RESULT',
+  REMOVED_FROM_ACTION: 'REMOVED_FROM_ACTION',
 };
 
 export function createOKRBrowserNotificationFactory(notification: INotificationProps) {
@@ -60,6 +60,6 @@ export function createOKRBrowserNotificationFactory(notification: INotificationP
       return `Você foi removido(a) da ação "${common?.title}".`;
 
     default:
-      return "";
+      return '';
   }
 }

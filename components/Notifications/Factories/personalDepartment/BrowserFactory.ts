@@ -1,20 +1,20 @@
-import { INotificationProps } from "@safira/interfaces/Notification";
-import { reduceString } from "@safira/utils/reduceString";
+import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { reduceString } from 'safira-app/utils/reduceString';
 
 const notificationType = {
-  HIRING_PENDING: "HIRING_PENDING",
-  HIRING_UPDATED: "HIRING_UPDATED",
-  HIRING_APPROVED: "HIRING_APPROVED",
-  HIRING_CANCELED: "HIRING_CANCELED",
-  HIRING_CANCELED_BY_CANDIDATE: "HIRING_CANCELED_BY_CANDIDATE",
-  HIRING_ACCEPTED_BY_CANDIDATE: "HIRING_ACCEPTED_BY_CANDIDATE",
-  HIRING_PENDING_DEADLINE: "HIRING_PENDING_DEADLINE",
-  NEW_HIRING: "NEW_HIRING",
-  DOCUMENT_REJECTED: "DOCUMENT_REJECTED",
-  FREE_NOTIFICATION: "FREE_NOTIFICATION",
-  NEW_DOCUMENT: "NEW_DOCUMENT",
-  CANCELED_SOLICITATION_DOCUMENT: "CANCELED_SOLICITATION_DOCUMENT",
-  NEW_SOLICITATION_DOCUMENT: "NEW_SOLICITATION_DOCUMENT",
+  HIRING_PENDING: 'HIRING_PENDING',
+  HIRING_UPDATED: 'HIRING_UPDATED',
+  HIRING_APPROVED: 'HIRING_APPROVED',
+  HIRING_CANCELED: 'HIRING_CANCELED',
+  HIRING_CANCELED_BY_CANDIDATE: 'HIRING_CANCELED_BY_CANDIDATE',
+  HIRING_ACCEPTED_BY_CANDIDATE: 'HIRING_ACCEPTED_BY_CANDIDATE',
+  HIRING_PENDING_DEADLINE: 'HIRING_PENDING_DEADLINE',
+  NEW_HIRING: 'NEW_HIRING',
+  DOCUMENT_REJECTED: 'DOCUMENT_REJECTED',
+  FREE_NOTIFICATION: 'FREE_NOTIFICATION',
+  NEW_DOCUMENT: 'NEW_DOCUMENT',
+  CANCELED_SOLICITATION_DOCUMENT: 'CANCELED_SOLICITATION_DOCUMENT',
+  NEW_SOLICITATION_DOCUMENT: 'NEW_SOLICITATION_DOCUMENT',
 };
 
 export function createPersonalDepartmentBrowserNotificationFactory(notification: INotificationProps) {
@@ -64,6 +64,6 @@ export function createPersonalDepartmentBrowserNotificationFactory(notification:
       return `${sender.name} te solicitou um novo documento referente à sua contratação`;
 
     default:
-      return "";
+      return '';
   }
 }

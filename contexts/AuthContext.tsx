@@ -1,10 +1,10 @@
-import React, { createContext, useCallback, useState, useEffect } from "react";
-import Cookies from "js-cookie";
-import { encode, decode } from "@safira/utils/crypto";
-import { IUser } from "@safira/interfaces/User";
-import jwtDecode from "jwt-decode";
-import axios from "axios";
-import { links } from "@safira/config/links";
+import React, { createContext, useCallback, useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
+import { encode, decode } from 'safira-app/utils/crypto';
+import { IUser } from 'safira-app/interfaces/User';
+import jwtDecode from 'jwt-decode';
+import axios from 'axios';
+import { links } from 'safira-app/config/links';
 
 export interface VerifyTokenData {
   email: string;
@@ -26,26 +26,26 @@ export interface AuthContextData {
 
 export const domainName = (() => {
   const { hostname } = window.location;
-  const isDevelopmentDomain = hostname.includes("stage");
+  const isDevelopmentDomain = hostname.includes('stage');
   const jumpNumber = isDevelopmentDomain ? -3 : -2;
-  const domain = hostname.split(".").slice(jumpNumber).join(".");
+  const domain = hostname.split('.').slice(jumpNumber).join('.');
 
   return domain;
 })();
 
 const removeAuthCookies = () => {
-  Cookies.remove("authToken", { domain: domainName });
+  Cookies.remove('authToken', { domain: domainName });
 
-  Cookies.remove("expiresIn", { domain: domainName });
+  Cookies.remove('expiresIn', { domain: domainName });
 
-  Cookies.remove("user", { domain: domainName });
+  Cookies.remove('user', { domain: domainName });
 
-  Cookies.remove("companySelected", { domain: domainName });
+  Cookies.remove('companySelected', { domain: domainName });
 };
 
 const redirectToCore = () => {
   const rule = /[h][t]{2}[p]s?[:][\/]{2}/; // eslint-disable-line
-  const urlToRedirect = `${window.location.href.replace(rule, "")}`;
+  const urlToRedirect = `${window.location.href.replace(rule, '')}`;
 
   window.location.href = `${links.web.core}/?redirect_to=${urlToRedirect}`;
 };
@@ -54,9 +54,9 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
-    const encodedToken = Cookies.get("authToken");
-    const encodedExpiresIn = Cookies.get("expiresIn");
-    const encodedUser = Cookies.get("user");
+    const encodedToken = Cookies.get('authToken');
+    const encodedExpiresIn = Cookies.get('expiresIn');
+    const encodedUser = Cookies.get('user');
 
     try {
       const token = encodedToken && decode(encodedToken);
@@ -77,14 +77,14 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
 
   function signOut() {
     removeAuthCookies();
-    window.localStorage.removeItem("avatar");
+    window.localStorage.removeItem('avatar');
 
     redirectToCore();
   }
 
   const updateUser = useCallback(
     (user: IUser) => {
-      Cookies.set("user", encode(JSON.stringify(user)));
+      Cookies.set('user', encode(JSON.stringify(user)));
       setData(prevState => ({
         ...prevState,
         user,
@@ -95,7 +95,7 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
 
   const doRefreshToken = useCallback(async () => {
     try {
-      const currentRefreshToken = Cookies.get("refreshToken");
+      const currentRefreshToken = Cookies.get('refreshToken');
 
       if (!currentRefreshToken) return null;
 
@@ -103,11 +103,11 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
         refresh_token: decode(currentRefreshToken),
       });
 
-      Cookies.set("authToken", encode(response.token), {
+      Cookies.set('authToken', encode(response.token), {
         domain: domainName,
       });
 
-      Cookies.set("refreshToken", encode(response.refreshToken), {
+      Cookies.set('refreshToken', encode(response.refreshToken), {
         domain: domainName,
       });
 
@@ -120,11 +120,11 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
   }, []);
 
   const refreshToken = useCallback(() => {
-    let token = Cookies.get("authToken");
+    let token = Cookies.get('authToken');
     if (token) {
       token = decode(token);
       axios({
-        url: "/refresh",
+        url: '/refresh',
         baseURL: `${links.api.core}/auth`,
         headers: {
           authorization: `Bearer ${token}`,
@@ -135,13 +135,13 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
           const jwt: any = jwtDecode(access_token);
           const user = JSON.stringify(jwt.user);
 
-          Cookies.set("authToken", encode(access_token), {
+          Cookies.set('authToken', encode(access_token), {
             domain: domainName,
           });
-          Cookies.set("expiresIn", encode(expires_in.toString()), {
+          Cookies.set('expiresIn', encode(expires_in.toString()), {
             domain: domainName,
           });
-          Cookies.set("user", encode(user), {
+          Cookies.set('user', encode(user), {
             domain: domainName,
           });
         })
@@ -152,7 +152,7 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
   }, []); // eslint-disable-line
 
   const tokenTimeout = () => {
-    const expiresIn = Cookies.get("expiresIn");
+    const expiresIn = Cookies.get('expiresIn');
 
     if (expiresIn) {
       let decodedTime = Number(decode(expiresIn));
@@ -161,7 +161,7 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
         refreshToken();
       } else {
         const newTime = decodedTime - 1;
-        Cookies.set("expiresIn", encode(newTime.toString()), {
+        Cookies.set('expiresIn', encode(newTime.toString()), {
           domain: domainName,
         });
       }
@@ -211,7 +211,7 @@ async function validateToken(verifyTokenData: VerifyTokenData): Promise<boolean>
 
 function getSignedUser(): IUser | false {
   try {
-    const encodedUser = Cookies.get("user");
+    const encodedUser = Cookies.get('user');
     const user = encodedUser && decode(encodedUser);
 
     if (user) {

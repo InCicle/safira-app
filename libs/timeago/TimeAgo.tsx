@@ -1,7 +1,7 @@
-import React, { useLayoutEffect, useMemo } from "react";
-import { timeAgoUseCase } from "./useCases/timeAgoUseCase";
-import { TimeAgoData } from "./types";
-import { generateId } from "../generateId";
+import React, { useLayoutEffect, useMemo } from 'react';
+import { timeAgoUseCase } from './useCases/timeAgoUseCase';
+import { TimeAgoData } from './types';
+import { generateId } from '../generateId';
 
 type TimeAgoProps = TimeAgoData & React.HTMLAttributes<HTMLSpanElement>;
 

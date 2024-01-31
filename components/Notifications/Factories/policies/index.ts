@@ -1,8 +1,8 @@
-import PoliciesDropdownNotificationFactory from "./DropdownFactory";
+import PoliciesDropdownNotificationFactory from './DropdownFactory';
 
-import PoliciesToastNotificationFactory from "./ToastFactory";
+import PoliciesToastNotificationFactory from './ToastFactory';
 
-import { createPoliciesBrowserNotificationFactory } from "./BrowserFactory";
+import { createPoliciesBrowserNotificationFactory } from './BrowserFactory';
 
 export {
   PoliciesDropdownNotificationFactory,

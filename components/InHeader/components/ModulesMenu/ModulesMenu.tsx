@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useImperativeHandle, useState } from 'react';
 import { Box, Divider, IconButton, Menu, Stack, Typography, useTheme } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { useHeaderProvider } from 'app/contexts/HeaderContext';
+import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
 import {
   incicleCollaboratorsModules,
   incicleManagerModule,
   incicleModules,
-} from 'app/components/InHeader/data/modules';
+} from 'safira-app/components/InHeader/data/modules';
 import { usePermissions } from 'contexts/Permissions';
 import ModuleMenuItem from './ModuleMenuItem';
 import { ProfileContext } from 'contexts/ProfileContext';

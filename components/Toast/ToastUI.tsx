@@ -1,15 +1,15 @@
-import React, { useMemo } from "react";
-import { FC, useEffect } from "react";
-import { createPortal } from "react-dom";
+import React, { useMemo } from 'react';
+import { FC, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ToastUI: FC = () => {
   const toastContainer = useMemo<HTMLDivElement>(() => {
-    const element = document.createElement("div");
+    const element = document.createElement('div');
 
-    element.setAttribute("id", "toast-root");
+    element.setAttribute('id', 'toast-root');
 
     return element;
   }, []);

@@ -1,73 +1,73 @@
-import React from "react";
+import React from 'react';
 
-import { NotificationEvent } from "@safira/providers/NotificationEvent";
-import { INotificationProps, MODULE_TYPES } from "@safira/interfaces/Notification";
+import { NotificationEvent } from 'safira-app/providers/NotificationEvent';
+import { INotificationProps, MODULE_TYPES } from 'safira-app/interfaces/Notification';
 
 import {
   SocialNetworkDropdownNotificationFactory,
   SocialNetworkToastNotificationFactory,
   createSocialNetworkBrowserNotificationFactory,
-} from "./socialNetwork";
+} from './socialNetwork';
 
 import {
   FeedbackDropdownNotificationFactory,
   FeedbackToastNotificationFactory,
   createFeedbackBrowserFactory,
-} from "./feedback";
+} from './feedback';
 
 import {
   ScheduleDropdownNotificationFactory,
   ScheduleToastNotificationFactory,
   createScheduleBrowserNotificationFactory,
-} from "./schedule";
+} from './schedule';
 
 import {
   ProjectsDropdownNotificationFactory,
   ProjectsToastNotificationFactory,
   createProjectsBrowserNotificationFactory,
-} from "./projects";
+} from './projects';
 
 import {
   EndomarketingDropdownNotificationFactory,
   EndomarketingToastNotificationFactory,
   createEndomarketingBrowserNotificationFactory,
-} from "./endomarketing";
+} from './endomarketing';
 
 import {
   EvaluationDropdownNotificationFactory,
   EvaluationToastNotificationFactory,
   createEvaluationBrowserNotificationFactory,
-} from "./evaluation";
+} from './evaluation';
 
 import {
   OrganizationalEngineeringDropdownNotificationFactory,
   OrganizationalEngineeringToastNotificationFactory,
   createOrganizationalEngineeringBrowserNotificationFactory,
-} from "./organizationalEngineering";
+} from './organizationalEngineering';
 
 import {
   PersonalDepartmentDropdownNotificationFactory,
   PersonalDepartmentToastNotificationFactory,
   createPersonalDepartmentBrowserNotificationFactory,
-} from "./personalDepartment";
+} from './personalDepartment';
 
 import {
   GroupDropdownNotificationFactory,
   GroupToastNotificationFactory,
   createGroupBrowserNotificationFactory,
-} from "./group";
+} from './group';
 
 import {
   PoliciesDropdownNotificationFactory,
   PoliciesToastNotificationFactory,
   createPoliciesBrowserNotificationFactory,
-} from "./policies";
+} from './policies';
 
 import {
   OKRDropdownNotificationFactory,
   OKRToastNotificationFactory,
   createOKRBrowserNotificationFactory,
-} from "./okr";
+} from './okr';
 
 export function createDropdownNotification(item: INotificationProps) {
   switch (item.module) {
@@ -120,11 +120,11 @@ export function createToastNotification(item: INotificationProps) {
       return <FeedbackToastNotificationFactory notificationItem={item} />;
 
     case MODULE_TYPES.schedule:
-      NotificationEvent.emit("update_schedule_module");
+      NotificationEvent.emit('update_schedule_module');
       return <ScheduleToastNotificationFactory notificationItem={item} />;
 
     case MODULE_TYPES.project:
-      NotificationEvent.emit("update_projects_module");
+      NotificationEvent.emit('update_projects_module');
       return <ProjectsToastNotificationFactory notificationItem={item} />;
 
     case MODULE_TYPES.endomarketing:
@@ -137,7 +137,7 @@ export function createToastNotification(item: INotificationProps) {
       return <OrganizationalEngineeringToastNotificationFactory notificationItem={item} />;
 
     case MODULE_TYPES.personal_department:
-      NotificationEvent.emit("update_personal_department_module");
+      NotificationEvent.emit('update_personal_department_module');
       return <PersonalDepartmentToastNotificationFactory notificationItem={item} />;
 
     case MODULE_TYPES.group:
@@ -165,11 +165,11 @@ export function createBrowserNotification(item: INotificationProps) {
       return createFeedbackBrowserFactory(item);
 
     case MODULE_TYPES.schedule:
-      NotificationEvent.emit("update_schedule_module");
+      NotificationEvent.emit('update_schedule_module');
       return createScheduleBrowserNotificationFactory(item);
 
     case MODULE_TYPES.project:
-      NotificationEvent.emit("update_projects_module");
+      NotificationEvent.emit('update_projects_module');
       return createProjectsBrowserNotificationFactory(item);
 
     case MODULE_TYPES.endomarketing:
@@ -182,7 +182,7 @@ export function createBrowserNotification(item: INotificationProps) {
       return createOrganizationalEngineeringBrowserNotificationFactory(item);
 
     case MODULE_TYPES.personal_department:
-      NotificationEvent.emit("update_personal_department_module");
+      NotificationEvent.emit('update_personal_department_module');
       return createPersonalDepartmentBrowserNotificationFactory(item);
 
     case MODULE_TYPES.group:

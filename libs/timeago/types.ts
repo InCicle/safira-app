@@ -1,6 +1,6 @@
-export type Format = "pt-BR";
+export type Format = 'pt-BR';
 
-export type TimeStyle = "mini" | "full";
+export type TimeStyle = 'mini' | 'full';
 
 export type TimeAgoData = {
   date: string | Date;

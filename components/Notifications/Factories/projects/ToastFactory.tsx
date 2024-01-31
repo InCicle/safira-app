@@ -1,38 +1,38 @@
-import React from "react";
+import React from 'react';
 
-import { INotificationProps } from "@safira/interfaces/Notification";
+import { INotificationProps } from 'safira-app/interfaces/Notification';
 
 import {
   NotificationContainer,
   NotificationContentText,
   NotificationHighlight,
-} from "../_abstract/ToastNotificationAbstract";
+} from '../_abstract/ToastNotificationAbstract';
 
 interface Props {
   notificationItem: INotificationProps;
 }
 
 const notificationType = {
-  ADDED_IN_ACTIVITY: "ADDED_IN_ACTIVITY",
-  ADDED_IN_PROJECT: "ADDED_IN_PROJECT",
-  REMOVED_FROM_PROJECT: "REMOVED_FROM_PROJECT",
-  ACTIVITY_EXPIRATION: "ACTIVITY_EXPIRATION",
-  COMPLETED_ACTIVITY: "COMPLETED_ACTIVITY",
-  ACTIVITY_COMMENT_QUOTE: "ACTIVITY_COMMENT_QUOTE",
-  ACTIVITY_LATE: "ACTIVITY_LATE",
-  ADDED_IN_WORKSPACE: "ADDED_IN_WORKSPACE",
-  ADDED_ADMIN_IN_WORKSPACE: "ADDED_ADMIN_IN_WORKSPACE",
-  REMOVED_ADMIN_FROM_WORKSPACE: "REMOVED_ADMIN_FROM_WORKSPACE",
-  REMOVED_FROM_WORKSPACE: "REMOVED_FROM_WORKSPACE",
+  ADDED_IN_ACTIVITY: 'ADDED_IN_ACTIVITY',
+  ADDED_IN_PROJECT: 'ADDED_IN_PROJECT',
+  REMOVED_FROM_PROJECT: 'REMOVED_FROM_PROJECT',
+  ACTIVITY_EXPIRATION: 'ACTIVITY_EXPIRATION',
+  COMPLETED_ACTIVITY: 'COMPLETED_ACTIVITY',
+  ACTIVITY_COMMENT_QUOTE: 'ACTIVITY_COMMENT_QUOTE',
+  ACTIVITY_LATE: 'ACTIVITY_LATE',
+  ADDED_IN_WORKSPACE: 'ADDED_IN_WORKSPACE',
+  ADDED_ADMIN_IN_WORKSPACE: 'ADDED_ADMIN_IN_WORKSPACE',
+  REMOVED_ADMIN_FROM_WORKSPACE: 'REMOVED_ADMIN_FROM_WORKSPACE',
+  REMOVED_FROM_WORKSPACE: 'REMOVED_FROM_WORKSPACE',
 };
 
 const messageGroup = {
-  ONE_WEEK: "1 semana",
-  ONE_DAY: "1 dia",
-  TWO_HOURS: "2 horas",
-  ONE_HOUR: "1 hora",
-  THIRTY_MINUTES: "30 minutos",
-  FIFTEEN_MINUTES: "15 minutos",
+  ONE_WEEK: '1 semana',
+  ONE_DAY: '1 dia',
+  TWO_HOURS: '2 horas',
+  ONE_HOUR: '1 hora',
+  THIRTY_MINUTES: '30 minutos',
+  FIFTEEN_MINUTES: '15 minutos',
 };
 
 const ProjectsToastNotificationFactory: React.FC<React.PropsWithChildren<Props>> = ({ notificationItem }) => {
@@ -44,8 +44,8 @@ const ProjectsToastNotificationFactory: React.FC<React.PropsWithChildren<Props>>
         return (
           <NotificationContainer>
             <NotificationContentText>
-              <NotificationHighlight>{notificationItem.sender.name}</NotificationHighlight> adicionou você na atividade{" "}
-              <NotificationHighlight>"{notificationItem.common.title_activity}"</NotificationHighlight> no projeto{" "}
+              <NotificationHighlight>{notificationItem.sender.name}</NotificationHighlight> adicionou você na atividade{' '}
+              <NotificationHighlight>"{notificationItem.common.title_activity}"</NotificationHighlight> no projeto{' '}
               <NotificationHighlight>"{notificationItem.common.title_project}"</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
@@ -56,7 +56,7 @@ const ProjectsToastNotificationFactory: React.FC<React.PropsWithChildren<Props>>
           <NotificationContainer>
             <NotificationContentText>
               <label>
-                <NotificationHighlight>{notificationItem.sender.name}</NotificationHighlight> te adicionou no projeto{" "}
+                <NotificationHighlight>{notificationItem.sender.name}</NotificationHighlight> te adicionou no projeto{' '}
                 <NotificationHighlight>"{notificationItem.common.title_project}"</NotificationHighlight>.
               </label>
             </NotificationContentText>
@@ -79,7 +79,7 @@ const ProjectsToastNotificationFactory: React.FC<React.PropsWithChildren<Props>>
           <NotificationContainer>
             <NotificationContentText>
               <label>
-                Você foi removido(a) do projeto{" "}
+                Você foi removido(a) do projeto{' '}
                 <NotificationHighlight>{notificationItem.common.title_project}</NotificationHighlight>.
               </label>
             </NotificationContentText>
@@ -109,7 +109,7 @@ const ProjectsToastNotificationFactory: React.FC<React.PropsWithChildren<Props>>
             <NotificationContentText>
               A atividade <NotificationHighlight>"{notificationItem.common?.title_activity}"</NotificationHighlight> do
               projeto <NotificationHighlight>"{notificationItem.common?.title_project}"</NotificationHighlight> está
-              <NotificationHighlight sx={{ color: "#df4c4c" }}>atrasada</NotificationHighlight>
+              <NotificationHighlight sx={{ color: '#df4c4c' }}>atrasada</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
         );
@@ -135,7 +135,7 @@ const ProjectsToastNotificationFactory: React.FC<React.PropsWithChildren<Props>>
         return (
           <NotificationContainer>
             <NotificationContentText>
-              Você foi removido da área de trabalho{" "}
+              Você foi removido da área de trabalho{' '}
               <NotificationHighlight>"{common?.title_workspace}"</NotificationHighlight>.
             </NotificationContentText>
           </NotificationContainer>
@@ -144,7 +144,7 @@ const ProjectsToastNotificationFactory: React.FC<React.PropsWithChildren<Props>>
         return (
           <NotificationContainer>
             <NotificationContentText>
-              Você não é mais administrador da área de trabalho{" "}
+              Você não é mais administrador da área de trabalho{' '}
               <NotificationHighlight>"{common?.title_workspace}"</NotificationHighlight>.
             </NotificationContentText>
           </NotificationContainer>

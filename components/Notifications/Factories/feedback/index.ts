@@ -1,7 +1,7 @@
-import FeedbackDropdownNotificationFactory from "./DropdownFactory";
+import FeedbackDropdownNotificationFactory from './DropdownFactory';
 
-import FeedbackToastNotificationFactory from "./ToastFactory";
+import FeedbackToastNotificationFactory from './ToastFactory';
 
-import { createFeedbackBrowserFactory } from "./BrowserFactory";
+import { createFeedbackBrowserFactory } from './BrowserFactory';
 
 export { FeedbackDropdownNotificationFactory, FeedbackToastNotificationFactory, createFeedbackBrowserFactory };

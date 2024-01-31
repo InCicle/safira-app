@@ -1,22 +1,22 @@
-import { INotificationProps } from "@safira/interfaces/Notification";
-import moment from "moment";
+import { INotificationProps } from 'safira-app/interfaces/Notification';
+import moment from 'moment';
 
 const notificationType = {
-  NEW_EVENT_SCHEDULE_INVITATION: "NEW_EVENT_SCHEDULE_INVITATION",
-  NEW_TASK_INVITATION: "NEW_TASK_INVITATION",
-  EVENT_INVITATION_ANSWER: "EVENT_INVITATION_ANSWER",
-  EVENT_QUIT: "EVENT_QUIT",
-  EVENT_CANCELED: "EVENT_CANCELED",
-  EVENT_UPDATE: "EVENT_UPDATE",
-  TASK_INVITE_STATUS: "TASK_INVITE_STATUS",
-  TASK_STATUS_UPDATE: "TASK_STATUS_UPDATE",
-  UPCOMING_EVENT: "UPCOMING_EVENT",
-  ADDED_SCHEDULE: "ADDED_SCHEDULE",
-  NEW_EVENT: "NEW_EVENT",
-  TASK_UPDATE: "TASK_UPDATE",
-  TASK_REOPENED: "TASK_REOPENED",
-  TASK_LATE_OWNER: "TASK_LATE_OWNER",
-  TASK_LATE: "TASK_LATE",
+  NEW_EVENT_SCHEDULE_INVITATION: 'NEW_EVENT_SCHEDULE_INVITATION',
+  NEW_TASK_INVITATION: 'NEW_TASK_INVITATION',
+  EVENT_INVITATION_ANSWER: 'EVENT_INVITATION_ANSWER',
+  EVENT_QUIT: 'EVENT_QUIT',
+  EVENT_CANCELED: 'EVENT_CANCELED',
+  EVENT_UPDATE: 'EVENT_UPDATE',
+  TASK_INVITE_STATUS: 'TASK_INVITE_STATUS',
+  TASK_STATUS_UPDATE: 'TASK_STATUS_UPDATE',
+  UPCOMING_EVENT: 'UPCOMING_EVENT',
+  ADDED_SCHEDULE: 'ADDED_SCHEDULE',
+  NEW_EVENT: 'NEW_EVENT',
+  TASK_UPDATE: 'TASK_UPDATE',
+  TASK_REOPENED: 'TASK_REOPENED',
+  TASK_LATE_OWNER: 'TASK_LATE_OWNER',
+  TASK_LATE: 'TASK_LATE',
 };
 
 export function createScheduleBrowserNotificationFactory(notification: INotificationProps) {
@@ -24,43 +24,43 @@ export function createScheduleBrowserNotificationFactory(notification: INotifica
 
   function returnAlertTime(alertValue: string) {
     switch (alertValue) {
-      case "FIFTEEN_MINUTES":
-        return "15 minutos";
-      case "THIRTY_MINUTES":
-        return "30 minutos";
-      case "ONE_HOUR":
-        return "1 hora";
-      case "TWO_HOURS":
-        return "2 horas";
-      case "ONE_DAY":
-        return "1 dia";
-      case "ONE_WEEK":
-        return "1 semana";
+      case 'FIFTEEN_MINUTES':
+        return '15 minutos';
+      case 'THIRTY_MINUTES':
+        return '30 minutos';
+      case 'ONE_HOUR':
+        return '1 hora';
+      case 'TWO_HOURS':
+        return '2 horas';
+      case 'ONE_DAY':
+        return '1 dia';
+      case 'ONE_WEEK':
+        return '1 semana';
       default:
-        return "";
+        return '';
     }
   }
 
-  function returnEventUpdate(type: "date" | "local" | "hour" | "other") {
+  function returnEventUpdate(type: 'date' | 'local' | 'hour' | 'other') {
     switch (type) {
-      case "date":
-        return `a data do evento ${common.event_name} de ${moment(common.from).format("DD/MM/YYYY")} para ${moment(
+      case 'date':
+        return `a data do evento ${common.event_name} de ${moment(common.from).format('DD/MM/YYYY')} para ${moment(
           common.to,
-        ).format("DD/MM/YYYY")}`;
+        ).format('DD/MM/YYYY')}`;
 
-      case "local":
+      case 'local':
         return `o local do evento ${common.event_name} de ${common.from} para ${common.to}`;
 
-      case "hour":
-        return `o horário do evento de ${moment(common.from).format("DD/MM/YYYY")} às ${moment(common.from).format(
-          "HH:mm",
-        )} para às ${moment(common.to).format("HH:mm")}`;
+      case 'hour':
+        return `o horário do evento de ${moment(common.from).format('DD/MM/YYYY')} às ${moment(common.from).format(
+          'HH:mm',
+        )} para às ${moment(common.to).format('HH:mm')}`;
 
-      case "other":
+      case 'other':
         return `o evento "${common.event_name}"`;
 
       default:
-        return "";
+        return '';
     }
   }
 
@@ -68,19 +68,19 @@ export function createScheduleBrowserNotificationFactory(notification: INotifica
     case notificationType.NEW_EVENT_SCHEDULE_INVITATION:
       return `${sender.name} convidou você para o evento "${common.event_name}" que acontecerá no dia ${moment(
         common.date,
-      ).format("DD/MM/YYYY")} ${!notification.common.whole_day ? `às ${moment(common.date).format("HH:mm")}` : ""}.`;
+      ).format('DD/MM/YYYY')} ${!notification.common.whole_day ? `às ${moment(common.date).format('HH:mm')}` : ''}.`;
 
     case notificationType.NEW_TASK_INVITATION:
       return `${sender.name} delegou a tarefa "${common.task_title}" ${
         common.date_hour
-          ? `com vencimento em ${moment(common.date_hour).format("DD/MM/YYYY")} às ${moment(common.date_hour).format(
-              "HH:mm",
+          ? `com vencimento em ${moment(common.date_hour).format('DD/MM/YYYY')} às ${moment(common.date_hour).format(
+              'HH:mm',
             )}`
-          : "para você"
+          : 'para você'
       }.`;
 
     case notificationType.EVENT_INVITATION_ANSWER:
-      return `${sender.name} ${common.accepted ? "aceitou" : "recusou"} seu convite para o evento "${
+      return `${sender.name} ${common.accepted ? 'aceitou' : 'recusou'} seu convite para o evento "${
         common.event_name
       }"`;
 
@@ -97,8 +97,8 @@ export function createScheduleBrowserNotificationFactory(notification: INotifica
       return `O evento "${common.event_name}" acontecerá em ${returnAlertTime(common.event_deadline)}.`;
 
     case notificationType.TASK_INVITE_STATUS:
-      return `${sender.name} ${common.task_invite_status === "accepted" ? "aceitou" : ""} ${
-        common.task_invite_status === "refused" ? "recusou" : ""
+      return `${sender.name} ${common.task_invite_status === 'accepted' ? 'aceitou' : ''} ${
+        common.task_invite_status === 'refused' ? 'recusou' : ''
       } a tarefa "${common.task_title}" delegada por você.`;
 
     case notificationType.TASK_STATUS_UPDATE:
@@ -123,6 +123,6 @@ export function createScheduleBrowserNotificationFactory(notification: INotifica
       return `A tarefa "${common.task_title}" delegada por ${sender.name} está com status atrasada`;
 
     default:
-      return "";
+      return '';
   }
 }

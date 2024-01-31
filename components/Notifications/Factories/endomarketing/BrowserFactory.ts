@@ -1,8 +1,8 @@
-import { INotificationProps } from "@safira/interfaces/Notification";
-import { reduceString } from "@safira/utils/reduceString";
+import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { reduceString } from 'safira-app/utils/reduceString';
 
 const notificationType = {
-  ENDOMARKETING_COMMUNICATION: "ENDOMARKETING_COMMUNICATION",
+  ENDOMARKETING_COMMUNICATION: 'ENDOMARKETING_COMMUNICATION',
 };
 
 export function createEndomarketingBrowserNotificationFactory(notification: INotificationProps) {
@@ -11,6 +11,6 @@ export function createEndomarketingBrowserNotificationFactory(notification: INot
       return `Comunicado "${reduceString(notification.common.content, 100)}"`;
 
     default:
-      return "";
+      return '';
   }
 }

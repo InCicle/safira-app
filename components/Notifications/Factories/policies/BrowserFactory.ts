@@ -1,8 +1,8 @@
-import { INotificationProps } from "@safira/interfaces/Notification";
+import { INotificationProps } from 'safira-app/interfaces/Notification';
 
 const notificationType = {
-  NEW_POLICY: "NEW_POLICY",
-  POLICY_REVIEW: "POLICY_REVIEW",
+  NEW_POLICY: 'NEW_POLICY',
+  POLICY_REVIEW: 'POLICY_REVIEW',
 };
 
 export function createPoliciesBrowserNotificationFactory(notification: INotificationProps) {
@@ -16,6 +16,6 @@ export function createPoliciesBrowserNotificationFactory(notification: INotifica
       return `A empresa ${sender.name} publicou uma nova revisão de política`;
 
     default:
-      return "";
+      return '';
   }
 }

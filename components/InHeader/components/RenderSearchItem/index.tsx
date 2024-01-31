@@ -1,7 +1,7 @@
-import React from "react";
-import { SearchItemInterface } from "@safira/interfaces/Search";
-import RenderAvatar from "@safira/components/RenderAvatar";
-import { links } from "@safira/config/links";
+import React from 'react';
+import { SearchItemInterface } from 'safira-app/interfaces/Search';
+import RenderAvatar from 'safira-app/components/RenderAvatar';
+import { links } from 'safira-app/config/links';
 
 interface Props {
   item: SearchItemInterface;
@@ -13,9 +13,9 @@ const RenderSearchItem: React.FC<React.PropsWithChildren<Props>> = ({ liProps, i
     /**
      * This function is used to know the link to set on anchor item.
      */
-    if (item.type === "PERSON" || item.type === "COMPANY") {
+    if (item.type === 'PERSON' || item.type === 'COMPANY') {
       return `${links.web?.social}/p/${item.username}`;
-    } else if (item.type === "GROUP") {
+    } else if (item.type === 'GROUP') {
       return `${links.web?.social}/group/${item.profile_id}/home`;
     }
   };
@@ -25,31 +25,31 @@ const RenderSearchItem: React.FC<React.PropsWithChildren<Props>> = ({ liProps, i
       <a
         href={linkRedirect()}
         style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          textDecoration: "none",
-          color: "#747474",
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          textDecoration: 'none',
+          color: '#747474',
         }}
       >
         <RenderAvatar src={item.avatar} />
         <div
           style={{
-            marginLeft: "5px",
-            display: "flex",
-            flexDirection: "column",
+            marginLeft: '5px',
+            display: 'flex',
+            flexDirection: 'column',
           }}
         >
           <span
             style={{
-              fontSize: "14px",
-              textTransform: "capitalize",
+              fontSize: '14px',
+              textTransform: 'capitalize',
             }}
           >
             {item.name}
           </span>
-          {item.type === "COMPANY" && <span style={{ fontSize: "11px", marginTop: "-2px" }}>Perfil de empresa</span>}
-          {item.type === "GROUP" && <span style={{ fontSize: "11px", marginTop: "-2px" }}>Grupo</span>}
+          {item.type === 'COMPANY' && <span style={{ fontSize: '11px', marginTop: '-2px' }}>Perfil de empresa</span>}
+          {item.type === 'GROUP' && <span style={{ fontSize: '11px', marginTop: '-2px' }}>Grupo</span>}
         </div>
       </a>
     </li>

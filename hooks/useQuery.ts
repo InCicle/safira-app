@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState } from 'react';
 
 export function useQuery() {
   const [forceState, setForceState] = useState(0);
@@ -9,9 +9,9 @@ export function useQuery() {
 
   function removeParam(key: string) {
     const regex = new RegExp(`${key}=.+?(?=&|$)`);
-    const url = window.location.href.replace(regex, "").replace(/&&/, "&").replace(/(\?&)/g, "?").replace(/&$/, "");
+    const url = window.location.href.replace(regex, '').replace(/&&/, '&').replace(/(\?&)/g, '?').replace(/&$/, '');
 
-    window.history.pushState("", "", url);
+    window.history.pushState('', '', url);
   }
 
   const handler = useMemo(() => {
@@ -21,7 +21,7 @@ export function useQuery() {
         return urlSearchParams.get(queryName);
       },
       delete(params: string | string[]) {
-        if (typeof params === "string") {
+        if (typeof params === 'string') {
           removeParam(params);
           return;
         }

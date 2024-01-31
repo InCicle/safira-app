@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { v4 as uuid } from "uuid";
-import { ListItemIcon, Menu, MenuItem, Stack } from "@mui/material";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import React, { useState } from 'react';
+import { v4 as uuid } from 'uuid';
+import { ListItemIcon, Menu, MenuItem, Stack } from '@mui/material';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-import { getNotifications } from "@safira/services/notifier/notifications";
-import { useNotifications } from "@safira/hooks/useNotifications";
-import { useHeaderProvider } from "@safira/contexts/HeaderContext";
+import { getNotifications } from 'safira-app/services/notifier/notifications';
+import { useNotifications } from 'safira-app/hooks/useNotifications';
+import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
 
-import incicleModules from "../../InHeader/utils/incicleModules";
-import { NotificationFilterOptions } from "../enums";
-import { ButtonNotification } from "../style";
-import { NotificationFiltersType } from "../types";
+import incicleModules from '../../InHeader/utils/incicleModules';
+import { NotificationFilterOptions } from '../enums';
+import { ButtonNotification } from '../style';
+import { NotificationFiltersType } from '../types';
 
 type AnchorButton = EventTarget & HTMLButtonElement;
 
@@ -80,7 +80,7 @@ const IncicleModulesDropdown: React.FC<IncicleModulesProps> = props => {
         direction="row"
         justifyContent="space-between"
         alignItems="center"
-        sx={{ padding: "0 15px", margin: "10px 0 20px" }}
+        sx={{ padding: '0 15px', margin: '10px 0 20px' }}
       >
         <Stack direction="row" spacing={1}>
           <ButtonNotification
@@ -102,9 +102,9 @@ const IncicleModulesDropdown: React.FC<IncicleModulesProps> = props => {
           <ArrowDropDownIcon
             fontSize="small"
             style={{
-              transition: "transform 500ms ease",
-              transform: open ? "rotate(180deg)" : "rotate(0)",
-              marginLeft: "5px",
+              transition: 'transform 500ms ease',
+              transform: open ? 'rotate(180deg)' : 'rotate(0)',
+              marginLeft: '5px',
             }}
           />
         </ButtonNotification>
@@ -116,21 +116,21 @@ const IncicleModulesDropdown: React.FC<IncicleModulesProps> = props => {
         onClose={handleCloseDropdown}
         PaperProps={{
           elevation: 0,
-          sx: { boxShadow: "0 0px 8px 1px rgba(0, 0, 0, 0.1)" },
+          sx: { boxShadow: '0 0px 8px 1px rgba(0, 0, 0, 0.1)' },
         }}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         {incicleModules.map(module => {
-          if (module.linkKey === "disabled") {
+          if (module.linkKey === 'disabled') {
             return <React.Fragment key={uuid()}></React.Fragment>;
           }
-          if (module.userType === "BOTH" || user.type === module.userType) {
+          if (module.userType === 'BOTH' || user.type === module.userType) {
             return (
               <MenuItem
                 key={uuid()}
                 onClick={handleSetNotificationsModuleFilter(module.slug)}
-                sx={{ fontSize: "14px" }}
+                sx={{ fontSize: '14px' }}
                 value={module.slug}
               >
                 <ListItemIcon>

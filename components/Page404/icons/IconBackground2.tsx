@@ -1,6 +1,6 @@
-import React from "react";
-import { FunctionComponent } from "react";
-import { Box, BoxProps } from "@mui/material";
+import React from 'react';
+import { FunctionComponent } from 'react';
+import { Box, BoxProps } from '@mui/material';
 
 const IconBackground2: FunctionComponent<React.PropsWithChildren<BoxProps>> = props => (
   <Box {...props}>

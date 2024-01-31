@@ -1,26 +1,26 @@
-import { INotificationProps } from "@safira/interfaces/Notification";
+import { INotificationProps } from 'safira-app/interfaces/Notification';
 
 const notificationType = {
-  ADDED_IN_ACTIVITY: "ADDED_IN_ACTIVITY",
-  ADDED_IN_PROJECT: "ADDED_IN_PROJECT",
-  REMOVED_FROM_PROJECT: "REMOVED_FROM_PROJECT",
-  ACTIVITY_EXPIRATION: "ACTIVITY_EXPIRATION",
-  COMPLETED_ACTIVITY: "COMPLETED_ACTIVITY",
-  ACTIVITY_COMMENT_QUOTE: "ACTIVITY_COMMENT_QUOTE",
-  ACTIVITY_LATE: "ACTIVITY_LATE",
-  ADDED_IN_WORKSPACE: "ADDED_IN_WORKSPACE",
-  ADDED_ADMIN_IN_WORKSPACE: "ADDED_ADMIN_IN_WORKSPACE",
-  REMOVED_ADMIN_FROM_WORKSPACE: "REMOVED_ADMIN_FROM_WORKSPACE",
-  REMOVED_FROM_WORKSPACE: "REMOVED_FROM_WORKSPACE",
+  ADDED_IN_ACTIVITY: 'ADDED_IN_ACTIVITY',
+  ADDED_IN_PROJECT: 'ADDED_IN_PROJECT',
+  REMOVED_FROM_PROJECT: 'REMOVED_FROM_PROJECT',
+  ACTIVITY_EXPIRATION: 'ACTIVITY_EXPIRATION',
+  COMPLETED_ACTIVITY: 'COMPLETED_ACTIVITY',
+  ACTIVITY_COMMENT_QUOTE: 'ACTIVITY_COMMENT_QUOTE',
+  ACTIVITY_LATE: 'ACTIVITY_LATE',
+  ADDED_IN_WORKSPACE: 'ADDED_IN_WORKSPACE',
+  ADDED_ADMIN_IN_WORKSPACE: 'ADDED_ADMIN_IN_WORKSPACE',
+  REMOVED_ADMIN_FROM_WORKSPACE: 'REMOVED_ADMIN_FROM_WORKSPACE',
+  REMOVED_FROM_WORKSPACE: 'REMOVED_FROM_WORKSPACE',
 };
 
 const messageGroup = {
-  ONE_WEEK: "1 semana",
-  ONE_DAY: "1 dia",
-  TWO_HOURS: "2 horas",
-  ONE_HOUR: "1 hora",
-  THIRTY_MINUTES: "30 minutos",
-  FIFTEEN_MINUTES: "15 minutos",
+  ONE_WEEK: '1 semana',
+  ONE_DAY: '1 dia',
+  TWO_HOURS: '2 horas',
+  ONE_HOUR: '1 hora',
+  THIRTY_MINUTES: '30 minutos',
+  FIFTEEN_MINUTES: '15 minutos',
 };
 
 export function createProjectsBrowserNotificationFactory(notification: INotificationProps) {
@@ -61,6 +61,6 @@ export function createProjectsBrowserNotificationFactory(notification: INotifica
       return `Você não é mais administrador da área de trabalho "${common?.title_workspace}"`;
 
     default:
-      return "";
+      return '';
   }
 }

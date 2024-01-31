@@ -1,5 +1,5 @@
-import { Controller, Format, TimeStyle } from "../types";
-import { options } from "./data";
+import { Controller, Format, TimeStyle } from '../types';
+import { options } from './data';
 
 type TimeAgoUseCaseProps = {
   format: Format;
@@ -9,8 +9,8 @@ type TimeAgoUseCaseProps = {
 
 export function timeAgoUseCase({ date, format, timeStyle }: Partial<TimeAgoUseCaseProps>) {
   const controller: Controller = {
-    format: "pt-BR",
-    timeStyle: "full",
+    format: 'pt-BR',
+    timeStyle: 'full',
     initialDate: new Date(),
     timerInterval: null,
     count: {
@@ -23,8 +23,8 @@ export function timeAgoUseCase({ date, format, timeStyle }: Partial<TimeAgoUseCa
     onCountChange: null,
   };
 
-  controller.format = format || "pt-BR";
-  controller.timeStyle = timeStyle || "mini";
+  controller.format = format || 'pt-BR';
+  controller.timeStyle = timeStyle || 'mini';
   controller.initialDate = date ? new Date(date) : new Date();
 
   const Timer = {
@@ -54,11 +54,11 @@ export function timeAgoUseCase({ date, format, timeStyle }: Partial<TimeAgoUseCa
       Timer.handleTimeAgoMessage();
     },
     handleTimeAgoMessage() {
-      let message = "";
+      let message = '';
 
       const { count } = controller;
-      const order = ["months", "days", "hours", "minutes", "seconds"];
-      const keysToStopTimeout = ["months", "days", "hours"];
+      const order = ['months', 'days', 'hours', 'minutes', 'seconds'];
+      const keysToStopTimeout = ['months', 'days', 'hours'];
       const arrAcounter = order.map(timeUnit => [timeUnit, count[timeUnit]]);
 
       for (let [key, value] of arrAcounter) {
@@ -78,31 +78,31 @@ export function timeAgoUseCase({ date, format, timeStyle }: Partial<TimeAgoUseCa
     },
     getMessage(keyName: string, value: number) {
       const { format, timeStyle } = controller;
-      const replacer = (msg: string) => msg.replace("[n]", String(value));
+      const replacer = (msg: string) => msg.replace('[n]', String(value));
 
       switch (keyName) {
-        case "months":
+        case 'months':
           if (value > 1) return replacer(options[format].months.more.full!);
           return replacer(options[format].months.one.full!);
 
-        case "days":
+        case 'days':
           if (value > 1) return replacer(options[format].days.more[timeStyle]!);
           return replacer(options[format].days.one[timeStyle]!);
 
-        case "hours":
+        case 'hours':
           if (value > 1) return replacer(options[format].hours.more[timeStyle]!);
           return replacer(options[format].hours.one[timeStyle]!);
 
-        case "minutes":
+        case 'minutes':
           if (value > 1) return replacer(options[format].minutes.more[timeStyle]!);
           return replacer(options[format].minutes.one[timeStyle]!);
 
-        case "seconds":
+        case 'seconds':
           if (value > 1) return replacer(options[format].seconds.more[timeStyle]!);
           return replacer(options[format].seconds.one[timeStyle]!);
 
         default:
-          return "";
+          return '';
       }
     },
   };

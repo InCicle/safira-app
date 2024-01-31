@@ -1,10 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
-import { AxiosInstance } from "axios";
-import { links } from "@safira/config/links";
-import { INotificationProps } from "@safira/interfaces/Notification";
-import { IUser } from "@safira/interfaces/User";
-import { MeProps } from "@safira/interfaces/Me";
+import { AxiosInstance } from 'axios';
+import { links } from 'safira-app/config/links';
+import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { IUser } from 'safira-app/interfaces/User';
+import { MeProps } from 'safira-app/interfaces/Me';
 
 export type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 

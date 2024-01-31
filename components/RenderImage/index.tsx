@@ -1,16 +1,16 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { getS3Object, BucketType } from "@safira/services/aws/s3";
-import { GetObjectRequest } from "aws-sdk/clients/s3";
+import React, { useCallback, useEffect, useState } from 'react';
+import { getS3Object, BucketType } from 'safira-app/services/aws/s3';
+import { GetObjectRequest } from 'aws-sdk/clients/s3';
 
 export interface ImgProps extends React.HTMLAttributes<HTMLImageElement> {
   src: string;
   alt?: string;
   bucket: BucketType;
-  options?: Omit<GetObjectRequest, "Bucket" | "Key">;
+  options?: Omit<GetObjectRequest, 'Bucket' | 'Key'>;
 }
 
 const RenderImage: React.FC<ImgProps> = ({ src, alt, style, bucket, options, ...rest }) => {
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState('');
 
   const fetcher = useCallback(async () => {
     try {
@@ -19,7 +19,7 @@ const RenderImage: React.FC<ImgProps> = ({ src, alt, style, bucket, options, ...
         return imageUrl.base64;
       }
     } catch (err) {
-      return "";
+      return '';
     }
   }, [src, bucket]);
 
@@ -31,7 +31,7 @@ const RenderImage: React.FC<ImgProps> = ({ src, alt, style, bucket, options, ...
     }
   }, [fetcher, src]);
 
-  return <img style={{ width: "100%", height: "100%", ...style }} alt={alt} src={url} {...rest} />;
+  return <img style={{ width: '100%', height: '100%', ...style }} alt={alt} src={url} {...rest} />;
 };
 
 export default RenderImage;

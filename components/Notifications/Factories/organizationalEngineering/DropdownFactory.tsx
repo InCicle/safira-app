@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { Typography } from "@mui/material";
+import React, { useEffect, useState } from 'react';
+import { Typography } from '@mui/material';
 
-import NotificationModal from "@safira/components/Notifications/Modals/NotificationModal/NotificationModal";
-import { INotificationProps } from "@safira/interfaces/Notification";
-import { links } from "@safira/config/links";
+import NotificationModal from 'safira-app/components/Notifications/Modals/NotificationModal/NotificationModal';
+import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { links } from 'safira-app/config/links';
 
 import {
   NotificationContainer,
   NotificationContentText,
   NotificationHighlight,
-} from "../_abstract/NotificationAbstract";
+} from '../_abstract/NotificationAbstract';
 
 interface IProps {
   notificationItem: INotificationProps;
 }
 
 const notificationType = {
-  EMPLOYEE_LINK_REQUEST: "EMPLOYEE_LINK_REQUEST",
-  EMPLOYEE_LINK_ANSWER: "EMPLOYEE_LINK_ANSWER",
-  EMPLOYEE_UNLINK: "EMPLOYEE_UNLINK",
-  EMPLOYEE_LINK_CANCELED: "EMPLOYEE_LINK_CANCELED",
-  CORPORATE_FEEDBACK: "CORPORATE_FEEDBACK",
+  EMPLOYEE_LINK_REQUEST: 'EMPLOYEE_LINK_REQUEST',
+  EMPLOYEE_LINK_ANSWER: 'EMPLOYEE_LINK_ANSWER',
+  EMPLOYEE_UNLINK: 'EMPLOYEE_UNLINK',
+  EMPLOYEE_LINK_CANCELED: 'EMPLOYEE_LINK_CANCELED',
+  CORPORATE_FEEDBACK: 'CORPORATE_FEEDBACK',
 };
 
 const OrganizationalEngineeringDropdownNotificationFactory: React.FC<React.PropsWithChildren<IProps>> = ({
@@ -29,13 +29,13 @@ const OrganizationalEngineeringDropdownNotificationFactory: React.FC<React.Props
   // @ts-ignore
   const [notification] = useState(notificationItem);
 
-  function invitationStatus(slug: "accepted" | "refused" | "pending") {
-    if (slug === "accepted") {
-      return <small style={{ marginTop: 0, display: "block" }}>Você aceitou a vinculação</small>;
-    } else if (slug === "refused") {
-      return <small style={{ marginTop: 0, display: "block" }}>Você recusou a vinculação</small>;
-    } else if (slug === "pending") {
-      return <NotificationHighlight sx={{ display: "block" }}>Clique para aceitar</NotificationHighlight>;
+  function invitationStatus(slug: 'accepted' | 'refused' | 'pending') {
+    if (slug === 'accepted') {
+      return <small style={{ marginTop: 0, display: 'block' }}>Você aceitou a vinculação</small>;
+    } else if (slug === 'refused') {
+      return <small style={{ marginTop: 0, display: 'block' }}>Você recusou a vinculação</small>;
+    } else if (slug === 'pending') {
+      return <NotificationHighlight sx={{ display: 'block' }}>Clique para aceitar</NotificationHighlight>;
     } else {
       return <></>;
     }
@@ -61,8 +61,8 @@ const OrganizationalEngineeringDropdownNotificationFactory: React.FC<React.Props
         return (
           <NotificationContainer url={`${links.web.social}/employees`} notification={notificationItem}>
             <NotificationContentText notification={notification}>
-              <NotificationHighlight>{notification?.sender?.name}</NotificationHighlight>{" "}
-              {notification?.common?.content === "ACCEPTED" ? "aceitou" : "recusou"} o convite de vinculação
+              <NotificationHighlight>{notification?.sender?.name}</NotificationHighlight>{' '}
+              {notification?.common?.content === 'ACCEPTED' ? 'aceitou' : 'recusou'} o convite de vinculação
             </NotificationContentText>
           </NotificationContainer>
         );
@@ -91,8 +91,8 @@ const OrganizationalEngineeringDropdownNotificationFactory: React.FC<React.Props
             }
             content={
               <Typography fontSize="14px">
-                O convite de vinculação profissional na InCicle enviado pela{" "}
-                <NotificationHighlight sx={{ fontSize: "16px" }}>{notification.sender.name}</NotificationHighlight> foi
+                O convite de vinculação profissional na InCicle enviado pela{' '}
+                <NotificationHighlight sx={{ fontSize: '16px' }}>{notification.sender.name}</NotificationHighlight> foi
                 cancelado pela própria empresa. Favor desconsiderar o convite enviado anteriormente.
               </Typography>
             }
