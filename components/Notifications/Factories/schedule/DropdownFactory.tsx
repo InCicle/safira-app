@@ -28,6 +28,7 @@ const notificationType = {
   TASK_REOPENED: 'TASK_REOPENED',
   TASK_LATE_OWNER: 'TASK_LATE_OWNER',
   TASK_LATE: 'TASK_LATE',
+  TASK_SUPERVISOR: 'TASK_SUPERVISOR',
 };
 
 // @ts-ignore
@@ -334,6 +335,19 @@ const ScheduleDropdownNotificationFactory: React.FC<React.PropsWithChildren<IPro
               A tarefa <NotificationHighlight>"{notification.common.task_title}"</NotificationHighlight> delegada por{' '}
               <NotificationHighlight>{notification.sender.name}</NotificationHighlight> está com status{' '}
               {returnTaskUpdate('atrasada')}
+            </NotificationContentText>
+          </NotificationContainer>
+        );
+
+      case notificationType.TASK_SUPERVISOR:
+        return (
+          <NotificationContainer
+            url={`${links.web.schedule}/taskmanager?task_id=${notification.common.task_id}`}
+            notification={notification}
+          >
+            <NotificationContentText notification={notification}>
+              <NotificationHighlight>{notification.sender.name}</NotificationHighlight> te adicionou como supervisor da
+              tarefa
             </NotificationContentText>
           </NotificationContainer>
         );

@@ -27,6 +27,7 @@ const notificationType = {
   TASK_REOPENED: 'TASK_REOPENED',
   TASK_LATE_OWNER: 'TASK_LATE_OWNER',
   TASK_LATE: 'TASK_LATE',
+  TASK_SUPERVISOR: 'TASK_SUPERVISOR',
 };
 
 // @ts-ignore
@@ -293,6 +294,16 @@ const ScheduleToastNotificationFactory: React.FC<React.PropsWithChildren<IProps>
               A tarefa <NotificationHighlight>{notification.common.task_title}</NotificationHighlight> delegada por{' '}
               <NotificationHighlight>{notification.sender.name}</NotificationHighlight> está com status{' '}
               {returnTaskUpdate('atrasada')}
+            </NotificationContentText>
+          </NotificationContainer>
+        );
+
+      case notificationType.TASK_SUPERVISOR:
+        return (
+          <NotificationContainer>
+            <NotificationContentText>
+              <NotificationHighlight>{notification.sender.name}</NotificationHighlight> te adicionou como supervisor da
+              tarefa
             </NotificationContentText>
           </NotificationContainer>
         );

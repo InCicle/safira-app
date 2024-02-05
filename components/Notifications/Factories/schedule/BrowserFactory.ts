@@ -17,6 +17,7 @@ const notificationType = {
   TASK_REOPENED: 'TASK_REOPENED',
   TASK_LATE_OWNER: 'TASK_LATE_OWNER',
   TASK_LATE: 'TASK_LATE',
+  TASK_SUPERVISOR: 'TASK_SUPERVISOR',
 };
 
 export function createScheduleBrowserNotificationFactory(notification: INotificationProps) {
@@ -121,6 +122,9 @@ export function createScheduleBrowserNotificationFactory(notification: INotifica
 
     case notificationType.TASK_LATE:
       return `A tarefa "${common.task_title}" delegada por ${sender.name} está com status atrasada`;
+
+    case notificationType.TASK_SUPERVISOR:
+      return `${sender.name} te adicionou como supervisor da tarefa`;
 
     default:
       return '';
