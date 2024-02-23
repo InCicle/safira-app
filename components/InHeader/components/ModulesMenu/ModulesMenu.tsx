@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useImperativeHandle, useState } from 'react';
+import React, { useImperativeHandle, useState } from 'react';
 import { Box, Divider, IconButton, Menu, Stack, Typography, useTheme } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
@@ -7,37 +7,27 @@ import {
   incicleManagerModule,
   incicleModules,
 } from 'safira-app/components/InHeader/data/modules';
-import { usePermissions } from 'contexts/Permissions';
 import ModuleMenuItem from './ModuleMenuItem';
-import { ProfileContext } from 'contexts/ProfileContext';
+import { usePermissions } from 'safira-app/contexts/Permissions';
 
 export type ModulesMenuRef = {
   openDropdown: (ev: any) => void;
   closeDropdown: (ev: any) => void;
 };
 
-type Props = {};
+type Props = {
+  activeManagerMenu: boolean;
+};
 
 const breakpointValue = 700;
 
 const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (props, ref) => {
   const { user } = useHeaderProvider();
   const { breakpoints } = useTheme();
-  const { me: profiles } = useContext(ProfileContext);
-  const { checkPermission, companyId } = usePermissions();
+  // const { me: profiles } = useContext(ProfileContext);
+  const { activeManagerMenu } = props;
+  const { checkPermission } = usePermissions();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-  const [activeManagerPanel, setActiveManagerPanel] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (user.type === 'COMPANY' || !profiles || !profiles.companies) return;
-
-    const selectedCompany = profiles.companies.find(company => company.id === companyId);
-    if (!selectedCompany) return;
-
-    if (!!selectedCompany.is_manager_competence || checkPermission(['managers_vacations_list'])) {
-      setActiveManagerPanel(true);
-    }
-  }, [profiles]);
 
   function openDropdown(ev: any) {
     setAnchorEl(ev.currentTarget);
@@ -146,7 +136,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
           ))}
       </Box>
 
-      {filteredCollaboratorsModules.length > 0 || activeManagerPanel ? (
+      {filteredCollaboratorsModules.length > 0 || activeManagerMenu ? (
         <>
           <Divider />
           <Box
@@ -187,7 +177,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
               <ModuleMenuItem key={index.toString()} module={moduleItem} />
             ))}
 
-            {activeManagerPanel ? <ModuleMenuItem module={incicleManagerModule} /> : null}
+            {activeManagerMenu ? <ModuleMenuItem module={incicleManagerModule} /> : null}
           </Box>
         </>
       ) : null}

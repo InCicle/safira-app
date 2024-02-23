@@ -26,6 +26,7 @@ import { HeaderInStyle } from './styles';
 import { ToastUI } from '../Toast';
 import { domainName } from 'safira-app/contexts/AuthContext';
 import RenderImage from '../RenderImage';
+import { usePermissions } from '../../contexts/Permissions';
 
 interface props {
   user: IUser;
@@ -48,12 +49,25 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
   const [accountType, setAccountType] = useState('');
   const [selectedCompany, setSelectedCompany] = useState<any>();
   const [inputBoxClassName, setInputBoxClassName] = useState('');
+  const [activeManagerMenu, setActiveManagerPanel] = useState(false);
 
   const [anchorCompanysEl, setAnchorCompanysEl] = React.useState(null);
   const openMenuCompanys = Boolean(anchorCompanysEl);
 
   const modulesMenuRef = useRef<ModulesMenuRef | null>(null);
   const profileMenuRef = useRef<ProfileMenuRef | null>(null);
+
+  const { companyId, checkPermission, permissionsList } = usePermissions();
+
+  useEffect(() => {
+    if (user.type === 'COMPANY' || !me || !me?.companies) return;
+    const companySelected = me.companies.find(company => company.id === companyId);
+    if (!companySelected) return;
+    if (!!companySelected.is_manager_competence || checkPermission(['managers_vacations_list'])) {
+      setActiveManagerPanel(true);
+    }
+
+  }, [permissionsList]);
 
   function getLogoUrl() {
     let isPublicUrl = true;
@@ -208,7 +222,8 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
           <ToastUI />
 
           {/* MENU DROPDOWN */}
-          <ModulesMenu ref={modulesMenuRef} />
+          <ModulesMenu ref={modulesMenuRef} activeManagerMenu={activeManagerMenu} />
+
           <ProfileMenu ref={profileMenuRef} />
 
           {/* COMPONENTS DESKTOP - COMPONENTS MOBILE */}
