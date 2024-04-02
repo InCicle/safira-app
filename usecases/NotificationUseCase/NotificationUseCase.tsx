@@ -181,35 +181,36 @@ export default class NotificationUseCase {
   async executeBrowserNotification(notification: INotificationProps) {
     // social network only
     if (this.checkIfNotAbleToNotify()) return;
-
+  
     try {
-      // @ts-ignore
-      const { default: Push } = await import('push.js');
-
-      if (!Push.Permission.has()) return;
-
+  
+      if (Notification.permission !== "granted") {
+        Notification.requestPermission();
+        return;
+      }
+  
       const notificationDTO = new NotificationDTO(notification);
       const notificationMessage = notificationDTO.toBrowserAPI();
       const { title } = incicleModules.find(item => item.slug === notification.module) || {};
-
-      Push.create(`${title || ''}`, {
+  
+      const notif = new Notification(`${title || ''}`, {
         icon: notificationLogoImg,
         body: notificationMessage || '',
-        timeout: 4000,
-        onClick() {
-          window.focus();
-
-          // @ts-ignore
-          this?.close();
-
-          NotificationEvent.emit('open_dropdown');
-        },
       });
-
+  
+      notif.onclick = function () {
+        window.focus();
+        notif.close();
+        NotificationEvent.emit('open_dropdown');
+      };
+  
+      setTimeout(notif.close.bind(notif), 4000);
+  
       new Audio(notificationSound).play();
-    } catch {}
+    } catch (error) {
+      console.error('Error executing browser notification:', error);
+    }
   }
-
   // dropdown ------------------------------------- // ------------------------------------------------------------ //
 
   handleOpenDropdown() {
