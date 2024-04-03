@@ -1,14 +1,14 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Avatar, SxProps, Theme } from "@mui/material";
-import { getS3Object, BucketType } from "safira-app/services/aws/s3";
+import React, { useCallback, useEffect, useState } from 'react';
+import { Avatar, SxProps, Theme } from '@mui/material';
+import { getS3Object, BucketType } from 'safira-app/services/aws/s3';
 
-import NoAvatar from "safira-app/assets/profileNotPhoto.svg";
+import NoAvatar from 'safira-app/assets/profileNotPhoto.svg';
 
 export interface RenderAvatarProps {
   src?: string;
   sx?: SxProps<Theme> | undefined;
   alt?: string;
-  variant?: "circular" | "square" | "rounded" | undefined;
+  variant?: 'circular' | 'square' | 'rounded' | undefined;
   component?: React.ElementType<any>;
   href?: string;
   bucket?: BucketType;
@@ -22,41 +22,35 @@ const RenderAvatar: React.FC<React.PropsWithChildren<RenderAvatarProps>> = ({
   sx,
   variant,
   component,
-  bucket = "incicle",
+  bucket = 'incicle',
   ...rest
 }) => {
-  const avatarUrl = useMemo(() => {
-    let windowOrigin = window.location.origin;
+  const [url, setUrl] = useState('');
 
-    return `${windowOrigin}/${src}`;
-  }, [src]);
+  const fetcher = useCallback(async () => {
+    try {
+      if (!src) return;
 
-  // const [url, setUrl] = useState("");
+      const { base64: image } = await getS3Object({ src, bucket });
+      return image;
+    } catch {
+      return '';
+    }
+  }, [src, bucket]);
 
-  // const fetcher = useCallback(async () => {
-  //   try {
-  //     if (!src) return;
+  useEffect(() => {
+    if (!src) return;
 
-  //     const { base64: image } = await getS3Object({ src, bucket });
-  //     return image;
-  //   } catch {
-  //     return "";
-  //   }
-  // }, [src, bucket]);
-
-  // useEffect(() => {
-  //   if (!src) return;
-
-  //   fetcher().then(data => setUrl(data!));
-  // }, [fetcher, src]);
+    fetcher().then(data => setUrl(data!));
+  }, [fetcher, src]);
 
   return (
     <Avatar
       variant={variant}
       alt={alt}
-      src={avatarUrl || NoAvatar}
+      src={url || NoAvatar}
       sx={sx}
-      component={component || "div"}
+      component={component || 'div'}
       href={href}
       {...rest}
     >
