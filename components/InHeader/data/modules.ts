@@ -156,7 +156,7 @@ export const incicleModules: InModulesType[] = [
     icon: 'https://static-incicle.s3.amazonaws.com/settings.svg',
     iconSize: 46,
     url: `${links.web.settings}`,
-    accountTypes: ['COMPANY', 'PERSON'],
+    accountTypes: ['COMPANY'],
     description: {
       COMPANY: 'Gerencie permissões e outras preferências.',
       PERSON: 'Gerencie as preferências da sua conta.',
@@ -214,6 +214,19 @@ export const incicleCollaboratorsModules: InModulesType[] = [
       PERSON: 'Acelere a comunicação na sua empresa.',
     },
     permission: 'full_endomarketing',
+  },
+  {
+    title: 'Admissão Digital',
+    slug: MODULE_TYPES.schedule,
+    icon: 'https://static-incicle.s3.amazonaws.com/departamento-pessoal.svg',
+    iconSize: 60,
+    url: `${links.web.personal_department}/dashboard`,
+    accountTypes: ['PERSON'],
+    description: {
+      COMPANY: null,
+      PERSON: 'Gerencie as contratações da empresa que você tem vínculo.',
+    },
+    permission: 'full_personal_department',
   },
 ];
 
