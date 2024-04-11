@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import api from "services/api";
 import { links } from "safira-app/config/links";
 import { useAuth } from "safira-app/hooks/useAuth";
-import { useProfileContext } from "contexts/ProfileContext";
+import { useSocialContext } from "~/SocialNetwork/context/SocialContext";
 
 export interface PermissionObject {
   id: string;
@@ -26,7 +26,7 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
   const [permissionsList, setPermissionsList] = useState<PermissionObject[]>([]);
   const [requestFinished, setRequestFinished] = useState(false);
   const [managerPermission, setManagerPermission] = useState<boolean>(false);
-  const { me } = useProfileContext();
+  const { me } = useSocialContext();
 
   const { user } = useAuth();
 
