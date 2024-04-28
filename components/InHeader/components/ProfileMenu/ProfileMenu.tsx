@@ -169,7 +169,7 @@ const ProfileMenu: React.ForwardRefRenderFunction<ProfileMenuRef> = (
         <Divider />
         <MenuItem>
           <CustomLink
-            href={`${links.web.social}/settings`}
+            href={links.web.settings}
             icon={<SettingsIcon fontSize="small" />}
           >
             Configurações
