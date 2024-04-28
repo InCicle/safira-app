@@ -63,7 +63,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
     if (user.type === 'COMPANY' || !me || !me?.companies) return;
     const companySelected = me.companies.find(company => company.id === companyId);
     if (!companySelected) return;
-    if (!!companySelected.is_manager_competence || checkPermission(['managers_vacations_list'])) {
+    if (!!companySelected.is_manager_competence || checkPermission(['managers_vacations_list']) || checkPermission(['managers_list_occurrences'])) {
       setActiveManagerPanel(true);
     }
 
