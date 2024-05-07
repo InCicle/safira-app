@@ -163,6 +163,18 @@ export const incicleMenuModules: MenuModulesType[] = [
     },
   },
   {
+    title: "InPonto",
+    slug: MODULE_TYPES.in_point,
+    icon: "https://static-incicle.s3.amazonaws.com/inPonto.svg",
+    iconSize: 46,
+    url: "https://inponto.incicle.com/",
+    accountTypes: ["COMPANY", "PERSON"],
+    description: {
+      COMPANY: "Controle onde e como você quiser.",
+      PERSON: "Controle onde e como você quiser.",
+    },
+  },
+  {
     title: "Ouvidoria",
     slug: MODULE_TYPES.ombudsman,
     icon: "https://static-incicle.s3.amazonaws.com/group-disabled.svg",
