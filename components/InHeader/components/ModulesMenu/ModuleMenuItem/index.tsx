@@ -1,10 +1,10 @@
 import { Box, Icon, IconButton, Stack, Tooltip, Typography, useTheme, Link as MUILink } from '@mui/material';
-import { InModulesType } from 'safira-app/components/InHeader/data/modules';
+import { MenuModulesType } from 'safira-app/utils/modules';
 import { useAuth } from 'safira-app/hooks/useAuth';
 import React from 'react';
 
 interface ModuleMenuItemProps {
-  module: InModulesType;
+  module: MenuModulesType;
 }
 
 const ModuleMenuItem: React.FC<ModuleMenuItemProps> = ({ module }) => {

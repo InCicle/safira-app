@@ -3,10 +3,10 @@ import { Box, Divider, IconButton, Menu, Stack, Typography, useTheme } from '@mu
 import CloseIcon from '@mui/icons-material/Close';
 import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
 import {
-  incicleCollaboratorsModules,
-  incicleManagerModule,
-  incicleModules,
-} from 'safira-app/components/InHeader/data/modules';
+  incicleMenuModules,
+  incicleCollaboratorsMenuModules,
+  incicleManagerMenuModules,
+} from 'safira-app/utils/modules';
 import ModuleMenuItem from './ModuleMenuItem';
 import { usePermissions } from 'safira-app/contexts/Permissions';
 
@@ -44,7 +44,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
     };
   });
 
-  const filteredCollaboratorsModules = incicleCollaboratorsModules
+  const filteredCollaboratorsModules = incicleCollaboratorsMenuModules
     .filter(item => item.accountTypes.includes(user.type))
     .filter(moduleItem => {
       if (!moduleItem.permission) return true;
@@ -125,7 +125,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
           },
         }}
       >
-        {incicleModules
+        {incicleMenuModules
           .filter(item => item.accountTypes.includes(user.type))
           .filter(moduleItem => {
             if (!moduleItem.permission) return true;
@@ -177,7 +177,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
               <ModuleMenuItem key={index.toString()} module={moduleItem} />
             ))}
 
-            {activeManagerMenu ? <ModuleMenuItem module={incicleManagerModule} /> : null}
+            {activeManagerMenu ? <ModuleMenuItem module={incicleManagerMenuModules} /> : null}
           </Box>
         </>
       ) : null}

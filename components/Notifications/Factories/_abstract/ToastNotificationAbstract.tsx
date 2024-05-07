@@ -2,7 +2,7 @@ import React from 'react';
 import { Stack, Typography, Box, Theme, SxProps } from '@mui/material';
 
 import RenderAvatar from 'safira-app/components/RenderAvatar';
-import incicleModules from 'safira-app/components/InHeader/utils/incicleModules';
+import { incicleNotificationModules } from "safira-app/utils/modules";
 import { NotificationEvent } from 'safira-app/providers/NotificationEvent';
 import { INotificationProps } from 'safira-app/interfaces/Notification';
 
@@ -64,7 +64,7 @@ export const NotificationImageBox: React.FC<{ notification: INotificationProps }
           }}
         >
           <img
-            src={incicleModules.find(incicleModule => incicleModule.slug === notification.module)?.icon}
+            src={incicleNotificationModules.find(incicleModule => incicleModule.slug === notification.module)?.icon}
             alt={notification.module}
             style={{ width: '100%', height: 'auto' }}
           />

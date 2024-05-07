@@ -15,6 +15,7 @@ export enum MODULE_TYPES {
   task_manager = 'task_manager',
   policy = 'policy',
   okr = 'okr',
+  in_point = 'in_point',
 }
 
 export interface INotificationCommon {
