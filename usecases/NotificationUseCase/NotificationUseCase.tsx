@@ -6,7 +6,7 @@ import { AxiosInstance } from 'axios';
 import notificationLogoImg from 'safira-app/assets/icons/incicle-favicon.png';
 import notificationSound from 'safira-app/assets/audios/incicle-notification.mp3';
 
-import { incicleModules } from 'safira-app/components/InHeader/data/modules';
+import { incicleMenuModules } from 'safira-app/utils/modules';
 import { INotificationProps } from 'safira-app/interfaces/Notification';
 import { FaviconOptionType } from 'safira-app/hooks/useHTMLHead';
 import { addToast } from 'safira-app/components/Toast';
@@ -191,7 +191,7 @@ export default class NotificationUseCase {
   
       const notificationDTO = new NotificationDTO(notification);
       const notificationMessage = notificationDTO.toBrowserAPI();
-      const { title } = incicleModules.find(item => item.slug === notification.module) || {};
+      const { title } = incicleMenuModules.find(item => item.slug === notification.module) || {};
   
       const notif = new Notification(`${title || ''}`, {
         icon: notificationLogoImg,

@@ -4,7 +4,7 @@ import CircleIcon from '@mui/icons-material/Circle';
 import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
 import { INotificationProps } from 'safira-app/interfaces/Notification';
 import RenderAvatar from 'safira-app/components/RenderAvatar';
-import incicleModules from 'safira-app/components/InHeader/utils/incicleModules';
+import { incicleNotificationModules } from "safira-app/utils/modules";
 
 // TimeAgo
 import moment from 'moment';
@@ -98,7 +98,7 @@ export const NotificationContainer: React.FC<React.PropsWithChildren<IProps>> = 
               }}
             >
               <img
-                src={incicleModules.find(incicleModule => incicleModule.slug === notification.module)?.icon}
+                src={incicleNotificationModules.find(incicleModule => incicleModule.slug === notification.module)?.icon}
                 alt={notification.module}
                 style={{ width: '100%', height: 'auto' }}
               />

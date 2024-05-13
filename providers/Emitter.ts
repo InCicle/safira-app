@@ -1,8 +1,8 @@
-import { IEmitter } from 'safira-app/types/emitter';
+import { IEmitter, IEmitterObj } from 'safira-app/types/emitter';
 import { hash } from 'safira-app/utils/hash';
 
 export function createEmitter<EventsType = any>() {
-  const Emitter: IEmitter<EventsType> = {
+  const Emitter: IEmitterObj<EventsType> = {
     events: null,
 
     addNewEventsInList(name, eventList) {
@@ -54,6 +54,19 @@ export function createEmitter<EventsType = any>() {
       arr.forEach(eventItem => eventItem.execute(args || ([] as any)));
     },
 
+    off: (eventName, eventItemName) => {
+      if (!eventItemName) {
+        delete Emitter.events![eventName];
+        return;
+      }
+
+      const event = Emitter.events![eventName];
+      // @ts-ignore
+      const newEventList: any = event.filter(eventItem => eventItem?.key !== eventItemName);
+
+      Emitter.events![eventName] = newEventList;
+    },
+
     remove: (eventName, eventItemName) => {
       if (!eventItemName) {
         delete Emitter.events![eventName];
@@ -68,5 +81,5 @@ export function createEmitter<EventsType = any>() {
     },
   };
 
-  return Emitter;
+  return Emitter as IEmitter<EventsType>;
 }

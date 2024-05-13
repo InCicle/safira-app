@@ -7,7 +7,7 @@ import { getNotifications } from 'safira-app/services/notifier/notifications';
 import { useNotifications } from 'safira-app/hooks/useNotifications';
 import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
 
-import incicleModules from '../../InHeader/utils/incicleModules';
+import { incicleNotificationModules } from "safira-app/utils/modules";
 import { NotificationFilterOptions } from '../enums';
 import { ButtonNotification } from '../style';
 import { NotificationFiltersType } from '../types';
@@ -98,7 +98,7 @@ const IncicleModulesDropdown: React.FC<IncicleModulesProps> = props => {
         </Stack>
 
         <ButtonNotification onClick={handleOpenDropdown}>
-          {incicleModules.find(module => module.slug === notificationFilters.module_filter)?.title}
+          {incicleNotificationModules.find(module => module.slug === notificationFilters.module_filter)?.title}
           <ArrowDropDownIcon
             fontSize="small"
             style={{
@@ -121,7 +121,7 @@ const IncicleModulesDropdown: React.FC<IncicleModulesProps> = props => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        {incicleModules.map(module => {
+        {incicleNotificationModules.map(module => {
           if (module.linkKey === 'disabled') {
             return <React.Fragment key={uuid()}></React.Fragment>;
           }
