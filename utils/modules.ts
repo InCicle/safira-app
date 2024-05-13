@@ -240,6 +240,19 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
     },
     permission: "full_personal_department",
   },
+  {
+    title: "Gestão por competência",
+    slug: MODULE_TYPES.evaluation360,
+    icon: "https://static-incicle.s3.amazonaws.com/avaliacao-por-competencia.svg",
+    iconSize: 60,
+    url: links.web.evaluation,
+    accountTypes: ["PERSON"],
+    description: {
+      COMPANY: "Avaliações e planos de desenvolvimento.",
+      PERSON: "Avaliações e planos de desenvolvimento.",
+    },
+    permission: "full_competency_management",
+  },
 ];
 
 export const incicleManagerMenuModules: MenuModulesType = {
