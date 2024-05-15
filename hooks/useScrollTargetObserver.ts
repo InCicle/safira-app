@@ -23,7 +23,7 @@ export type ScrollObserverOptions = {
   onLeave?(options: ObserverCallbackOptions): void;
 };
 
-export function useScrollTargetObserver(options: ScrollObserverOptions) {
+export function useScrollTargetObserver(options: ScrollObserverOptions, dependencies?: any[]) {
   const { rootElement, targetElement, threshold = 0.5, rootMargin, onEnter, onLeave, onScroll, checkScroll } = options;
 
   const rootElementResizeRef = useRef<{
@@ -78,5 +78,5 @@ export function useScrollTargetObserver(options: ScrollObserverOptions) {
       resizeObserver.unobserve(rootElement);
       rootElement.removeEventListener('scroll', handleScroll);
     };
-  }, [rootElement, targetElement, threshold, rootMargin]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [rootElement, targetElement, threshold, rootMargin, ...(dependencies || [])]); // eslint-disable-line react-hooks/exhaustive-deps
 }
