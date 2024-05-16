@@ -29,13 +29,13 @@ export function useScrollTargetObserver(cb: () => ScrollObserverOptions, depende
     delayMs: number;
   }>({
     timeout: null,
-    delayMs: 50,
+    delayMs: 500,
   });
 
   useEffect(() => {
     const { rootElement, targetElement, threshold = 0.5, rootMargin, onEnter, onLeave, onScroll, checkScroll } = cb();
 
-    if (!rootElement || !targetElement) return;
+    if (!rootElement) return;
 
     const handleScroll = (ev: Event) => {
       onScroll?.({ ev });
@@ -56,6 +56,15 @@ export function useScrollTargetObserver(cb: () => ScrollObserverOptions, depende
       }, rootElementResizeRef.current.delayMs);
     });
 
+    resizeObserver.observe(rootElement);
+
+    if (!targetElement) {
+      return () => {
+        resizeObserver.unobserve(rootElement);
+        rootElement.removeEventListener('scroll', handleScroll);
+      };
+    }
+
     const observer = new IntersectionObserver(
       entries => {
         const options: ObserverCallbackOptions = {
@@ -71,7 +80,6 @@ export function useScrollTargetObserver(cb: () => ScrollObserverOptions, depende
     );
 
     observer.observe(targetElement);
-    resizeObserver.observe(rootElement);
 
     return () => {
       observer.unobserve(targetElement);
