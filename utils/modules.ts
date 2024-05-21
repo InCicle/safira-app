@@ -96,9 +96,21 @@ export const incicleMenuModules: MenuModulesType[] = [
     icon: "https://static-incicle.s3.amazonaws.com/avaliacao-por-competencia.svg",
     iconSize: 60,
     url: links.web.evaluation,
-    accountTypes: ["COMPANY", "PERSON"],
+    accountTypes: ["COMPANY"],
     description: {
       COMPANY: "Avaliações e planos de desenvolvimento.",
+      PERSON: null,
+    },
+  },
+  {
+    title: "Gestão por competência",
+    slug: MODULE_TYPES.evaluation360,
+    icon: "https://static-incicle.s3.amazonaws.com/avaliacao-por-competencia.svg",
+    iconSize: 60,
+    url: links.web.evaluation + "/user_view",
+    accountTypes: ["PERSON"],
+    description: {
+      COMPANY: null,
       PERSON: "Avaliações e planos de desenvolvimento.",
     },
   },
