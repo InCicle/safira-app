@@ -76,7 +76,9 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
   });
 
   function signOut() {
-    window.location.href = links.web.core + '/?signout=true';
+    removeAuthCookies();
+    window.localStorage.removeItem('avatar');
+    redirectToCore();
   }
 
   const updateUser = useCallback(

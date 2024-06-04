@@ -53,6 +53,10 @@ const ProfileMenu: React.ForwardRefRenderFunction<ProfileMenuRef> = (
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [openTutorial, setOpenTutorial] = useState(false);
 
+  function handleSignOut() {
+    window.location.href = links.web.core + '/?signout=true';
+  }
+
   function openDropdown(ev: any) {
     setAnchorEl(ev.currentTarget);
   }
@@ -176,7 +180,7 @@ const ProfileMenu: React.ForwardRefRenderFunction<ProfileMenuRef> = (
           </CustomLink>
         </MenuItem>
         <MenuItem
-          onClick={() => signOut()}
+          onClick={() => handleSignOut()}
           sx={{ color: (theme) => theme.palette.grey[600] }}
         >
           <ListItemIcon>
