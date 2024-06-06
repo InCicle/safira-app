@@ -78,7 +78,6 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
   function signOut() {
     removeAuthCookies();
     window.localStorage.removeItem('avatar');
-
     redirectToCore();
   }
 
