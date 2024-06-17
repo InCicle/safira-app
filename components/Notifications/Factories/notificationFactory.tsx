@@ -2,6 +2,7 @@ import React from 'react';
 
 import { NotificationEvent } from 'safira-app/providers/NotificationEvent';
 import { INotificationProps, MODULE_TYPES } from 'safira-app/interfaces/Notification';
+import { formatNotificationContent } from './_abstract/NotificationAbstract';
 
 import {
   SocialNetworkDropdownNotificationFactory,
@@ -70,39 +71,41 @@ import {
 } from './okr';
 
 export function createDropdownNotification(item: INotificationProps) {
-  switch (item.module) {
+  const notification = formatNotificationContent(item);
+
+  switch (notification.module) {
     case MODULE_TYPES.social_network:
-      return <SocialNetworkDropdownNotificationFactory notificationItem={item} />;
+      return <SocialNetworkDropdownNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.feedback:
-      return <FeedbackDropdownNotificationFactory notificationItem={item} />;
+      return <FeedbackDropdownNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.schedule:
-      return <ScheduleDropdownNotificationFactory notificationItem={item} />;
+      return <ScheduleDropdownNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.project:
-      return <ProjectsDropdownNotificationFactory notificationItem={item} />;
+      return <ProjectsDropdownNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.endomarketing:
-      return <EndomarketingDropdownNotificationFactory notificationItem={item} />;
+      return <EndomarketingDropdownNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.evaluation360:
-      return <EvaluationDropdownNotificationFactory notificationItem={item} />;
+      return <EvaluationDropdownNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.organizational_engineering:
-      return <OrganizationalEngineeringDropdownNotificationFactory notificationItem={item} />;
+      return <OrganizationalEngineeringDropdownNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.personal_department:
-      return <PersonalDepartmentDropdownNotificationFactory notificationItem={item} />;
+      return <PersonalDepartmentDropdownNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.group:
-      return <GroupDropdownNotificationFactory notificationItem={item} />;
+      return <GroupDropdownNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.policy:
-      return <PoliciesDropdownNotificationFactory notificationItem={item} />;
+      return <PoliciesDropdownNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.okr:
-      return <OKRDropdownNotificationFactory notificationItem={item} />;
+      return <OKRDropdownNotificationFactory notificationItem={notification} />;
 
     default:
       break;
@@ -112,42 +115,45 @@ export function createDropdownNotification(item: INotificationProps) {
 }
 
 export function createToastNotification(item: INotificationProps) {
+  const notification = formatNotificationContent(item);
+
+
   switch (item.module) {
     case MODULE_TYPES.social_network:
-      return <SocialNetworkToastNotificationFactory notificationItem={item} />;
+      return <SocialNetworkToastNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.feedback:
-      return <FeedbackToastNotificationFactory notificationItem={item} />;
+      return <FeedbackToastNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.schedule:
       NotificationEvent.emit('update_schedule_module');
-      return <ScheduleToastNotificationFactory notificationItem={item} />;
+      return <ScheduleToastNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.project:
       NotificationEvent.emit('update_projects_module');
-      return <ProjectsToastNotificationFactory notificationItem={item} />;
+      return <ProjectsToastNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.endomarketing:
-      return <EndomarketingToastNotificationFactory notificationItem={item} />;
+      return <EndomarketingToastNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.evaluation360:
-      return <EvaluationToastNotificationFactory notificationItem={item} />;
+      return <EvaluationToastNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.organizational_engineering:
-      return <OrganizationalEngineeringToastNotificationFactory notificationItem={item} />;
+      return <OrganizationalEngineeringToastNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.personal_department:
       NotificationEvent.emit('update_personal_department_module');
-      return <PersonalDepartmentToastNotificationFactory notificationItem={item} />;
+      return <PersonalDepartmentToastNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.group:
-      return <GroupToastNotificationFactory notificationItem={item} />;
+      return <GroupToastNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.policy:
-      return <PoliciesToastNotificationFactory notificationItem={item} />;
+      return <PoliciesToastNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.okr:
-      return <OKRToastNotificationFactory notificationItem={item} />;
+      return <OKRToastNotificationFactory notificationItem={notification} />;
 
     default:
       break;
@@ -157,42 +163,44 @@ export function createToastNotification(item: INotificationProps) {
 }
 
 export function createBrowserNotification(item: INotificationProps) {
+  const notification = formatNotificationContent(item);
+
   switch (item.module) {
     case MODULE_TYPES.social_network:
-      return createSocialNetworkBrowserNotificationFactory(item);
+      return createSocialNetworkBrowserNotificationFactory(notification);
 
     case MODULE_TYPES.feedback:
-      return createFeedbackBrowserFactory(item);
+      return createFeedbackBrowserFactory(notification);
 
     case MODULE_TYPES.schedule:
       NotificationEvent.emit('update_schedule_module');
-      return createScheduleBrowserNotificationFactory(item);
+      return createScheduleBrowserNotificationFactory(notification);
 
     case MODULE_TYPES.project:
       NotificationEvent.emit('update_projects_module');
-      return createProjectsBrowserNotificationFactory(item);
+      return createProjectsBrowserNotificationFactory(notification);
 
     case MODULE_TYPES.endomarketing:
-      return createEndomarketingBrowserNotificationFactory(item);
+      return createEndomarketingBrowserNotificationFactory(notification);
 
     case MODULE_TYPES.evaluation360:
-      return createEvaluationBrowserNotificationFactory(item);
+      return createEvaluationBrowserNotificationFactory(notification);
 
     case MODULE_TYPES.organizational_engineering:
-      return createOrganizationalEngineeringBrowserNotificationFactory(item);
+      return createOrganizationalEngineeringBrowserNotificationFactory(notification);
 
     case MODULE_TYPES.personal_department:
       NotificationEvent.emit('update_personal_department_module');
-      return createPersonalDepartmentBrowserNotificationFactory(item);
+      return createPersonalDepartmentBrowserNotificationFactory(notification);
 
     case MODULE_TYPES.group:
-      return createGroupBrowserNotificationFactory(item);
+      return createGroupBrowserNotificationFactory(notification);
 
     case MODULE_TYPES.policy:
-      return createPoliciesBrowserNotificationFactory(item);
+      return createPoliciesBrowserNotificationFactory(notification);
 
     case MODULE_TYPES.okr:
-      return createOKRBrowserNotificationFactory(item);
+      return createOKRBrowserNotificationFactory(notification);
 
     default:
       break;
