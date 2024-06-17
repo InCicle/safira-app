@@ -10,6 +10,7 @@ import { incicleNotificationModules } from "safira-app/utils/modules";
 import moment from 'moment';
 import TimeAgo from 'safira-app/libs/timeago';
 import { links } from 'safira-app/config/links';
+import { htmlDecode } from 'safira-app/utils/htmlDecode';
 
 interface IProps {
   notification?: INotificationProps;
@@ -41,6 +42,18 @@ const markAsReaded = (e: any, notification: INotificationProps, api: any, url?: 
       }
     });
 };
+
+export function formatNotificationContent(notification: INotificationProps): INotificationProps {
+  if (!notification?.common?.content && typeof notification?.common?.content !== 'string') return notification;
+
+  return {
+    ...notification,
+    common: {
+      ...notification?.common,
+      content: htmlDecode(notification.common?.content),
+    }
+  };
+}
 
 export const NotificationContainer: React.FC<React.PropsWithChildren<IProps>> = ({
   notification,
