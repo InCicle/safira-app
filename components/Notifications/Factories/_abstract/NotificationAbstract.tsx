@@ -44,8 +44,8 @@ const markAsReaded = (e: any, notification: INotificationProps, api: any, url?: 
 };
 
 export function formatNotificationContent(notification: INotificationProps): INotificationProps {
-  if (!notification.common?.content) return notification;
-  
+  if (!notification?.common?.content && typeof notification?.common?.content !== 'string') return notification;
+
   return {
     ...notification,
     common: {
