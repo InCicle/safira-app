@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import WhatsAppIcon from "./WhatsAppIcon.svg"
+import InCicleBotIcon from "./incicle_bot.jpg"
 
 const WhatsAppLink = styled.a`
   position: fixed;
   width: 45px;
   height: 45px;
   bottom: 20px;
-  right: 20px;
+  left: 30px;
   background-color: #25d366;
   color: #fff;
   border-radius: 50px;
@@ -26,7 +26,7 @@ const WhatsAppLink = styled.a`
 const WhatsAppButton: React.FC = () => {
   return (
     <WhatsAppLink href="https://wa.me/5511970270544" target="_blank">
-      <img src={WhatsAppIcon} alt="WhatsApp" />
+      <img src={InCicleBotIcon} alt="WhatsApp" />
     </WhatsAppLink>
   )
 }
