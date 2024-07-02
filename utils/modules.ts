@@ -15,6 +15,7 @@ export type MenuModulesType = {
     [K in MeProps["type"]]: string | null;
   };
   permission?: string;
+  enableOnlyTo?: string[];
 };
 
 export const incicleMenuModules: MenuModulesType[] = [
@@ -161,6 +162,19 @@ export const incicleMenuModules: MenuModulesType[] = [
       COMPANY: null,
       PERSON: "Gerencie suas tarefas e acompanhe seu desempenho geral.",
     },
+  },
+  {
+    title: "InCheck",
+    slug: MODULE_TYPES.evaluation360,
+    icon: "https://static-incicle.s3.amazonaws.com/InCheck.svg",
+    iconSize: 60,
+    url: links.web.incheck,
+    accountTypes: ["PERSON", "COMPANY"],
+    description: {
+      COMPANY: "Crie checklist, planos de ações e relatórios.",
+      PERSON: "Respoda checklists, crie ações e relatórios.",
+    },
+    enableOnlyTo: ['4d7a2110-45c5-465d-bccf-806413fc1034', 'd4164ad8-7ff7-4bfa-81d1-3498b8ba1a48']
   },
   {
     title: "Configurações do sistema",

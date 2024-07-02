@@ -26,7 +26,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
   const { breakpoints } = useTheme();
   // const { me: profiles } = useContext(ProfileContext);
   const { activeManagerMenu } = props;
-  const { checkPermission } = usePermissions();
+  const { checkPermission, companyId } = usePermissions();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   function openDropdown(ev: any) {
@@ -127,6 +127,11 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
       >
         {incicleMenuModules
           .filter(item => item.accountTypes.includes(user.type))
+          .filter(itemModule => {
+            if (!itemModule.enableOnlyTo) return true;
+            if (itemModule.enableOnlyTo.includes(companyId)) return true;
+            return false;
+          })
           .filter(moduleItem => {
             if (!moduleItem.permission) return true;
             return checkPermission([moduleItem.permission]);
