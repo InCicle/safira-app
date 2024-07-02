@@ -20,6 +20,7 @@ export type ModulesWeb = {
   department: string;
   settings: string;
   manager: string;
+  incheck: string;
 };
 
 export type AwsUrl = {
@@ -60,6 +61,7 @@ export const links: Modulelinks = {
     department: process.env.REACT_APP_WEB_URL_DEPARTMENT,
     settings: process.env.REACT_APP_WEB_URL_SETTINGS!,
     manager: process.env.REACT_APP_WEB_URL_MANAGER!,
+    incheck: process.env.REACT_APP_WEB_URL_INCHECK!,
   },
   aws: {
     access_key_id: process.env.REACT_APP_AWS_BUCKET_INCICLE_ACCESS_KEY_ID,
