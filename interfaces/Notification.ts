@@ -16,6 +16,7 @@ export enum MODULE_TYPES {
   policy = 'policy',
   okr = 'okr',
   in_point = 'in_point',
+  in_check = 'in_check',
 }
 
 export interface INotificationCommon {
