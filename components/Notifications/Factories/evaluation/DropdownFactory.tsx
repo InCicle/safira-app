@@ -45,25 +45,32 @@ const EvaluationDropdownNotificationFactory: React.FC<React.PropsWithChildren<IP
     switch (notificationItem.type) {
       case notificationType.LINK_TO_RESEARCH:
         return (
-          <NotificationContainer url={links.web.evaluation} notification={notificationItem}>
+          <NotificationContainer
+            url={links.web.evaluation}
+            notification={notificationItem}
+          >
             <NotificationContentText notification={notification}>
-              Você foi convidado para a pesquisa{' '}
-              <NotificationHighlight>{notification.common.name_research}</NotificationHighlight>, responda sua auto
-              avaliação e gerencie seus avaliadores até{' '}
-              <NotificationHighlight>{dateFormat(notification.common.max_date, 'DD MMM')}</NotificationHighlight>
+              Você foi incluído em uma avaliação{' '}
+              <NotificationHighlight>
+                {notification.common.name_research}.
+              </NotificationHighlight>
+              Gerencie seus avaliadores até{' '}
+              <NotificationHighlight>
+                {dateFormat(notification.common.max_date, 'DD MMM')}
+              </NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
         );
 
       case notificationType.LINK_TO_OWN_RESEARCH:
-        const maxDateAsArray = new Date(notification.common.max_date)
-          .toLocaleString(user.config.default_language, {
-            timeZone: user.config.default_timezone,
-          })
-          .split(' ');
+        // const maxDateAsArray = new Date(notification.common.max_date)
+        //   .toLocaleString(user.config.default_language, {
+        //     timeZone: user.config.default_timezone,
+        //   })
+        //   .split(' ');
 
-        const [dateString, timeString] = maxDateAsArray;
-        const timeFormat = timeString.slice(0, 5);
+        // const [dateString, timeString] = maxDateAsArray;
+        // const timeFormat = timeString.slice(0, 5);
 
         return (
           <NotificationContainer
@@ -71,10 +78,10 @@ const EvaluationDropdownNotificationFactory: React.FC<React.PropsWithChildren<IP
             notification={notificationItem}
           >
             <NotificationContentText notification={notification}>
-              Você foi convidado para a pesquisa{' '}
-              <NotificationHighlight>{notification.common.name_research}</NotificationHighlight>, responda sua auto
-              avaliação até <NotificationHighlight>{dateString}</NotificationHighlight> às{' '}
-              <NotificationHighlight>{timeFormat}</NotificationHighlight>
+              Você foi incluído em uma avaliação{' '}
+              <NotificationHighlight>
+                {notification.common.name_research}.
+              </NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
         );
