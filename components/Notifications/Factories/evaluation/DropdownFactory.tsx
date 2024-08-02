@@ -63,14 +63,16 @@ const EvaluationDropdownNotificationFactory: React.FC<React.PropsWithChildren<IP
         );
 
       case notificationType.LINK_TO_OWN_RESEARCH:
-        // const maxDateAsArray = new Date(notification.common.max_date)
-        //   .toLocaleString(user.config.default_language, {
-        //     timeZone: user.config.default_timezone,
-        //   })
-        //   .split(' ');
+        /* Essas linhas estão comentadas devido a task LP#2525, que prevê o retorno ao texto antigo, mas com a validação se exite autoavaliação ou não
+         const maxDateAsArray = new Date(notification.common.max_date)
+           .toLocaleString(user.config.default_language, {
+             timeZone: user.config.default_timezone,
+           })
+           .split(' ');
 
-        // const [dateString, timeString] = maxDateAsArray;
-        // const timeFormat = timeString.slice(0, 5);
+         const [dateString, timeString] = maxDateAsArray;
+         const timeFormat = timeString.slice(0, 5);
+         */
 
         return (
           <NotificationContainer
