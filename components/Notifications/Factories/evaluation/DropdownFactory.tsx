@@ -54,9 +54,9 @@ const EvaluationDropdownNotificationFactory: React.FC<
             <NotificationContentText notification={notification}>
               Você foi incluído em uma avaliação{' '}
               <NotificationHighlight>
-                {notification.common.name_research}.
+                {notification.common.name_research}
               </NotificationHighlight>
-              Gerencie seus avaliadores até{' '}
+              {'. '}Gerencie seus avaliadores até{' '}
               <NotificationHighlight>
                 {dateFormat(notification.common.max_date, 'DD MMM')}
               </NotificationHighlight>
@@ -197,7 +197,7 @@ const EvaluationDropdownNotificationFactory: React.FC<
               Você foi adicionado(a) como avaliador na avaliação{' '}
               <NotificationHighlight>
                 {notification.common.name_research}
-              </NotificationHighlight>
+              </NotificationHighlight>{' '}
               sobre{' '}
               <NotificationHighlight>
                 {notification.common.name_evaluated}
