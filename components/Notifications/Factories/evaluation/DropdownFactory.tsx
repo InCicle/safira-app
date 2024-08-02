@@ -58,7 +58,7 @@ const EvaluationDropdownNotificationFactory: React.FC<
               </NotificationHighlight>
               {'. '}Gerencie seus avaliadores até{' '}
               <NotificationHighlight>
-                {dateFormat(notification.common.max_date, 'DD MMM')}
+                {dateFormat(notification.common.max_date, 'DD/MM')}
               </NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
