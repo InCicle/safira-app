@@ -106,7 +106,7 @@ const EvaluationDropdownNotificationFactory: React.FC<
               <NotificationHighlight>
                 "{notification.sender.name}"
               </NotificationHighlight>{' '}
-              aguarda sua auto-avaliação da pesquisa{' '}
+              aguarda sua autoavaliação da pesquisa{' '}
               <NotificationHighlight>
                 "{notification.common.name_research}"
               </NotificationHighlight>{' '}
