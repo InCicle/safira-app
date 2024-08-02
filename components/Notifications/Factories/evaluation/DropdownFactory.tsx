@@ -32,7 +32,9 @@ const notificationType = {
 };
 
 // @ts-ignore
-const EvaluationDropdownNotificationFactory: React.FC<React.PropsWithChildren<IProps>> = ({ notificationItem }) => {
+const EvaluationDropdownNotificationFactory: React.FC<
+  React.PropsWithChildren<IProps>
+> = ({ notificationItem }) => {
   const { user } = useHeaderProvider();
   // @ts-ignore
   const [notification] = useState(notificationItem);
@@ -90,48 +92,78 @@ const EvaluationDropdownNotificationFactory: React.FC<React.PropsWithChildren<IP
 
       case notificationType.SEARCH_EXPIRATION_OWN_EVALUATION:
         const dateNotificationMaxDate =
-          moment(formatDateNotification(notification?.common?.max_date)).diff(moment(), 'day') + 1;
+          moment(formatDateNotification(notification?.common?.max_date)).diff(
+            moment(),
+            'day',
+          ) + 1;
         return (
           <NotificationContainer
             url={`${links.web.evaluation}/questionnaire/${notification.common.research_id}/${notification.common.company_id}/auto`}
             notification={notificationItem}
           >
             <NotificationContentText notification={notification}>
-              A empresa <NotificationHighlight>"{notification.sender.name}"</NotificationHighlight> aguarda sua
-              auto-avaliação da pesquisa{' '}
-              <NotificationHighlight>"{notification.common.name_research}"</NotificationHighlight> que vencerá em{' '}
-              {dateNotificationMaxDate > 1 ? `${dateNotificationMaxDate} dias` : `${dateNotificationMaxDate} dia`}
+              A empresa{' '}
+              <NotificationHighlight>
+                "{notification.sender.name}"
+              </NotificationHighlight>{' '}
+              aguarda sua auto-avaliação da pesquisa{' '}
+              <NotificationHighlight>
+                "{notification.common.name_research}"
+              </NotificationHighlight>{' '}
+              que vencerá em{' '}
+              {dateNotificationMaxDate > 1
+                ? `${dateNotificationMaxDate} dias`
+                : `${dateNotificationMaxDate} dia`}
             </NotificationContentText>
           </NotificationContainer>
         );
 
       case notificationType.SEARCH_EXPIRATION_OTHER_EVALUATION:
         return (
-          <NotificationContainer url={`${links.web.evaluation}`} notification={notificationItem}>
+          <NotificationContainer
+            url={`${links.web.evaluation}`}
+            notification={notificationItem}
+          >
             <NotificationContentText notification={notification}>
               Você ainda não respondeu a pesquisa{' '}
-              <NotificationHighlight>"{notification.common.name_research}"</NotificationHighlight> sobre{' '}
-              <NotificationHighlight>"{notification.common.name_evaluated}"</NotificationHighlight> que vence amanhã.
+              <NotificationHighlight>
+                "{notification.common.name_research}"
+              </NotificationHighlight>{' '}
+              sobre{' '}
+              <NotificationHighlight>
+                "{notification.common.name_evaluated}"
+              </NotificationHighlight>{' '}
+              que vence amanhã.
             </NotificationContentText>
           </NotificationContainer>
         );
 
       case notificationType.PENDING_RESEARCH:
         return (
-          <NotificationContainer url={`${links.web.evaluation}`} notification={notificationItem}>
+          <NotificationContainer
+            url={`${links.web.evaluation}`}
+            notification={notificationItem}
+          >
             <NotificationContentText notification={notification}>
-              <NotificationHighlight>{notification.sender.name.split(' ')[0]}: </NotificationHighlight>"
-              {notification.common.content}"
+              <NotificationHighlight>
+                {notification.sender.name.split(' ')[0]}:{' '}
+              </NotificationHighlight>
+              "{notification.common.content}"
             </NotificationContentText>
           </NotificationContainer>
         );
 
       case notificationType.USER_PENDING_RESEARCH:
         return (
-          <NotificationContainer url={`${links.web.evaluation}`} notification={notificationItem}>
+          <NotificationContainer
+            url={`${links.web.evaluation}`}
+            notification={notificationItem}
+          >
             <NotificationContentText notification={notification}>
-              <NotificationHighlight>{notification.sender.name.split(' ')[0]}: </NotificationHighlight>"
-              {notification.common.content}"
+              <NotificationHighlight>
+                {notification.sender.name.split(' ')[0]}:{' '}
+              </NotificationHighlight>
+              "{notification.common.content}"
             </NotificationContentText>
           </NotificationContainer>
         );
@@ -147,20 +179,35 @@ const EvaluationDropdownNotificationFactory: React.FC<React.PropsWithChildren<IP
             notification={notificationItem}
           >
             <NotificationContentText notification={notification}>
-              <NotificationHighlight>{notification.sender.name.split(' ')[0]}: </NotificationHighlight>"
-              {notification.common.content}"
+              <NotificationHighlight>
+                {notification.sender.name.split(' ')[0]}:{' '}
+              </NotificationHighlight>
+              "{notification.common.content}"
             </NotificationContentText>
           </NotificationContainer>
         );
 
       case notificationType.EVALUATOR_OF_SURVEY_BY_COMPANY:
         return (
-          <NotificationContainer url={`${links.web.evaluation}`} notification={notification}>
+          <NotificationContainer
+            url={`${links.web.evaluation}`}
+            notification={notification}
+          >
             <NotificationContentText notification={notification}>
-              Você foi adicionado(a) como avaliador na pesquisa de{' '}
-              <NotificationHighlight>{notification.common.name_evaluated}</NotificationHighlight>{' '}
-              {notification.common.count !== 0 && ` e outras ${notification.common.count} pessoas`} na pesquisa{' '}
-              <NotificationHighlight>{notification.common.name_research}</NotificationHighlight>.
+              Você foi adicionado(a) como avaliador na avaliação{' '}
+              <NotificationHighlight>
+                {notification.common.name_research}
+              </NotificationHighlight>
+              sobre{' '}
+              <NotificationHighlight>
+                {notification.common.name_evaluated}
+              </NotificationHighlight>{' '}
+              {notification.common.count > 1 &&
+                ` e outras ${notification.common.count} pessoas`}
+              .
+              {notification.common.count === 1 &&
+                ` e outra ${notification.common.count} pessoa`}
+              .
             </NotificationContentText>
           </NotificationContainer>
         );
@@ -172,28 +219,48 @@ const EvaluationDropdownNotificationFactory: React.FC<React.PropsWithChildren<IP
             notification={notification}
           >
             <NotificationContentText notification={notification}>
-              <NotificationHighlight>{notification.sender.name}</NotificationHighlight> adicionou você como avaliador na
-              pesquisa <NotificationHighlight>"{notification.common.name_research}"</NotificationHighlight>.
+              <NotificationHighlight>
+                {notification.sender.name}
+              </NotificationHighlight>{' '}
+              adicionou você como avaliador na pesquisa{' '}
+              <NotificationHighlight>
+                "{notification.common.name_research}"
+              </NotificationHighlight>
+              .
             </NotificationContentText>
           </NotificationContainer>
         );
 
       case notificationType.END_RESEARCH:
         return (
-          <NotificationContainer url={links.web.evaluation} notification={notificationItem}>
+          <NotificationContainer
+            url={links.web.evaluation}
+            notification={notificationItem}
+          >
             <NotificationContentText notification={notification}>
-              Pesquisa <NotificationHighlight>"{notification.common.name_research}"</NotificationHighlight> finalizada
-              {notification.common?.participant_status === 'answered' ? ', entre e verifique seu resultado.' : '.'}
+              Pesquisa{' '}
+              <NotificationHighlight>
+                "{notification.common.name_research}"
+              </NotificationHighlight>{' '}
+              finalizada
+              {notification.common?.participant_status === 'answered'
+                ? ', entre e verifique seu resultado.'
+                : '.'}
             </NotificationContentText>
           </NotificationContainer>
         );
 
       case notificationType.RESEARCH_WITHOUT_MIN:
         return (
-          <NotificationContainer url={links.web.evaluation} notification={notificationItem}>
+          <NotificationContainer
+            url={links.web.evaluation}
+            notification={notificationItem}
+          >
             <NotificationContentText notification={notification}>
               Você ainda não alcançou o mínimo de avaliações na pesquisa{' '}
-              <NotificationHighlight>"{notification.common.name_research}"</NotificationHighlight>
+              <NotificationHighlight>
+                "{notification.common.name_research}"
+              </NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
         );
@@ -205,8 +272,10 @@ const EvaluationDropdownNotificationFactory: React.FC<React.PropsWithChildren<IP
             notification={notificationItem}
           >
             <NotificationContentText notification={notification}>
-              <NotificationHighlight>{notification.sender.name.split(' ')[0]}: </NotificationHighlight>"
-              {notification.common.content}"
+              <NotificationHighlight>
+                {notification.sender.name.split(' ')[0]}:{' '}
+              </NotificationHighlight>
+              "{notification.common.content}"
             </NotificationContentText>
           </NotificationContainer>
         );
