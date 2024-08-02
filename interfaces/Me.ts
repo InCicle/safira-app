@@ -15,6 +15,7 @@ export interface MeCompany {
   user_id: string;
   logo: string | null;
   is_manager_competence: boolean;
+  is_manager_in_check?: boolean;
   company_user: {
     id: string;
     username: string;
