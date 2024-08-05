@@ -23,19 +23,31 @@ const notificationType = {
   CORPORATE_FEEDBACK: 'CORPORATE_FEEDBACK',
 };
 
-const OrganizationalEngineeringDropdownNotificationFactory: React.FC<React.PropsWithChildren<IProps>> = ({
-  notificationItem,
-}) => {
+const OrganizationalEngineeringDropdownNotificationFactory: React.FC<
+  React.PropsWithChildren<IProps>
+> = ({ notificationItem }) => {
   // @ts-ignore
   const [notification] = useState(notificationItem);
 
   function invitationStatus(slug: 'accepted' | 'refused' | 'pending') {
     if (slug === 'accepted') {
-      return <small style={{ marginTop: 0, display: 'block' }}>Você aceitou a vinculação</small>;
+      return (
+        <small style={{ marginTop: 0, display: 'block' }}>
+          Você aceitou a vinculação
+        </small>
+      );
     } else if (slug === 'refused') {
-      return <small style={{ marginTop: 0, display: 'block' }}>Você recusou a vinculação</small>;
+      return (
+        <small style={{ marginTop: 0, display: 'block' }}>
+          Você recusou a vinculação
+        </small>
+      );
     } else if (slug === 'pending') {
-      return <NotificationHighlight sx={{ display: 'block' }}>Clique para aceitar</NotificationHighlight>;
+      return (
+        <NotificationHighlight sx={{ display: 'block' }}>
+          Clique para aceitar
+        </NotificationHighlight>
+      );
     } else {
       return <></>;
     }
@@ -50,8 +62,10 @@ const OrganizationalEngineeringDropdownNotificationFactory: React.FC<React.Props
             notification={notificationItem}
           >
             <NotificationContentText notification={notification}>
-              <NotificationHighlight>{notification.sender.name}</NotificationHighlight> convidou você para vincular-se
-              como colaborador.
+              <NotificationHighlight>
+                {notification.sender.name}
+              </NotificationHighlight>{' '}
+              convidou você para vincular-se como colaborador.
               {invitationStatus(notification.common.status)}
             </NotificationContentText>
           </NotificationContainer>
@@ -59,10 +73,18 @@ const OrganizationalEngineeringDropdownNotificationFactory: React.FC<React.Props
 
       case notificationType.EMPLOYEE_LINK_ANSWER:
         return (
-          <NotificationContainer url={`${links.web.social}/employees`} notification={notificationItem}>
+          <NotificationContainer
+            url={`${links.web.department}/#/collaborators`}
+            notification={notificationItem}
+          >
             <NotificationContentText notification={notification}>
-              <NotificationHighlight>{notification?.sender?.name}</NotificationHighlight>{' '}
-              {notification?.common?.content === 'ACCEPTED' ? 'aceitou' : 'recusou'} o convite de vinculação
+              <NotificationHighlight>
+                {notification?.sender?.name}
+              </NotificationHighlight>{' '}
+              {notification?.common?.content === 'ACCEPTED'
+                ? 'aceitou'
+                : 'recusou'}{' '}
+              o convite de vinculação
             </NotificationContentText>
           </NotificationContainer>
         );
@@ -71,7 +93,10 @@ const OrganizationalEngineeringDropdownNotificationFactory: React.FC<React.Props
         return (
           <NotificationContainer url="#" notification={notificationItem}>
             <NotificationContentText notification={notification}>
-              Você foi desvinculado da empresa <NotificationHighlight>{notification.sender.name}</NotificationHighlight>
+              Você foi desvinculado da empresa{' '}
+              <NotificationHighlight>
+                {notification.sender.name}
+              </NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
         );
@@ -86,21 +111,31 @@ const OrganizationalEngineeringDropdownNotificationFactory: React.FC<React.Props
             }}
             title={
               <Typography fontSize="16px" textAlign="center" color="#00558E">
-                A empresa {notification.sender.name} cancelou o convite de vinculação
+                A empresa {notification.sender.name} cancelou o convite de
+                vinculação
               </Typography>
             }
             content={
               <Typography fontSize="14px">
                 O convite de vinculação profissional na InCicle enviado pela{' '}
-                <NotificationHighlight sx={{ fontSize: '16px' }}>{notification.sender.name}</NotificationHighlight> foi
-                cancelado pela própria empresa. Favor desconsiderar o convite enviado anteriormente.
+                <NotificationHighlight sx={{ fontSize: '16px' }}>
+                  {notification.sender.name}
+                </NotificationHighlight>{' '}
+                foi cancelado pela própria empresa. Favor desconsiderar o
+                convite enviado anteriormente.
               </Typography>
             }
-            renderOpener={handleOpenModal => (
-              <NotificationContainer notification={notificationItem} onClick={handleOpenModal}>
+            renderOpener={(handleOpenModal) => (
+              <NotificationContainer
+                notification={notificationItem}
+                onClick={handleOpenModal}
+              >
                 <NotificationContentText notification={notification}>
-                  A empresa <NotificationHighlight>{notification.sender.name}</NotificationHighlight> cancelou o convite
-                  de vinculação
+                  A empresa{' '}
+                  <NotificationHighlight>
+                    {notification.sender.name}
+                  </NotificationHighlight>{' '}
+                  cancelou o convite de vinculação
                 </NotificationContentText>
               </NotificationContainer>
             )}
@@ -114,8 +149,10 @@ const OrganizationalEngineeringDropdownNotificationFactory: React.FC<React.Props
             notification={notificationItem}
           >
             <NotificationContentText notification={notification}>
-              <NotificationHighlight>{notification.sender.name}</NotificationHighlight> enviou um feedback que precisa
-              da sua atenção.
+              <NotificationHighlight>
+                {notification.sender.name}
+              </NotificationHighlight>{' '}
+              enviou um feedback que precisa da sua atenção.
             </NotificationContentText>
           </NotificationContainer>
         );
