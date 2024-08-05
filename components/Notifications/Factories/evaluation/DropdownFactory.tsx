@@ -156,7 +156,7 @@ const EvaluationDropdownNotificationFactory: React.FC<
       case notificationType.USER_PENDING_RESEARCH:
         return (
           <NotificationContainer
-            url={`${links.web.evaluation}`}
+            url={`${links.web.evaluation}/questionnaire/${notification.common.research_id}/${notification.common.company_id}/${notification.common.evaluated_id}`}
             notification={notificationItem}
           >
             <NotificationContentText notification={notification}>
