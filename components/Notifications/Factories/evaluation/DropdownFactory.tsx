@@ -201,13 +201,12 @@ const EvaluationDropdownNotificationFactory: React.FC<
               sobre{' '}
               <NotificationHighlight>
                 {notification.common.name_evaluated}
-              </NotificationHighlight>{' '}
+              </NotificationHighlight>
               {notification.common.count > 1 &&
-                ` e outras ${notification.common.count} pessoas`}
-              .
+                ` e outras ${notification.common.count} pessoas.`}
               {notification.common.count === 1 &&
-                ` e outra ${notification.common.count} pessoa`}
-              .
+                ` e outra ${notification.common.count} pessoa.`}
+              {notification.common.count < 1 && `.`}
             </NotificationContentText>
           </NotificationContainer>
         );
