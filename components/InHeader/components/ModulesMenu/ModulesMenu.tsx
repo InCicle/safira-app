@@ -27,6 +27,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
   const { activeManagerMenu } = props;
   const { checkPermission, companyId } = usePermissions();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const urlStepOne = "https://lp.stepone.com.br/";
 
   function openDropdown(ev: any) {
     setAnchorEl(ev.currentTarget);
@@ -50,20 +51,20 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
 
     const getUrlStepOne = (redirects) => {
       const redirecionamentoStepOne = redirects.find(redirect => redirect.type === 1 || redirect.type === "STEPONE");
-      return redirecionamentoStepOne ? redirecionamentoStepOne.url : "https://lp.stepone.com.br/";
+      return redirecionamentoStepOne ? redirecionamentoStepOne.url : urlStepOne;
     };
 
     if (profiles?.type === "COMPANY") {
       return profiles.redirects && profiles.redirects.length > 0
         ? getUrlStepOne(profiles.redirects)
-        : "https://lp.stepone.com.br/";
+        : urlStepOne;
     } else if (profiles?.type === "PERSON" && profiles.companies && profiles.companies.length > 0) {
       const empresa = profiles.companies[0];
       if (empresa.redirects && empresa.redirects.length > 0) {
         return getUrlStepOne(empresa.redirects);
       }
     }
-    return "https://lp.stepone.com.br/";
+    return urlStepOne;
   };
   const filteredCollaboratorsModules = incicleCollaboratorsMenuModules
     .filter(item => item.accountTypes.includes(user.type))

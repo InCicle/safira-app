@@ -23,7 +23,7 @@ import ClimateResearchDisabledIcon from 'safira-app/components/InHeader/componen
 
 export type MenuModulesType = {
   title: string;
-  icon: string | any;
+  icon: string | React.ComponentType<React.SVGProps<SVGSVGElement>>;
   iconSize: number;
   url: string | null;
   slug: string;
@@ -224,10 +224,10 @@ export const incicleMenuModules: MenuModulesType[] = [
     icon: SteponeIcon,
     iconSize: 60,
     url: "https://lp.stepone.com.br/",
-    accountTypes: ["COMPANY", "PERSON"],
+    accountTypes: ["COMPANY"],
     description: {
       COMPANY: "Desenvolva talentos e gerencie conhecimento.",
-      PERSON: "Desenvolva talentos e gerencie conhecimento.",
+      PERSON: null,
     },
   },
   {
@@ -254,6 +254,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       PERSON: null,
     },
   },
+
 ];
 
 export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
@@ -321,6 +322,18 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
       PERSON: 'Avaliações e planos de desenvolvimento.',
     },
     permission: 'in_check',
+  },
+  {
+    title: "Universidade corporativa",
+    slug: MODULE_TYPES.task_manager,
+    icon: SteponeIcon,
+    iconSize: 60,
+    url: "https://lp.stepone.com.br/",
+    accountTypes: ["PERSON"],
+    description: {
+      COMPANY: null,
+      PERSON: "Desenvolva talentos e gerencie conhecimento.",
+    },
   },
 ];
 
