@@ -148,7 +148,7 @@ export const incicleMenuModules: MenuModulesType[] = [
     title: 'Políticas e Procedimentos',
     slug: MODULE_TYPES.climate_research,
     icon: PolicyIcon,
-    iconSize: 51,
+    iconSize: 60,
     accountTypes: ['COMPANY'],
     url: links.web.policy,
     description: {
@@ -160,7 +160,7 @@ export const incicleMenuModules: MenuModulesType[] = [
     title: 'OKR',
     slug: '',
     icon: OkrIcon,
-    iconSize: 65,
+    iconSize: 60,
     accountTypes: ['COMPANY', 'PERSON'],
     url: links.web.okr,
     description: {
@@ -234,7 +234,7 @@ export const incicleMenuModules: MenuModulesType[] = [
     title: 'Ouvidoria',
     slug: MODULE_TYPES.ombudsman,
     icon: OmbudsmanDisabledIcon,
-    iconSize: 53,
+    iconSize: 60,
     url: null,
     accountTypes: ['COMPANY', 'PERSON'],
     description: {
@@ -246,7 +246,7 @@ export const incicleMenuModules: MenuModulesType[] = [
     title: 'Pesquisa de clima',
     slug: MODULE_TYPES.climate_research,
     icon: ClimateResearchDisabledIcon,
-    iconSize: 51,
+    iconSize: 60,
     accountTypes: ['COMPANY'],
     url: null,
     description: {
