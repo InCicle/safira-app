@@ -85,7 +85,7 @@ const EvaluationDropdownNotificationFactory: React.FC<
               <NotificationHighlight>
                 {notification.common.name_research}.
               </NotificationHighlight>
-              {notificationItem.common?.self_evaluation && ` Responda sua autavaliação até a data ${<NotificationHighlight>{dateString}</NotificationHighlight>} às 
+              {notificationItem.common?.self_evaluation && ` Responda sua autoavaliação até a data ${<NotificationHighlight>{dateString}</NotificationHighlight>} às 
               ${<NotificationHighlight>{timeFormat}</NotificationHighlight>}.` }
             </NotificationContentText>
           </NotificationContainer>
