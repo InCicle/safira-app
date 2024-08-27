@@ -23,8 +23,13 @@ export interface MeCompany {
   my_collaborator_id: {
     id: string;
   };
+  redirects?: Redirect[];
 }
 
+export interface Redirect {
+  type: number | string;
+  url: string;
+}
 export interface ProfileConfig {
   created_at: string;
   default_timezone: string;
@@ -55,10 +60,11 @@ export interface MeProps {
   username: string;
   name: string;
   logo: string | null;
-  type: 'COMPANY' | 'PERSON';
+  type: "COMPANY" | "PERSON";
   profile_id: string;
   avatar: string;
   companies: MeCompany[];
+  redirects?: Redirect[];
   profile_config: ProfileConfig;
   user_config: UserConfig;
   social_name: string;

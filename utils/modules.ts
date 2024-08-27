@@ -2,11 +2,28 @@ import { links, ModulesWeb } from 'safira-app/config/links';
 import { MeProps } from 'safira-app/interfaces/Me';
 import { MODULE_TYPES } from 'safira-app/interfaces/Notification';
 
-import TaskManagerIcon from 'safira-app/assets/modules/task_manager.svg';
+import SteponeIcon from 'safira-app/components/InHeader/components/icons/SteponeIcon';
+import ScheduleIcon from 'safira-app/components/InHeader/components/icons/ScheduleIcon';
+import AdmissionIcon from 'safira-app/components/InHeader/components/icons/AdmissionIcon';
+import PersonalDepartmentIcon from 'safira-app/components/InHeader/components/icons/PersonalDepartmentIcon';
+import EndoMarketingIcon from 'safira-app/components/InHeader/components/icons/EndoMarketingIcon';
+import FeedbackIcon from 'safira-app/components/InHeader/components/icons/FeedbackIcon';
+import ProjectManagementIcon from 'safira-app/components/InHeader/components/icons/ProjectManagementIcon';
+import CompetencyIcon from 'safira-app/components/InHeader/components/icons/CompetencyIcon';
+import SocialNetworkIcon from 'safira-app/components/InHeader/components/icons/SocialNetworkIcon';
+import PolicyIcon from 'safira-app/components/InHeader/components/icons/PolicyIcon';
+import OkrIcon from 'safira-app/components/InHeader/components/icons/OkrIcon';
+import TaskIcon from 'safira-app/components/InHeader/components/icons/TaskIcon';
+import InCheckIcon from 'safira-app/components/InHeader/components/icons/InCheckIcon';
+import SettingsIcon from 'safira-app/components/InHeader/components/icons/SettingsIcon';
+import InpontoIcon from 'safira-app/components/InHeader/components/icons/InpontoIcon';
+import OmbudsmanDisabledIcon from 'safira-app/components/InHeader/components/icons/OmbudsmanDisabledIcon';
+import ManagerIcon from 'safira-app/components/InHeader/components/icons/ManagerIcon';
+import ClimateResearchDisabledIcon from 'safira-app/components/InHeader/components/icons/ClimateResearchDisabledIcon';
 
 export type MenuModulesType = {
   title: string;
-  icon: string;
+  icon: string | any;
   iconSize: number;
   url: string | null;
   slug: string;
@@ -22,7 +39,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   {
     title: 'Agenda',
     slug: MODULE_TYPES.schedule,
-    icon: 'https://static-incicle.s3.amazonaws.com/agenda.svg',
+    icon: ScheduleIcon,
     iconSize: 60,
     url: links.web.schedule,
     accountTypes: ['COMPANY', 'PERSON'],
@@ -34,7 +51,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   {
     title: 'Admissão Digital',
     slug: MODULE_TYPES.schedule,
-    icon: 'https://static-incicle.s3.amazonaws.com/departamento-pessoal.svg',
+    icon: AdmissionIcon,
     iconSize: 60,
     url: links.web.personal_department,
     accountTypes: ['COMPANY', 'PERSON'],
@@ -46,7 +63,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   {
     title: 'Departamento Pessoal',
     slug: MODULE_TYPES.schedule,
-    icon: 'https://static-incicle.s3.amazonaws.com/engenharia-organizacional.svg',
+    icon: PersonalDepartmentIcon,
     iconSize: 60,
     url: links.web.department,
     accountTypes: ['COMPANY'],
@@ -58,7 +75,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   {
     title: 'Endomarketing',
     slug: MODULE_TYPES.schedule,
-    icon: 'https://static-incicle.s3.amazonaws.com/endo-marketing.svg',
+    icon: EndoMarketingIcon,
     iconSize: 60,
     url: `${links.web.social}/endomarketing`,
     accountTypes: ['COMPANY'],
@@ -70,7 +87,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   {
     title: 'Feedback',
     slug: MODULE_TYPES.schedule,
-    icon: 'https://static-incicle.s3.amazonaws.com/feedback.svg',
+    icon: FeedbackIcon,
     iconSize: 60,
     url: `${links.web.social}/feedback`,
     accountTypes: ['COMPANY', 'PERSON'],
@@ -82,7 +99,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   {
     title: 'Gestão',
     slug: MODULE_TYPES.project,
-    icon: 'https://static-incicle.s3.amazonaws.com/projetos.svg',
+    icon: ProjectManagementIcon,
     iconSize: 60,
     url: links.web.project,
     accountTypes: ['COMPANY', 'PERSON'],
@@ -94,7 +111,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   {
     title: 'Gestão por competência',
     slug: MODULE_TYPES.evaluation360,
-    icon: 'https://static-incicle.s3.amazonaws.com/avaliacao-por-competencia.svg',
+    icon: CompetencyIcon,
     iconSize: 60,
     url: links.web.evaluation,
     accountTypes: ['COMPANY'],
@@ -106,7 +123,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   {
     title: 'Gestão por competência',
     slug: MODULE_TYPES.evaluation360,
-    icon: 'https://static-incicle.s3.amazonaws.com/avaliacao-por-competencia.svg',
+    icon: CompetencyIcon,
     iconSize: 60,
     url: links.web.evaluation + '/user_view',
     accountTypes: ['PERSON'],
@@ -118,7 +135,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   {
     title: 'Rede Social',
     slug: MODULE_TYPES.social_network,
-    icon: 'https://static-incicle.s3.amazonaws.com/rede-social.svg',
+    icon: SocialNetworkIcon,
     iconSize: 60,
     url: links.web.social,
     accountTypes: ['COMPANY', 'PERSON'],
@@ -130,7 +147,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   {
     title: 'Políticas e Procedimentos',
     slug: MODULE_TYPES.climate_research,
-    icon: 'https://static-incicle.s3.amazonaws.com/policies.svg',
+    icon: PolicyIcon,
     iconSize: 51,
     accountTypes: ['COMPANY'],
     url: links.web.policy,
@@ -142,7 +159,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   {
     title: 'OKR',
     slug: '',
-    icon: 'https://static-incicle.s3.amazonaws.com/okr-icon.svg',
+    icon: OkrIcon,
     iconSize: 65,
     accountTypes: ['COMPANY', 'PERSON'],
     url: links.web.okr,
@@ -154,8 +171,8 @@ export const incicleMenuModules: MenuModulesType[] = [
   {
     title: 'Tarefas',
     slug: MODULE_TYPES.task_manager,
-    icon: TaskManagerIcon,
-    iconSize: 46,
+    icon: TaskIcon,
+    iconSize: 60,
     url: `${links.web.schedule}/taskmanager`,
     accountTypes: ['PERSON'],
     description: {
@@ -166,7 +183,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   {
     title: 'InCheck',
     slug: MODULE_TYPES.in_check,
-    icon: 'https://static-incicle.s3.amazonaws.com/InCheck.svg',
+    icon: InCheckIcon,
     iconSize: 60,
     url: links.web.incheck,
     accountTypes: ['PERSON', 'COMPANY'],
@@ -179,8 +196,8 @@ export const incicleMenuModules: MenuModulesType[] = [
   {
     title: 'Configurações do sistema',
     slug: MODULE_TYPES.task_manager,
-    icon: 'https://static-incicle.s3.amazonaws.com/settings.svg',
-    iconSize: 46,
+    icon: SettingsIcon,
+    iconSize: 60,
     url: `${links.web.settings}`,
     accountTypes: ['COMPANY'],
     description: {
@@ -188,11 +205,12 @@ export const incicleMenuModules: MenuModulesType[] = [
       PERSON: 'Gerencie as preferências da sua conta.',
     },
   },
+
   {
     title: 'InPonto',
     slug: MODULE_TYPES.in_point,
-    icon: 'https://static-incicle.s3.amazonaws.com/inPonto.svg',
-    iconSize: 46,
+    icon: InpontoIcon,
+    iconSize: 60,
     url: 'https://inponto.incicle.com/',
     accountTypes: ['COMPANY', 'PERSON'],
     description: {
@@ -201,9 +219,21 @@ export const incicleMenuModules: MenuModulesType[] = [
     },
   },
   {
+    title: "Universidade corporativa",
+    slug: MODULE_TYPES.task_manager,
+    icon: SteponeIcon,
+    iconSize: 60,
+    url: "https://lp.stepone.com.br/",
+    accountTypes: ["COMPANY", "PERSON"],
+    description: {
+      COMPANY: "Desenvolva talentos e gerencie conhecimento.",
+      PERSON: "Desenvolva talentos e gerencie conhecimento.",
+    },
+  },
+  {
     title: 'Ouvidoria',
     slug: MODULE_TYPES.ombudsman,
-    icon: 'https://static-incicle.s3.amazonaws.com/group-disabled.svg',
+    icon: OmbudsmanDisabledIcon,
     iconSize: 53,
     url: null,
     accountTypes: ['COMPANY', 'PERSON'],
@@ -215,7 +245,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   {
     title: 'Pesquisa de clima',
     slug: MODULE_TYPES.climate_research,
-    icon: 'https://static-incicle.s3.amazonaws.com/pesquisa-clima-disabled.svg',
+    icon: ClimateResearchDisabledIcon,
     iconSize: 51,
     accountTypes: ['COMPANY'],
     url: null,
@@ -230,7 +260,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
   {
     title: 'Departamento Pessoal',
     slug: MODULE_TYPES.all,
-    icon: 'https://static-incicle.s3.amazonaws.com/engenharia-organizacional.svg',
+    icon: PersonalDepartmentIcon,
     iconSize: 60,
     url: links.web.department,
     accountTypes: ['PERSON'],
@@ -243,7 +273,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
   {
     title: 'Endomarketing',
     slug: MODULE_TYPES.schedule,
-    icon: 'https://static-incicle.s3.amazonaws.com/endo-marketing.svg',
+    icon: EndoMarketingIcon,
     iconSize: 60,
     url: `${links.web.social}/endomarketing`,
     accountTypes: ['PERSON'],
@@ -256,7 +286,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
   {
     title: 'Admissão Digital',
     slug: MODULE_TYPES.schedule,
-    icon: 'https://static-incicle.s3.amazonaws.com/departamento-pessoal.svg',
+    icon: AdmissionIcon,
     iconSize: 60,
     url: `${links.web.personal_department}/dashboard`,
     accountTypes: ['PERSON'],
@@ -269,7 +299,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
   {
     title: 'Gestão por competência',
     slug: MODULE_TYPES.evaluation360,
-    icon: 'https://static-incicle.s3.amazonaws.com/avaliacao-por-competencia.svg',
+    icon: CompetencyIcon,
     iconSize: 60,
     url: links.web.evaluation,
     accountTypes: ['PERSON'],
@@ -282,7 +312,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
   {
     title: 'InCheck',
     slug: MODULE_TYPES.in_check,
-    icon: 'https://static-incicle.s3.amazonaws.com/InCheck.svg',
+    icon: InCheckIcon,
     iconSize: 60,
     url: `${links.web.incheck}/dashboard`,
     accountTypes: ['PERSON'],
@@ -297,7 +327,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
 export const incicleManagerMenuModules: MenuModulesType = {
   title: 'Painel do Gestor',
   slug: MODULE_TYPES.all,
-  icon: 'https://static-incicle.s3.amazonaws.com/manager-icon.svg',
+  icon: ManagerIcon,
   iconSize: 50,
   url: links.web.manager,
   accountTypes: ['PERSON'],

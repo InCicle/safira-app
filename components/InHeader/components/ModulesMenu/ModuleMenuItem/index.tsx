@@ -12,7 +12,6 @@ const ModuleMenuItem: React.FC<ModuleMenuItemProps> = ({ module }) => {
   const { breakpoints } = useTheme();
 
   const breakpointValue = 700;
-
   return (
     <Tooltip
       key={module.slug}
@@ -53,18 +52,16 @@ const ModuleMenuItem: React.FC<ModuleMenuItemProps> = ({ module }) => {
           }}
         >
           <Stack justifyContent="center" alignItems="center" sx={{ minWidth: 60, minHeight: 60 }}>
-            <Icon
-              component={Stack}
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-              padding={1}
-              width={`${module.iconSize}px !important`}
-              height={`${module.iconSize}px !important`}
-            >
-              <img src={module.icon} alt={module.title} style={{ width: '100%', height: 'auto' }} />
-            </Icon>
+            <Stack
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                sx={{ width: `${module.iconSize}px`, height: `${module.iconSize}px`, padding: 1 }}
+              >
+                <module.icon style={{ width: '100%', height: 'auto', maxWidth: `${module.iconSize}px` }} />
+              </Stack>
           </Stack>
+
           <Box
             sx={{
               textAlign: 'left',
