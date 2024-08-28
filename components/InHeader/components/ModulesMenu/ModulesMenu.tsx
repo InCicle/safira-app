@@ -43,9 +43,9 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
       closeDropdown,
     };
   });
-
   const getUrlUniversidadeCorporativa = (moduleItem) => {
     if (moduleItem.title !== "Universidade corporativa") {
+
       return moduleItem.url;
     }
 
@@ -206,7 +206,13 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
             }}
           >
             {filteredCollaboratorsModules.map((moduleItem, index) => (
-              <ModuleMenuItem key={index.toString()} module={moduleItem} />
+              <ModuleMenuItem
+                key={index.toString()}
+                module={{
+                  ...moduleItem,
+                  url: getUrlUniversidadeCorporativa(moduleItem)
+                }}
+              />
             ))}
 
             {activeManagerMenu ? <ModuleMenuItem module={incicleManagerMenuModules} /> : null}

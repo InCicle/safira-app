@@ -1,7 +1,7 @@
-import { Box, Icon, IconButton, Stack, Tooltip, Typography, useTheme, Link as MUILink } from '@mui/material';
+import React from 'react';
+import { Box, IconButton, Stack, Tooltip, Typography, useTheme, Link as MUILink } from '@mui/material';
 import { MenuModulesType } from 'safira-app/utils/modules';
 import { useAuth } from 'safira-app/hooks/useAuth';
-import React from 'react';
 
 interface ModuleMenuItemProps {
   module: MenuModulesType;
@@ -12,6 +12,11 @@ const ModuleMenuItem: React.FC<ModuleMenuItemProps> = ({ module }) => {
   const { breakpoints } = useTheme();
 
   const breakpointValue = 700;
+
+  const linkProps = module.redirectType === 'external'
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : {};
+
   return (
     <Tooltip
       data-cy="Tooltip"
@@ -44,6 +49,7 @@ const ModuleMenuItem: React.FC<ModuleMenuItemProps> = ({ module }) => {
         <MUILink
           href={module.url || ''}
           underline="none"
+          {...linkProps}
           sx={{
             width: '100%',
             display: 'flex',
@@ -55,13 +61,13 @@ const ModuleMenuItem: React.FC<ModuleMenuItemProps> = ({ module }) => {
         >
           <Stack justifyContent="center" alignItems="center" sx={{ minWidth: 60, minHeight: 60 }}>
             <Stack
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-                sx={{ width: `${module.iconSize}px`, height: `${module.iconSize}px`, padding: 1 }}
-              >
-                <module.icon style={{ width: '100%', height: 'auto', maxWidth: `${module.iconSize}px` }} />
-              </Stack>
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              sx={{ width: `${module.iconSize}px`, height: `${module.iconSize}px`, padding: 1 }}
+            >
+              <module.icon style={{ width: '100%', height: 'auto', maxWidth: `${module.iconSize}px` }} />
+            </Stack>
           </Stack>
 
           <Box
