@@ -33,6 +33,7 @@ export type MenuModulesType = {
   };
   permission?: string;
   enableOnlyTo?: string[];
+  redirectType: 'internal' | 'external';
 };
 
 export const incicleMenuModules: MenuModulesType[] = [
@@ -47,6 +48,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       COMPANY: 'Visualize seus compromissos.',
       PERSON: 'Visualize seus compromissos.',
     },
+    redirectType: 'internal',
   },
   {
     title: 'Admissão Digital',
@@ -59,6 +61,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       COMPANY: 'Receba documentos dos colaboradores.',
       PERSON: 'Envie documentos para a empresa.',
     },
+    redirectType: 'internal',
   },
   {
     title: 'Departamento Pessoal',
@@ -71,6 +74,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       COMPANY: 'Cadastre colaboradores, setores, cargos e níveis.',
       PERSON: 'Cadastre colaboradores, setores, cargos e níveis.',
     },
+    redirectType: 'internal',
   },
   {
     title: 'Endomarketing',
@@ -83,6 +87,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       COMPANY: 'Acelere a comunicação na sua empresa.',
       PERSON: null,
     },
+    redirectType: 'internal',
   },
   {
     title: 'Feedback',
@@ -95,6 +100,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       COMPANY: 'Receba, envie e crie eventos de feedbacks.',
       PERSON: 'Receba, envie e solicite feedbacks.',
     },
+    redirectType: 'internal',
   },
   {
     title: 'Gestão',
@@ -107,6 +113,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       COMPANY: 'Gerencie seus projetos pessoais e profissionais.',
       PERSON: 'Gerencie seus projetos pessoais e profissionais.',
     },
+    redirectType: 'internal',
   },
   {
     title: 'Gestão por competência',
@@ -119,6 +126,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       COMPANY: 'Avaliações e planos de desenvolvimento.',
       PERSON: null,
     },
+    redirectType: 'internal',
   },
   {
     title: 'Gestão por competência',
@@ -131,6 +139,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       COMPANY: null,
       PERSON: 'Avaliações e planos de desenvolvimento.',
     },
+    redirectType: 'internal',
   },
   {
     title: 'Rede Social',
@@ -143,6 +152,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       COMPANY: 'Acompanhe a rede social e sua produtividade.',
       PERSON: 'Acompanhe a rede social e sua produtividade.',
     },
+    redirectType: 'internal',
   },
   {
     title: 'Políticas e Procedimentos',
@@ -155,6 +165,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       COMPANY: 'Gerencie as políticas da sua empresa e compartilhe com seus colaboradores.',
       PERSON: null,
     },
+    redirectType: 'internal',
   },
   {
     title: 'OKR',
@@ -167,6 +178,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       COMPANY: 'Objetivos e Resultados-Chave.',
       PERSON: 'Objetivos e Resultados-Chave.',
     },
+    redirectType: 'internal',
   },
   {
     title: 'Tarefas',
@@ -179,6 +191,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       COMPANY: null,
       PERSON: 'Gerencie suas tarefas e acompanhe seu desempenho geral.',
     },
+    redirectType: 'internal',
   },
   {
     title: 'InCheck',
@@ -192,6 +205,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       PERSON: 'Respoda checklists, crie ações e relatórios.',
     },
     enableOnlyTo: ['4d7a2110-45c5-465d-bccf-806413fc1034', 'd4164ad8-7ff7-4bfa-81d1-3498b8ba1a48'],
+    redirectType: 'internal',
   },
   {
     title: 'Configurações do sistema',
@@ -204,6 +218,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       COMPANY: 'Gerencie permissões e outras preferências.',
       PERSON: 'Gerencie as preferências da sua conta.',
     },
+    redirectType: 'internal',
   },
 
   {
@@ -217,6 +232,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       COMPANY: 'Controle onde e como você quiser.',
       PERSON: 'Controle onde e como você quiser.',
     },
+    redirectType: 'external',
   },
   {
     title: "Universidade corporativa",
@@ -229,6 +245,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       COMPANY: "Desenvolva talentos e gerencie conhecimento.",
       PERSON: null,
     },
+    redirectType: 'external',
   },
   {
     title: 'Ouvidoria',
@@ -241,6 +258,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       COMPANY: 'Receba avaliações, sugestões e reclamações.',
       PERSON: 'Envie avaliações, sugestões e reclamações.',
     },
+    redirectType: 'internal',
   },
   {
     title: 'Pesquisa de clima',
@@ -253,6 +271,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       COMPANY: 'Crie pesquisas sobre a empresa pessoa.',
       PERSON: null,
     },
+    redirectType: 'internal',
   },
 
 ];
@@ -270,6 +289,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
       PERSON: 'Cadastre colaboradores, setores, cargos e níveis.',
     },
     permission: 'general_dashboard',
+    redirectType: 'internal',
   },
   {
     title: 'Endomarketing',
@@ -283,6 +303,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
       PERSON: 'Acelere a comunicação na sua empresa.',
     },
     permission: 'full_endomarketing',
+    redirectType: 'internal',
   },
   {
     title: 'Admissão Digital',
@@ -296,6 +317,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
       PERSON: 'Gerencie as contratações da empresa que você tem vínculo.',
     },
     permission: 'full_personal_department',
+    redirectType: 'internal',
   },
   {
     title: 'Gestão por competência',
@@ -309,6 +331,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
       PERSON: 'Avaliações e planos de desenvolvimento.',
     },
     permission: 'full_competency_management',
+    redirectType: 'internal',
   },
   {
     title: 'InCheck',
@@ -322,6 +345,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
       PERSON: 'Avaliações e planos de desenvolvimento.',
     },
     permission: 'in_check',
+    redirectType: 'internal',
   },
   {
     title: "Universidade corporativa",
@@ -334,6 +358,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
       COMPANY: null,
       PERSON: "Desenvolva talentos e gerencie conhecimento.",
     },
+    redirectType: 'external',
   },
 ];
 
@@ -348,6 +373,7 @@ export const incicleManagerMenuModules: MenuModulesType = {
     COMPANY: null,
     PERSON: 'Gerencie informações e ações da sua equipe.',
   },
+  redirectType: 'internal',
 };
 
 export type FilterModulesType = {
