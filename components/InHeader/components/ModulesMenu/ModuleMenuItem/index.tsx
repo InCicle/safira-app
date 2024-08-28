@@ -14,6 +14,7 @@ const ModuleMenuItem: React.FC<ModuleMenuItemProps> = ({ module }) => {
   const breakpointValue = 700;
   return (
     <Tooltip
+      data-cy="Tooltip"
       key={module.slug}
       title={!module.url ? 'Módulo disponível em breve' : ''}
       placement="top"
@@ -28,6 +29,7 @@ const ModuleMenuItem: React.FC<ModuleMenuItemProps> = ({ module }) => {
       }}
     >
       <IconButton
+        data-cy={`module-${module.slug}`}
         key={module.title}
         sx={{
           width: '49%',

@@ -66,7 +66,6 @@ const EvaluationDropdownNotificationFactory: React.FC<
         );
 
       case notificationType.LINK_TO_OWN_RESEARCH:
-        /* Essas linhas estão comentadas devido a task LP#2525, que prevê o retorno ao texto antigo, mas com a validação se exite autoavaliação ou não
          const maxDateAsArray = new Date(notification.common.max_date)
            .toLocaleString(user.config.default_language, {
              timeZone: user.config.default_timezone,
@@ -75,7 +74,7 @@ const EvaluationDropdownNotificationFactory: React.FC<
 
          const [dateString, timeString] = maxDateAsArray;
          const timeFormat = timeString.slice(0, 5);
-         */
+         
 
         return (
           <NotificationContainer
@@ -88,6 +87,8 @@ const EvaluationDropdownNotificationFactory: React.FC<
               <NotificationHighlight>
                 {notification.common.name_research}.
               </NotificationHighlight>
+              {notificationItem.common?.self_evaluation && ` Responda sua autoavaliação até a data ${<NotificationHighlight>{dateString}</NotificationHighlight>} às 
+              ${<NotificationHighlight>{timeFormat}</NotificationHighlight>}.` }
             </NotificationContentText>
           </NotificationContainer>
         );
