@@ -41,5 +41,5 @@ export function useRequest<R extends any>({ fn: request, delayMs, deps = [] }: R
     fetchData();
   }, [...deps, delayMs]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return { loading, response, error, refetch: fetchData, forceLoad, breakLoad };
+  return { loading, response, setResponse, error, refetch: fetchData, forceLoad, breakLoad };
 }
