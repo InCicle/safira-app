@@ -204,12 +204,12 @@ const EvaluationDropdownNotificationFactory: React.FC<
             <NotificationContentText data-cy="NotificationContentText" notification={notification}>
               Você foi convidado para avaliar{' '}
               <NotificationHighlight>
-                {notification.common.name_evaluated}
+                {notification.common.name_evaluated}{' '}
               </NotificationHighlight>
               {notification.common.count > 1 &&
-                ` e outras ${notification.common.count} pessoas `}
+                `e outras ${notification.common.count} pessoas `}
               {notification.common.count === 1 &&
-                ` e outra ${notification.common.count} pessoa `}
+                `e outra ${notification.common.count} pessoa `}
               na pesquisa{' '}
               <NotificationHighlight>
                 {notification.common.name_research}.
