@@ -116,7 +116,7 @@ export const incicleMenuModules: MenuModulesType[] = [
     redirectType: 'internal',
   },
   {
-    title: 'Gestão por competência',
+    title: 'Gestão por Competência',
     slug: MODULE_TYPES.evaluation360,
     icon: CompetencyIcon,
     iconSize: 60,
@@ -129,7 +129,7 @@ export const incicleMenuModules: MenuModulesType[] = [
     redirectType: 'internal',
   },
   {
-    title: 'Gestão por competência',
+    title: 'Gestão por Competência',
     slug: MODULE_TYPES.evaluation360,
     icon: CompetencyIcon,
     iconSize: 60,
@@ -208,7 +208,7 @@ export const incicleMenuModules: MenuModulesType[] = [
     redirectType: 'internal',
   },
   {
-    title: 'Configurações do sistema',
+    title: 'Configurações do Sistema',
     slug: MODULE_TYPES.task_manager,
     icon: SettingsIcon,
     iconSize: 60,
@@ -235,7 +235,7 @@ export const incicleMenuModules: MenuModulesType[] = [
     redirectType: 'external',
   },
   {
-    title: "Universidade corporativa",
+    title: "Universidade Corporativa",
     slug: MODULE_TYPES.task_manager,
     icon: SteponeIcon,
     iconSize: 60,
@@ -261,7 +261,7 @@ export const incicleMenuModules: MenuModulesType[] = [
     redirectType: 'internal',
   },
   {
-    title: 'Pesquisa de clima',
+    title: 'Pesquisa de Clima',
     slug: MODULE_TYPES.climate_research,
     icon: ClimateResearchDisabledIcon,
     iconSize: 60,
@@ -320,7 +320,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
     redirectType: 'internal',
   },
   {
-    title: 'Gestão por competência',
+    title: 'Gestão por Competência',
     slug: MODULE_TYPES.evaluation360,
     icon: CompetencyIcon,
     iconSize: 60,
@@ -348,7 +348,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
     redirectType: 'internal',
   },
   {
-    title: "Universidade corporativa",
+    title: "Universidade Corporativa",
     slug: MODULE_TYPES.task_manager,
     icon: SteponeIcon,
     iconSize: 60,
@@ -470,7 +470,7 @@ export const incicleNotificationModules: FilterModulesType[] = [
     userType: 'BOTH',
   },
   {
-    title: 'Pesquisa de clima',
+    title: 'Pesquisa de Clima',
     slug: MODULE_TYPES.climate_research,
     icon: 'https://static-incicle.s3.amazonaws.com/pesquisa-clima-disabled.svg',
     linkKey: 'disabled',
