@@ -44,7 +44,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
     };
   });
   const getUrlUniversidadeCorporativa = (moduleItem) => {
-    if (moduleItem.title !== "Universidade corporativa") {
+    if (moduleItem.title !== "Universidade Corporativa") {
 
       return moduleItem.url;
     }
