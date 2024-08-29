@@ -59,9 +59,9 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
         ? getUrlStepOne(profiles.redirects)
         : urlStepOne;
     } else if (profiles?.type === "PERSON" && profiles.companies && profiles.companies.length > 0) {
-      const empresa = profiles.companies[0];
-      if (empresa.redirects && empresa.redirects.length > 0) {
-        return getUrlStepOne(empresa.redirects);
+      const currentCompany = profiles.companies.find(company => company.id === companyId);
+      if (currentCompany && currentCompany.redirects && currentCompany.redirects.length > 0) {
+        return getUrlStepOne(currentCompany.redirects);
       }
     }
     return urlStepOne;
