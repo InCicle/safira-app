@@ -14,7 +14,7 @@ import TutorialVideos from "../TutorialVideos";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import { PlayArrow } from "@mui/icons-material";
+import { School } from "@mui/icons-material";
 
 export type ProfileMenuRef = {
   openProfileMenu: (ev: any) => void;
@@ -49,7 +49,7 @@ const ProfileMenu: React.ForwardRefRenderFunction<ProfileMenuRef> = (
   props,
   ref
 ) => {
-  const { signOut, profiles } = useHeaderProvider();
+  const { profiles } = useHeaderProvider();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [openTutorial, setOpenTutorial] = useState(false);
 
@@ -165,12 +165,12 @@ const ProfileMenu: React.ForwardRefRenderFunction<ProfileMenuRef> = (
             {profiles?.type === "PERSON" ? "Amigos" : "Colaboradores"}
           </CustomLink>
         </MenuItem>
+        <Divider />
         <MenuItem onClick={() => setOpenTutorial(true)}>
-          <CustomLink icon={<PlayArrow fontSize="small" />}>
-            Tutorial
+          <CustomLink icon={<School fontSize="small" />}>
+            Tutoriais
           </CustomLink>
         </MenuItem>
-        <Divider />
         <MenuItem>
           <CustomLink
             href={links.web.settings}

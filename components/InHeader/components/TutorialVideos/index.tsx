@@ -13,6 +13,7 @@ import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
 import { links } from 'safira-app/config/links';
 import TutorialVideoButton from './components/TutorialVideoButton';
 import TutorialDoubleVideoButton from './components/TutorialDoubleVideoButton';
+import { useAuth } from 'safira-app/hooks/useAuth';
 
 interface Props {
   open: boolean;
@@ -30,6 +31,7 @@ const initialState = [
 ];
 
 const Tutorials: React.FC<Props> = ({ open, setOpen }) => {
+  const { user } = useAuth();
   const [state, setState] = useState(initialState);
   const { api } = useHeaderProvider();
 
@@ -52,6 +54,16 @@ const Tutorials: React.FC<Props> = ({ open, setOpen }) => {
     let obj = state.filter(element => element.module === moduleName);
     let key = obj[0] ? obj[0].is_view : false;
     return key;
+  }
+
+  const handleOpenMoreTutorials = () => {
+    const { type } = user;
+    const personLink = "https://www.incicle.com/tutoriais-de-suporte-person/";
+    const companyLink = "https://www.incicle.com/tutoriais-de-suporte-company/";
+
+    const urlLink = type === "COMPANY" ? companyLink : personLink;
+
+    window.open(urlLink, "_blank");
   }
 
   return (
@@ -163,9 +175,12 @@ const Tutorials: React.FC<Props> = ({ open, setOpen }) => {
                   markAsViewed={() => modifyViewedData('task_manager')}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} className="finalButton">
-                <Button variant="contained" onClick={() => setOpen(false)}>
-                  Finalizar
+              <Grid item xs={12} sm={6} className="finalButton" sx={{ gap: "8px" }}>
+              <Button variant="outlined" onClick={() => setOpen(false)}>
+                  Fechar
+                </Button>
+                <Button variant="contained" onClick={handleOpenMoreTutorials}>
+                  Ver mais
                 </Button>
               </Grid>
             </Grid>
