@@ -89,7 +89,7 @@ const Tutorials: React.FC<Props> = ({ open, setOpen }) => {
                   name={'Tela principal'}
                   moduleImg={socialImg}
                   description={
-                    'Unindo todos os nossos móulos, aqui você gerencia todas as suas informações e acompanha tudo o que está acontecendo em sua rotina.'
+                    'Unindo todos os nossos módulos, aqui você gerencia todas as suas informações e acompanha tudo o que está acontecendo em sua rotina.'
                   }
                   markAsViewed={modifyViewedData}
                   videos={[
