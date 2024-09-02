@@ -16,15 +16,18 @@ export interface MeCompany {
   logo: string | null;
   is_manager_competence: boolean;
   is_manager_in_check?: boolean;
-  company_user: {
+  user: {
     id: string;
     username: string;
   };
-  my_collaborator_id: {
-    id: string;
-  };
+  my_collaborator_id: string;
+  redirects?: Redirect[];
 }
 
+export interface Redirect {
+  type: number | string;
+  url: string;
+}
 export interface ProfileConfig {
   created_at: string;
   default_timezone: string;
@@ -44,8 +47,9 @@ export interface ProfileConfig {
 
 export interface UserConfig {
   auth2f: boolean;
-  default_interface: 'LIGHT' | 'DARK';
+  default_interface: "LIGHT" | "DARK";
   default_language: string;
+  default_timezone: string;
   id: string;
   user_id: string;
 }
@@ -55,10 +59,11 @@ export interface MeProps {
   username: string;
   name: string;
   logo: string | null;
-  type: 'COMPANY' | 'PERSON';
+  type: "COMPANY" | "PERSON";
   profile_id: string;
   avatar: string;
   companies: MeCompany[];
+  redirects?: Redirect[];
   profile_config: ProfileConfig;
   user_config: UserConfig;
   social_name: string;

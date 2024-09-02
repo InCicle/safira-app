@@ -1,7 +1,7 @@
-import { Box, Icon, IconButton, Stack, Tooltip, Typography, useTheme, Link as MUILink } from '@mui/material';
+import React from 'react';
+import { Box, IconButton, Stack, Tooltip, Typography, useTheme, Link as MUILink } from '@mui/material';
 import { MenuModulesType } from 'safira-app/utils/modules';
 import { useAuth } from 'safira-app/hooks/useAuth';
-import React from 'react';
 
 interface ModuleMenuItemProps {
   module: MenuModulesType;
@@ -13,8 +13,13 @@ const ModuleMenuItem: React.FC<ModuleMenuItemProps> = ({ module }) => {
 
   const breakpointValue = 700;
 
+  const linkProps = module.redirectType === 'external'
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : {};
+
   return (
     <Tooltip
+      data-cy="Tooltip"
       key={module.slug}
       title={!module.url ? 'Módulo disponível em breve' : ''}
       placement="top"
@@ -29,6 +34,7 @@ const ModuleMenuItem: React.FC<ModuleMenuItemProps> = ({ module }) => {
       }}
     >
       <IconButton
+        data-cy={`module-${module.slug}`}
         key={module.title}
         sx={{
           width: '49%',
@@ -43,6 +49,7 @@ const ModuleMenuItem: React.FC<ModuleMenuItemProps> = ({ module }) => {
         <MUILink
           href={module.url || ''}
           underline="none"
+          {...linkProps}
           sx={{
             width: '100%',
             display: 'flex',
@@ -53,18 +60,16 @@ const ModuleMenuItem: React.FC<ModuleMenuItemProps> = ({ module }) => {
           }}
         >
           <Stack justifyContent="center" alignItems="center" sx={{ minWidth: 60, minHeight: 60 }}>
-            <Icon
-              component={Stack}
+            <Stack
               direction="row"
               justifyContent="center"
               alignItems="center"
-              padding={1}
-              width={`${module.iconSize}px !important`}
-              height={`${module.iconSize}px !important`}
+              sx={{ width: `${module.iconSize}px`, height: `${module.iconSize}px`, padding: 1 }}
             >
-              <img src={module.icon} alt={module.title} style={{ width: '100%', height: 'auto' }} />
-            </Icon>
+              <module.icon style={{ width: '100%', height: 'auto', maxWidth: `${module.iconSize}px` }} />
+            </Stack>
           </Stack>
+
           <Box
             sx={{
               textAlign: 'left',

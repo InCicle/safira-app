@@ -13,6 +13,7 @@ import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
 import { links } from 'safira-app/config/links';
 import TutorialVideoButton from './components/TutorialVideoButton';
 import TutorialDoubleVideoButton from './components/TutorialDoubleVideoButton';
+import { useAuth } from 'safira-app/hooks/useAuth';
 
 interface Props {
   open: boolean;
@@ -30,6 +31,7 @@ const initialState = [
 ];
 
 const Tutorials: React.FC<Props> = ({ open, setOpen }) => {
+  const { user } = useAuth();
   const [state, setState] = useState(initialState);
   const { api } = useHeaderProvider();
 
@@ -54,6 +56,16 @@ const Tutorials: React.FC<Props> = ({ open, setOpen }) => {
     return key;
   }
 
+  const handleOpenMoreTutorials = () => {
+    const { type } = user;
+    const personLink = "https://www.incicle.com/tutoriais-de-suporte-person/";
+    const companyLink = "https://www.incicle.com/tutoriais-de-suporte-company/";
+
+    const urlLink = type === "COMPANY" ? companyLink : personLink;
+
+    window.open(urlLink, "_blank");
+  }
+
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
       <ModalLayout className="withCustomScrollbar">
@@ -65,18 +77,19 @@ const Tutorials: React.FC<Props> = ({ open, setOpen }) => {
             </Typography>
             <Grid
               container
-              spacing={2}
+              spacing={1}
               maxWidth={600}
               direction={'row'}
               justifyContent={'center'}
               alignItems={'stretch'}
+              sx={{ overflowY: 'auto', maxHeight: "calc(80vh - 50px)", paddingBottom: '36px', marginTop: '0' }}
             >
               <Grid item xs={12} sm={6}>
                 <TutorialDoubleVideoButton
                   name={'Tela principal'}
                   moduleImg={socialImg}
                   description={
-                    'Unindo todos os nossos móulos, aqui você gerencia todas as suas informações e acompanha tudo o que está acontecendo em sua rotina.'
+                    'Unindo todos os nossos módulos, aqui você gerencia todas as suas informações e acompanha tudo o que está acontecendo em sua rotina.'
                   }
                   markAsViewed={modifyViewedData}
                   videos={[
@@ -163,14 +176,37 @@ const Tutorials: React.FC<Props> = ({ open, setOpen }) => {
                   markAsViewed={() => modifyViewedData('task_manager')}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} className="finalButton">
-                <Button variant="contained" onClick={() => setOpen(false)}>
-                  Finalizar
-                </Button>
-              </Grid>
+              <Grid item xs={12} sm={6}></Grid>
             </Grid>
-          </Layout>
+            <Box
+           
+        >
+        <Grid container sx={{
+            position: 'fixed',
+            bottom: 0,
+            left: 0,
+            width: '100%',
+            backgroundColor: 'white',
+            padding: '4px 16px',
+            borderTop: '1px solid #e0e0e0',
+            borderBottomLeftRadius: '10px',
+            borderBottomRightRadius: '10px',
+          }}>
+          <Grid item xs={12} sm={12} lg={12} className="finalButton" sx={{ gap: "8px", justifyContent: 'end' }}>
+            <Button variant="outlined" onClick={() => setOpen(false)}>
+               Fechar
+            </Button>
+            <Button variant="contained" onClick={handleOpenMoreTutorials}>
+              Ver mais
+            </Button>
+          </Grid>
+        </Grid>
         </Box>
+          </Layout>
+         
+          
+        </Box>
+        
       </ModalLayout>
     </Modal>
   );

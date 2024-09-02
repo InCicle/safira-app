@@ -22,12 +22,12 @@ type Props = {
 const breakpointValue = 700;
 
 const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (props, ref) => {
-  const { user } = useHeaderProvider();
+  const { user, profiles } = useHeaderProvider();
   const { breakpoints } = useTheme();
-  // const { me: profiles } = useContext(ProfileContext);
   const { activeManagerMenu } = props;
   const { checkPermission, companyId } = usePermissions();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const urlStepOne = "https://lp.stepone.com.br/";
 
   function openDropdown(ev: any) {
     setAnchorEl(ev.currentTarget);
@@ -43,14 +43,35 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
       closeDropdown,
     };
   });
+  const getUrlUniversidadeCorporativa = (moduleItem) => {
+    if (moduleItem.title !== "Universidade Corporativa") {
 
+      return moduleItem.url;
+    }
+
+    const getUrlStepOne = (redirects) => {
+      const redirecionamentoStepOne = redirects.find(redirect => redirect.type === 1 || redirect.type === "STEPONE");
+      return redirecionamentoStepOne ? redirecionamentoStepOne.url : urlStepOne;
+    };
+
+    if (profiles?.type === "COMPANY") {
+      return profiles.redirects && profiles.redirects.length > 0
+        ? getUrlStepOne(profiles.redirects)
+        : urlStepOne;
+    } else if (profiles?.type === "PERSON" && profiles.companies && profiles.companies.length > 0) {
+      const currentCompany = profiles.companies.find(company => company.id === companyId);
+      if (currentCompany && currentCompany.redirects && currentCompany.redirects.length > 0) {
+        return getUrlStepOne(currentCompany.redirects);
+      }
+    }
+    return urlStepOne;
+  };
   const filteredCollaboratorsModules = incicleCollaboratorsMenuModules
     .filter(item => item.accountTypes.includes(user.type))
     .filter(moduleItem => {
       if (!moduleItem.permission) return true;
       return checkPermission([moduleItem.permission]);
     });
-
   return (
     <Menu
       open={Boolean(anchorEl)}
@@ -137,7 +158,13 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
             return checkPermission([moduleItem.permission]);
           })
           .map((moduleItem, index) => (
-            <ModuleMenuItem key={index.toString()} module={moduleItem} />
+            <ModuleMenuItem
+              key={index.toString()}
+              module={{
+                ...moduleItem,
+                url: getUrlUniversidadeCorporativa(moduleItem)
+              }}
+            />
           ))}
       </Box>
 
@@ -179,7 +206,13 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
             }}
           >
             {filteredCollaboratorsModules.map((moduleItem, index) => (
-              <ModuleMenuItem key={index.toString()} module={moduleItem} />
+              <ModuleMenuItem
+                key={index.toString()}
+                module={{
+                  ...moduleItem,
+                  url: getUrlUniversidadeCorporativa(moduleItem)
+                }}
+              />
             ))}
 
             {activeManagerMenu ? <ModuleMenuItem module={incicleManagerMenuModules} /> : null}
