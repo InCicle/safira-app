@@ -5,7 +5,6 @@ export const ModalLayout = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 16px;
   width: max-content;
 
   @media screen and (max-width: 700px) {
@@ -17,7 +16,6 @@ export const ModalLayout = styled.div`
     background: linear-gradient(180deg, #c1daff 0%, #ffffff 29.69%);
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
-    overflow-y: auto;
   }
 `;
 
@@ -48,7 +46,6 @@ export const Layout = styled.div`
   padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
   text-align: center;
 
   .step7Title {

@@ -77,11 +77,12 @@ const Tutorials: React.FC<Props> = ({ open, setOpen }) => {
             </Typography>
             <Grid
               container
-              spacing={2}
+              spacing={1}
               maxWidth={600}
               direction={'row'}
               justifyContent={'center'}
               alignItems={'stretch'}
+              sx={{ overflowY: 'auto', maxHeight: "calc(80vh - 50px)", paddingBottom: '36px', marginTop: '0' }}
             >
               <Grid item xs={12} sm={6}>
                 <TutorialDoubleVideoButton
@@ -175,17 +176,37 @@ const Tutorials: React.FC<Props> = ({ open, setOpen }) => {
                   markAsViewed={() => modifyViewedData('task_manager')}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} className="finalButton" sx={{ gap: "8px" }}>
-              <Button variant="outlined" onClick={() => setOpen(false)}>
-                  Fechar
-                </Button>
-                <Button variant="contained" onClick={handleOpenMoreTutorials}>
-                  Ver mais
-                </Button>
-              </Grid>
+              <Grid item xs={12} sm={6}></Grid>
             </Grid>
-          </Layout>
+            <Box
+           
+        >
+        <Grid container sx={{
+            position: 'fixed',
+            bottom: 0,
+            left: 0,
+            width: '100%',
+            backgroundColor: 'white',
+            padding: '4px 16px',
+            borderTop: '1px solid #e0e0e0',
+            borderBottomLeftRadius: '10px',
+            borderBottomRightRadius: '10px',
+          }}>
+          <Grid item xs={12} sm={12} lg={12} className="finalButton" sx={{ gap: "8px", justifyContent: 'end' }}>
+            <Button variant="outlined" onClick={() => setOpen(false)}>
+               Fechar
+            </Button>
+            <Button variant="contained" onClick={handleOpenMoreTutorials}>
+              Ver mais
+            </Button>
+          </Grid>
+        </Grid>
         </Box>
+          </Layout>
+         
+          
+        </Box>
+        
       </ModalLayout>
     </Modal>
   );
