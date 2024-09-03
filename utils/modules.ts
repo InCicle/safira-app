@@ -240,10 +240,10 @@ export const incicleMenuModules: MenuModulesType[] = [
     icon: SteponeIcon,
     iconSize: 60,
     url: "https://lp.stepone.com.br/",
-    accountTypes: ["COMPANY"],
+    accountTypes: ["COMPANY", "PERSON"],
     description: {
       COMPANY: "Desenvolva talentos e gerencie conhecimento.",
-      PERSON: null,
+      PERSON: "Desenvolva talentos e gerencie conhecimento.",
     },
     redirectType: 'external',
   },
@@ -347,19 +347,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
     permission: 'in_check',
     redirectType: 'internal',
   },
-  {
-    title: "Universidade Corporativa",
-    slug: MODULE_TYPES.task_manager,
-    icon: SteponeIcon,
-    iconSize: 60,
-    url: "https://lp.stepone.com.br/",
-    accountTypes: ["PERSON"],
-    description: {
-      COMPANY: null,
-      PERSON: "Desenvolva talentos e gerencie conhecimento.",
-    },
-    redirectType: 'external',
-  },
+
 ];
 
 export const incicleManagerMenuModules: MenuModulesType = {
