@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import api from "services/api";
 import { links } from "safira-app/config/links";
 import { useAuth } from "safira-app/hooks/useAuth";
-import { useSocialContext } from "~/SocialNetwork/context/SocialContext";
+import { useSocialContext } from "SocialNetwork/context/SocialContext";
 
 export interface PermissionObject {
   id: string;
