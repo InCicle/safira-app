@@ -14,6 +14,7 @@ declare global {
       REACT_APP_API_URL_CORE: string;
       REACT_APP_API_URL_EVALUATION: string;
       REACT_APP_API_URL_PD: string;
+      REACT_APP_API_URL_OB: string;
 
       // WEB
       REACT_APP_WEB_URL_SOCIAL_NETWORK: string;
