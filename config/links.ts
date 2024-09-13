@@ -6,6 +6,7 @@ export type ModulesApi = {
   evaluation: string;
   notification: string;
   personal_department: string;
+  ombudsman: string;
 };
 
 export type ModulesWeb = {
@@ -48,6 +49,7 @@ export const links: Modulelinks = {
     project: process.env.REACT_APP_API_URL_PROJECTS,
     schedule: process.env.REACT_APP_API_URL_SCHEDULE,
     social: process.env.REACT_APP_API_URL_SOCIAL_NETWORK,
+    ombudsman: process.env.REACT_APP_API_URL_OB
   },
   web: {
     core: process.env.REACT_APP_WEB_URL_CORE,
