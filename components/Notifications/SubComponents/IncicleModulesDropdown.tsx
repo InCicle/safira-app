@@ -7,7 +7,7 @@ import { getNotifications } from 'safira-app/services/notifier/notifications';
 import { useNotifications } from 'safira-app/hooks/useNotifications';
 import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
 
-import { incicleNotificationModules } from "safira-app/utils/modules";
+import { incicleNotificationModules } from 'safira-app/utils/modules';
 import { NotificationFilterOptions } from '../enums';
 import { ButtonNotification } from '../style';
 import { NotificationFiltersType } from '../types';

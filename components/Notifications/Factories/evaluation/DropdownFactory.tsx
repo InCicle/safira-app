@@ -32,9 +32,7 @@ const notificationType = {
 };
 
 // @ts-ignore
-const EvaluationDropdownNotificationFactory: React.FC<
-  React.PropsWithChildren<IProps>
-> = ({ notificationItem }) => {
+const EvaluationDropdownNotificationFactory: React.FC<React.PropsWithChildren<IProps>> = ({ notificationItem }) => {
   const { user } = useHeaderProvider();
   // @ts-ignore
   const [notification] = useState(notificationItem);
@@ -54,27 +52,22 @@ const EvaluationDropdownNotificationFactory: React.FC<
           >
             <NotificationContentText data-cy="NotificationContentText" notification={notification}>
               Você foi incluído em uma avaliação{' '}
-              <NotificationHighlight>
-                {notification.common.name_research}
-              </NotificationHighlight>
+              <NotificationHighlight>{notification.common.name_research}</NotificationHighlight>
               {'. '}Gerencie seus avaliadores até{' '}
-              <NotificationHighlight>
-                {dateFormat(notification.common.max_date, 'DD/MM')}
-              </NotificationHighlight>
+              <NotificationHighlight>{dateFormat(notification.common.max_date, 'DD/MM')}</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
         );
 
       case notificationType.LINK_TO_OWN_RESEARCH:
-         const maxDateAsArray = new Date(notification.common.max_date)
-           .toLocaleString(user.config.default_language, {
-             timeZone: user.config.default_timezone,
-           })
-           .split(' ');
+        const maxDateAsArray = new Date(notification.common.max_date)
+          .toLocaleString(user.config.default_language, {
+            timeZone: user.config.default_timezone,
+          })
+          .split(' ');
 
-         const [dateString, timeString] = maxDateAsArray;
-         const timeFormat = timeString.slice(0, 5);
-         
+        const [dateString, timeString] = maxDateAsArray;
+        const timeFormat = timeString.slice(0, 5);
 
         return (
           <NotificationContainer
@@ -84,21 +77,17 @@ const EvaluationDropdownNotificationFactory: React.FC<
           >
             <NotificationContentText data-cy="NotificationContentText" notification={notification}>
               Você foi incluído em uma avaliação{' '}
-              <NotificationHighlight>
-                {notification.common.name_research}.
-              </NotificationHighlight>
-              {notificationItem.common?.self_evaluation && ` Responda sua autoavaliação até a data ${<NotificationHighlight>{dateString}</NotificationHighlight>} às 
-              ${<NotificationHighlight>{timeFormat}</NotificationHighlight>}.` }
+              <NotificationHighlight>{notification.common.name_research}.</NotificationHighlight>
+              {notificationItem.common?.self_evaluation &&
+                ` Responda sua autoavaliação até a data ${(<NotificationHighlight>{dateString}</NotificationHighlight>)} às 
+              ${(<NotificationHighlight>{timeFormat}</NotificationHighlight>)}.`}
             </NotificationContentText>
           </NotificationContainer>
         );
 
       case notificationType.SEARCH_EXPIRATION_OWN_EVALUATION:
         const dateNotificationMaxDate =
-          moment(formatDateNotification(notification?.common?.max_date)).diff(
-            moment(),
-            'day',
-          ) + 1;
+          moment(formatDateNotification(notification?.common?.max_date)).diff(moment(), 'day') + 1;
         return (
           <NotificationContainer
             data-cy="NotificationContainer-SEARCH_EXPIRATION_OWN_EVALUATION"
@@ -106,18 +95,10 @@ const EvaluationDropdownNotificationFactory: React.FC<
             notification={notificationItem}
           >
             <NotificationContentText data-cy="NotificationContentText" notification={notification}>
-              A empresa{' '}
-              <NotificationHighlight>
-                "{notification.sender.name}"
-              </NotificationHighlight>{' '}
-              aguarda sua autoavaliação da pesquisa{' '}
-              <NotificationHighlight>
-                "{notification.common.name_research}"
-              </NotificationHighlight>{' '}
-              que vencerá em{' '}
-              {dateNotificationMaxDate > 1
-                ? `${dateNotificationMaxDate} dias`
-                : `${dateNotificationMaxDate} dia`}
+              A empresa <NotificationHighlight>"{notification.sender.name}"</NotificationHighlight> aguarda sua
+              autoavaliação da pesquisa{' '}
+              <NotificationHighlight>"{notification.common.name_research}"</NotificationHighlight> que vencerá em{' '}
+              {dateNotificationMaxDate > 1 ? `${dateNotificationMaxDate} dias` : `${dateNotificationMaxDate} dia`}
             </NotificationContentText>
           </NotificationContainer>
         );
@@ -131,14 +112,8 @@ const EvaluationDropdownNotificationFactory: React.FC<
           >
             <NotificationContentText data-cy="NotificationContentText" notification={notification}>
               Você ainda não respondeu a pesquisa{' '}
-              <NotificationHighlight>
-                "{notification.common.name_research}"
-              </NotificationHighlight>{' '}
-              sobre{' '}
-              <NotificationHighlight>
-                "{notification.common.name_evaluated}"
-              </NotificationHighlight>{' '}
-              que vence amanhã.
+              <NotificationHighlight>"{notification.common.name_research}"</NotificationHighlight> sobre{' '}
+              <NotificationHighlight>"{notification.common.name_evaluated}"</NotificationHighlight> que vence amanhã.
             </NotificationContentText>
           </NotificationContainer>
         );
@@ -151,10 +126,8 @@ const EvaluationDropdownNotificationFactory: React.FC<
             notification={notificationItem}
           >
             <NotificationContentText data-cy="NotificationContentText" notification={notification}>
-              <NotificationHighlight>
-                {notification.sender.name.split(' ')[0]}:{' '}
-              </NotificationHighlight>
-              "{notification.common.content}"
+              <NotificationHighlight>{notification.sender.name.split(' ')[0]}: </NotificationHighlight>"
+              {notification.common.content}"
             </NotificationContentText>
           </NotificationContainer>
         );
@@ -167,10 +140,8 @@ const EvaluationDropdownNotificationFactory: React.FC<
             notification={notificationItem}
           >
             <NotificationContentText data-cy="NotificationContentText" notification={notification}>
-              <NotificationHighlight>
-                {notification.sender.name.split(' ')[0]}:{' '}
-              </NotificationHighlight>
-              "{notification.common.content}"
+              <NotificationHighlight>{notification.sender.name.split(' ')[0]}: </NotificationHighlight>"
+              {notification.common.content}"
             </NotificationContentText>
           </NotificationContainer>
         );
@@ -187,10 +158,8 @@ const EvaluationDropdownNotificationFactory: React.FC<
             notification={notificationItem}
           >
             <NotificationContentText data-cy="NotificationContentText" notification={notification}>
-              <NotificationHighlight>
-                {notification.sender.name.split(' ')[0]}:{' '}
-              </NotificationHighlight>
-              "{notification.common.content}"
+              <NotificationHighlight>{notification.sender.name.split(' ')[0]}: </NotificationHighlight>"
+              {notification.common.content}"
             </NotificationContentText>
           </NotificationContainer>
         );
@@ -204,17 +173,10 @@ const EvaluationDropdownNotificationFactory: React.FC<
           >
             <NotificationContentText data-cy="NotificationContentText" notification={notification}>
               Você foi convidado para avaliar{' '}
-              <NotificationHighlight>
-                {notification.common.name_evaluated}{' '}
-              </NotificationHighlight>
-              {notification.common.count > 1 &&
-                `e outras ${notification.common.count} pessoas `}
-              {notification.common.count === 1 &&
-                `e outra ${notification.common.count} pessoa `}
-              na pesquisa{' '}
-              <NotificationHighlight>
-                {notification.common.name_research}.
-              </NotificationHighlight>
+              <NotificationHighlight>{notification.common.name_evaluated} </NotificationHighlight>
+              {notification.common.count > 1 && `e outras ${notification.common.count} pessoas `}
+              {notification.common.count === 1 && `e outra ${notification.common.count} pessoa `}
+              na pesquisa <NotificationHighlight>{notification.common.name_research}.</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
         );
@@ -227,14 +189,8 @@ const EvaluationDropdownNotificationFactory: React.FC<
             notification={notification}
           >
             <NotificationContentText data-cy="NotificationContentText" notification={notification}>
-              <NotificationHighlight>
-                {notification.sender.name}
-              </NotificationHighlight>{' '}
-              adicionou você como avaliador na pesquisa{' '}
-              <NotificationHighlight>
-                "{notification.common.name_research}"
-              </NotificationHighlight>
-              .
+              <NotificationHighlight>{notification.sender.name}</NotificationHighlight> adicionou você como avaliador na
+              pesquisa <NotificationHighlight>"{notification.common.name_research}"</NotificationHighlight>.
             </NotificationContentText>
           </NotificationContainer>
         );
@@ -247,14 +203,8 @@ const EvaluationDropdownNotificationFactory: React.FC<
             notification={notificationItem}
           >
             <NotificationContentText data-cy="NotificationContentText" notification={notification}>
-              Pesquisa{' '}
-              <NotificationHighlight>
-                "{notification.common.name_research}"
-              </NotificationHighlight>{' '}
-              finalizada
-              {notification.common?.participant_status === 'answered'
-                ? ', entre e verifique seu resultado.'
-                : '.'}
+              Pesquisa <NotificationHighlight>"{notification.common.name_research}"</NotificationHighlight> finalizada
+              {notification.common?.participant_status === 'answered' ? ', entre e verifique seu resultado.' : '.'}
             </NotificationContentText>
           </NotificationContainer>
         );
@@ -268,9 +218,7 @@ const EvaluationDropdownNotificationFactory: React.FC<
           >
             <NotificationContentText data-cy="NotificationContentText" notification={notification}>
               Você ainda não alcançou o mínimo de avaliações na pesquisa{' '}
-              <NotificationHighlight>
-                "{notification.common.name_research}"
-              </NotificationHighlight>
+              <NotificationHighlight>"{notification.common.name_research}"</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
         );
@@ -283,10 +231,8 @@ const EvaluationDropdownNotificationFactory: React.FC<
             notification={notificationItem}
           >
             <NotificationContentText data-cy="NotificationContentText" notification={notification}>
-              <NotificationHighlight>
-                {notification.sender.name.split(' ')[0]}:{' '}
-              </NotificationHighlight>
-              "{notification.common.content}"
+              <NotificationHighlight>{notification.sender.name.split(' ')[0]}: </NotificationHighlight>"
+              {notification.common.content}"
             </NotificationContentText>
           </NotificationContainer>
         );

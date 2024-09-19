@@ -27,7 +27,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
   const { activeManagerMenu } = props;
   const { checkPermission, companyId } = usePermissions();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-  const urlStepOne = "https://lp.stepone.com.br/";
+  const urlStepOne = 'https://lp.stepone.com.br/';
 
   function openDropdown(ev: any) {
     setAnchorEl(ev.currentTarget);
@@ -43,22 +43,19 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
       closeDropdown,
     };
   });
-  const getUrlUniversidadeCorporativa = (moduleItem) => {
-    if (moduleItem.title !== "Universidade Corporativa") {
-
+  const getUrlUniversidadeCorporativa = moduleItem => {
+    if (moduleItem.title !== 'Universidade Corporativa') {
       return moduleItem.url;
     }
 
-    const getUrlStepOne = (redirects) => {
-      const redirecionamentoStepOne = redirects.find(redirect => redirect.type === 1 || redirect.type === "STEPONE");
+    const getUrlStepOne = redirects => {
+      const redirecionamentoStepOne = redirects.find(redirect => redirect.type === 1 || redirect.type === 'STEPONE');
       return redirecionamentoStepOne ? redirecionamentoStepOne.url : urlStepOne;
     };
 
-    if (profiles?.type === "COMPANY") {
-      return profiles.redirects && profiles.redirects.length > 0
-        ? getUrlStepOne(profiles.redirects)
-        : urlStepOne;
-    } else if (profiles?.type === "PERSON" && profiles.companies && profiles.companies.length > 0) {
+    if (profiles?.type === 'COMPANY') {
+      return profiles.redirects && profiles.redirects.length > 0 ? getUrlStepOne(profiles.redirects) : urlStepOne;
+    } else if (profiles?.type === 'PERSON' && profiles.companies && profiles.companies.length > 0) {
       const currentCompany = profiles.companies.find(company => company.id === companyId);
       if (currentCompany && currentCompany.redirects && currentCompany.redirects.length > 0) {
         return getUrlStepOne(currentCompany.redirects);
@@ -162,7 +159,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
               key={index.toString()}
               module={{
                 ...moduleItem,
-                url: getUrlUniversidadeCorporativa(moduleItem)
+                url: getUrlUniversidadeCorporativa(moduleItem),
               }}
             />
           ))}
@@ -210,7 +207,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
                 key={index.toString()}
                 module={{
                   ...moduleItem,
-                  url: getUrlUniversidadeCorporativa(moduleItem)
+                  url: getUrlUniversidadeCorporativa(moduleItem),
                 }}
               />
             ))}

@@ -117,7 +117,6 @@ export function createDropdownNotification(item: INotificationProps) {
 export function createToastNotification(item: INotificationProps) {
   const notification = formatNotificationContent(item);
 
-
   switch (item.module) {
     case MODULE_TYPES.social_network:
       return <SocialNetworkToastNotificationFactory notificationItem={notification} />;

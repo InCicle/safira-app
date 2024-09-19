@@ -1,9 +1,9 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import Cookies from "js-cookie";
-import api from "services/api";
-import { links } from "safira-app/config/links";
-import { useAuth } from "safira-app/hooks/useAuth";
-import { useProfileContext } from "contexts/ProfileContext";
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+import api from 'services/api';
+import { links } from 'safira-app/config/links';
+import { useAuth } from 'safira-app/hooks/useAuth';
+import { useProfileContext } from 'contexts/ProfileContext';
 
 export interface PermissionObject {
   id: string;
@@ -30,11 +30,11 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
 
   const { user } = useAuth();
 
-  const companySelected = Cookies.get("companySelected");
-  const companyId = user.type === "PERSON" && companySelected ? companySelected : user.profile_id;
+  const companySelected = Cookies.get('companySelected');
+  const companyId = user.type === 'PERSON' && companySelected ? companySelected : user.profile_id;
 
   const getAllPermissionsList = async (companyId: string) => {
-    const response = await api.get(links.api.core + "/user/permissions", {
+    const response = await api.get(links.api.core + '/user/permissions', {
       headers: {
         companyId,
       },
@@ -53,12 +53,12 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
       me?.companies?.find(company => company.id === companySelected) ||
       (me?.companies?.length > 0 ? me?.companies[0] : undefined);
 
-    if (!!company || user.type === "COMPANY") {
+    if (!!company || user.type === 'COMPANY') {
       getAllPermissionsList(company?.id ?? user.profile_id)
         .then(response => {
           setPermissionsList(response);
-          if (user.type === "PERSON") {
-            const hasVacationPermission = response.some(permission => permission.slug === "managers_vacations_list");
+          if (user.type === 'PERSON') {
+            const hasVacationPermission = response.some(permission => permission.slug === 'managers_vacations_list');
             const has360Permission = company?.is_manager_competence;
             setManagerPermission(has360Permission || hasVacationPermission);
           }

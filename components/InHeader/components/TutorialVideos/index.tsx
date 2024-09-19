@@ -58,13 +58,13 @@ const Tutorials: React.FC<Props> = ({ open, setOpen }) => {
 
   const handleOpenMoreTutorials = () => {
     const { type } = user;
-    const personLink = "https://www.incicle.com/tutoriais-de-suporte-person/";
-    const companyLink = "https://www.incicle.com/tutoriais-de-suporte-company/";
+    const personLink = 'https://www.incicle.com/tutoriais-de-suporte-person/';
+    const companyLink = 'https://www.incicle.com/tutoriais-de-suporte-company/';
 
-    const urlLink = type === "COMPANY" ? companyLink : personLink;
+    const urlLink = type === 'COMPANY' ? companyLink : personLink;
 
-    window.open(urlLink, "_blank");
-  }
+    window.open(urlLink, '_blank');
+  };
 
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
@@ -82,7 +82,7 @@ const Tutorials: React.FC<Props> = ({ open, setOpen }) => {
               direction={'row'}
               justifyContent={'center'}
               alignItems={'stretch'}
-              sx={{ overflowY: 'auto', maxHeight: "calc(80vh - 50px)", paddingBottom: '36px', marginTop: '0' }}
+              sx={{ overflowY: 'auto', maxHeight: 'calc(80vh - 50px)', paddingBottom: '36px', marginTop: '0' }}
             >
               <Grid item xs={12} sm={6}>
                 <TutorialDoubleVideoButton
@@ -178,35 +178,33 @@ const Tutorials: React.FC<Props> = ({ open, setOpen }) => {
               </Grid>
               <Grid item xs={12} sm={6}></Grid>
             </Grid>
-            <Box
-           
-        >
-        <Grid container sx={{
-            position: 'fixed',
-            bottom: 0,
-            left: 0,
-            width: '100%',
-            backgroundColor: 'white',
-            padding: '4px 16px',
-            borderTop: '1px solid #e0e0e0',
-            borderBottomLeftRadius: '10px',
-            borderBottomRightRadius: '10px',
-          }}>
-          <Grid item xs={12} sm={12} lg={12} className="finalButton" sx={{ gap: "8px", justifyContent: 'end' }}>
-            <Button variant="outlined" onClick={() => setOpen(false)}>
-               Fechar
-            </Button>
-            <Button variant="contained" onClick={handleOpenMoreTutorials}>
-              Ver mais
-            </Button>
-          </Grid>
-        </Grid>
-        </Box>
+            <Box>
+              <Grid
+                container
+                sx={{
+                  position: 'fixed',
+                  bottom: 0,
+                  left: 0,
+                  width: '100%',
+                  backgroundColor: 'white',
+                  padding: '4px 16px',
+                  borderTop: '1px solid #e0e0e0',
+                  borderBottomLeftRadius: '10px',
+                  borderBottomRightRadius: '10px',
+                }}
+              >
+                <Grid item xs={12} sm={12} lg={12} className="finalButton" sx={{ gap: '8px', justifyContent: 'end' }}>
+                  <Button variant="outlined" onClick={() => setOpen(false)}>
+                    Fechar
+                  </Button>
+                  <Button variant="contained" onClick={handleOpenMoreTutorials}>
+                    Ver mais
+                  </Button>
+                </Grid>
+              </Grid>
+            </Box>
           </Layout>
-         
-          
         </Box>
-        
       </ModalLayout>
     </Modal>
   );

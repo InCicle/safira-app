@@ -34,7 +34,7 @@ export interface IEmitter<T = any> {
   emit: EmitFunc<T>;
   events: EmitterEventsMetadata<T> | null;
   /**
-    * @deprecated The method should not be used, use "off" instead of this method
-  */
+   * @deprecated The method should not be used, use "off" instead of this method
+   */
   remove: UnregisterFunc<T>;
 }
