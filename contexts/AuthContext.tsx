@@ -2,7 +2,7 @@ import React, { createContext, useCallback, useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { encode, decode } from 'safira-app/utils/crypto';
 import { IUser } from 'safira-app/interfaces/User';
-import { jwtDecode } from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import { links } from 'safira-app/config/links';
 
