@@ -4,7 +4,7 @@ import CircleIcon from '@mui/icons-material/Circle';
 import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
 import { INotificationProps } from 'safira-app/interfaces/Notification';
 import RenderAvatar from 'safira-app/components/RenderAvatar';
-import { incicleNotificationModules } from "safira-app/utils/modules";
+import { incicleNotificationModules } from 'safira-app/utils/modules';
 
 // TimeAgo
 import moment from 'moment';
@@ -51,7 +51,7 @@ export function formatNotificationContent(notification: INotificationProps): INo
     common: {
       ...notification?.common,
       content: htmlDecode(notification.common?.content),
-    }
+    },
   };
 }
 

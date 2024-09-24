@@ -2,7 +2,7 @@ import React from 'react';
 import { Stack, Typography, Box, Theme, SxProps } from '@mui/material';
 
 import RenderAvatar from 'safira-app/components/RenderAvatar';
-import { incicleNotificationModules } from "safira-app/utils/modules";
+import { incicleNotificationModules } from 'safira-app/utils/modules';
 import { NotificationEvent } from 'safira-app/providers/NotificationEvent';
 import { INotificationProps } from 'safira-app/interfaces/Notification';
 

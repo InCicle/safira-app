@@ -47,7 +47,7 @@ export interface ProfileConfig {
 
 export interface UserConfig {
   auth2f: boolean;
-  default_interface: "LIGHT" | "DARK";
+  default_interface: 'LIGHT' | 'DARK';
   default_language: string;
   default_timezone: string;
   id: string;
@@ -59,7 +59,7 @@ export interface MeProps {
   username: string;
   name: string;
   logo: string | null;
-  type: "COMPANY" | "PERSON";
+  type: 'COMPANY' | 'PERSON';
   profile_id: string;
   avatar: string;
   companies: MeCompany[];

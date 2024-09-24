@@ -13,9 +13,7 @@ const ModuleMenuItem: React.FC<ModuleMenuItemProps> = ({ module }) => {
 
   const breakpointValue = 700;
 
-  const linkProps = module.redirectType === 'external'
-    ? { target: "_blank", rel: "noopener noreferrer" }
-    : {};
+  const linkProps = module.redirectType === 'external' ? { target: '_blank', rel: 'noopener noreferrer' } : {};
 
   return (
     <Tooltip

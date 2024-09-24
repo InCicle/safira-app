@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import InCicleBotIcon from "./incicle_bot.jpg"
+import React from 'react';
+import styled from 'styled-components';
+import InCicleBotIcon from './incicle_bot.jpg';
 
 const WhatsAppLink = styled.a`
   position: fixed;
@@ -28,7 +28,7 @@ const WhatsAppButton: React.FC = () => {
     <WhatsAppLink href="https://wa.me/5511970270544" target="_blank">
       <img src={InCicleBotIcon} alt="WhatsApp" />
     </WhatsAppLink>
-  )
-}
+  );
+};
 
 export default WhatsAppButton;
