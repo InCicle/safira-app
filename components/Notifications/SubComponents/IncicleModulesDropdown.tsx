@@ -3,11 +3,11 @@ import { v4 as uuid } from 'uuid';
 import { ListItemIcon, Menu, MenuItem, Stack } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-import { getNotifications } from 'safira-app/services/notifier/notifications';
-import { useNotifications } from 'safira-app/hooks/useNotifications';
-import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
+import { getNotifications } from '@/safira-app/services/notifier/notifications';
+import { useNotifications } from '@/safira-app/hooks/useNotifications';
+import { useHeaderProvider } from '@/safira-app/contexts/HeaderContext';
 
-import { incicleNotificationModules } from 'safira-app/utils/modules';
+import { incicleNotificationModules } from '@/safira-app/utils/modules';
 import { NotificationFilterOptions } from '../enums';
 import { ButtonNotification } from '../style';
 import { NotificationFiltersType } from '../types';

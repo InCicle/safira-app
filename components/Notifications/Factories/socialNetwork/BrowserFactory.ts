@@ -1,8 +1,8 @@
 import Cookies from 'js-cookie';
-import { IUser } from 'safira-app/interfaces/User';
-import { INotificationProps } from 'safira-app/interfaces/Notification';
-import { decode } from 'safira-app/utils/crypto';
-import { reduceString } from 'safira-app/utils/reduceString';
+import { IUser } from '@/safira-app/interfaces/User';
+import { INotificationProps } from '@/safira-app/interfaces/Notification';
+import { decode } from '@/safira-app/utils/crypto';
+import { reduceString } from '@/safira-app/utils/reduceString';
 
 const notificationType = {
   PUBLICATION_TYPE_LIKE: 'PUBLICATION_TYPE_LIKE',

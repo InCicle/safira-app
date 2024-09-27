@@ -1,7 +1,7 @@
 import moment from 'moment';
 
-import { INotificationProps } from 'safira-app/interfaces/Notification';
-import { DateZoneHandler } from 'safira-app/utils/datezone';
+import { INotificationProps } from '@/safira-app/interfaces/Notification';
+import { DateZoneHandler } from '@/safira-app/utils/datezone';
 
 const notificationType = {
   LINK_TO_RESEARCH: 'LINK_TO_RESEARCH',

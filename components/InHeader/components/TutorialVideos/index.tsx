@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Box, Grid, Typography, Button } from '@mui/material';
 import { ModalLayout, Logo, Layout } from './styles';
-import logo from 'safira-app/assets/logo_0.svg';
-import scheduleImg from 'safira-app/assets/modules/agenda.svg';
-import projectImg from 'safira-app/assets/modules/projetos.svg';
-import socialImg from 'safira-app/assets/modules/rede_social.svg';
-import feedbackImg from 'safira-app/assets/modules/feedback.svg';
-import competenceImg from 'safira-app/assets/modules/avaliação_por_competencia.svg';
-import taskmanagerImg from 'safira-app/assets/modules/taskmanager.svg';
-import pdImg from 'safira-app/assets/modules/personal_department.svg';
-import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
-import { links } from 'safira-app/config/links';
+import logo from '@/safira-app/assets/logo_0.svg';
+import scheduleImg from '@/safira-app/assets/modules/agenda.svg';
+import projectImg from '@/safira-app/assets/modules/projetos.svg';
+import socialImg from '@/safira-app/assets/modules/rede_social.svg';
+import feedbackImg from '@/safira-app/assets/modules/feedback.svg';
+import competenceImg from '@/safira-app/assets/modules/avaliação_por_competencia.svg';
+import taskmanagerImg from '@/safira-app/assets/modules/taskmanager.svg';
+import pdImg from '@/safira-app/assets/modules/personal_department.svg';
+import { useHeaderProvider } from '@/safira-app/contexts/HeaderContext';
+import { links } from '@/safira-app/config/links';
 import TutorialVideoButton from './components/TutorialVideoButton';
 import TutorialDoubleVideoButton from './components/TutorialDoubleVideoButton';
-import { useAuth } from 'safira-app/hooks/useAuth';
+import { useAuth } from '@/safira-app/hooks/useAuth';
 
 interface Props {
   open: boolean;

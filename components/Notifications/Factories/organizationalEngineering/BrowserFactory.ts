@@ -1,4 +1,4 @@
-import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { INotificationProps } from '@/safira-app/interfaces/Notification';
 
 const notificationType = {
   EMPLOYEE_LINK_REQUEST: 'EMPLOYEE_LINK_REQUEST',

@@ -9,14 +9,14 @@ import WorkIcon from '@mui/icons-material/Work';
 import { AxiosInstance } from 'axios';
 import Cookies from 'js-cookie';
 
-import RenderAvatar from 'safira-app/components/RenderAvatar';
-import Notifications from 'safira-app/components/Notifications';
-import NotificationSocketProvider from 'safira-app/contexts/NotificationSocketContext';
-import { SearchItemInterface } from 'safira-app/interfaces/Search';
-import { HeaderProvider } from 'safira-app/contexts/HeaderContext';
-import { IUser } from 'safira-app/interfaces/User';
-import { MeProps } from 'safira-app/interfaces/Me';
-import { links } from 'safira-app/config/links';
+import RenderAvatar from '@/safira-app/components/RenderAvatar';
+import Notifications from '@/safira-app/components/Notifications';
+import NotificationSocketProvider from '@/safira-app/contexts/NotificationSocketContext';
+import { SearchItemInterface } from '@/safira-app/interfaces/Search';
+import { HeaderProvider } from '@/safira-app/contexts/HeaderContext';
+import { IUser } from '@/safira-app/interfaces/User';
+import { MeProps } from '@/safira-app/interfaces/Me';
+import { links } from '@/safira-app/config/links';
 
 import maxLetters from './utils/maxLettes';
 import RenderSearchItem from './components/RenderSearchItem';
@@ -24,7 +24,7 @@ import ModulesMenu, { ModulesMenuRef } from './components/ModulesMenu';
 import ProfileMenu, { ProfileMenuRef } from './components/ProfileMenu';
 import { HeaderInStyle } from './styles';
 import { ToastUI } from '../Toast';
-import { domainName } from 'safira-app/contexts/AuthContext';
+import { domainName } from '@/safira-app/contexts/AuthContext';
 import RenderImage from '../RenderImage';
 import { usePermissions } from '../../contexts/Permissions';
 import WhatsAppButton from '../WhatsAppButton';
@@ -33,7 +33,7 @@ interface props {
   user: IUser;
   me: MeProps;
   api: AxiosInstance;
-  signOut: Function;
+  signOut: () => any;
 }
 
 const INCICLE_LOGO = 'https://static-incicle.s3.amazonaws.com/logo_incicle.svg';

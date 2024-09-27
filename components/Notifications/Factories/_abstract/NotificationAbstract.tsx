@@ -1,16 +1,16 @@
 import React from 'react';
 import { MenuItem, Stack, Typography, Box, Theme, SxProps } from '@mui/material';
 import CircleIcon from '@mui/icons-material/Circle';
-import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
-import { INotificationProps } from 'safira-app/interfaces/Notification';
-import RenderAvatar from 'safira-app/components/RenderAvatar';
-import { incicleNotificationModules } from 'safira-app/utils/modules';
+import { useHeaderProvider } from '@/safira-app/contexts/HeaderContext';
+import { INotificationProps } from '@/safira-app/interfaces/Notification';
+import RenderAvatar from '@/safira-app/components/RenderAvatar';
+import { incicleNotificationModules } from '@/safira-app/utils/modules';
 
 // TimeAgo
 import moment from 'moment';
-import TimeAgo from 'safira-app/libs/timeago';
-import { links } from 'safira-app/config/links';
-import { htmlDecode } from 'safira-app/utils/htmlDecode';
+import TimeAgo from '@/safira-app/libs/timeago';
+import { links } from '@/safira-app/config/links';
+import { htmlDecode } from '@/safira-app/utils/htmlDecode';
 
 interface IProps {
   notification?: INotificationProps;

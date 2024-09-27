@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
+import { useHeaderProvider } from '@/safira-app/contexts/HeaderContext';
 
 export function DateZoneHandler(dateValue: string) {
   const { user } = useHeaderProvider();

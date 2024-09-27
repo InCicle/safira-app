@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import { INotificationProps } from 'safira-app/interfaces/Notification';
-import { reduceString } from 'safira-app/utils/reduceString';
+import { INotificationProps } from '@/safira-app/interfaces/Notification';
+import { reduceString } from '@/safira-app/utils/reduceString';
 
 import {
   NotificationContainer,
   NotificationContentText,
   NotificationHighlight,
 } from '../_abstract/ToastNotificationAbstract';
-import { getGroupType } from 'safira-app/utils/getGroupType';
+import { getGroupType } from '@/safira-app/utils/getGroupType';
 
 interface IProps {
   notificationItem: INotificationProps;

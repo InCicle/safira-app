@@ -3,15 +3,15 @@ import { AxiosInstance } from 'axios';
 import { Manager } from 'socket.io-client';
 import Cookies from 'js-cookie';
 
-import { links } from 'safira-app/config/links';
-import { IUser } from 'safira-app/interfaces/User';
-import { decode } from 'safira-app/utils/crypto';
-import { useHTMLHead } from 'safira-app/hooks/useHTMLHead';
-import { useRender } from 'safira-app/hooks/useRender';
-import { INotificationProps, INotificationWrapper } from 'safira-app/interfaces/Notification';
-import { getNotifications, NotificationParamsType } from 'safira-app/services/notifier/notifications';
+import { links } from '@/safira-app/config/links';
+import { IUser } from '@/safira-app/interfaces/User';
+import { decode } from '@/safira-app/utils/crypto';
+import { useHTMLHead } from '@/safira-app/hooks/useHTMLHead';
+import { useRender } from '@/safira-app/hooks/useRender';
+import { INotificationProps, INotificationWrapper } from '@/safira-app/interfaces/Notification';
+import { getNotifications, NotificationParamsType } from '@/safira-app/services/notifier/notifications';
 
-import { NotificationUseCase } from 'safira-app/usecases/NotificationUseCase';
+import { NotificationUseCase } from '@/safira-app/usecases/NotificationUseCase';
 
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 

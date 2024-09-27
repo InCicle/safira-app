@@ -1,6 +1,6 @@
 import React from 'react';
 import { Divider, Stack, SxProps, Theme, Typography } from '@mui/material';
-import { CSSDefault } from 'safira-app/styles/defaultStyles';
+import { CSSDefault } from '@/safira-app/styles/defaultStyles';
 
 // Icons
 import Icon404 from './icons/Icon404';

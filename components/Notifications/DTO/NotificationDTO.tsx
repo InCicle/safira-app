@@ -1,5 +1,5 @@
 import React from 'react';
-import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { INotificationProps } from '@/safira-app/interfaces/Notification';
 
 import { NotificationImageBox } from '../Factories/_abstract/ToastNotificationAbstract';
 import {

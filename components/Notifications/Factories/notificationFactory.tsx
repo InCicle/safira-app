@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { NotificationEvent } from 'safira-app/providers/NotificationEvent';
-import { INotificationProps, MODULE_TYPES } from 'safira-app/interfaces/Notification';
+import { NotificationEvent } from '@/safira-app/providers/NotificationEvent';
+import { INotificationProps, MODULE_TYPES } from '@/safira-app/interfaces/Notification';
 import { formatNotificationContent } from './_abstract/NotificationAbstract';
 
 import {

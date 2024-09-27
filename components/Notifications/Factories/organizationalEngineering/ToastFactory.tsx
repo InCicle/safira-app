@@ -4,7 +4,7 @@ import {
   NotificationContentText,
   NotificationHighlight,
 } from '../_abstract/ToastNotificationAbstract';
-import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { INotificationProps } from '@/safira-app/interfaces/Notification';
 
 interface IProps {
   notificationItem: INotificationProps;

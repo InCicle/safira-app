@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, IconButton, Stack, Tooltip, Typography, useTheme, Link as MUILink } from '@mui/material';
-import { MenuModulesType } from 'safira-app/utils/modules';
-import { useAuth } from 'safira-app/hooks/useAuth';
+import { MenuModulesType } from '@/safira-app/utils/modules';
+import { useAuth } from '@/safira-app/hooks/useAuth';
 
 interface ModuleMenuItemProps {
   module: MenuModulesType;

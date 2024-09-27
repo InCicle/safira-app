@@ -1,14 +1,14 @@
 import React, { useImperativeHandle, useState } from 'react';
 import { Box, Divider, IconButton, Menu, Stack, Typography, useTheme } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
+import { useHeaderProvider } from '@/safira-app/contexts/HeaderContext';
 import {
   incicleMenuModules,
   incicleCollaboratorsMenuModules,
   incicleManagerMenuModules,
-} from 'safira-app/utils/modules';
+} from '@/safira-app/utils/modules';
 import ModuleMenuItem from './ModuleMenuItem';
-import { usePermissions } from 'safira-app/contexts/Permissions';
+import { usePermissions } from '@/safira-app/contexts/Permissions';
 
 export type ModulesMenuRef = {
   openDropdown: (ev: any) => void;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Skeleton, Stack, Typography } from '@mui/material';
 import { Waypoint } from 'react-waypoint';
 
-import { useNotifications } from 'safira-app/hooks/useNotifications';
+import { useNotifications } from '@/safira-app/hooks/useNotifications';
 
 import NotificationItem from './SubComponents/NotificationItem';
 import IncicleModulesDropdown from './SubComponents/IncicleModulesDropdown';

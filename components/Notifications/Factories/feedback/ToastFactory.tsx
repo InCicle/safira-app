@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 
-import { INotificationProps } from 'safira-app/interfaces/Notification';
-import { reduceString } from 'safira-app/utils/reduceString';
+import { INotificationProps } from '@/safira-app/interfaces/Notification';
+import { reduceString } from '@/safira-app/utils/reduceString';
 
 import {
   NotificationContainer,

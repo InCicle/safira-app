@@ -1,4 +1,4 @@
-import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { INotificationProps } from '@/safira-app/interfaces/Notification';
 import moment from 'moment';
 
 const notificationType = {

@@ -6,8 +6,8 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import DoneIcon from '@mui/icons-material/Done';
 import ComputerIcon from '@mui/icons-material/Computer';
 
-import { useNotifications } from 'safira-app/hooks/useNotifications';
-import { links } from 'safira-app/config/links';
+import { useNotifications } from '@/safira-app/hooks/useNotifications';
+import { links } from '@/safira-app/config/links';
 
 type AnchorButton = EventTarget & HTMLButtonElement;
 

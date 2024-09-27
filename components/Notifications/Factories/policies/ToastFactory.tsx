@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { INotificationProps } from '@/safira-app/interfaces/Notification';
 
 import {
   NotificationContainer,

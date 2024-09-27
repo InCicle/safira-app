@@ -1,4 +1,4 @@
-import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { INotificationProps } from '@/safira-app/interfaces/Notification';
 
 const notificationType = {
   CYCLE_END: 'CYCLE_END',

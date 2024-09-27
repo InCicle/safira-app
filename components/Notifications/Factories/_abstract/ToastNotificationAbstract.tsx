@@ -1,14 +1,14 @@
 import React from 'react';
 import { Stack, Typography, Box, Theme, SxProps } from '@mui/material';
 
-import RenderAvatar from 'safira-app/components/RenderAvatar';
-import { incicleNotificationModules } from 'safira-app/utils/modules';
-import { NotificationEvent } from 'safira-app/providers/NotificationEvent';
-import { INotificationProps } from 'safira-app/interfaces/Notification';
+import RenderAvatar from '@/safira-app/components/RenderAvatar';
+import { incicleNotificationModules } from '@/safira-app/utils/modules';
+import { NotificationEvent } from '@/safira-app/providers/NotificationEvent';
+import { INotificationProps } from '@/safira-app/interfaces/Notification';
 
 // TimeAgo
 import moment from 'moment';
-import TimeAgo from 'safira-app/libs/timeago';
+import TimeAgo from '@/safira-app/libs/timeago';
 
 TimeAgo.defaultProps = {
   format: 'pt-BR',

@@ -1,5 +1,5 @@
-import { IEmitter, IEmitterObj } from 'safira-app/types/emitter';
-import { hash } from 'safira-app/utils/hash';
+import { IEmitter, IEmitterObj } from '@/safira-app/types/emitter';
+import { hash } from '@/safira-app/utils/hash';
 
 export function createEmitter<EventsType = any>() {
   const Emitter: IEmitterObj<EventsType> = {

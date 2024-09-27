@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { getS3Object, BucketType } from 'safira-app/services/aws/s3';
+import { getS3Object, BucketType } from '@/safira-app/services/aws/s3';
 import { GetObjectRequest } from 'aws-sdk/clients/s3';
 
 export interface ImgProps extends React.HTMLAttributes<HTMLImageElement> {
