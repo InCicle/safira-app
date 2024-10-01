@@ -77,6 +77,6 @@ export const links: Modulelinks = {
     region: import.meta.env.VITE_APP_AWS_BUCKET_PROJECTS_REGION,
     secret_access_key: import.meta.env.VITE_APP_AWS_BUCKET_PROJECTS_SECRET_ACCESS_KEY,
   },
-  production: JSON.parse(import.meta.env.VITE_APP_PRODUCTION),
+  production: import.meta.env.VITE_APP_PRODUCTION,
   secret_key: import.meta.env.VITE_APP_SECRET_KEY,
 };

@@ -26,7 +26,7 @@ import { HeaderInStyle } from './styles';
 import { ToastUI } from '../Toast';
 import { domainName } from '@/safira-app/contexts/AuthContext';
 import RenderImage from '../RenderImage';
-import { usePermissions } from '../../contexts/Permissions';
+import { usePermissions } from '@/safira-app/contexts/Permissions';
 import WhatsAppButton from '../WhatsAppButton';
 
 interface props {

@@ -58,10 +58,13 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
     const encodedExpiresIn = Cookies.get('expiresIn');
     const encodedUser = Cookies.get('user');
 
+    console.log(encodedUser);
+
     try {
       const token = encodedToken && decode(encodedToken);
       const expiresIn = encodedExpiresIn && decode(encodedExpiresIn);
       const user = encodedUser && decode(encodedUser);
+      console.log(user);
       if (token && expiresIn && user) {
         return { token, expiresIn, user: JSON.parse(user) as IUser };
       }
@@ -154,7 +157,7 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
     const expiresIn = Cookies.get('expiresIn');
 
     if (expiresIn) {
-      let decodedTime = Number(decode(expiresIn));
+      const decodedTime = Number(decode(expiresIn));
 
       if (decodedTime <= 3000) {
         refreshToken();
