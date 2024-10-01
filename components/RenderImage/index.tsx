@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { getS3Object, BucketType } from '@/safira-app/services/aws/s3';
-import { GetObjectRequest } from 'aws-sdk/clients/s3';
+// import { GetObjectRequest } from 'aws-sdk/clients/s3';
 
 export interface ImgProps extends React.HTMLAttributes<HTMLImageElement> {
   src: string;
   alt?: string;
   bucket: BucketType;
-  options?: Omit<GetObjectRequest, 'Bucket' | 'Key'>;
+  options?: any;
 }
 
 const RenderImage: React.FC<ImgProps> = ({ src, alt, style, bucket, options, ...rest }) => {
@@ -21,7 +21,7 @@ const RenderImage: React.FC<ImgProps> = ({ src, alt, style, bucket, options, ...
     } catch (err) {
       return '';
     }
-  }, [src, bucket]);
+  }, [src, bucket]); // eslint-disable-line
 
   useEffect(() => {
     if (src) {

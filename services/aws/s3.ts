@@ -1,21 +1,20 @@
-import AWS from 'aws-sdk';
+// import AWS from 'aws-sdk';
+import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 import { links } from '@/safira-app/config/links';
-import { GetObjectRequest } from 'aws-sdk/clients/s3';
+// import { GetObjectRequest } from 'aws-sdk/clients/s3';
 
 export type BucketType = 'incicle' | 'projects';
 
-export interface GetS3ObjectsPropsInterface extends Omit<GetObjectRequest, 'Bucket' | 'Key'> {
-  src: string;
-  bucket: BucketType;
-}
+// export interface GetS3ObjectsPropsInterface extends Omit<GetObjectRequest, 'Bucket' | 'Key'> {
+//   src: string;
+//   bucket: BucketType;
+// }
 
 export interface S3ObjectsReturnInterface {
   url: string;
   blob: Blob;
   base64: string;
 }
-
-const awsS3 = new AWS.S3();
 
 function getBucketName(bucket: 'incicle' | 'projects'): string {
   switch (bucket) {
@@ -40,20 +39,19 @@ async function uint8ToBase64(data: Uint8Array, contentType?: string): Promise<st
   });
 }
 
-function fetchFile(src: string, bucket: string, options?: Omit<GetObjectRequest, 'Bucket' | 'Key'>) {
-  return new Promise<AWS.S3.GetObjectOutput>((resolve, reject) => {
-    awsS3.getObject({ Bucket: bucket, Key: src, ...options }, (err, response) => {
-      if (err) {
-        reject(err);
-        return;
-      }
+async function fetchFile(src: string, bucket: string, s3: S3Client) {
+  const command = new GetObjectCommand({ Bucket: bucket, Key: src });
 
-      resolve(response);
-    });
-  });
+  try {
+    const response = await s3.send(command);
+    return await response.Body?.transformToString();
+  } catch (err) {
+    console.error(err);
+    return '';
+  }
 }
 
-export async function getS3Object({ src, bucket, ...rest }: GetS3ObjectsPropsInterface) {
+export async function getS3Object({ src, bucket, ...rest }: any) {
   /**
    * This function gets an object from bucket.
    *
@@ -68,22 +66,18 @@ export async function getS3Object({ src, bucket, ...rest }: GetS3ObjectsPropsInt
             }>
    */
 
-  if (bucket === 'incicle') {
-    awsS3.config.update({
+  const s3 = new S3Client({
+    region: bucket === links.aws_project.region ? links.aws_project.region : links.aws.region,
+    credentials: {
       accessKeyId: links.aws.access_key_id,
       secretAccessKey: links.aws.secret_access_key,
-      region: links.aws.region,
-    });
-  } else if (bucket === 'projects') {
-    awsS3.config.update({
-      accessKeyId: links.aws_project.access_key_id,
-      secretAccessKey: links.aws_project.secret_access_key,
-      region: links.aws_project.region,
-    });
-  }
+    },
+  });
 
-  const response = await fetchFile(src, getBucketName(bucket), rest);
-  const base64 = await uint8ToBase64(response.Body as any, response.ContentType);
+  const response = await fetchFile(src, getBucketName(bucket), s3);
+  // const base64 = await uint8ToBase64(response.Body as any, response.ContentType);
 
-  return { base64 };
+  console.log(response);
+
+  return { base64: '' };
 }
