@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Box, Grid, Typography, Button } from '@mui/material';
-import { ModalLayout, Logo, Layout } from './styles';
-import logo from 'safira-app/assets/logo_0.svg';
+import { ModalLayout, Layout } from './styles';
 import scheduleImg from 'safira-app/assets/modules/agenda.svg';
 import projectImg from 'safira-app/assets/modules/projetos.svg';
 import socialImg from 'safira-app/assets/modules/rede_social.svg';
