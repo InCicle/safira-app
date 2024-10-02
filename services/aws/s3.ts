@@ -1,14 +1,12 @@
-// import AWS from 'aws-sdk';
-import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
+import { S3Client, GetObjectCommand, GetObjectCommandInput } from '@aws-sdk/client-s3';
 import { links } from '@/safira-app/config/links';
-// import { GetObjectRequest } from 'aws-sdk/clients/s3';
 
 export type BucketType = 'incicle' | 'projects';
 
-// export interface GetS3ObjectsPropsInterface extends Omit<GetObjectRequest, 'Bucket' | 'Key'> {
-//   src: string;
-//   bucket: BucketType;
-// }
+export type S3AttachmentArgs = Omit<GetObjectCommandInput, 'Bucket' | 'Key'> & {
+  bucket: BucketType;
+  src: string;
+};
 
 export interface S3ObjectsReturnInterface {
   url: string;
@@ -16,7 +14,7 @@ export interface S3ObjectsReturnInterface {
   base64: string;
 }
 
-function getBucketName(bucket: 'incicle' | 'projects'): string {
+function getBucketName(bucket: BucketType): string {
   switch (bucket) {
     case 'incicle':
       return links.aws.bucket;
@@ -29,45 +27,22 @@ function getBucketName(bucket: 'incicle' | 'projects'): string {
   }
 }
 
-async function uint8ToBase64(data: Uint8Array, contentType?: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const fileReader = new FileReader();
-
-    fileReader.onload = () => resolve(fileReader.result as string);
-    fileReader.onerror = err => reject(err);
-    fileReader.readAsDataURL(new Blob([data], { type: contentType }));
-  });
-}
-
 async function fetchFile(src: string, bucket: string, s3: S3Client) {
   const command = new GetObjectCommand({ Bucket: bucket, Key: src });
 
   try {
     const response = await s3.send(command);
-    return await response.Body?.transformToString();
+    const base64 = await response.Body?.transformToString('base64');
+    return { base64, type: response.ContentType };
   } catch (err) {
-    console.error(err);
-    return '';
+    // console.error(err);
+    return null;
   }
 }
 
-export async function getS3Object({ src, bucket, ...rest }: any) {
-  /**
-   * This function gets an object from bucket.
-   *
-   * params:
-   *  src: string - the path of the object in the bucket.
-   *  bucket: string - the bucket name.
-   *
-   * return: Promise<{
-              url: string;
-              blob: Blob;
-              base64: string;
-            }>
-   */
-
+export async function getS3Object({ src, bucket }: S3AttachmentArgs) {
   const s3 = new S3Client({
-    region: bucket === links.aws_project.region ? links.aws_project.region : links.aws.region,
+    region: bucket === links.aws_project.bucket ? links.aws_project.region : links.aws.region,
     credentials: {
       accessKeyId: links.aws.access_key_id,
       secretAccessKey: links.aws.secret_access_key,
@@ -75,9 +50,9 @@ export async function getS3Object({ src, bucket, ...rest }: any) {
   });
 
   const response = await fetchFile(src, getBucketName(bucket), s3);
-  // const base64 = await uint8ToBase64(response.Body as any, response.ContentType);
 
-  console.log(response);
-
-  return { base64: '' };
+  return {
+    base64: response?.base64 || '',
+    type: response?.type || '',
+  };
 }

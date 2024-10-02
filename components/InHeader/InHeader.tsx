@@ -270,7 +270,11 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
 
                   {/* MODULES links */}
                   <Stack spacing={0} direction="row" className="incicleheader-modules" sx={{ alignItems: 'center' }}>
-                    <Stack direction="row" className={`incicleheader-modules-content original`}>
+                    <Stack
+                      key="incicleheader-modules-content"
+                      direction="row"
+                      className={`incicleheader-modules-content original`}
+                    >
                       {[
                         {
                           text: 'Feed',

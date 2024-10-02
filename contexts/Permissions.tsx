@@ -31,7 +31,6 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
   const { user } = useAuth();
 
   const companySelected = Cookies.get('companySelected');
-  console.log(user);
   const companyId = user.type === 'PERSON' && companySelected ? companySelected : user.profile_id;
 
   const getAllPermissionsList = async (companyId: string) => {
@@ -70,7 +69,7 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
           setRequestFinished(true);
         });
     }
-  }, [companySelected, me]);
+  }, [companySelected, me]); // eslint-disable-line
 
   const context = {
     companySelected,
