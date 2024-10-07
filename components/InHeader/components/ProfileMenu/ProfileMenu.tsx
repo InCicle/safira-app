@@ -152,7 +152,7 @@ const ProfileMenu: React.ForwardRefRenderFunction<ProfileMenuRef> = (props, ref)
         </MenuItem>
         <MenuItem>
           <CustomLink href={links.web.settings} icon={<SettingsIcon fontSize="small" />}>
-            {translation(t, "settings")}
+            {translation(t, "configurations")}
           </CustomLink>
         </MenuItem>
         <MenuItem onClick={() => handleSignOut()} sx={{ color: theme => theme.palette.grey[600] }}>
