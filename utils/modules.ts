@@ -17,9 +17,9 @@ import TaskIcon from "safira-app/components/InHeader/components/icons/TaskIcon";
 import InCheckIcon from "safira-app/components/InHeader/components/icons/InCheckIcon";
 import SettingsIcon from "safira-app/components/InHeader/components/icons/SettingsIcon";
 import InpontoIcon from "safira-app/components/InHeader/components/icons/InpontoIcon";
-import OmbudsmanDisabledIcon from "safira-app/components/InHeader/components/icons/OmbudsmanDisabledIcon";
 import ManagerIcon from "safira-app/components/InHeader/components/icons/ManagerIcon";
 import ClimateResearchDisabledIcon from "safira-app/components/InHeader/components/icons/ClimateResearchDisabledIcon";
+import OmbudsmanIcon from 'safira-app/components/InHeader/components/icons/OmbudsmanIcon';
 
 export type MenuModulesType = {
   title: string;
@@ -255,9 +255,9 @@ export const incicleMenuModules: MenuModulesType[] = [
   {
     title: "ombudsman",
     slug: MODULE_TYPES.ombudsman,
-    icon: OmbudsmanDisabledIcon,
+    icon: OmbudsmanIcon,
     iconSize: 60,
-    url: null,
+    url: `${links.web.ombudsman}`,
     accountTypes: ["COMPANY", "PERSON"],
     description: {
       COMPANY: "ombudsman_description.company",
