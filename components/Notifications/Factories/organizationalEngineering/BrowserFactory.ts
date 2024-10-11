@@ -6,6 +6,7 @@ const notificationType = {
   EMPLOYEE_UNLINK: 'EMPLOYEE_UNLINK',
   EMPLOYEE_LINK_CANCELED: 'EMPLOYEE_LINK_CANCELED',
   CORPORATE_FEEDBACK: 'CORPORATE_FEEDBACK',
+  PAYSLIP_RECEIVED: 'PAYSLIP_RECEIVED'
 };
 
 export function createOrganizationalEngineeringBrowserNotificationFactory(notification: INotificationProps) {
@@ -28,6 +29,9 @@ export function createOrganizationalEngineeringBrowserNotificationFactory(notifi
 
     case notificationType.CORPORATE_FEEDBACK:
       return `${notification.sender.name} enviou um feedback que precisa da sua atenção.`;
+
+      case notificationType.CORPORATE_FEEDBACK:
+        return `${notification.sender.name} enviou um holerite para você.`;
 
     default:
       return ``;
