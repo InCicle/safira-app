@@ -320,7 +320,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
       COMPANY: null,
       PERSON: "admission_description",
     },
-    permission: "full_personal_department.permission",
+    permission: "full_personal_department",
     redirectType: "internal",
   },
   {
