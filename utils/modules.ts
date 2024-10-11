@@ -318,7 +318,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
     accountTypes: ["PERSON"],
     description: {
       COMPANY: null,
-      PERSON: "admission_description",
+      PERSON: "admission_description.permission",
     },
     permission: "full_personal_department",
     redirectType: "internal",
