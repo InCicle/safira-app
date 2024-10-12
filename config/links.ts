@@ -23,7 +23,6 @@ export type ModulesWeb = {
   manager: string;
   incheck: string;
   ombudsman: string;
-  
 };
 
 export type AwsUrl = {
