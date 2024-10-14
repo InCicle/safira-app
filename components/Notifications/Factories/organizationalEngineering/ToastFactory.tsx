@@ -16,6 +16,7 @@ const notificationType = {
   EMPLOYEE_UNLINK: 'EMPLOYEE_UNLINK',
   EMPLOYEE_LINK_CANCELED: 'EMPLOYEE_LINK_CANCELED',
   CORPORATE_FEEDBACK: 'CORPORATE_FEEDBACK',
+  PAYSLIP_RECEIVED: 'PAYSLIP_RECEIVED'
 };
 
 const OrganizationalEngineeringToastNotificationFactory: React.FC<React.PropsWithChildren<IProps>> = ({
@@ -71,6 +72,15 @@ const OrganizationalEngineeringToastNotificationFactory: React.FC<React.PropsWit
             <NotificationContentText>
               <NotificationHighlight>{notification.sender.name}</NotificationHighlight> enviou um feedback que precisa
               da sua atenção.
+            </NotificationContentText>
+          </NotificationContainer>
+        );
+
+      case notificationType.PAYSLIP_RECEIVED:
+        return (
+          <NotificationContainer>
+            <NotificationContentText>
+              <NotificationHighlight>{notification.sender.name}</NotificationHighlight> enviou um holerite para você.
             </NotificationContentText>
           </NotificationContainer>
         );
