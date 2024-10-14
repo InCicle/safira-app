@@ -17,6 +17,7 @@ export enum MODULE_TYPES {
   okr = 'okr',
   in_point = 'in_point',
   in_check = 'in_check',
+  hr_connect = 'hr_connect'
 }
 
 export interface INotificationCommon {

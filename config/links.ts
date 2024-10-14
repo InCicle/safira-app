@@ -23,6 +23,7 @@ export type ModulesWeb = {
   manager: string;
   incheck: string;
   ombudsman: string;
+  hrconnect: string;
 };
 
 export type AwsUrl = {
@@ -66,6 +67,7 @@ export const links: Modulelinks = {
     manager: process.env.REACT_APP_WEB_URL_MANAGER!,
     incheck: process.env.REACT_APP_WEB_URL_INCHECK!,
     ombudsman: process.env.REACT_APP_WEB_URL_OMBUDSMAN!,
+    hrconnect: process.env.REACT_APP_WEB_URL_HRCONNECTION!
   },
   aws: {
     access_key_id: process.env.REACT_APP_AWS_BUCKET_INCICLE_ACCESS_KEY_ID,

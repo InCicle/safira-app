@@ -20,6 +20,7 @@ import InpontoIcon from "safira-app/components/InHeader/components/icons/Inponto
 import ManagerIcon from "safira-app/components/InHeader/components/icons/ManagerIcon";
 import ClimateResearchDisabledIcon from "safira-app/components/InHeader/components/icons/ClimateResearchDisabledIcon";
 import OmbudsmanIcon from 'safira-app/components/InHeader/components/icons/OmbudsmanIcon';
+import HRConnectIcon from "safira-app/components/InHeader/components/icons/HRConnectIcon";
 
 export type MenuModulesType = {
   title: string;
@@ -262,6 +263,19 @@ export const incicleMenuModules: MenuModulesType[] = [
     description: {
       COMPANY: "ombudsman_description.company",
       PERSON: "ombudsman_description.person",
+    },
+    redirectType: "internal",
+  },
+  {
+    title: "hrconnect",
+    slug: MODULE_TYPES.hr_connect,
+    icon: HRConnectIcon,
+    iconSize: 60,
+    url: `${links.web.hrconnect}`,
+    accountTypes: ["PERSON"],
+    description: {
+      COMPANY: null,
+      PERSON: "hrconnect_description.person",
     },
     redirectType: "internal",
   },
