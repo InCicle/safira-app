@@ -63,12 +63,10 @@ const EvaluationDropdownNotificationFactory: React.FC<React.PropsWithChildren<IP
           >
             <NotificationContentText data-cy="NotificationContentText" notification={notification}>
               Você foi incluído na avaliação{" "}
-              <NotificationHighlight>{notification.common.name_research}.</NotificationHighlight>
+              <NotificationHighlight>{notification.common.name_research}.{' '}</NotificationHighlight>
               {notificationItem.common?.self_evaluation &&
-                ` Responda sua autoavaliação até a data ${(
-                  <NotificationHighlight>{dateString}</NotificationHighlight>
-                )} às 
-              ${(<NotificationHighlight>{timeFormat}</NotificationHighlight>)}.`}
+                <>Responda sua autoavaliação até a data{" "} 
+                  <NotificationHighlight>{dateString}</NotificationHighlight> às              <NotificationHighlight>{timeFormat}</NotificationHighlight>.</>}
             </NotificationContentText>
           </NotificationContainer>
         );
