@@ -124,7 +124,7 @@ const OrganizationalEngineeringDropdownNotificationFactory: React.FC<React.Props
       case notificationType.PAYSLIP_RECEIVED:
         return (
           <NotificationContainer
-            url={`${links.web.department}/collaborators/${notification.common.collaborator_id}`}
+            url={`${links.web.hrconnect}/payslip`}
             notification={notificationItem}
           >
             <NotificationContentText notification={notification}>
