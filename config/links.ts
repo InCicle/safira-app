@@ -22,6 +22,8 @@ export type ModulesWeb = {
   settings: string;
   manager: string;
   incheck: string;
+  ombudsman: string;
+  hrconnect: string;
 };
 
 export type AwsUrl = {
@@ -64,6 +66,8 @@ export const links: Modulelinks = {
     settings: import.meta.env.VITE_APP_WEB_URL_SETTINGS!,
     manager: import.meta.env.VITE_APP_WEB_URL_MANAGER!,
     incheck: import.meta.env.VITE_APP_WEB_URL_INCHECK!,
+    ombudsman: import.meta.env.VITE_APP_WEB_URL_OMBUDSMAN!,
+    hrconnect: import.meta.env.VITE_APP_WEB_URL_HRCONNECTION!
   },
   aws: {
     access_key_id: import.meta.env.VITE_APP_AWS_BUCKET_INCICLE_ACCESS_KEY_ID,
