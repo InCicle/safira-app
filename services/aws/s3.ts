@@ -35,7 +35,7 @@ async function fetchFile(src: string, bucket: string, s3: S3Client) {
     const base64 = await response.Body?.transformToString('base64');
     return { base64, type: response.ContentType };
   } catch (err) {
-    // console.error(err);
+    console.error(err);
     return null;
   }
 }
@@ -52,7 +52,7 @@ export async function getS3Object({ src, bucket }: S3AttachmentArgs) {
   const response = await fetchFile(src, getBucketName(bucket), s3);
 
   return {
-    base64: response?.base64 || '',
+    base64: response?.base64 ? `data:${response.type};base64,${response.base64}` : '',
     type: response?.type || '',
   };
 }

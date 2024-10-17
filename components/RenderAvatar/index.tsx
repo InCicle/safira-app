@@ -31,8 +31,8 @@ const RenderAvatar: React.FC<React.PropsWithChildren<RenderAvatarProps>> = ({
     try {
       if (!src) return;
 
-      const { base64: image } = await getS3Object({ src, bucket });
-      return image;
+      const { base64 } = await getS3Object({ src, bucket });
+      return base64;
     } catch {
       return '';
     }
