@@ -470,8 +470,8 @@ export const incicleNotificationModules: FilterModulesType[] = [
   {
     title: "ombudsman",
     slug: MODULE_TYPES.ombudsman,
-    icon: "https://static-incicle.s3.amazonaws.com/group-disabled.svg",
-    linkKey: "disabled",
+    icon: "https://static-incicle.s3.amazonaws.com/ombudsman_icon.svg",
+    linkKey: "ombudsman",
     userType: "BOTH",
   },
   {
