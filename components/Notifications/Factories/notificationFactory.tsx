@@ -69,6 +69,7 @@ import {
   OKRToastNotificationFactory,
   createOKRBrowserNotificationFactory,
 } from './okr';
+import { createOmbudsmanBrowserNotificationFactory, OmbudsmanDropdownNotificationFactory, OmbudsmanToastNotificationFactory } from './ombudsman';
 
 export function createDropdownNotification(item: INotificationProps) {
   const notification = formatNotificationContent(item);
@@ -88,6 +89,9 @@ export function createDropdownNotification(item: INotificationProps) {
 
     case MODULE_TYPES.endomarketing:
       return <EndomarketingDropdownNotificationFactory notificationItem={notification} />;
+
+    case MODULE_TYPES.ombudsman:
+      return <OmbudsmanDropdownNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.evaluation360:
       return <EvaluationDropdownNotificationFactory notificationItem={notification} />;
@@ -135,6 +139,9 @@ export function createToastNotification(item: INotificationProps) {
     case MODULE_TYPES.endomarketing:
       return <EndomarketingToastNotificationFactory notificationItem={notification} />;
 
+    case MODULE_TYPES.ombudsman:
+      return <OmbudsmanToastNotificationFactory notificationItem={notification} />;
+
     case MODULE_TYPES.evaluation360:
       return <EvaluationToastNotificationFactory notificationItem={notification} />;
 
@@ -181,6 +188,9 @@ export function createBrowserNotification(item: INotificationProps) {
 
     case MODULE_TYPES.endomarketing:
       return createEndomarketingBrowserNotificationFactory(notification);
+
+    case MODULE_TYPES.ombudsman:
+      return createOmbudsmanBrowserNotificationFactory(notification);
 
     case MODULE_TYPES.evaluation360:
       return createEvaluationBrowserNotificationFactory(notification);
