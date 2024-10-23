@@ -8,7 +8,7 @@ import {
   NotificationContentText,
   NotificationHighlight,
 } from '../_abstract/ToastNotificationAbstract';
-import { getStatus } from 'utils/utils';
+import { getStatus } from 'safira-app/utils/getStatus';
 
 interface IProps {
   notificationItem: INotificationProps;

@@ -7,7 +7,7 @@ import {
   NotificationContentText,
   NotificationHighlight,
 } from '../_abstract/NotificationAbstract';
-import { getStatus } from 'utils/utils';
+import { getStatus } from 'safira-app/utils/getStatus';
 
 interface Props {
   notificationItem: INotificationProps;
