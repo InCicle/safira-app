@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { reduceString } from 'safira-app/utils/reduceString';
 import { INotificationProps } from 'safira-app/interfaces/Notification';
-import { getStatus } from 'utils/utils';
+import { getStatus } from 'safira-app/utils/getStatus';
 
 const notificationType = {
   TICKET_RECEIVED: 'TICKET_RECEIVED',
