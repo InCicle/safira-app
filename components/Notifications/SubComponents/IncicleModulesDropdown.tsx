@@ -103,7 +103,7 @@ const IncicleModulesDropdown: React.FC<IncicleModulesProps> = props => {
         <ButtonNotification onClick={handleOpenDropdown}>
           {translation(
             t,
-            incicleNotificationModules.find(module => module.slug === notificationFilters.module_filter)?.title ?? "",
+            `modules.${incicleNotificationModules.find(module => module.slug === notificationFilters.module_filter)?.title ?? ""}`,
           )}
           <ArrowDropDownIcon
             fontSize="small"
