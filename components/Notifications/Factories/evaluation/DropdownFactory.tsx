@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 
 import { INotificationProps } from "safira-app/interfaces/Notification";
-import { useHeaderProvider } from "safira-app/contexts/HeaderContext";
 import { links } from "safira-app/config/links";
 
 import {
@@ -10,6 +9,7 @@ import {
   NotificationContentText,
   NotificationHighlight,
 } from "../_abstract/NotificationAbstract";
+import { useAuth } from "safira-app/hooks/useAuth";
 
 interface IProps {
   notificationItem: INotificationProps;
@@ -31,7 +31,7 @@ const notificationType = {
 
 // @ts-ignore
 const EvaluationDropdownNotificationFactory: React.FC<React.PropsWithChildren<IProps>> = ({ notificationItem }) => {
-  const { user } = useHeaderProvider();
+  const { user } = useAuth();
   // @ts-ignore
   const [notification] = useState(notificationItem);
 
