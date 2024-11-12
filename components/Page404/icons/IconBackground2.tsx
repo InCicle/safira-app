@@ -2,7 +2,9 @@ import React from 'react';
 import { FunctionComponent } from 'react';
 import { Box, BoxProps } from '@mui/material';
 
-const IconBackground2: FunctionComponent<React.PropsWithChildren<BoxProps>> = props => (
+const IconBackground2: FunctionComponent<
+  React.PropsWithChildren<BoxProps & { component: React.ElementType }>
+> = props => (
   <Box {...props}>
     <svg width="842" height="568" viewBox="0 0 842 568" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
