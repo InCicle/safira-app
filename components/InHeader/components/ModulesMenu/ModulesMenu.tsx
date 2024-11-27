@@ -66,6 +66,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
     }
     return urlStepOne;
   };
+
   const filteredCollaboratorsModules = incicleCollaboratorsMenuModules
     .filter(item => item.accountTypes.includes(user.type))
     .filter(moduleItem => {
