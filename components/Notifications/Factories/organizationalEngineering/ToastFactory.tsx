@@ -4,10 +4,10 @@ import {
   NotificationContentText,
   NotificationHighlight,
 } from '../_abstract/ToastNotificationAbstract';
-import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { NotificationProps } from 'safira-app/services/notifications';
 
 interface IProps {
-  notificationItem: INotificationProps;
+  notificationItem: NotificationProps;
 }
 
 const notificationType = {
@@ -16,7 +16,7 @@ const notificationType = {
   EMPLOYEE_UNLINK: 'EMPLOYEE_UNLINK',
   EMPLOYEE_LINK_CANCELED: 'EMPLOYEE_LINK_CANCELED',
   CORPORATE_FEEDBACK: 'CORPORATE_FEEDBACK',
-  PAYSLIP_RECEIVED: 'PAYSLIP_RECEIVED'
+  PAYSLIP_RECEIVED: 'PAYSLIP_RECEIVED',
 };
 
 const OrganizationalEngineeringToastNotificationFactory: React.FC<React.PropsWithChildren<IProps>> = ({

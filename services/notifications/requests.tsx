@@ -1,16 +1,10 @@
 import { AxiosInstance } from 'axios';
 import { links } from 'safira-app/config/links';
-import { INotificationWrapper } from 'safira-app/interfaces/Notification';
-import { NotificationParamsType } from './types';
-
-export const DEFAULT_NOTIFICATION_PARAMS: NotificationParamsType = {
-  page: 1,
-  perPage: 30,
-};
+import { NotificationParamsType, NotificationWrapper } from './types';
 
 export const getNotifications = (api: AxiosInstance, params: NotificationParamsType) => {
   const { page, perPage, ...rest } = params;
-  return api.get<INotificationWrapper>(`${links.api.notification}/notifications/me`, {
+  return api.get<NotificationWrapper>(`${links.api.notification}/notifications/me`, {
     params: { ...rest, page, size: perPage },
   });
 };

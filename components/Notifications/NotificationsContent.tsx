@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { Skeleton, Stack, Typography } from '@mui/material';
 import { Waypoint } from 'react-waypoint';
 
@@ -8,20 +8,14 @@ import NotificationItem from './SubComponents/NotificationItem';
 import IncicleModulesDropdown from './SubComponents/IncicleModulesDropdown';
 import MoreOptionsDropdown from './SubComponents/MoreOptionsDropdown';
 
-import { NotificationFilterOptions } from './enums';
-import { NotificationFiltersType } from './types';
 import { NotificationWrapper } from './style';
 import { translation } from 'safira-app/utils/translation';
 import { useTranslation } from 'react-i18next';
+import { NotificationFilterOptions } from 'safira-app/services/notifications';
 
 const NotificationsContent: React.FC = () => {
   const { notifications, notificationsReqData, params, isLoading, updateNotifications } = useNotifications();
   const { t } = useTranslation();
-
-  const [notificationFilters, setNotificationFilters] = useState<NotificationFiltersType>({
-    type: NotificationFilterOptions.ALL,
-    module_filter: '',
-  });
 
   const showSkeleton = !!notificationsReqData.length || isLoading;
 
@@ -41,14 +35,11 @@ const NotificationsContent: React.FC = () => {
         <MoreOptionsDropdown />
       </Stack>
 
-      <IncicleModulesDropdown
-        notificationFilters={notificationFilters}
-        setNotificationFilters={setNotificationFilters}
-      />
+      <IncicleModulesDropdown />
 
       <NotificationWrapper>
         <Typography variant="body2" sx={{ padding: '0 15px', color: '#959595', fontSize: '11px' }}>
-          {translation(t, notificationFilters.type === NotificationFilterOptions.ALL ? 'all' : 'unread')}
+          {translation(t, params.read === NotificationFilterOptions.UNREADED ? 'unread' : 'all')}
         </Typography>
 
         {notifications.map(item => (

@@ -1,11 +1,11 @@
-import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { NotificationProps } from 'safira-app/services/notifications';
 
 const notificationType = {
   NEW_POLICY: 'NEW_POLICY',
   POLICY_REVIEW: 'POLICY_REVIEW',
 };
 
-export function createPoliciesBrowserNotificationFactory(notification: INotificationProps) {
+export function createPoliciesBrowserNotificationFactory(notification: NotificationProps) {
   const { sender } = notification;
 
   switch (notification.type) {

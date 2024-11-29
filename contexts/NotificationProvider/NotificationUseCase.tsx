@@ -7,14 +7,12 @@ import notificationLogoImg from 'safira-app/assets/icons/incicle-favicon.png';
 import notificationSound from 'safira-app/assets/audios/incicle-notification.mp3';
 
 import { incicleMenuModules } from 'safira-app/utils/modules';
-import { INotificationProps } from 'safira-app/interfaces/Notification';
 import { FaviconOptionType } from 'safira-app/hooks/useHTMLHead';
 import { addToast } from 'safira-app/components/Toast';
 import { NotificationDTO } from 'safira-app/components/Notifications/DTO/NotificationDTO';
-import { updateSawNotifications } from 'safira-app/services/notifications';
+import { NotificationProps, updateSawNotifications } from 'safira-app/services/notifications';
 import { links } from 'safira-app/config/links';
-import { NotificationEvent, NotificationEventList } from 'safira-app/providers/NotificationEvent';
-import { ConsoleLog } from '@openreplay/tracker/lib/app/messages.gen';
+import { NotificationEvent } from 'safira-app/providers/NotificationEvent';
 
 type NotificationOptionsType = {
   api: AxiosInstance;
@@ -23,7 +21,7 @@ type NotificationOptionsType = {
 
   setBadgeAsInvisible: React.Dispatch<React.SetStateAction<boolean>>;
   setDropdownOpened: React.Dispatch<React.SetStateAction<boolean>>;
-  setAllNotifications: React.Dispatch<React.SetStateAction<INotificationProps[]>>;
+  setAllNotifications: React.Dispatch<React.SetStateAction<NotificationProps[]>>;
   setNotificationViewCount: React.Dispatch<React.SetStateAction<number>>;
 
   defineFavicon(icon: FaviconOptionType): void;
@@ -97,9 +95,14 @@ export default class NotificationUseCase {
 
   // update notification -------------------------- // ------------------------------------------------------------ //
 
-  update(newNotifications: INotificationProps[], viewCount?: number) {
+  update(newNotifications: NotificationProps[], viewCount?: number, action: 'none' | 'reset' = 'none') {
     if (!this.dropdownOpened) {
       this.setNotificationViewCount(viewCount || 0);
+    }
+
+    if (action === 'reset') {
+      this.setAllNotifications(newNotifications);
+      return;
     }
 
     this.setAllNotifications(old => {
@@ -108,7 +111,7 @@ export default class NotificationUseCase {
     });
   }
 
-  appendNew(notification: INotificationProps) {
+  appendNew(notification: NotificationProps) {
     this.setNotificationViewCount(old => old + 1);
     this.setAllNotifications(old => [notification, ...old]);
   }
@@ -131,7 +134,7 @@ export default class NotificationUseCase {
 
   // notifiers ------------------------------------ // ------------------------------------------------------------ //
 
-  notify(notification: INotificationProps) {
+  notify(notification: NotificationProps) {
     // handle new notification when dropdown is open
     if (this.dropdownOpened) {
       updateSawNotifications(this.api);
@@ -167,7 +170,7 @@ export default class NotificationUseCase {
     this.setBadgeAsInvisible(false);
   }
 
-  executeToastNotification(notification: INotificationProps) {
+  executeToastNotification(notification: NotificationProps) {
     const notificationDTO = new NotificationDTO(notification);
     const { NotificationImageBox, NotificationComponent } = notificationDTO.toToast() || {};
 
@@ -182,7 +185,7 @@ export default class NotificationUseCase {
     }
   }
 
-  async executeBrowserNotification(notification: INotificationProps) {
+  async executeBrowserNotification(notification: NotificationProps) {
     // social network only
     if (this.checkIfNotAbleToNotify()) return;
 

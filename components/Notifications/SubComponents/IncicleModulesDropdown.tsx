@@ -3,29 +3,24 @@ import { v4 as uuid } from 'uuid';
 import { ListItemIcon, Menu, MenuItem, Stack } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-import { getNotifications } from 'safira-app/services/notifications';
+import {
+  DEFAULT_NOTIFICATION_PARAMS,
+  MODULE_TYPES,
+  NotificationFilterOptions,
+} from 'safira-app/services/notifications';
 import { useNotifications } from 'safira-app/hooks/useNotifications';
 import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
 
 import { incicleNotificationModules } from 'safira-app/utils/modules';
-import { NotificationFilterOptions } from '../enums';
 import { ButtonNotification } from '../style';
-import { NotificationFiltersType } from '../types';
 import { useTranslation } from 'react-i18next';
 import { translation } from 'safira-app/utils/translation';
 
 type AnchorButton = EventTarget & HTMLButtonElement;
 
-type IncicleModulesProps = {
-  notificationFilters: NotificationFiltersType;
-  setNotificationFilters: React.Dispatch<React.SetStateAction<NotificationFiltersType>>;
-};
-
-const IncicleModulesDropdown: React.FC<IncicleModulesProps> = props => {
-  const { notificationFilters, setNotificationFilters } = props;
-
+const IncicleModulesDropdown: React.FC = () => {
   const { user } = useHeaderProvider();
-  const { api, setNotifications } = useNotifications();
+  const { params, updateNotifications } = useNotifications();
   const { t } = useTranslation();
 
   const [anchorEl, setAnchorEl] = useState<AnchorButton | null>(null);
@@ -41,40 +36,18 @@ const IncicleModulesDropdown: React.FC<IncicleModulesProps> = props => {
   }
 
   function handleChangeNotificationOption(value: NotificationFilterOptions) {
-    /**
-     * This function is used to set filter type on notifications
-     */
-    return () => {
-      setNotificationFilters(oldState => ({ ...oldState, type: value }));
-
-      getNotifications(api, {
-        params: {
-          module: notificationFilters.module_filter,
-          read: value === NotificationFilterOptions.UNREADED ? value : null,
-        },
-      }).then(response => setNotifications(response?.data.data));
-    };
+    updateNotifications({
+      ...DEFAULT_NOTIFICATION_PARAMS,
+      read: value === NotificationFilterOptions.UNREADED ? value : undefined,
+    });
   }
 
-  function handleSetNotificationsModuleFilter(value: string) {
-    /**
-     * This function is used to set module filter on notifications
-     */
-    return () => {
-      setNotificationFilters(oldState => ({
-        ...oldState,
-        module_filter: value,
-      }));
-
-      handleCloseDropdown();
-
-      getNotifications(api, {
-        params: {
-          read: notificationFilters.type,
-          module: value,
-        },
-      }).then(response => setNotifications(response?.data.data));
-    };
+  function handleSetNotificationsModuleFilter(value: MODULE_TYPES) {
+    updateNotifications({
+      ...DEFAULT_NOTIFICATION_PARAMS,
+      read: NotificationFilterOptions.ALL,
+      module: value,
+    });
   }
 
   return (
@@ -87,25 +60,24 @@ const IncicleModulesDropdown: React.FC<IncicleModulesProps> = props => {
       >
         <Stack direction="row" spacing={1}>
           <ButtonNotification
-            onClick={handleChangeNotificationOption(NotificationFilterOptions.ALL)}
-            active={notificationFilters.type === NotificationFilterOptions.ALL ? 1 : 0}
+            onClick={() => handleChangeNotificationOption(NotificationFilterOptions.ALL)}
+            active={params.read !== NotificationFilterOptions.UNREADED ? 1 : 0}
           >
             {translation(t, 'all')}
           </ButtonNotification>
           <ButtonNotification
-            onClick={handleChangeNotificationOption(NotificationFilterOptions.UNREADED)}
-            active={notificationFilters.type === NotificationFilterOptions.UNREADED ? 1 : 0}
+            onClick={() => handleChangeNotificationOption(NotificationFilterOptions.UNREADED)}
+            active={params.read === NotificationFilterOptions.UNREADED ? 1 : 0}
           >
             {translation(t, 'unread')}
           </ButtonNotification>
         </Stack>
 
         <ButtonNotification onClick={handleOpenDropdown}>
+          x
           {translation(
             t,
-            `modules.${
-              incicleNotificationModules.find(module => module.slug === notificationFilters.module_filter)?.title ?? ''
-            }`,
+            `modules.${incicleNotificationModules.find(module => module.slug === params.module)?.title ?? ''}`,
           )}
           <ArrowDropDownIcon
             fontSize="small"
@@ -137,7 +109,7 @@ const IncicleModulesDropdown: React.FC<IncicleModulesProps> = props => {
             return (
               <MenuItem
                 key={uuid()}
-                onClick={handleSetNotificationsModuleFilter(module.slug)}
+                onClick={() => handleSetNotificationsModuleFilter(module.slug)}
                 sx={{ fontSize: '14px' }}
                 value={module.slug}
               >

@@ -4,7 +4,6 @@ import { Manager } from 'socket.io-client';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosInstance, AxiosResponse } from 'axios';
 
-import { INotificationProps, INotificationWrapper } from 'safira-app/interfaces/Notification';
 import { useHTMLHead } from 'safira-app/hooks/useHTMLHead';
 import { useRender } from 'safira-app/hooks/useRender';
 import { IUser } from 'safira-app/interfaces/User';
@@ -14,6 +13,8 @@ import {
   DEFAULT_NOTIFICATION_PARAMS,
   getNotifications,
   NotificationParamsType,
+  NotificationProps,
+  NotificationWrapper,
 } from 'safira-app/services/notifications';
 import NotificationUseCase from './NotificationUseCase';
 
@@ -35,16 +36,16 @@ interface NotificationContextType {
   setBadgeAsInvisible: SetState<boolean>;
 
   dropdownOpened: boolean;
-  notificationsReqData: INotificationProps[];
+  notificationsReqData: NotificationProps[];
 
-  notifications: INotificationProps[];
-  setNotifications: SetState<INotificationProps[]>;
+  notifications: NotificationProps[];
+  setNotifications: SetState<NotificationProps[]>;
 
   params: NotificationParamsType;
   setParams: SetState<NotificationParamsType>;
 
-  updateNotifications(params: NotificationParamsType, onResponse?: (data: INotificationWrapper) => void): void;
-  updateNotificationItem(data: INotificationProps): void;
+  updateNotifications(params: NotificationParamsType): void;
+  updateNotificationItem(data: NotificationProps): void;
 }
 
 const manager = new Manager(links.api.notification);
@@ -65,7 +66,7 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
   const [dropdownOpened, setDropdownOpened] = useState(false);
   const [badgeAsInvisible, setBadgeAsInvisible] = useState(true);
   const [notificationViewCount, setNotificationViewCount] = useState(0);
-  const [allNotifications, setAllNotifications] = useState<INotificationProps[]>([]);
+  const [allNotifications, setAllNotifications] = useState<NotificationProps[]>([]);
   const [params, setParams] = useState<NotificationParamsType>(DEFAULT_NOTIFICATION_PARAMS);
 
   const paramsFallbackRef = useRef<NotificationParamsType>(DEFAULT_NOTIFICATION_PARAMS);
@@ -103,10 +104,14 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
 
   function updateNotifications(newParams: NotificationParamsType) {
     paramsFallbackRef.current = { ...params };
-    setParams(prev => ({ ...prev, ...newParams }));
+
+    // Don't call next page if notifications request is empty
+    if (notifications.length) {
+      setParams(prev => ({ ...prev, ...newParams }));
+    }
   }
 
-  function updateNotificationItem(data: INotificationProps) {
+  function updateNotificationItem(data: NotificationProps) {
     api.patch(`${links.api.notification}/notifications/${data._id}`);
 
     setAllNotifications(old => {
@@ -119,11 +124,11 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
     });
   }
 
-  function notifier(notification: INotificationProps) {
+  function notifier(notification: NotificationProps) {
     const queryKey = [NOTIFICATION_NAME, DEFAULT_NOTIFICATION_PARAMS];
 
     notificationUseCase.notify(notification);
-    queryClient.setQueryData(queryKey, (prev: AxiosResponse<INotificationWrapper>) => {
+    queryClient.setQueryData(queryKey, (prev: AxiosResponse<NotificationWrapper>) => {
       if (!prev?.data?.data?.length) return { data: { data: [notification] } };
       prev.data.data.unshift(notification);
       return prev;
@@ -168,8 +173,9 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
 
   // concat new notifications
   useEffect(() => {
-    if (!notifications.length) return;
-    notificationUseCase.update(notifications, notificationsResponse?.data?.saw);
+    const paramsFallback = paramsFallbackRef.current;
+    const resetState = params.module !== paramsFallback.module || params.read !== paramsFallback.read;
+    notificationUseCase.update(notifications, notificationsResponse?.data?.saw, resetState ? 'reset' : 'none');
   }, [notifications]); // eslint-disable-line
 
   // on notification load

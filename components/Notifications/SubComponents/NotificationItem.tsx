@@ -1,11 +1,10 @@
 import React, { useMemo } from 'react';
 
-import { INotificationProps } from 'safira-app/interfaces/Notification';
-
 import { NotificationDTO } from '../DTO/NotificationDTO';
+import { NotificationProps } from 'safira-app/services/notifications';
 
 interface Props {
-  data: INotificationProps;
+  data: NotificationProps;
 }
 
 const NotificationItem: React.FC<Props> = ({ data }) => {

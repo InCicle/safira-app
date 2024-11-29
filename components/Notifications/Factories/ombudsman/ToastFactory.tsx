@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { NotificationProps } from 'safira-app/services/notifications';
 import { reduceString } from 'safira-app/utils/reduceString';
 
 import {
@@ -11,7 +11,7 @@ import {
 import { getStatus } from 'safira-app/utils/getStatus';
 
 interface IProps {
-  notificationItem: INotificationProps;
+  notificationItem: NotificationProps;
 }
 
 const notificationType = {
@@ -23,14 +23,16 @@ const notificationType = {
 const OmbudsmanToastNotificationFactory: React.FC<React.PropsWithChildren<IProps>> = ({ notificationItem }) => {
   const [notification] = useState(notificationItem);
 
-  const createNotificationMessage = (notification: INotificationProps): string => {
+  const createNotificationMessage = (notification: NotificationProps): string => {
     const { common } = notification;
 
     switch (notification.type) {
       case notificationType.TICKET_RECEIVED:
         return `Nova comunicação recebida: ${reduceString(common.content || '', 50)}`;
       case notificationType.TICKET_CHANGE_STATUS:
-        return `O status da sua comunicação com a ${common.company_name} foi atualizado para ${getStatus(common.new_status)}`;
+        return `O status da sua comunicação com a ${common.company_name} foi atualizado para ${getStatus(
+          common.new_status,
+        )}`;
       case notificationType.TICKET_NEW_MESSAGE:
         return `Uma nova mensagem foi enviada sobre a comunicação ${common.communication_id}`;
       default:
@@ -38,7 +40,7 @@ const OmbudsmanToastNotificationFactory: React.FC<React.PropsWithChildren<IProps
     }
   };
 
-  const getNotificationAction = (notification: INotificationProps): string => {
+  const getNotificationAction = (notification: NotificationProps): string => {
     switch (notification.type) {
       case notificationType.TICKET_RECEIVED:
         return 'Levará para a visualização da comunicação';
