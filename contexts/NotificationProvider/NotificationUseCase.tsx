@@ -11,9 +11,10 @@ import { INotificationProps } from 'safira-app/interfaces/Notification';
 import { FaviconOptionType } from 'safira-app/hooks/useHTMLHead';
 import { addToast } from 'safira-app/components/Toast';
 import { NotificationDTO } from 'safira-app/components/Notifications/DTO/NotificationDTO';
-import { updateSawNotifications } from 'safira-app/services/notifier/notifications';
+import { updateSawNotifications } from 'safira-app/services/notifications';
 import { links } from 'safira-app/config/links';
 import { NotificationEvent, NotificationEventList } from 'safira-app/providers/NotificationEvent';
+import { ConsoleLog } from '@openreplay/tracker/lib/app/messages.gen';
 
 type NotificationOptionsType = {
   api: AxiosInstance;
@@ -22,7 +23,7 @@ type NotificationOptionsType = {
 
   setBadgeAsInvisible: React.Dispatch<React.SetStateAction<boolean>>;
   setDropdownOpened: React.Dispatch<React.SetStateAction<boolean>>;
-  setNotifications: React.Dispatch<React.SetStateAction<INotificationProps[]>>;
+  setAllNotifications: React.Dispatch<React.SetStateAction<INotificationProps[]>>;
   setNotificationViewCount: React.Dispatch<React.SetStateAction<number>>;
 
   defineFavicon(icon: FaviconOptionType): void;
@@ -44,7 +45,7 @@ export default class NotificationUseCase {
 
   private setBadgeAsInvisible: NotificationOptionsType['setBadgeAsInvisible'] = () => {};
   private setDropdownOpened: NotificationOptionsType['setDropdownOpened'] = () => {};
-  private setNotifications: NotificationOptionsType['setNotifications'] = () => {};
+  private setAllNotifications: NotificationOptionsType['setAllNotifications'] = () => {};
   private setNotificationViewCount: NotificationOptionsType['setNotificationViewCount'] = () => {};
 
   // local  ------------------------------------------ // --------------------------------------------------------- //
@@ -78,7 +79,7 @@ export default class NotificationUseCase {
     setBadgeAsInvisible,
     setDropdownOpened,
     setNotificationViewCount,
-    setNotifications,
+    setAllNotifications,
   }: NotificationOptionsType) {
     this.api = api;
     this.dropdownOpened = dropdownOpened;
@@ -89,24 +90,27 @@ export default class NotificationUseCase {
     this.setBadgeAsInvisible = setBadgeAsInvisible;
     this.setDropdownOpened = setDropdownOpened;
     this.setNotificationViewCount = setNotificationViewCount;
-    this.setNotifications = setNotifications;
+    this.setAllNotifications = setAllNotifications;
 
     this.preventScopeLoss();
   }
 
   // update notification -------------------------- // ------------------------------------------------------------ //
 
-  update(notificationList: INotificationProps[], viewCount?: number) {
+  update(newNotifications: INotificationProps[], viewCount?: number) {
     if (!this.dropdownOpened) {
       this.setNotificationViewCount(viewCount || 0);
     }
 
-    this.setNotifications(old => old.concat(notificationList));
+    this.setAllNotifications(old => {
+      const notificationsIds = old.map(i => i._id);
+      return old.concat(newNotifications.filter(n => !notificationsIds.includes(n._id)));
+    });
   }
 
   appendNew(notification: INotificationProps) {
     this.setNotificationViewCount(old => old + 1);
-    this.setNotifications(old => [notification, ...old]);
+    this.setAllNotifications(old => [notification, ...old]);
   }
 
   // browser permission --------------------------- // ------------------------------------------------------------ //
@@ -229,7 +233,7 @@ export default class NotificationUseCase {
 
   handleCloseDropdown() {
     this.setDropdownOpened(false);
-    this.setNotifications(old => old.map(item => ({ ...item, saw: true })));
+    this.setAllNotifications(old => old.map(item => ({ ...item, saw: true })));
   }
 
   // apply events --------------------------------- // ------------------------------------------------------------ //
@@ -244,7 +248,7 @@ export default class NotificationUseCase {
   clearEvents(keys: { openDropdownKey?: string; closeDropdownKey?: string }) {
     const { openDropdownKey, closeDropdownKey } = keys;
 
-    if (openDropdownKey) NotificationEvent.remove('open_dropdown', openDropdownKey);
-    if (closeDropdownKey) NotificationEvent.remove('close_dropdown', closeDropdownKey);
+    if (openDropdownKey) NotificationEvent.off('open_dropdown', openDropdownKey);
+    if (closeDropdownKey) NotificationEvent.off('close_dropdown', closeDropdownKey);
   }
 }

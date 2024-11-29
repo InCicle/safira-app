@@ -18,7 +18,7 @@ type NotificationsRef = {
 
 const Notifications: React.ForwardRefRenderFunction<NotificationsRef> = (_, ref) => {
   const { badgeAsInvisible, dropdownOpened, notifications } = useNotifications();
-  const { uniqueCall } = useRender();
+  const { fn } = useRender();
   const query = useQuery();
 
   const anchorRef = useRef<HTMLButtonElement | null>(null);
@@ -34,9 +34,9 @@ const Notifications: React.ForwardRefRenderFunction<NotificationsRef> = (_, ref)
   }
 
   useLayoutEffect(() => {
-    if (!notifications.length) return;
+    if (!notifications?.length) return;
 
-    uniqueCall('open dropdown by url params', () => {
+    fn('open dropdown by url params', () => {
       const openNotificationDropdown = query.get('notifications') === 'open';
 
       if (openNotificationDropdown) {
@@ -44,7 +44,7 @@ const Notifications: React.ForwardRefRenderFunction<NotificationsRef> = (_, ref)
         NotificationEvent.emit('open_dropdown');
       }
     });
-  }, [query, uniqueCall, notifications]);
+  }, [query, fn, notifications]);
 
   useImperativeHandle(ref, () => {
     return {
