@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { Skeleton, Stack, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { Waypoint } from 'react-waypoint';
 
 import { useNotifications } from 'safira-app/hooks/useNotifications';
@@ -8,19 +9,20 @@ import NotificationItem from './SubComponents/NotificationItem';
 import IncicleModulesDropdown from './SubComponents/IncicleModulesDropdown';
 import MoreOptionsDropdown from './SubComponents/MoreOptionsDropdown';
 
-import { NotificationWrapper } from './style';
 import { translation } from 'safira-app/utils/translation';
-import { useTranslation } from 'react-i18next';
 import { NotificationFilterOptions } from 'safira-app/services/notifications';
+import { NotificationWrapper } from './style';
 
 const NotificationsContent: React.FC = () => {
   const { notifications, notificationsReqData, params, isLoading, updateNotifications } = useNotifications();
   const { t } = useTranslation();
 
-  const showSkeleton = !!notificationsReqData.length || isLoading;
+  const perPage = params.perPage || 0;
+  const hasMoreContent = !(notificationsReqData.length < perPage);
+  const showLoading = isLoading || hasMoreContent;
 
   const handleLoadMoreContent = useCallback(() => {
-    if (!isLoading) {
+    if (!isLoading && hasMoreContent) {
       updateNotifications({ page: (params?.page || 1) + 1 });
     }
   }, [isLoading, params]); // eslint-disable-line
@@ -62,7 +64,7 @@ const NotificationsContent: React.FC = () => {
         {/* @ts-ignore */}
         <Waypoint topOffset="-80px" onEnter={handleLoadMoreContent}>
           <Stack direction="row" justifyContent="center" alignItems="center" padding={1.5} height={70}>
-            {showSkeleton ? (
+            {showLoading ? (
               <Stack direction="row" gap={1} alignItems="center">
                 <Stack>
                   <Skeleton variant="circular" width={42} height={42} />
@@ -75,7 +77,7 @@ const NotificationsContent: React.FC = () => {
             ) : (
               <Stack direction="row" justifyContent="center" alignItems="center">
                 <Typography sx={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'gray', opacity: 0.5 }}>
-                  {t('this_is_all')}
+                  {translation(t, 'this_is_all')}
                 </Typography>
               </Stack>
             )}

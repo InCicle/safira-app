@@ -45,8 +45,8 @@ const IncicleModulesDropdown: React.FC = () => {
   function handleSetNotificationsModuleFilter(value: MODULE_TYPES) {
     updateNotifications({
       ...DEFAULT_NOTIFICATION_PARAMS,
-      read: NotificationFilterOptions.ALL,
-      module: value,
+      read: value === MODULE_TYPES.all ? undefined : NotificationFilterOptions.ALL,
+      module: value === MODULE_TYPES.all ? undefined : value,
     });
   }
 
@@ -74,10 +74,12 @@ const IncicleModulesDropdown: React.FC = () => {
         </Stack>
 
         <ButtonNotification onClick={handleOpenDropdown}>
-          x
           {translation(
             t,
-            `modules.${incicleNotificationModules.find(module => module.slug === params.module)?.title ?? ''}`,
+            `modules.${
+              incicleNotificationModules.find(module => module.slug === (params.module || MODULE_TYPES.all))?.title ??
+              ''
+            }`,
           )}
           <ArrowDropDownIcon
             fontSize="small"

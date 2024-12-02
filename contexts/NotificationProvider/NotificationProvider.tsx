@@ -105,8 +105,9 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
   function updateNotifications(newParams: NotificationParamsType) {
     paramsFallbackRef.current = { ...params };
 
+    const perPage = newParams.perPage || params.perPage || 0;
     // Don't call next page if notifications request is empty
-    if (notifications.length) {
+    if (!(notifications.length < perPage)) {
       setParams(prev => ({ ...prev, ...newParams }));
     }
   }
