@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 import { reduceString } from 'safira-app/utils/reduceString';
-import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { NotificationProps } from 'safira-app/services/notifications';
 
 const notificationType = {
   RECEIVED_FEEDBACK: 'RECEIVED_FEEDBACK',
@@ -13,7 +13,7 @@ const notificationType = {
   FEEDBACK_NEAR_END: 'FEEDBACK_NEAR_END',
 };
 
-export function createFeedbackBrowserFactory(notification: INotificationProps) {
+export function createFeedbackBrowserFactory(notification: NotificationProps) {
   const { sender, common } = notification;
 
   switch (notification.type) {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
 
 import NotificationModal from 'safira-app/components/Notifications/Modals/NotificationModal/NotificationModal';
-import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { NotificationProps } from 'safira-app/services/notifications';
 import { links } from 'safira-app/config/links';
 
 import {
@@ -12,7 +12,7 @@ import {
 } from '../_abstract/NotificationAbstract';
 
 interface IProps {
-  notificationItem: INotificationProps;
+  notificationItem: NotificationProps;
 }
 
 const notificationType = {
@@ -21,7 +21,7 @@ const notificationType = {
   EMPLOYEE_UNLINK: 'EMPLOYEE_UNLINK',
   EMPLOYEE_LINK_CANCELED: 'EMPLOYEE_LINK_CANCELED',
   CORPORATE_FEEDBACK: 'CORPORATE_FEEDBACK',
-  PAYSLIP_RECEIVED: 'PAYSLIP_RECEIVED'
+  PAYSLIP_RECEIVED: 'PAYSLIP_RECEIVED',
 };
 
 const OrganizationalEngineeringDropdownNotificationFactory: React.FC<React.PropsWithChildren<IProps>> = ({
@@ -123,10 +123,7 @@ const OrganizationalEngineeringDropdownNotificationFactory: React.FC<React.Props
 
       case notificationType.PAYSLIP_RECEIVED:
         return (
-          <NotificationContainer
-            url={`${links.web.hrconnect}/payslip`}
-            notification={notificationItem}
-          >
+          <NotificationContainer url={`${links.web.hrconnect}/payslip`} notification={notificationItem}>
             <NotificationContentText notification={notification}>
               <NotificationHighlight>{notification.sender.name}</NotificationHighlight> enviou um holerite para você.
             </NotificationContentText>

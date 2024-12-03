@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { NotificationProps } from 'safira-app/services/notifications';
 import { DateZoneHandler } from 'safira-app/utils/datezone';
 
 const notificationType = {
@@ -18,7 +18,7 @@ const notificationType = {
   PARTICIPANT_SELF_ANSWER_PENDING: 'PARTICIPANT_SELF_ANSWER_PENDING',
 };
 
-export function createEvaluationBrowserNotificationFactory(notification: INotificationProps) {
+export function createEvaluationBrowserNotificationFactory(notification: NotificationProps) {
   // eslint-disable-next-line
   const { sender, common } = notification;
 
