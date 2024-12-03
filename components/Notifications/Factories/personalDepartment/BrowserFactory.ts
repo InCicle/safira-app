@@ -1,4 +1,4 @@
-import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { NotificationProps } from 'safira-app/services/notifications';
 import { reduceString } from 'safira-app/utils/reduceString';
 
 const notificationType = {
@@ -17,7 +17,7 @@ const notificationType = {
   NEW_SOLICITATION_DOCUMENT: 'NEW_SOLICITATION_DOCUMENT',
 };
 
-export function createPersonalDepartmentBrowserNotificationFactory(notification: INotificationProps) {
+export function createPersonalDepartmentBrowserNotificationFactory(notification: NotificationProps) {
   const { sender, common } = notification;
 
   switch (notification.type) {

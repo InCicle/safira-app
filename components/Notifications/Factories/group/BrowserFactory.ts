@@ -1,4 +1,4 @@
-import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { NotificationProps } from 'safira-app/services/notifications';
 import { getGroupType } from 'safira-app/utils/getGroupType';
 import { reduceString } from 'safira-app/utils/reduceString';
 
@@ -18,7 +18,7 @@ const notificationType = {
   GROUP_DELETED: 'GROUP_DELETED',
 };
 
-export function createGroupBrowserNotificationFactory(notification: INotificationProps) {
+export function createGroupBrowserNotificationFactory(notification: NotificationProps) {
   const { sender, common } = notification;
 
   switch (notification.type) {

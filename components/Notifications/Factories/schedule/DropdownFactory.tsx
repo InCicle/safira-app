@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-import { INotificationProps } from 'safira-app/interfaces/Notification';
 import { links } from 'safira-app/config/links';
+import { NotificationProps } from 'safira-app/services/notifications';
 import {
   NotificationContainer,
   NotificationContentText,
@@ -9,7 +9,7 @@ import {
 } from '../_abstract/NotificationAbstract';
 
 interface IProps {
-  notificationItem: INotificationProps;
+  notificationItem: NotificationProps;
 }
 
 const notificationType = {

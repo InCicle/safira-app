@@ -38,5 +38,6 @@ export function useRender() {
     currentStage,
     afterTheFirstLoad,
     uniqueCall,
+    fn: uniqueCall,
   };
 }

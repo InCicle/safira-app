@@ -1,4 +1,4 @@
-import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { NotificationProps } from 'safira-app/services/notifications';
 
 const notificationType = {
   ADDED_IN_ACTIVITY: 'ADDED_IN_ACTIVITY',
@@ -23,7 +23,7 @@ const messageGroup = {
   FIFTEEN_MINUTES: '15 minutos',
 };
 
-export function createProjectsBrowserNotificationFactory(notification: INotificationProps) {
+export function createProjectsBrowserNotificationFactory(notification: NotificationProps) {
   const { sender, common } = notification;
 
   switch (notification.type) {

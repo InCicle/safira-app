@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { NotificationProps } from 'safira-app/services/notifications';
 import { links } from 'safira-app/config/links';
 
 import {
@@ -10,7 +10,7 @@ import {
 import { getStatus } from 'safira-app/utils/getStatus';
 
 interface Props {
-  notificationItem: INotificationProps;
+  notificationItem: NotificationProps;
 }
 
 const notificationType = {
@@ -19,9 +19,7 @@ const notificationType = {
   TICKET_NEW_MESSAGE: 'TICKET_NEW_MESSAGE',
 };
 
-const OmbudsmanDropdownNotificationFactory: React.FC<Props> = ({
-  notificationItem,
-}) => {
+const OmbudsmanDropdownNotificationFactory: React.FC<Props> = ({ notificationItem }) => {
   function renderActions() {
     switch (notificationItem.type) {
       case notificationType.TICKET_RECEIVED:
@@ -32,9 +30,7 @@ const OmbudsmanDropdownNotificationFactory: React.FC<Props> = ({
           >
             <NotificationContentText notification={notificationItem}>
               Nova comunicação recebida:{' '}
-              <NotificationHighlight>
-                {notificationItem.common.ticket_name}
-              </NotificationHighlight>
+              <NotificationHighlight>{notificationItem.common.ticket_name}</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
         );
@@ -46,13 +42,8 @@ const OmbudsmanDropdownNotificationFactory: React.FC<Props> = ({
           >
             <NotificationContentText notification={notificationItem}>
               O status da sua comunicação com a{' '}
-              <NotificationHighlight>
-                {notificationItem.sender.name}
-              </NotificationHighlight>{' '}
-              foi atualizado para{' '}
-              <NotificationHighlight>
-                {getStatus(notificationItem.common.ticket_status)}
-              </NotificationHighlight>
+              <NotificationHighlight>{notificationItem.sender.name}</NotificationHighlight> foi atualizado para{' '}
+              <NotificationHighlight>{getStatus(notificationItem.common.ticket_status)}</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
         );
@@ -64,9 +55,7 @@ const OmbudsmanDropdownNotificationFactory: React.FC<Props> = ({
           >
             <NotificationContentText notification={notificationItem}>
               Uma nova mensagem foi enviada sobre a comunicação{' '}
-              <NotificationHighlight>
-                {notificationItem.common.ticket_name}
-              </NotificationHighlight>
+              <NotificationHighlight>{notificationItem.common.ticket_name}</NotificationHighlight>
             </NotificationContentText>
           </NotificationContainer>
         );
