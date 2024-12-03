@@ -1,4 +1,4 @@
-import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { NotificationProps } from 'safira-app/services/notifications';
 
 const notificationType = {
   EMPLOYEE_LINK_REQUEST: 'EMPLOYEE_LINK_REQUEST',
@@ -6,10 +6,10 @@ const notificationType = {
   EMPLOYEE_UNLINK: 'EMPLOYEE_UNLINK',
   EMPLOYEE_LINK_CANCELED: 'EMPLOYEE_LINK_CANCELED',
   CORPORATE_FEEDBACK: 'CORPORATE_FEEDBACK',
-  PAYSLIP_RECEIVED: 'PAYSLIP_RECEIVED'
+  PAYSLIP_RECEIVED: 'PAYSLIP_RECEIVED',
 };
 
-export function createOrganizationalEngineeringBrowserNotificationFactory(notification: INotificationProps) {
+export function createOrganizationalEngineeringBrowserNotificationFactory(notification: NotificationProps) {
   const { sender } = notification;
 
   switch (notification.type) {
@@ -30,8 +30,8 @@ export function createOrganizationalEngineeringBrowserNotificationFactory(notifi
     case notificationType.CORPORATE_FEEDBACK:
       return `${notification.sender.name} enviou um feedback que precisa da sua atenção.`;
 
-      case notificationType.CORPORATE_FEEDBACK:
-        return `${notification.sender.name} enviou um holerite para você.`;
+    case notificationType.CORPORATE_FEEDBACK:
+      return `${notification.sender.name} enviou um holerite para você.`;
 
     default:
       return ``;

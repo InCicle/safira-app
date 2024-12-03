@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { NotificationProps } from 'safira-app/services/notifications';
 import {
   NotificationContainer,
   NotificationContentText,
   NotificationHighlight,
 } from '../_abstract/ToastNotificationAbstract';
-import { INotificationProps } from 'safira-app/interfaces/Notification';
 import moment from 'moment';
 
 interface IProps {
-  notificationItem: INotificationProps;
+  notificationItem: NotificationProps;
 }
 
 const notificationType = {

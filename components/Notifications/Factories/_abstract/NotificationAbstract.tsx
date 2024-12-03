@@ -2,7 +2,7 @@ import React from 'react';
 import { MenuItem, Stack, Typography, Box, Theme, SxProps } from '@mui/material';
 import CircleIcon from '@mui/icons-material/Circle';
 import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
-import { INotificationProps } from 'safira-app/interfaces/Notification';
+import { NotificationProps } from 'safira-app/services/notifications';
 import RenderAvatar from 'safira-app/components/RenderAvatar';
 import { incicleNotificationModules } from 'safira-app/utils/modules';
 
@@ -15,7 +15,7 @@ import Cookies from 'js-cookie';
 import { Format } from 'safira-app/libs/timeago/types';
 
 interface IProps {
-  notification?: INotificationProps;
+  notification?: NotificationProps;
   url?: string;
   onClick?: (ev?: any) => void;
 }
@@ -31,7 +31,7 @@ export const preventRedirect = (e: any) => {
   e.preventDefault();
 };
 
-const markAsReaded = (e: any, notification: INotificationProps, api: any, url?: string) => {
+const markAsReaded = (e: any, notification: NotificationProps, api: any, url?: string) => {
   e.preventDefault();
   api
     .patch(`${links.api.notification}/notifications/${notification._id}`)
@@ -47,7 +47,7 @@ const markAsReaded = (e: any, notification: INotificationProps, api: any, url?: 
     });
 };
 
-export function formatNotificationContent(notification: INotificationProps): INotificationProps {
+export function formatNotificationContent(notification: NotificationProps): NotificationProps {
   if (!notification?.common?.content && typeof notification?.common?.content !== 'string') return notification;
 
   return {
@@ -131,7 +131,7 @@ export const NotificationContainer: React.FC<React.PropsWithChildren<IProps>> = 
   );
 };
 
-export const NotificationContentText: React.FC<React.PropsWithChildren<{ notification: INotificationProps }>> = ({
+export const NotificationContentText: React.FC<React.PropsWithChildren<{ notification: NotificationProps }>> = ({
   notification,
   children,
 }) => {
