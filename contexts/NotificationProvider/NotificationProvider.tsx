@@ -129,7 +129,7 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
     const queryKey = [NOTIFICATION_NAME, DEFAULT_NOTIFICATION_PARAMS];
 
     notificationUseCase.notify(notification);
-    queryClient.setQueryData(queryKey, (prev: AxiosResponse<NotificationWrapper>) => {
+    queryClient.setQueryData(queryKey, (prev: AxiosResponse<NotificationWrapper>| any) => {
       if (!prev?.data?.data?.length) return { data: { data: [notification] } };
       prev.data.data.unshift(notification);
       return prev;
