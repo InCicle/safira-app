@@ -32,8 +32,8 @@ interface NotificationContextType {
   isLoading: boolean;
   lastPage: number;
 
-  badgeAsInvisible: boolean;
-  setBadgeAsInvisible: SetState<boolean>;
+  badgeIsInvisible: boolean;
+  setBadgeIsInvisible: SetState<boolean>;
 
   dropdownOpened: boolean;
   notificationsReqData: NotificationProps[];
@@ -64,7 +64,7 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
   const queryClient = useQueryClient();
 
   const [dropdownOpened, setDropdownOpened] = useState(false);
-  const [badgeAsInvisible, setBadgeAsInvisible] = useState(true);
+  const [badgeIsInvisible, setBadgeIsInvisible] = useState(true);
   const [notificationViewCount, setNotificationViewCount] = useState(0);
   const [allNotifications, setAllNotifications] = useState<NotificationProps[]>([]);
   const [params, setParams] = useState<NotificationParamsType>(DEFAULT_NOTIFICATION_PARAMS);
@@ -75,7 +75,7 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
     api,
     dropdownOpened,
     notificationViewCount,
-    setBadgeAsInvisible,
+    setBadgeIsInvisible,
     setDropdownOpened,
     setAllNotifications,
     setNotificationViewCount,
@@ -202,8 +202,8 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
         lastPage,
         notificationsReqData: notifications,
 
-        badgeAsInvisible,
-        setBadgeAsInvisible,
+        badgeIsInvisible,
+        setBadgeIsInvisible,
 
         notifications: allNotifications,
         setNotifications: setAllNotifications,

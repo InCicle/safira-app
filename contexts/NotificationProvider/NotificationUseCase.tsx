@@ -19,7 +19,7 @@ type NotificationOptionsType = {
   dropdownOpened: boolean;
   notificationViewCount: number;
 
-  setBadgeAsInvisible: React.Dispatch<React.SetStateAction<boolean>>;
+  setBadgeIsInvisible: React.Dispatch<React.SetStateAction<boolean>>;
   setDropdownOpened: React.Dispatch<React.SetStateAction<boolean>>;
   setAllNotifications: React.Dispatch<React.SetStateAction<NotificationProps[]>>;
   setNotificationViewCount: React.Dispatch<React.SetStateAction<number>>;
@@ -41,7 +41,7 @@ export default class NotificationUseCase {
   private defineFavicon: NotificationOptionsType['defineFavicon'] = () => {};
   private definePageTitle: NotificationOptionsType['definePageTitle'] = () => {};
 
-  private setBadgeAsInvisible: NotificationOptionsType['setBadgeAsInvisible'] = () => {};
+  private setBadgeIsInvisible: NotificationOptionsType['setBadgeIsInvisible'] = () => {};
   private setDropdownOpened: NotificationOptionsType['setDropdownOpened'] = () => {};
   private setAllNotifications: NotificationOptionsType['setAllNotifications'] = () => {};
   private setNotificationViewCount: NotificationOptionsType['setNotificationViewCount'] = () => {};
@@ -74,7 +74,7 @@ export default class NotificationUseCase {
     notificationViewCount,
     defineFavicon,
     definePageTitle,
-    setBadgeAsInvisible,
+    setBadgeIsInvisible,
     setDropdownOpened,
     setNotificationViewCount,
     setAllNotifications,
@@ -85,7 +85,7 @@ export default class NotificationUseCase {
 
     this.defineFavicon = defineFavicon;
     this.definePageTitle = definePageTitle;
-    this.setBadgeAsInvisible = setBadgeAsInvisible;
+    this.setBadgeIsInvisible = setBadgeIsInvisible;
     this.setDropdownOpened = setDropdownOpened;
     this.setNotificationViewCount = setNotificationViewCount;
     this.setAllNotifications = setAllNotifications;
@@ -160,14 +160,14 @@ export default class NotificationUseCase {
       this.defineFavicon('incicle-logo');
       this.definePageTitle(this.replacer);
 
-      this.setBadgeAsInvisible(true);
+      this.setBadgeIsInvisible(true);
 
       return;
     }
 
     this.defineFavicon('new-notification-icon');
     this.definePageTitle(title => `(${viewCount > 99 ? '+99' : viewCount}) ${this.replacer(title)}`);
-    this.setBadgeAsInvisible(false);
+    this.setBadgeIsInvisible(false);
   }
 
   executeToastNotification(notification: NotificationProps) {
@@ -220,7 +220,7 @@ export default class NotificationUseCase {
   // dropdown ------------------------------------- // ------------------------------------------------------------ //
 
   handleOpenDropdown() {
-    this.setBadgeAsInvisible(true);
+    this.setBadgeIsInvisible(true);
     this.setDropdownOpened(true);
     this.setNotificationViewCount(0);
 

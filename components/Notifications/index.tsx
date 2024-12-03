@@ -17,7 +17,7 @@ type NotificationsRef = {
 };
 
 const Notifications: React.ForwardRefRenderFunction<NotificationsRef> = (_, ref) => {
-  const { badgeAsInvisible, dropdownOpened, notifications } = useNotifications();
+  const { badgeIsInvisible, dropdownOpened, notifications } = useNotifications();
   const { fn } = useRender();
   const query = useQuery();
 
@@ -56,7 +56,7 @@ const Notifications: React.ForwardRefRenderFunction<NotificationsRef> = (_, ref)
   return (
     <>
       <IconButton ref={anchorRef} size="medium" sx={{ width: 35, height: 35 }} onClick={handleOpenDropdown}>
-        <Badge color="error" variant="dot" invisible={badgeAsInvisible} badgeContent=" " overlap="circular">
+        <Badge color="error" variant="dot" invisible={badgeIsInvisible} badgeContent=" " overlap="circular">
           <NotificationsIcon sx={{ width: 25, height: 25 }} />
         </Badge>
       </IconButton>
