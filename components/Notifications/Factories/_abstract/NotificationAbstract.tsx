@@ -11,6 +11,8 @@ import moment from 'moment';
 import TimeAgo from 'safira-app/libs/timeago';
 import { links } from 'safira-app/config/links';
 import { htmlDecode } from 'safira-app/utils/htmlDecode';
+import Cookies from 'js-cookie';
+import { Format } from 'safira-app/libs/timeago/types';
 
 interface IProps {
   notification?: INotificationProps;
@@ -18,8 +20,10 @@ interface IProps {
   onClick?: (ev?: any) => void;
 }
 
+const default_language = Cookies.get('default_language');
+
 TimeAgo.defaultProps = {
-  format: 'pt-BR',
+  format: default_language as Format,
   timeStyle: 'mini',
 };
 

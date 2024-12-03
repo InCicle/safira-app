@@ -51,4 +51,54 @@ export const options: Options = {
       },
     },
   },
+  'en-US': {
+    months: {
+      one: {
+        full: '[n] month ago',
+      },
+      more: {
+        full: '[n] months ago',
+      },
+    },
+    days: {
+      one: {
+        full: '[n] day ago',
+        mini: '[n] d',
+      },
+      more: {
+        full: '[n] days ago',
+        mini: '[n] d',
+      },
+    },
+    hours: {
+      one: {
+        full: '[n] hour ago',
+        mini: '[n] h',
+      },
+      more: {
+        full: '[n] hours ago',
+        mini: '[n] h',
+      },
+    },
+    minutes: {
+      one: {
+        full: '[n] minute ago',
+        mini: '[n] min',
+      },
+      more: {
+        full: '[n] minutes ago',
+        mini: '[n] min',
+      },
+    },
+    seconds: {
+      one: {
+        full: '[n] second ago',
+        mini: '[n] s',
+      },
+      more: {
+        full: '[n] seconds ago',
+        mini: '[n] s',
+      },
+    },
+  },
 };
