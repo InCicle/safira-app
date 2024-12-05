@@ -1,5 +1,6 @@
-import { MODULE_TYPES, NotificationFilterOptions } from './enums';
 import { NotificationFiltersType, NotificationParamsType } from './types';
+
+export const NOTIFICATION_REQUEST_KEY = 'notifications';
 
 export const DEFAULT_NOTIFICATION_PARAMS: NotificationParamsType = {
   page: 1,
@@ -7,6 +8,6 @@ export const DEFAULT_NOTIFICATION_PARAMS: NotificationParamsType = {
 };
 
 export const DEFAULT_NOTIFICATION_FILTERS: NotificationFiltersType = {
-  read: NotificationFilterOptions.ALL,
-  module: MODULE_TYPES.all,
+  read: undefined,
+  module: undefined,
 };

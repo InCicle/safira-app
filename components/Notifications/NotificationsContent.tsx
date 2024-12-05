@@ -14,7 +14,7 @@ import { NotificationFilterOptions } from 'safira-app/services/notifications';
 import { NotificationWrapper } from './style';
 
 const NotificationsContent: React.FC = () => {
-  const { notifications, notificationsReqData, params, isLoading, updateNotifications } = useNotifications();
+  const { notifications, notificationsReqData, params, isLoading, fetchNotifications } = useNotifications();
   const { t } = useTranslation();
 
   const perPage = params.perPage || 0;
@@ -23,13 +23,20 @@ const NotificationsContent: React.FC = () => {
 
   const handleLoadMoreContent = useCallback(() => {
     if (!isLoading && hasMoreContent) {
-      updateNotifications({ page: (params?.page || 1) + 1 });
+      fetchNotifications({ page: (params?.page || 1) + 1 });
     }
   }, [isLoading, params]); // eslint-disable-line
 
   return (
     <>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ padding: '0 15px' }}>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{
+          padding: '0 15px',
+        }}
+      >
         <Typography variant="h6" fontSize={14}>
           {translation(t, 'notifications')}
         </Typography>

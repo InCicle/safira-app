@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { v4 as uuid } from 'uuid';
 import { ListItemIcon, Menu, MenuItem, Stack } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
@@ -20,7 +19,7 @@ type AnchorButton = EventTarget & HTMLButtonElement;
 
 const IncicleModulesDropdown: React.FC = () => {
   const { user } = useHeaderProvider();
-  const { params, updateNotifications } = useNotifications();
+  const { params, isLoading, fetchNotifications } = useNotifications();
   const { t } = useTranslation();
 
   const [anchorEl, setAnchorEl] = useState<AnchorButton | null>(null);
@@ -36,14 +35,14 @@ const IncicleModulesDropdown: React.FC = () => {
   }
 
   function handleChangeNotificationOption(value: NotificationFilterOptions) {
-    updateNotifications({
+    fetchNotifications({
       ...DEFAULT_NOTIFICATION_PARAMS,
       read: value === NotificationFilterOptions.UNREADED ? value : undefined,
     });
   }
 
   function handleSetNotificationsModuleFilter(value: MODULE_TYPES) {
-    updateNotifications({
+    fetchNotifications({
       ...DEFAULT_NOTIFICATION_PARAMS,
       read: value === MODULE_TYPES.all ? undefined : NotificationFilterOptions.ALL,
       module: value === MODULE_TYPES.all ? undefined : value,
@@ -60,12 +59,14 @@ const IncicleModulesDropdown: React.FC = () => {
       >
         <Stack direction="row" spacing={1}>
           <ButtonNotification
+            disabled={isLoading}
             onClick={() => handleChangeNotificationOption(NotificationFilterOptions.ALL)}
             active={params.read !== NotificationFilterOptions.UNREADED ? 1 : 0}
           >
             {translation(t, 'all')}
           </ButtonNotification>
           <ButtonNotification
+            disabled={isLoading}
             onClick={() => handleChangeNotificationOption(NotificationFilterOptions.UNREADED)}
             active={params.read === NotificationFilterOptions.UNREADED ? 1 : 0}
           >
@@ -73,7 +74,7 @@ const IncicleModulesDropdown: React.FC = () => {
           </ButtonNotification>
         </Stack>
 
-        <ButtonNotification onClick={handleOpenDropdown}>
+        <ButtonNotification disabled={isLoading} onClick={handleOpenDropdown}>
           {translation(
             t,
             `modules.${
@@ -103,14 +104,15 @@ const IncicleModulesDropdown: React.FC = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        {incicleNotificationModules.map(module => {
+        {incicleNotificationModules.map((module, index) => {
           if (module.linkKey === 'disabled') {
-            return <React.Fragment key={uuid()}></React.Fragment>;
+            return <React.Fragment key={index}></React.Fragment>;
           }
           if (module.userType === 'BOTH' || user.type === module.userType) {
             return (
               <MenuItem
-                key={uuid()}
+                key={module.slug}
+                disabled={isLoading}
                 onClick={() => handleSetNotificationsModuleFilter(module.slug)}
                 sx={{ fontSize: '14px' }}
                 value={module.slug}
@@ -122,7 +124,7 @@ const IncicleModulesDropdown: React.FC = () => {
               </MenuItem>
             );
           }
-          return <React.Fragment key={uuid()}></React.Fragment>;
+          return <React.Fragment key={index}></React.Fragment>;
         })}
       </Menu>
     </>
