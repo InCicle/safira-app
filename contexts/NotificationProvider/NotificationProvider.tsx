@@ -12,6 +12,7 @@ import { links } from 'safira-app/config/links';
 import {
   DEFAULT_NOTIFICATION_PARAMS,
   getNotifications,
+  NOTIFICATION_REQUEST_KEY,
   NotificationParamsType,
   NotificationProps,
   NotificationWrapper,
@@ -44,13 +45,12 @@ interface NotificationContextType {
   params: NotificationParamsType;
   setParams: SetState<NotificationParamsType>;
 
-  updateNotifications(params: NotificationParamsType): void;
-  updateNotificationItem(data: NotificationProps): void;
+  fetchNotifications(params: NotificationParamsType): void;
+  markAllAsViewed(key?: any[]): void;
 }
 
 const manager = new Manager(links.api.notification);
 const socket = manager.socket('/');
-const NOTIFICATION_NAME = 'notifications';
 
 export const NotificationContext = createContext<NotificationContextType>({} as any);
 
@@ -83,7 +83,7 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
     definePageTitle,
   });
 
-  const notificationKey = [NOTIFICATION_NAME, params];
+  const notificationKey = [NOTIFICATION_REQUEST_KEY, params];
 
   const notificationsQuery = useQuery({
     queryKey: notificationKey,
@@ -102,31 +102,31 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
   const notifications = notificationsResponse?.data?.data || [];
   const lastPage = notificationsQuery.data?.data?.totalPages || 0;
 
-  function updateNotifications(newParams: NotificationParamsType) {
+  function fetchNotifications(newParams: NotificationParamsType) {
     paramsFallbackRef.current = { ...params };
-
-    const perPage = newParams.perPage || params.perPage || 0;
-    // Don't call next page if notifications request is empty
-    if (!(notifications.length < perPage)) {
-      setParams(prev => ({ ...prev, ...newParams }));
-    }
+    setParams(prev => ({ ...prev, ...newParams }));
   }
 
-  function updateNotificationItem(data: NotificationProps) {
-    api.patch(`${links.api.notification}/notifications/${data._id}`);
+  function markAllAsViewed(key?: any[]) {
+    // api.patch(`${links.api.notification}/notifications/${data._id}`);
+    const queryKey = key || [NOTIFICATION_REQUEST_KEY, DEFAULT_NOTIFICATION_PARAMS];
 
-    setAllNotifications(old => {
-      const newArr = old.map(item => {
-        if (item._id === data._id) return data;
-        return item;
-      });
+    queryClient.setQueryData(queryKey, (prev: AxiosResponse<NotificationWrapper>) => {
+      if (!prev.data.data) return;
 
-      return newArr;
+      const prevNotifications = prev?.data?.data || [];
+      const newNotifications = prevNotifications.map(n => ({ ...n, saw: true }));
+      const newData: AxiosResponse<NotificationWrapper> = {
+        ...prev,
+        data: { ...prev.data, data: newNotifications },
+      };
+
+      return newData;
     });
   }
 
   function notifier(notification: NotificationProps) {
-    const queryKey = [NOTIFICATION_NAME, DEFAULT_NOTIFICATION_PARAMS];
+    const queryKey = [NOTIFICATION_REQUEST_KEY, DEFAULT_NOTIFICATION_PARAMS];
 
     notificationUseCase.notify(notification);
     queryClient.setQueryData(queryKey, (prev: AxiosResponse<NotificationWrapper>) => {
@@ -211,8 +211,8 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
         params,
         setParams,
 
-        updateNotificationItem,
-        updateNotifications,
+        markAllAsViewed,
+        fetchNotifications,
       }}
     >
       {children}

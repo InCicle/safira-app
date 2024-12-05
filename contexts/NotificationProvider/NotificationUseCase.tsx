@@ -236,7 +236,6 @@ export default class NotificationUseCase {
 
   handleCloseDropdown() {
     this.setDropdownOpened(false);
-    this.setAllNotifications(old => old.map(item => ({ ...item, saw: true })));
   }
 
   // apply events --------------------------------- // ------------------------------------------------------------ //

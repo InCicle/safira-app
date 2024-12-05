@@ -2,6 +2,7 @@ import React, { useImperativeHandle, useLayoutEffect, useRef } from 'react';
 import { Badge, IconButton, Menu } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
+import { DEFAULT_NOTIFICATION_FILTERS, DEFAULT_NOTIFICATION_PARAMS } from 'safira-app/services/notifications';
 import { NotificationEvent } from 'safira-app/providers/NotificationEvent';
 import { useNotifications } from 'safira-app/hooks/useNotifications';
 import { useQuery } from 'safira-app/hooks/useQuery';
@@ -17,7 +18,7 @@ type NotificationsRef = {
 };
 
 const Notifications: React.ForwardRefRenderFunction<NotificationsRef> = (_, ref) => {
-  const { badgeIsInvisible, dropdownOpened, notifications } = useNotifications();
+  const { badgeIsInvisible, dropdownOpened, notifications, fetchNotifications, markAllAsViewed } = useNotifications();
   const { fn } = useRender();
   const query = useQuery();
 
@@ -30,6 +31,8 @@ const Notifications: React.ForwardRefRenderFunction<NotificationsRef> = (_, ref)
 
   function handleCloseDropdown(ev?: any) {
     ev?.stopPropagation();
+    markAllAsViewed();
+    fetchNotifications({ ...DEFAULT_NOTIFICATION_PARAMS, ...DEFAULT_NOTIFICATION_FILTERS });
     NotificationEvent.emit('close_dropdown');
   }
 
