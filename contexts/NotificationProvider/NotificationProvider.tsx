@@ -111,7 +111,7 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
     // api.patch(`${links.api.notification}/notifications/${data._id}`);
     const queryKey = key || [NOTIFICATION_REQUEST_KEY, DEFAULT_NOTIFICATION_PARAMS];
 
-    queryClient.setQueryData(queryKey, (prev: AxiosResponse<NotificationWrapper>) => {
+    queryClient.setQueryData(queryKey, (prev: any) => {
       if (!prev.data.data) return;
 
       const prevNotifications = prev?.data?.data || [];
