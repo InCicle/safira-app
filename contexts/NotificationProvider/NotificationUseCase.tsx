@@ -7,22 +7,21 @@ import notificationLogoImg from '@/safira-app/assets/icons/incicle-favicon.png';
 import notificationSound from '@/safira-app/assets/audios/incicle-notification.mp3';
 
 import { incicleMenuModules } from '@/safira-app/utils/modules';
-import { INotificationProps } from '@/safira-app/interfaces/Notification';
 import { FaviconOptionType } from '@/safira-app/hooks/useHTMLHead';
 import { addToast } from '@/safira-app/components/Toast';
 import { NotificationDTO } from '@/safira-app/components/Notifications/DTO/NotificationDTO';
-import { updateSawNotifications } from '@/safira-app/services/notifier/notifications';
+import { NotificationProps, updateSawNotifications } from '@/safira-app/services/notifications';
 import { links } from '@/safira-app/config/links';
-import { NotificationEvent, NotificationEventList } from '@/safira-app/providers/NotificationEvent';
+import { NotificationEvent } from '@/safira-app/providers/NotificationEvent';
 
 type NotificationOptionsType = {
   api: AxiosInstance;
   dropdownOpened: boolean;
   notificationViewCount: number;
 
-  setBadgeAsInvisible: React.Dispatch<React.SetStateAction<boolean>>;
+  setBadgeIsInvisible: React.Dispatch<React.SetStateAction<boolean>>;
   setDropdownOpened: React.Dispatch<React.SetStateAction<boolean>>;
-  setNotifications: React.Dispatch<React.SetStateAction<INotificationProps[]>>;
+  setAllNotifications: React.Dispatch<React.SetStateAction<NotificationProps[]>>;
   setNotificationViewCount: React.Dispatch<React.SetStateAction<number>>;
 
   defineFavicon(icon: FaviconOptionType): void;
@@ -42,9 +41,9 @@ export default class NotificationUseCase {
   private defineFavicon: NotificationOptionsType['defineFavicon'] = () => {};
   private definePageTitle: NotificationOptionsType['definePageTitle'] = () => {};
 
-  private setBadgeAsInvisible: NotificationOptionsType['setBadgeAsInvisible'] = () => {};
+  private setBadgeIsInvisible: NotificationOptionsType['setBadgeIsInvisible'] = () => {};
   private setDropdownOpened: NotificationOptionsType['setDropdownOpened'] = () => {};
-  private setNotifications: NotificationOptionsType['setNotifications'] = () => {};
+  private setAllNotifications: NotificationOptionsType['setAllNotifications'] = () => {};
   private setNotificationViewCount: NotificationOptionsType['setNotificationViewCount'] = () => {};
 
   // local  ------------------------------------------ // --------------------------------------------------------- //
@@ -75,10 +74,10 @@ export default class NotificationUseCase {
     notificationViewCount,
     defineFavicon,
     definePageTitle,
-    setBadgeAsInvisible,
+    setBadgeIsInvisible,
     setDropdownOpened,
     setNotificationViewCount,
-    setNotifications,
+    setAllNotifications,
   }: NotificationOptionsType) {
     this.api = api;
     this.dropdownOpened = dropdownOpened;
@@ -86,27 +85,35 @@ export default class NotificationUseCase {
 
     this.defineFavicon = defineFavicon;
     this.definePageTitle = definePageTitle;
-    this.setBadgeAsInvisible = setBadgeAsInvisible;
+    this.setBadgeIsInvisible = setBadgeIsInvisible;
     this.setDropdownOpened = setDropdownOpened;
     this.setNotificationViewCount = setNotificationViewCount;
-    this.setNotifications = setNotifications;
+    this.setAllNotifications = setAllNotifications;
 
     this.preventScopeLoss();
   }
 
   // update notification -------------------------- // ------------------------------------------------------------ //
 
-  update(notificationList: INotificationProps[], viewCount?: number) {
+  update(newNotifications: NotificationProps[], viewCount?: number, action: 'none' | 'reset' = 'none') {
     if (!this.dropdownOpened) {
       this.setNotificationViewCount(viewCount || 0);
     }
 
-    this.setNotifications(old => old.concat(notificationList));
+    if (action === 'reset') {
+      this.setAllNotifications(newNotifications);
+      return;
+    }
+
+    this.setAllNotifications(old => {
+      const notificationsIds = old.map(i => i._id);
+      return old.concat(newNotifications.filter(n => !notificationsIds.includes(n._id)));
+    });
   }
 
-  appendNew(notification: INotificationProps) {
+  appendNew(notification: NotificationProps) {
     this.setNotificationViewCount(old => old + 1);
-    this.setNotifications(old => [notification, ...old]);
+    this.setAllNotifications(old => [notification, ...old]);
   }
 
   // browser permission --------------------------- // ------------------------------------------------------------ //
@@ -127,7 +134,7 @@ export default class NotificationUseCase {
 
   // notifiers ------------------------------------ // ------------------------------------------------------------ //
 
-  notify(notification: INotificationProps) {
+  notify(notification: NotificationProps) {
     // handle new notification when dropdown is open
     if (this.dropdownOpened) {
       updateSawNotifications(this.api);
@@ -153,17 +160,17 @@ export default class NotificationUseCase {
       this.defineFavicon('incicle-logo');
       this.definePageTitle(this.replacer);
 
-      this.setBadgeAsInvisible(true);
+      this.setBadgeIsInvisible(true);
 
       return;
     }
 
     this.defineFavicon('new-notification-icon');
     this.definePageTitle(title => `(${viewCount > 99 ? '+99' : viewCount}) ${this.replacer(title)}`);
-    this.setBadgeAsInvisible(false);
+    this.setBadgeIsInvisible(false);
   }
 
-  executeToastNotification(notification: INotificationProps) {
+  executeToastNotification(notification: NotificationProps) {
     const notificationDTO = new NotificationDTO(notification);
     const { NotificationImageBox, NotificationComponent } = notificationDTO.toToast() || {};
 
@@ -178,7 +185,7 @@ export default class NotificationUseCase {
     }
   }
 
-  async executeBrowserNotification(notification: INotificationProps) {
+  async executeBrowserNotification(notification: NotificationProps) {
     // social network only
     if (this.checkIfNotAbleToNotify()) return;
 
@@ -213,7 +220,7 @@ export default class NotificationUseCase {
   // dropdown ------------------------------------- // ------------------------------------------------------------ //
 
   handleOpenDropdown() {
-    this.setBadgeAsInvisible(true);
+    this.setBadgeIsInvisible(true);
     this.setDropdownOpened(true);
     this.setNotificationViewCount(0);
 
@@ -229,7 +236,6 @@ export default class NotificationUseCase {
 
   handleCloseDropdown() {
     this.setDropdownOpened(false);
-    this.setNotifications(old => old.map(item => ({ ...item, saw: true })));
   }
 
   // apply events --------------------------------- // ------------------------------------------------------------ //
@@ -244,7 +250,7 @@ export default class NotificationUseCase {
   clearEvents(keys: { openDropdownKey?: string; closeDropdownKey?: string }) {
     const { openDropdownKey, closeDropdownKey } = keys;
 
-    if (openDropdownKey) NotificationEvent.remove('open_dropdown', openDropdownKey);
-    if (closeDropdownKey) NotificationEvent.remove('close_dropdown', closeDropdownKey);
+    if (openDropdownKey) NotificationEvent.off('open_dropdown', openDropdownKey);
+    if (closeDropdownKey) NotificationEvent.off('close_dropdown', closeDropdownKey);
   }
 }

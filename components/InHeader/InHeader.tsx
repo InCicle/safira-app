@@ -1,35 +1,37 @@
-import React, { useState, useEffect, useRef } from "react";
-import { IconButton, Avatar, Menu, MenuItem, Stack, Paper, Link, Chip, Box, Typography } from "@mui/material";
-import AppsIcon from "@mui/icons-material/Apps";
-import SearchIcon from "@mui/icons-material/Search";
-import CloseIcon from "@mui/icons-material/Close";
-import Autocomplete from "@mui/material/Autocomplete";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import WorkIcon from "@mui/icons-material/Work";
-import { AxiosInstance } from "axios";
-import Cookies from "js-cookie";
+import React, { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { IconButton, Avatar, Menu, MenuItem, Stack, Paper, Link, Chip, Box, Typography } from '@mui/material';
+import { AxiosInstance } from 'axios';
+import Cookies from 'js-cookie';
 
-import RenderAvatar from "@/safira-app/components/RenderAvatar";
-import Notifications from "@/safira-app/components/Notifications";
-import NotificationSocketProvider from "@/safira-app/contexts/NotificationSocketContext";
-import { SearchItemInterface } from "@/safira-app/interfaces/Search";
-import { HeaderProvider } from "@/safira-app/contexts/HeaderContext";
-import { IUser } from "@/safira-app/interfaces/User";
-import { MeProps } from "@/safira-app/interfaces/Me";
-import { links } from "@/safira-app/config/links";
+// icons
+import AppsIcon from '@mui/icons-material/Apps';
+import SearchIcon from '@mui/icons-material/Search';
+import CloseIcon from '@mui/icons-material/Close';
+import Autocomplete from '@mui/material/Autocomplete';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import WorkIcon from '@mui/icons-material/Work';
 
-import maxLetters from "./utils/maxLettes";
-import RenderSearchItem from "./components/RenderSearchItem";
-import ModulesMenu, { ModulesMenuRef } from "./components/ModulesMenu";
-import ProfileMenu, { ProfileMenuRef } from "./components/ProfileMenu";
-import { HeaderInStyle } from "./styles";
-import { ToastUI } from "../Toast";
-import { domainName } from "@/safira-app/contexts/AuthContext";
-import RenderImage from "../RenderImage";
-import { usePermissions } from "../../contexts/Permissions";
-import WhatsAppButton from "../WhatsAppButton";
-import { useTranslation } from "react-i18next";
-import { translation } from "@/safira-app/utils/translation";
+import RenderAvatar from '@/safira-app/components/RenderAvatar';
+import Notifications from '@/safira-app/components/Notifications';
+import NotificationProvider from '@/safira-app/contexts/NotificationProvider';
+import { SearchItemInterface } from '@/safira-app/interfaces/Search';
+import { HeaderProvider } from '@/safira-app/contexts/HeaderContext';
+import { IUser } from '@/safira-app/interfaces/User';
+import { MeProps } from '@/safira-app/interfaces/Me';
+import { links } from '@/safira-app/config/links';
+
+import maxLetters from './utils/maxLettes';
+import RenderSearchItem from './components/RenderSearchItem';
+import ModulesMenu, { ModulesMenuRef } from './components/ModulesMenu';
+import ProfileMenu, { ProfileMenuRef } from './components/ProfileMenu';
+import { HeaderInStyle } from './styles';
+import { ToastUI } from '../Toast';
+import { domainName } from '@/safira-app/contexts/AuthContext';
+import RenderImage from '../RenderImage';
+import { usePermissions } from '../../contexts/Permissions';
+import WhatsAppButton from '../WhatsAppButton';
+import { translation } from '@/safira-app/utils/translation';
 
 interface props {
   user: IUser;
@@ -38,9 +40,9 @@ interface props {
   signOut: () => any;
 }
 
-const INCICLE_LOGO = "https://static-incicle.s3.amazonaws.com/logo_incicle.svg";
+const INCICLE_LOGO = 'https://static-incicle.s3.amazonaws.com/logo_incicle.svg';
 
-function getLogoFromCompanies(companyId: string, companies: MeProps["companies"]) {
+function getLogoFromCompanies(companyId: string, companies: MeProps['companies']) {
   return companies.find(item => item.id === companyId)!?.logo;
 }
 
@@ -49,9 +51,9 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
   const [resultSearch, setResultSearch] = useState([] as SearchItemInterface[]);
   const [hasResult, setHasResult] = useState(false);
   const [companies, setCompanies] = useState<any[]>([]);
-  const [accountType, setAccountType] = useState("");
+  const [accountType, setAccountType] = useState('');
   const [selectedCompany, setSelectedCompany] = useState<any>();
-  const [inputBoxClassName, setInputBoxClassName] = useState("");
+  const [inputBoxClassName, setInputBoxClassName] = useState('');
   const [activeManagerMenu, setActiveManagerPanel] = useState(false);
 
   const [anchorCompanysEl, setAnchorCompanysEl] = React.useState(null);
@@ -64,29 +66,29 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (user.type === "COMPANY" || !me || !me?.companies) return;
+    if (user.type === 'COMPANY' || !me || !me?.companies) return;
     const companySelected = me.companies.find(company => company.id === companyId);
     if (!companySelected) return;
     if (
       !!companySelected.is_manager_competence ||
-      checkPermission(["managers_vacations_list"]) ||
-      checkPermission(["managers_list_occurrences"]) ||
-      checkPermission(["in_check"])
+      checkPermission(['managers_vacations_list']) ||
+      checkPermission(['managers_list_occurrences']) ||
+      checkPermission(['in_check'])
     ) {
       setActiveManagerPanel(true);
     }
-  }, [permissionsList]);
+  }, [permissionsList]); // eslint-disable-line
 
   function getLogoUrl() {
     let isPublicUrl = true;
-    let logoUrl = "";
+    let logoUrl = '';
 
-    if (me?.type === "PERSON") {
+    if (me?.type === 'PERSON') {
       const companyLogo = getLogoFromCompanies(selectedCompany?.id, companies);
 
       logoUrl = companyLogo || INCICLE_LOGO;
       isPublicUrl = !companyLogo;
-    } else if (me.type === "COMPANY") {
+    } else if (me.type === 'COMPANY') {
       logoUrl = me?.logo || INCICLE_LOGO;
       isPublicUrl = !me?.logo;
     }
@@ -97,34 +99,34 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
   const { logoUrl, isPublicUrl } = getLogoUrl();
 
   useEffect(() => {
-    const contentSideBarElement = document.querySelector(".contentSidebar > div") as any;
+    const contentSideBarElement = document.querySelector('.contentSidebar > div') as any;
     const handleResize = () => {
       if (contentSideBarElement) {
         if (window.innerWidth < 800) {
-          contentSideBarElement!.style.display = "none";
+          contentSideBarElement!.style.display = 'none';
           return;
         }
 
-        contentSideBarElement!.style.display = "initial";
+        contentSideBarElement!.style.display = 'initial';
       }
     };
 
     handleResize();
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
   useEffect(() => {
-    if (me?.type === "PERSON") {
-      setAccountType("PERSON");
+    if (me?.type === 'PERSON') {
+      setAccountType('PERSON');
       if (me?.companies.length > 0) {
-        const companySelected = Cookies.get("companySelected");
+        const companySelected = Cookies.get('companySelected');
         if (!companySelected) {
-          Cookies.set("companySelected", me.companies[0].id, { domain: domainName });
+          Cookies.set('companySelected', me.companies[0].id, { domain: domainName });
           setSelectedCompany(me.companies[0]);
         } else {
           const comp = me?.companies.find(company => company.id === companySelected);
@@ -177,9 +179,9 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
   }
 
   function changeChipContent(index: number) {
-    Cookies.remove("companySelected");
+    Cookies.remove('companySelected');
     const companyId = companies[index].id;
-    Cookies.set("companySelected", companyId, { domain: domainName });
+    Cookies.set('companySelected', companyId, { domain: domainName });
     window.location.reload();
   }
 
@@ -189,29 +191,29 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
     return (
       <Avatar
         sx={{
-          width: "24px !important",
-          height: "24px !important",
-          marginLeft: "2px !important",
-          marginRight: "1px !important",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          width: '24px !important',
+          height: '24px !important',
+          marginLeft: '2px !important',
+          marginRight: '1px !important',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
-        <WorkIcon sx={{ width: "62%" }} />
+        <WorkIcon sx={{ width: '62%' }} />
       </Avatar>
     );
   };
 
   useEffect(() => {
     function handleResize() {
-      if (window.innerWidth > 1200 && inputBoxClassName.length) setInputBoxClassName("");
+      if (window.innerWidth > 1200 && inputBoxClassName.length) setInputBoxClassName('');
     }
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []); // eslint-disable-line
 
@@ -224,7 +226,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
         signOut,
       }}
     >
-      <NotificationSocketProvider api={api} user={user}>
+      <NotificationProvider api={api} user={user}>
         <HeaderInStyle role="heading" className="incicleheader">
           {/* PORTAL */}
           <ToastUI />
@@ -238,23 +240,23 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
           {window.innerWidth > 600 ? (
             <>
               <section className="incicleheader-content">
-                <nav style={{ alignItems: "center", display: "flex" }}>
+                <nav style={{ alignItems: 'center', display: 'flex' }}>
                   {/* LOGO ICON */}
                   <Link
                     href={`${links.web?.social}`}
                     sx={{
-                      alignItems: "center",
-                      display: "flex",
-                      marginRight: "8px",
-                      marginLeft: "15px",
-                      paddingBottom: "2px",
-                      width: "max-content",
+                      alignItems: 'center',
+                      display: 'flex',
+                      marginRight: '8px',
+                      marginLeft: '15px',
+                      paddingBottom: '2px',
+                      width: 'max-content',
                       maxWidth: 160,
                       height: 40,
-                      overflow: "hidden",
+                      overflow: 'hidden',
                       img: {
-                        width: "auto !important",
-                        height: "100% !important",
+                        width: 'auto !important',
+                        height: '100% !important',
                       },
                     }}
                   >
@@ -264,7 +266,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                         bucket="incicle"
                         className="logo"
                         alt="logo"
-                        options={{ ResponseCacheControl: "max-age=30000" }}
+                        options={{ ResponseCacheControl: 'max-age=30000' }}
                       />
                     ) : (
                       <img src={logoUrl} className="logo" alt="logo" />
@@ -272,28 +274,28 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                   </Link>
 
                   {/* MODULES links */}
-                  <Stack spacing={0} direction="row" className="incicleheader-modules" sx={{ alignItems: "center" }}>
+                  <Stack spacing={0} direction="row" className="incicleheader-modules" sx={{ alignItems: 'center' }}>
                     <Stack direction="row" className={`incicleheader-modules-content original`}>
                       {[
                         {
-                          text: "feed",
+                          text: 'feed',
                           link: links.web?.social,
                         },
                         {
-                          text: "schedule",
+                          text: 'schedule',
                           link: links.web?.schedule,
                         },
                         {
-                          text: "projects",
+                          text: 'projects',
                           link: links.web?.project,
                         },
                         {
-                          text: "feedback",
+                          text: 'feedback',
                           link: `${links.web?.social}/feedback`,
                         },
-                        user.type === "PERSON"
+                        user.type === 'PERSON'
                           ? {
-                              text: "tasks",
+                              text: 'tasks',
                               link: `${links.web.schedule}/taskmanager`,
                             }
                           : {},
@@ -306,24 +308,24 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                             href={`${anchor.link}`}
                             underline="none"
                             sx={{
-                              width: "max-content",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              p: "6px 8px",
-                              color: "#747474",
-                              borderRadius: "3px",
-                              "&:hover": {
-                                background: "#f2f3f5",
+                              width: 'max-content',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              p: '6px 8px',
+                              color: '#747474',
+                              borderRadius: '3px',
+                              '&:hover': {
+                                background: '#f2f3f5',
                               },
-                              "&:active": {
+                              '&:active': {
                                 fontWeight: 600,
-                                color: "#007fa1",
+                                color: '#007fa1',
                               },
-                              fontSize: "16px",
+                              fontSize: '16px',
                             }}
                           >
-                            {translation(t, "modules.".concat(anchor.text))}
+                            {translation(t, 'modules.'.concat(anchor.text))}
                           </Link>
                         );
                       })}
@@ -334,21 +336,21 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
 
               <section className="incicleheader-content flex-end">
                 <nav>
-                  <Stack spacing={1} direction="row" sx={{ justifyContent: "flex-end", alignItems: "center" }}>
+                  <Stack spacing={1} direction="row" sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
                     {/* COMPANIES */}
                     <div className="incicleheader-companies">
-                      {companies.length > 0 && accountType === "PERSON" && (
+                      {companies.length > 0 && accountType === 'PERSON' && (
                         <Chip
                           key={1}
                           onClick={handleOpenMenuCompanys}
                           size="small"
                           clickable
                           avatar={companiesAvatar()}
-                          label={<span style={{ fontSize: "13px" }}>{maxLetters(selectedCompany?.name, 200)}</span>}
+                          label={<span style={{ fontSize: '13px' }}>{maxLetters(selectedCompany?.name, 200)}</span>}
                           onDelete={handleOpenMenuCompanys}
                           deleteIcon={<ArrowDropDownIcon />}
                           variant="outlined"
-                          sx={{ padding: "2px !important", height: "32px" }}
+                          sx={{ padding: '2px !important', height: '32px' }}
                         />
                       )}
                       <Menu
@@ -360,43 +362,43 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                         PaperProps={{
                           elevation: 0,
                           sx: {
-                            overflow: "visible",
-                            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                            overflow: 'visible',
+                            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
                             mt: 1.5,
-                            "& .MuiAvatar-root": {
+                            '& .MuiAvatar-root': {
                               width: 32,
                               height: 32,
                               ml: -0.5,
                               mr: 1,
                             },
 
-                            "&:before": {
+                            '&:before': {
                               content: '""',
-                              display: "block",
-                              position: "absolute",
+                              display: 'block',
+                              position: 'absolute',
                               top: 0,
                               right: 14,
                               width: 10,
                               height: 10,
-                              bgcolor: "background.paper",
-                              transform: "translateY(-50%) rotate(45deg)",
+                              bgcolor: 'background.paper',
+                              transform: 'translateY(-50%) rotate(45deg)',
                               zIndex: 0,
                             },
-                            "& li, & a": {
+                            '& li, & a': {
                               fontFamily: '"Open Sans", sans-serif',
-                              fontSize: "12px",
+                              fontSize: '12px',
                             },
                           },
                         }}
-                        transformOrigin={{ horizontal: "right", vertical: "top" }}
-                        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                       >
                         {companies.map((company, index) => (
                           <MenuItem key={index} component="li" onClick={() => changeChipContent(index)}>
                             <Avatar alt={company.name}>
                               <WorkIcon />
                             </Avatar>
-                            <span style={{ padding: "0 !important" }}>{company.name}</span>
+                            <span style={{ padding: '0 !important' }}>{company.name}</span>
                           </MenuItem>
                         ))}
                       </Menu>
@@ -407,16 +409,16 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                       elevation={0}
                       className="incicleheader-inputbutton"
                       sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
                       }}
                     >
-                      <IconButton onClick={() => setInputBoxClassName("view")}>
+                      <IconButton onClick={() => setInputBoxClassName('view')}>
                         <SearchIcon
                           sx={{
-                            width: "24px !important",
-                            height: "24px !important",
+                            width: '24px !important',
+                            height: '24px !important',
                           }}
                         />
                       </IconButton>
@@ -427,15 +429,15 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                       component="form"
                       className={`incicleheader-inputbox ${inputBoxClassName}`}
                       sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        width: "100%",
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        width: '100%',
                         // width: 250,
-                        padding: "2px",
-                        border: "none",
-                        background: "#f2f3f5",
-                        boxShadow: "none",
+                        padding: '2px',
+                        border: 'none',
+                        background: '#f2f3f5',
+                        boxShadow: 'none',
                       }}
                       ref={anchorRef}
                     >
@@ -443,34 +445,34 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                         options={resultSearch}
                         open={hasResult}
                         noOptionsText={
-                          <Typography sx={{ fontSize: "13px !important" }}>Nenhum resultado encontrado</Typography>
+                          <Typography sx={{ fontSize: '13px !important' }}>Nenhum resultado encontrado</Typography>
                         }
                         sx={{
-                          "& input": {
-                            background: "none",
-                            border: "none",
-                            outline: "none",
+                          '& input': {
+                            background: 'none',
+                            border: 'none',
+                            outline: 'none',
                           },
                         }}
                         renderInput={params => (
                           <Box
                             ref={params.InputProps.ref}
                             sx={{
-                              display: "flex",
-                              alignItems: "center",
-                              marginLeft: "12px",
-                              "& input::placeholder": {
-                                color: "#ddd !important",
+                              display: 'flex',
+                              alignItems: 'center',
+                              marginLeft: '12px',
+                              '& input::placeholder': {
+                                color: '#ddd !important',
                               },
                             }}
                           >
                             {inputBoxClassName && (
                               <>
-                                <IconButton onClick={() => setInputBoxClassName("")}>
+                                <IconButton onClick={() => setInputBoxClassName('')}>
                                   <CloseIcon
                                     sx={{
-                                      width: "16px !important",
-                                      height: "16px !important",
+                                      width: '16px !important',
+                                      height: '16px !important',
                                     }}
                                   />
                                 </IconButton>
@@ -480,9 +482,9 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                               type="text"
                               {...params.inputProps}
                               className="incicleheader-inputsearch"
-                              placeholder={translation(t, "find_someone")}
+                              placeholder={translation(t, 'find_someone')}
                               style={{
-                                fontSize: "14px",
+                                fontSize: '14px',
                               }}
                             />
                           </Box>
@@ -496,12 +498,12 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                         fullWidth
                       />
 
-                      <IconButton type="submit" sx={{ p: "6px" }} aria-label="search">
+                      <IconButton type="submit" sx={{ p: '6px' }} aria-label="search">
                         <SearchIcon
                           sx={{
-                            width: "24px !important",
-                            height: "24px !important",
-                            color: "#747474 !important",
+                            width: '24px !important',
+                            height: '24px !important',
+                            color: '#747474 !important',
                           }}
                         />
                       </IconButton>
@@ -512,9 +514,9 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                       <IconButton onClick={handleOpenModulesMenu}>
                         <AppsIcon
                           sx={{
-                            width: "24px !important",
-                            height: "24px !important",
-                            fill: "#008AC1",
+                            width: '24px !important',
+                            height: '24px !important',
+                            fill: '#008AC1',
                           }}
                         />
                       </IconButton>
@@ -539,15 +541,15 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
           ) : (
             <>
               <section className="incicleheader-content">
-                <nav style={{ alignItems: "center", display: "flex" }}>
+                <nav style={{ alignItems: 'center', display: 'flex' }}>
                   {/* MODULES MENU */}
                   <label className="incicleheader-modules-label" htmlFor="incicleheader-modules-checkbox">
                     <IconButton onClick={handleOpenModulesMenu}>
                       <AppsIcon
                         sx={{
-                          width: "24px !important",
-                          height: "24px !important",
-                          fill: "#008AC1",
+                          width: '24px !important',
+                          height: '24px !important',
+                          fill: '#008AC1',
                         }}
                       />
                     </IconButton>
@@ -558,16 +560,16 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                     elevation={0}
                     className="incicleheader-inputbutton"
                     sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
                     }}
                   >
-                    <IconButton onClick={() => setInputBoxClassName("view")}>
+                    <IconButton onClick={() => setInputBoxClassName('view')}>
                       <SearchIcon
                         sx={{
-                          width: "24px !important",
-                          height: "24px !important",
+                          width: '24px !important',
+                          height: '24px !important',
                         }}
                       />
                     </IconButton>
@@ -578,14 +580,14 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                     component="form"
                     className={`incicleheader-inputbox ${inputBoxClassName}`}
                     sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      width: "100%",
-                      padding: "2px",
-                      border: "none",
-                      background: "#f2f3f5",
-                      boxShadow: "none",
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      width: '100%',
+                      padding: '2px',
+                      border: 'none',
+                      background: '#f2f3f5',
+                      boxShadow: 'none',
                     }}
                     ref={anchorRef}
                   >
@@ -593,36 +595,36 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                       options={resultSearch}
                       open={hasResult}
                       noOptionsText={
-                        <Typography sx={{ fontSize: "13px !important" }}>
-                          {translation(t, "no_result_found")}
+                        <Typography sx={{ fontSize: '13px !important' }}>
+                          {translation(t, 'no_result_found')}
                         </Typography>
                       }
                       sx={{
-                        "& input": {
-                          background: "none",
-                          border: "none",
-                          outline: "none",
+                        '& input': {
+                          background: 'none',
+                          border: 'none',
+                          outline: 'none',
                         },
                       }}
                       renderInput={params => (
                         <Box
                           ref={params.InputProps.ref}
                           sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            marginLeft: "12px",
-                            "& input::placeholder": {
-                              color: "#ddd !important",
+                            display: 'flex',
+                            alignItems: 'center',
+                            marginLeft: '12px',
+                            '& input::placeholder': {
+                              color: '#ddd !important',
                             },
                           }}
                         >
                           {inputBoxClassName && (
                             <>
-                              <IconButton onClick={() => setInputBoxClassName("")}>
+                              <IconButton onClick={() => setInputBoxClassName('')}>
                                 <CloseIcon
                                   sx={{
-                                    width: "16px !important",
-                                    height: "16px !important",
+                                    width: '16px !important',
+                                    height: '16px !important',
                                   }}
                                 />
                               </IconButton>
@@ -632,9 +634,9 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                             type="text"
                             {...params.inputProps}
                             className="incicleheader-inputsearch"
-                            placeholder={translation(t, "find_someone")}
+                            placeholder={translation(t, 'find_someone')}
                             style={{
-                              fontSize: "14px",
+                              fontSize: '14px',
                             }}
                           />
                         </Box>
@@ -648,12 +650,12 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                       fullWidth
                     />
 
-                    <IconButton type="submit" sx={{ p: "6px" }} aria-label="search">
+                    <IconButton type="submit" sx={{ p: '6px' }} aria-label="search">
                       <SearchIcon
                         sx={{
-                          width: "24px !important",
-                          height: "24px !important",
-                          color: "#747474 !important",
+                          width: '24px !important',
+                          height: '24px !important',
+                          color: '#747474 !important',
                         }}
                       />
                     </IconButton>
@@ -662,22 +664,22 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
               </section>
 
               <section className="incicleheader-content center">
-                <nav style={{ alignItems: "center", display: "flex" }}>
+                <nav style={{ alignItems: 'center', display: 'flex' }}>
                   {/* LOGO ICON */}
                   <Link
                     href={`${links.web?.social}`}
                     sx={{
-                      alignItems: "center",
-                      display: "flex",
-                      marginRight: "8px",
-                      marginLeft: "15px",
-                      paddingBottom: "2px",
+                      alignItems: 'center',
+                      display: 'flex',
+                      marginRight: '8px',
+                      marginLeft: '15px',
+                      paddingBottom: '2px',
                       maxWidth: 160,
                       height: 40,
-                      overflow: "hidden",
+                      overflow: 'hidden',
                       img: {
-                        width: "auto !important",
-                        height: "100% !important",
+                        width: 'auto !important',
+                        height: '100% !important',
                       },
                     }}
                   >
@@ -687,7 +689,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                         bucket="incicle"
                         className="logo"
                         alt="logo"
-                        options={{ ResponseCacheControl: "max-age=30000" }}
+                        options={{ ResponseCacheControl: 'max-age=30000' }}
                       />
                     ) : (
                       <img src={logoUrl} className="logo" alt="logo" />
@@ -698,7 +700,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
 
               <section className="incicleheader-content flex-end">
                 <nav>
-                  <Stack spacing={1} direction="row" sx={{ justifyContent: "flex-end", alignItems: "center" }}>
+                  <Stack spacing={1} direction="row" sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
                     {/* NOTIFICATIONS AREA */}
                     {/* {
                       <IconButton size="medium" sx={{ width: 35, height: 35 }} onClick={showNotifications}>
@@ -724,7 +726,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
             </>
           )}
         </HeaderInStyle>
-      </NotificationSocketProvider>
+      </NotificationProvider>
 
       <WhatsAppButton />
     </HeaderProvider>

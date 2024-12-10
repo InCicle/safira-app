@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 import { IUser } from '@/safira-app/interfaces/User';
-import { INotificationProps } from '@/safira-app/interfaces/Notification';
+import { NotificationProps } from '@/safira-app/services/notifications';
 import { decode } from '@/safira-app/utils/crypto';
 import { reduceString } from '@/safira-app/utils/reduceString';
 
@@ -22,7 +22,7 @@ const notificationType = {
   GROUP_PUBLICATION_COMMENT_REMOVED: 'GROUP_PUBLICATION_COMMENT_REMOVED',
 };
 
-export function createSocialNetworkBrowserNotificationFactory(notification: INotificationProps) {
+export function createSocialNetworkBrowserNotificationFactory(notification: NotificationProps) {
   const { sender, common } = notification;
   const encodedUser = Cookies.get('user');
   const user: IUser = JSON.parse(decode(encodedUser || ''));

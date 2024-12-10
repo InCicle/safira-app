@@ -1,6 +1,4 @@
-import React from 'react';
-import { INotificationProps } from '@/safira-app/interfaces/Notification';
-
+import { NotificationProps } from '@/safira-app/services/notifications';
 import { NotificationImageBox } from '../Factories/_abstract/ToastNotificationAbstract';
 import {
   createBrowserNotification,
@@ -9,9 +7,9 @@ import {
 } from '../Factories/notificationFactory';
 
 export class NotificationDTO {
-  notification: INotificationProps | null = null;
+  notification: NotificationProps | null = null;
 
-  constructor(notification: INotificationProps) {
+  constructor(notification: NotificationProps) {
     this.notification = notification;
   }
 

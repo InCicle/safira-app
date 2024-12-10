@@ -2,9 +2,9 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import { AxiosInstance } from 'axios';
 import { links } from '@/safira-app/config/links';
-import { INotificationProps } from '@/safira-app/interfaces/Notification';
 import { IUser } from '@/safira-app/interfaces/User';
 import { MeProps } from '@/safira-app/interfaces/Me';
+import { NotificationProps } from '@/safira-app/services/notifications';
 
 export type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
@@ -13,12 +13,12 @@ export interface HeaderProviderProps {
   profiles?: MeProps;
   companySelected?: string;
   api: AxiosInstance;
-  signOut: Function;
+  signOut: () => void;
 }
 
 export interface NotificationsDataProps {
   currentPage: number;
-  data: Array<INotificationProps>;
+  data: Array<NotificationProps>;
   size: number;
   total: number;
   totalPage: number;
@@ -31,7 +31,7 @@ export interface HeaderContextProps extends HeaderProviderProps {
   setProduction: SetState<boolean>;
   notificationsData: NotificationsDataProps;
   setNotificationsData: SetState<NotificationsDataProps>;
-  updateNotificationItem: (data: INotificationProps) => void;
+  updateNotificationItem: (data: NotificationProps) => void;
 }
 
 export interface Props {
@@ -53,7 +53,7 @@ const HeaderProvider: React.FC<React.PropsWithChildren<Props>> = ({ children, va
     totalPage: 0,
   });
 
-  const updateNotificationItem = (data: INotificationProps) => {
+  const updateNotificationItem = (data: NotificationProps) => {
     /**
      * This function updates a notification item in the notificationsData data array.
      * Then it marks the notification provided on params as readed.

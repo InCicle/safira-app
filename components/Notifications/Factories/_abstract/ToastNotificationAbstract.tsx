@@ -4,14 +4,18 @@ import { Stack, Typography, Box, Theme, SxProps } from '@mui/material';
 import RenderAvatar from '@/safira-app/components/RenderAvatar';
 import { incicleNotificationModules } from '@/safira-app/utils/modules';
 import { NotificationEvent } from '@/safira-app/providers/NotificationEvent';
-import { INotificationProps } from '@/safira-app/interfaces/Notification';
+import { NotificationProps } from '@/safira-app/services/notifications';
 
 // TimeAgo
 import moment from 'moment';
 import TimeAgo from '@/safira-app/libs/timeago';
+import Cookies from 'js-cookie';
+import { Format } from '@/safira-app/libs/timeago/types';
+
+const default_language = Cookies.get('default_language');
 
 TimeAgo.defaultProps = {
-  format: 'pt-BR',
+  format: default_language as Format,
   timeStyle: 'mini',
 };
 
@@ -45,7 +49,7 @@ export const NotificationContainer: React.FC<React.PropsWithChildren<unknown>> =
   );
 };
 
-export const NotificationImageBox: React.FC<{ notification: INotificationProps }> = ({ notification }) => {
+export const NotificationImageBox: React.FC<{ notification: NotificationProps }> = ({ notification }) => {
   return (
     <Box sx={{ position: 'relative' }}>
       <RenderAvatar src={notification.sender.avatar_url} />

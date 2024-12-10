@@ -47,7 +47,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
     };
   });
   const getUrlUniversidadeCorporativa = moduleItem => {
-    if (moduleItem.title !== "Universidade Corporativa") {
+    if (moduleItem.title !== "corporative_university") {
       return moduleItem.url;
     }
 
@@ -66,6 +66,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
     }
     return urlStepOne;
   };
+
   const filteredCollaboratorsModules = incicleCollaboratorsMenuModules
     .filter(item => item.accountTypes.includes(user.type))
     .filter(moduleItem => {

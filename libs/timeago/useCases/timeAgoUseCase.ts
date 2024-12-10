@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { Controller, Format, TimeStyle } from '../types';
 import { options } from './data';
 
@@ -8,8 +9,9 @@ type TimeAgoUseCaseProps = {
 };
 
 export function timeAgoUseCase({ date, format, timeStyle }: Partial<TimeAgoUseCaseProps>) {
+  const default_language = Cookies.get('default_language') || 'pt-BR';
   const controller: Controller = {
-    format: 'pt-BR',
+    format: default_language as Format,
     timeStyle: 'full',
     initialDate: new Date(),
     timerInterval: null,

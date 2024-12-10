@@ -1,6 +1,6 @@
 import React from 'react';
-import { INotificationProps } from '@/safira-app/interfaces/Notification';
 import { links } from '@/safira-app/config/links';
+import { NotificationProps } from '@/safira-app/services/notifications';
 
 import {
   NotificationContainer,
@@ -9,7 +9,7 @@ import {
 } from '../_abstract/NotificationAbstract';
 
 interface Props {
-  notificationItem: INotificationProps;
+  notificationItem: NotificationProps;
 }
 
 const notificationType = {

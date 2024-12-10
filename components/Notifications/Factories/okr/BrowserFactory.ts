@@ -1,4 +1,4 @@
-import { INotificationProps } from '@/safira-app/interfaces/Notification';
+import { NotificationProps } from '@/safira-app/services/notifications';
 
 const notificationType = {
   CYCLE_END: 'CYCLE_END',
@@ -16,7 +16,7 @@ const notificationType = {
   REMOVED_FROM_ACTION: 'REMOVED_FROM_ACTION',
 };
 
-export function createOKRBrowserNotificationFactory(notification: INotificationProps) {
+export function createOKRBrowserNotificationFactory(notification: NotificationProps) {
   const { common } = notification;
 
   switch (notification.type) {

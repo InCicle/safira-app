@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { NotificationEvent } from '@/safira-app/providers/NotificationEvent';
-import { INotificationProps, MODULE_TYPES } from '@/safira-app/interfaces/Notification';
+import { MODULE_TYPES, NotificationProps } from '@/safira-app/services/notifications';
 import { formatNotificationContent } from './_abstract/NotificationAbstract';
 
 import {
@@ -69,8 +69,13 @@ import {
   OKRToastNotificationFactory,
   createOKRBrowserNotificationFactory,
 } from './okr';
+import {
+  createOmbudsmanBrowserNotificationFactory,
+  OmbudsmanDropdownNotificationFactory,
+  OmbudsmanToastNotificationFactory,
+} from './ombudsman';
 
-export function createDropdownNotification(item: INotificationProps) {
+export function createDropdownNotification(item: NotificationProps) {
   const notification = formatNotificationContent(item);
 
   switch (notification.module) {
@@ -88,6 +93,9 @@ export function createDropdownNotification(item: INotificationProps) {
 
     case MODULE_TYPES.endomarketing:
       return <EndomarketingDropdownNotificationFactory notificationItem={notification} />;
+
+    case MODULE_TYPES.ombudsman:
+      return <OmbudsmanDropdownNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.evaluation360:
       return <EvaluationDropdownNotificationFactory notificationItem={notification} />;
@@ -114,7 +122,7 @@ export function createDropdownNotification(item: INotificationProps) {
   return <></>;
 }
 
-export function createToastNotification(item: INotificationProps) {
+export function createToastNotification(item: NotificationProps) {
   const notification = formatNotificationContent(item);
 
   switch (item.module) {
@@ -134,6 +142,9 @@ export function createToastNotification(item: INotificationProps) {
 
     case MODULE_TYPES.endomarketing:
       return <EndomarketingToastNotificationFactory notificationItem={notification} />;
+
+    case MODULE_TYPES.ombudsman:
+      return <OmbudsmanToastNotificationFactory notificationItem={notification} />;
 
     case MODULE_TYPES.evaluation360:
       return <EvaluationToastNotificationFactory notificationItem={notification} />;
@@ -161,7 +172,7 @@ export function createToastNotification(item: INotificationProps) {
   return <></>;
 }
 
-export function createBrowserNotification(item: INotificationProps) {
+export function createBrowserNotification(item: NotificationProps) {
   const notification = formatNotificationContent(item);
 
   switch (item.module) {
@@ -181,6 +192,9 @@ export function createBrowserNotification(item: INotificationProps) {
 
     case MODULE_TYPES.endomarketing:
       return createEndomarketingBrowserNotificationFactory(notification);
+
+    case MODULE_TYPES.ombudsman:
+      return createOmbudsmanBrowserNotificationFactory(notification);
 
     case MODULE_TYPES.evaluation360:
       return createEvaluationBrowserNotificationFactory(notification);

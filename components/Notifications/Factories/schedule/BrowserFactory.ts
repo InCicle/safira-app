@@ -1,5 +1,5 @@
-import { INotificationProps } from '@/safira-app/interfaces/Notification';
 import moment from 'moment';
+import { NotificationProps } from '@/safira-app/services/notifications';
 
 const notificationType = {
   NEW_EVENT_SCHEDULE_INVITATION: 'NEW_EVENT_SCHEDULE_INVITATION',
@@ -20,7 +20,7 @@ const notificationType = {
   TASK_SUPERVISOR: 'TASK_SUPERVISOR',
 };
 
-export function createScheduleBrowserNotificationFactory(notification: INotificationProps) {
+export function createScheduleBrowserNotificationFactory(notification: NotificationProps) {
   const { sender, common } = notification;
 
   function returnAlertTime(alertValue: string) {

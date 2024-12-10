@@ -2,6 +2,7 @@ import React, { useImperativeHandle, useLayoutEffect, useRef } from 'react';
 import { Badge, IconButton, Menu } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
+import { DEFAULT_NOTIFICATION_FILTERS, DEFAULT_NOTIFICATION_PARAMS } from '@/safira-app/services/notifications';
 import { NotificationEvent } from '@/safira-app/providers/NotificationEvent';
 import { useNotifications } from '@/safira-app/hooks/useNotifications';
 import { useQuery } from '@/safira-app/hooks/useQuery';
@@ -17,8 +18,8 @@ type NotificationsRef = {
 };
 
 const Notifications: React.ForwardRefRenderFunction<NotificationsRef> = (_, ref) => {
-  const { badgeAsInvisible, dropdownOpened, notifications } = useNotifications();
-  const { uniqueCall } = useRender();
+  const { badgeIsInvisible, dropdownOpened, notifications, fetchNotifications, markAllAsViewed } = useNotifications();
+  const { fn } = useRender();
   const query = useQuery();
 
   const anchorRef = useRef<HTMLButtonElement | null>(null);
@@ -30,13 +31,15 @@ const Notifications: React.ForwardRefRenderFunction<NotificationsRef> = (_, ref)
 
   function handleCloseDropdown(ev?: any) {
     ev?.stopPropagation();
+    markAllAsViewed();
+    fetchNotifications({ ...DEFAULT_NOTIFICATION_PARAMS, ...DEFAULT_NOTIFICATION_FILTERS });
     NotificationEvent.emit('close_dropdown');
   }
 
   useLayoutEffect(() => {
-    if (!notifications.length) return;
+    if (!notifications?.length) return;
 
-    uniqueCall('open dropdown by url params', () => {
+    fn('open dropdown by url params', () => {
       const openNotificationDropdown = query.get('notifications') === 'open';
 
       if (openNotificationDropdown) {
@@ -44,7 +47,7 @@ const Notifications: React.ForwardRefRenderFunction<NotificationsRef> = (_, ref)
         NotificationEvent.emit('open_dropdown');
       }
     });
-  }, [query, uniqueCall, notifications]);
+  }, [query, fn, notifications]);
 
   useImperativeHandle(ref, () => {
     return {
@@ -56,7 +59,7 @@ const Notifications: React.ForwardRefRenderFunction<NotificationsRef> = (_, ref)
   return (
     <>
       <IconButton ref={anchorRef} size="medium" sx={{ width: 35, height: 35 }} onClick={handleOpenDropdown}>
-        <Badge color="error" variant="dot" invisible={badgeAsInvisible} badgeContent=" " overlap="circular">
+        <Badge color="error" variant="dot" invisible={badgeIsInvisible} badgeContent=" " overlap="circular">
           <NotificationsIcon sx={{ width: 25, height: 25 }} />
         </Badge>
       </IconButton>

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { INotificationProps } from '@/safira-app/interfaces/Notification';
+import { NotificationProps } from '@/safira-app/services/notifications';
 import { reduceString } from '@/safira-app/utils/reduceString';
 
 import {
@@ -10,7 +10,7 @@ import {
 import { getGroupType } from '@/safira-app/utils/getGroupType';
 
 interface IProps {
-  notificationItem: INotificationProps;
+  notificationItem: NotificationProps;
 }
 
 const notificationType = {
