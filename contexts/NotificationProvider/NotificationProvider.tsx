@@ -4,11 +4,11 @@ import { Manager } from 'socket.io-client';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosInstance, AxiosResponse } from 'axios';
 
-import { useHTMLHead } from 'safira-app/hooks/useHTMLHead';
-import { useRender } from 'safira-app/hooks/useRender';
-import { IUser } from 'safira-app/interfaces/User';
-import { decode } from 'safira-app/utils/crypto';
-import { links } from 'safira-app/config/links';
+import { useHTMLHead } from '@/safira-app/hooks/useHTMLHead';
+import { useRender } from '@/safira-app/hooks/useRender';
+import { IUser } from '@/safira-app/interfaces/User';
+import { decode } from '@/safira-app/utils/crypto';
+import { links } from '@/safira-app/config/links';
 import {
   DEFAULT_NOTIFICATION_PARAMS,
   getNotifications,
@@ -16,7 +16,7 @@ import {
   NotificationParamsType,
   NotificationProps,
   NotificationWrapper,
-} from 'safira-app/services/notifications';
+} from '@/safira-app/services/notifications';
 import NotificationUseCase from './NotificationUseCase';
 
 type SetState<T = any> = React.Dispatch<React.SetStateAction<T>>;
@@ -96,7 +96,6 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
     staleTime: 1000 * 60 * 2, // 2 minutes
   });
 
-  // eslint-disable-next-line
   const { error, isLoading } = notificationsQuery;
   const notificationsResponse = notificationsQuery.data;
   const notifications = notificationsResponse?.data?.data || [];

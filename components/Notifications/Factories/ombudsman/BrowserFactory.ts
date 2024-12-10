@@ -1,7 +1,6 @@
-import moment from 'moment';
-import { reduceString } from 'safira-app/utils/reduceString';
-import { NotificationProps } from 'safira-app/services/notifications';
-import { getStatus } from 'safira-app/utils/getStatus';
+import { reduceString } from '@/safira-app/utils/reduceString';
+import { NotificationProps } from '@/safira-app/services/notifications';
+import { getStatus } from '@/safira-app/utils/getStatus';
 
 const notificationType = {
   TICKET_RECEIVED: 'TICKET_RECEIVED',
@@ -10,7 +9,7 @@ const notificationType = {
 };
 
 export function createOmbudsmanBrowserNotificationFactory(notification: NotificationProps) {
-  const { sender, common } = notification;
+  const { common } = notification;
 
   switch (notification.type) {
     case notificationType.TICKET_RECEIVED:

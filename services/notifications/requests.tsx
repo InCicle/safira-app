@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { links } from 'safira-app/config/links';
+import { links } from '@/safira-app/config/links';
 import { NotificationParamsType, NotificationWrapper } from './types';
 
 export const getNotifications = (api: AxiosInstance, params: NotificationParamsType) => {

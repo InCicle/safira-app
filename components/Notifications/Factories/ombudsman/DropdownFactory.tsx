@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import { NotificationProps } from 'safira-app/services/notifications';
-import { links } from 'safira-app/config/links';
+import { NotificationProps } from '@/safira-app/services/notifications';
+import { links } from '@/safira-app/config/links';
 
 import {
   NotificationContainer,
   NotificationContentText,
   NotificationHighlight,
 } from '../_abstract/NotificationAbstract';
-import { getStatus } from 'safira-app/utils/getStatus';
+import { getStatus } from '@/safira-app/utils/getStatus';
 
 interface Props {
   notificationItem: NotificationProps;
