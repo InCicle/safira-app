@@ -136,7 +136,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
         setCompanies(me?.companies);
       }
     }
-  }, [me]); // eslint-disable-line
+  }, [me]);
 
   // SEARCH RESULT
   const anchorRef = useRef(null);
@@ -152,7 +152,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
           setResultSearch(response?.data);
           setHasResult(true);
         })
-        .catch((err: any) => {
+        .catch(() => {
           setHasResult(false);
         });
 

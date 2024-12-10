@@ -19,7 +19,6 @@ const notificationType = {
 };
 
 export function createEvaluationBrowserNotificationFactory(notification: NotificationProps) {
-  // eslint-disable-next-line
   const { sender, common } = notification;
 
   function formatDateNotification(date: string) {
