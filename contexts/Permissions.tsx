@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import api from '@/services/api';
+import { api } from '@/services/api';
 import { links } from '@/safira-app/config/links';
 import { useAuth } from '@/safira-app/hooks/useAuth';
 import { useProfileContext } from '@/contexts/ProfileContext';
