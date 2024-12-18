@@ -1,17 +1,28 @@
-import React, { HTMLAttributes, useRef } from 'react';
+import React, { HTMLAttributes, ReactElement, useRef } from 'react';
 import { CircularProgress, Stack, SxProps, Theme } from '@mui/material';
 import { ObserverCallbackOptions, useScrollTargetObserver } from '@/safira-app/hooks/useScrollTargetObserver';
 
 type WaypointProps = React.HTMLAttributes<HTMLElement> & {
   onEnter?(options: ObserverCallbackOptions): void;
   onLeave?(options: ObserverCallbackOptions): void;
-  disabled: boolean;
+  sx?: SxProps<Theme>;
+  disabled?: boolean;
+  targetChild?: ReactElement;
   targetProps?: HTMLAttributes<HTMLLIElement> & {
     sx?: SxProps<Theme>;
   };
 };
 
-const Waypoint: React.FC<WaypointProps> = ({ children, disabled, targetProps, onEnter, onLeave, ...rest }) => {
+const Waypoint: React.FC<WaypointProps> = ({
+  children,
+  disabled,
+  sx,
+  targetProps,
+  targetChild,
+  onEnter,
+  onLeave,
+  ...rest
+}) => {
   const rootElementRef = useRef<HTMLUListElement | null>(null);
   const targetElementRef = useRef<HTMLDivElement | null>(null);
 
@@ -25,17 +36,17 @@ const Waypoint: React.FC<WaypointProps> = ({ children, disabled, targetProps, on
   }, [rootElementRef, targetElementRef, disabled]);
 
   return (
-    <ul {...rest} ref={rootElementRef}>
+    <Stack component="ul" {...rest} ref={rootElementRef} sx={sx}>
       {children}
 
       {!disabled && (
         <Stack component="li" {...targetProps} style={{ paddingTop: 8, ...targetProps?.style }}>
           <Stack ref={targetElementRef} position="relative" justifyContent="center" alignItems="center" height="60px">
-            <CircularProgress color="secondary" sx={{ width: 24, height: 24 }} />
+            {targetChild || <CircularProgress color="secondary" sx={{ width: 24, height: 24 }} />}
           </Stack>
         </Stack>
       )}
-    </ul>
+    </Stack>
   );
 };
 
