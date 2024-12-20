@@ -1,6 +1,6 @@
 import React, { HTMLAttributes, ReactElement, useRef } from 'react';
 import { CircularProgress, Stack, SxProps, Theme } from '@mui/material';
-import { ObserverCallbackOptions, useScrollTargetObserver } from '@/safira-app/hooks/useScrollTargetObserver';
+import { ObserverCallbackOptions, useScrollTargetObserver } from 'safira-app/hooks/useScrollTargetObserver';
 
 type WaypointProps = React.HTMLAttributes<HTMLElement> & {
   onEnter?(options: ObserverCallbackOptions): void;
