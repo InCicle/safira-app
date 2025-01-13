@@ -364,8 +364,8 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
     url: `${links.web.incheck}/dashboard`,
     accountTypes: ['PERSON'],
     description: {
-      COMPANY: 'evaluation_description',
-      PERSON: 'evaluation_description',
+      COMPANY: 'in_check_description.company',
+      PERSON: 'in_check_description.company',
     },
     permission: 'in_check',
     redirectType: 'internal',
