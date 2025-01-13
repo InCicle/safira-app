@@ -251,7 +251,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                       marginLeft: '15px',
                       paddingBottom: '2px',
                       width: 'max-content',
-                      maxWidth: 160,
+                      maxWidth: 180,
                       height: 40,
                       overflow: 'hidden',
                       img: {
