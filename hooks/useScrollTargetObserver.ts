@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 export type ObserverCallbackOptions = {
   entry: IntersectionObserverEntry;
@@ -88,4 +88,3 @@ export function useScrollTargetObserver(cb: () => ScrollObserverOptions, depende
     };
   }, [...dependencies]); // eslint-disable-line react-hooks/exhaustive-deps
 }
-	

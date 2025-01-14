@@ -12,10 +12,10 @@ export const HeaderInStyle = styled.header`
   background: #fff;
   border-bottom: 1px solid #ccc;
 
-  img.logo {
+  /* img.logo {
     height: 40px;
     width: auto;
-  }
+  } */
 
   .incicleheader-content {
     display: flex;
@@ -162,7 +162,7 @@ export const HeaderInStyle = styled.header`
 
   @media only screen and (max-width: 700px) {
     .logo {
-      width: 100px !important;
+      width: auto !important;
     }
 
     .incicleheader-avatar {
