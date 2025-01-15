@@ -111,7 +111,8 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
     // api.patch(`${links.api.notification}/notifications/${data._id}`);
     const queryKey = key || [NOTIFICATION_REQUEST_KEY, DEFAULT_NOTIFICATION_PARAMS];
 
-    queryClient.setQueryData(queryKey, (prev: AxiosResponse<NotificationWrapper>) => {
+    queryClient.setQueryData(queryKey, (previous: any) => {
+      const prev: AxiosResponse<NotificationWrapper> = previous;
       if (!prev.data.data) return;
 
       const prevNotifications = prev?.data?.data || [];
@@ -129,7 +130,8 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
     const queryKey = [NOTIFICATION_REQUEST_KEY, DEFAULT_NOTIFICATION_PARAMS];
 
     notificationUseCase.notify(notification);
-    queryClient.setQueryData(queryKey, (prev: AxiosResponse<NotificationWrapper>) => {
+    queryClient.setQueryData(queryKey, (previous: any) => {
+      const prev: AxiosResponse<NotificationWrapper> = previous;
       if (!prev?.data?.data?.length) return { data: { data: [notification] } };
       prev.data.data.unshift(notification);
       return prev;
