@@ -30,7 +30,7 @@ export function createOrganizationalEngineeringBrowserNotificationFactory(notifi
     case notificationType.CORPORATE_FEEDBACK:
       return `${notification.sender.name} enviou um feedback que precisa da sua atenção.`;
 
-    case notificationType.CORPORATE_FEEDBACK:
+    case notificationType.PAYSLIP_RECEIVED:
       return `${notification.sender.name} enviou um holerite para você.`;
 
     default:
