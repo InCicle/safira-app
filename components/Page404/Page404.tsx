@@ -15,7 +15,6 @@ interface Page404Props {
 const Page404: React.FC<React.PropsWithChildren<Page404Props>> = ({ goToInitialPage, goBack, sx }) => {
   return (
     <CSSDefault
-      component={Stack}
       width="100%"
       height="100%"
       padding={2}

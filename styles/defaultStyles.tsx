@@ -1,6 +1,6 @@
-import { Box, styled } from '@mui/material';
+import { Stack, styled } from '@mui/material';
 
-export const CSSDefault = styled(Box)`
+export const CSSDefault = styled(Stack)`
   margin: 0;
   padding: 0;
   box-sizing: border-box;
