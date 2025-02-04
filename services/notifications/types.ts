@@ -35,6 +35,8 @@ export type NotificationProps = {
   type: string;
   createdAt: string;
   updatedAt: string;
+  actionUrl: string;
+  content: string;
 };
 
 export type NotificationWrapper = {

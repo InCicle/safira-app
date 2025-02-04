@@ -1,175 +1,66 @@
-import React from 'react';
-
-import { NotificationEvent } from 'safira-app/providers/NotificationEvent';
-import { MODULE_TYPES, NotificationProps } from 'safira-app/services/notifications';
-import { formatNotificationContent } from './_abstract/NotificationAbstract';
-
+import { NotificationEvent } from '@/safira-app/providers/NotificationEvent';
 import {
-  SocialNetworkDropdownNotificationFactory,
-  SocialNetworkToastNotificationFactory,
-  createSocialNetworkBrowserNotificationFactory,
-} from './socialNetwork';
+  MODULE_TYPES,
+  NotificationProps,
+} from '@/safira-app/services/notifications';
 
-import {
-  FeedbackDropdownNotificationFactory,
-  FeedbackToastNotificationFactory,
-  createFeedbackBrowserFactory,
-} from './feedback';
+import { createSocialNetworkBrowserNotificationFactory } from './socialNetwork';
 
-import {
-  ScheduleDropdownNotificationFactory,
-  ScheduleToastNotificationFactory,
-  createScheduleBrowserNotificationFactory,
-} from './schedule';
+import { createFeedbackBrowserFactory } from './feedback';
 
-import {
-  ProjectsDropdownNotificationFactory,
-  ProjectsToastNotificationFactory,
-  createProjectsBrowserNotificationFactory,
-} from './projects';
+import { createScheduleBrowserNotificationFactory } from './schedule';
 
-import {
-  EndomarketingDropdownNotificationFactory,
-  EndomarketingToastNotificationFactory,
-  createEndomarketingBrowserNotificationFactory,
-} from './endomarketing';
+import { createProjectsBrowserNotificationFactory } from './projects';
+
+import { createEndomarketingBrowserNotificationFactory } from './endomarketing';
+
+import { createEvaluationBrowserNotificationFactory } from './evaluation';
+
+import { createOrganizationalEngineeringBrowserNotificationFactory } from './organizationalEngineering';
+
+import { createPersonalDepartmentBrowserNotificationFactory } from './personalDepartment';
+
+import { createGroupBrowserNotificationFactory } from './group';
+
+import { createPoliciesBrowserNotificationFactory } from './policies';
+
+import { createOKRBrowserNotificationFactory } from './okr';
+import { createOmbudsmanBrowserNotificationFactory } from './ombudsman';
 
 import {
-  EvaluationDropdownNotificationFactory,
-  EvaluationToastNotificationFactory,
-  createEvaluationBrowserNotificationFactory,
-} from './evaluation';
-
-import {
-  OrganizationalEngineeringDropdownNotificationFactory,
-  OrganizationalEngineeringToastNotificationFactory,
-  createOrganizationalEngineeringBrowserNotificationFactory,
-} from './organizationalEngineering';
-
-import {
-  PersonalDepartmentDropdownNotificationFactory,
-  PersonalDepartmentToastNotificationFactory,
-  createPersonalDepartmentBrowserNotificationFactory,
-} from './personalDepartment';
-
-import {
-  GroupDropdownNotificationFactory,
-  GroupToastNotificationFactory,
-  createGroupBrowserNotificationFactory,
-} from './group';
-
-import {
-  PoliciesDropdownNotificationFactory,
-  PoliciesToastNotificationFactory,
-  createPoliciesBrowserNotificationFactory,
-} from './policies';
-
-import {
-  OKRDropdownNotificationFactory,
-  OKRToastNotificationFactory,
-  createOKRBrowserNotificationFactory,
-} from './okr';
-import {
-  createOmbudsmanBrowserNotificationFactory,
-  OmbudsmanDropdownNotificationFactory,
-  OmbudsmanToastNotificationFactory,
-} from './ombudsman';
+  NotificationContainer,
+  NotificationContentText,
+} from './_abstract/NotificationAbstract';
+import { formatNotificationContent } from '@/safira-app/utils/formatNotificationContent';
 
 export function createDropdownNotification(item: NotificationProps) {
   const notification = formatNotificationContent(item);
 
-  switch (notification.module) {
-    case MODULE_TYPES.social_network:
-      return <SocialNetworkDropdownNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.feedback:
-      return <FeedbackDropdownNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.schedule:
-      return <ScheduleDropdownNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.project:
-      return <ProjectsDropdownNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.endomarketing:
-      return <EndomarketingDropdownNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.ombudsman:
-      return <OmbudsmanDropdownNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.evaluation360:
-      return <EvaluationDropdownNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.organizational_engineering:
-      return <OrganizationalEngineeringDropdownNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.personal_department:
-      return <PersonalDepartmentDropdownNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.group:
-      return <GroupDropdownNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.policy:
-      return <PoliciesDropdownNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.okr:
-      return <OKRDropdownNotificationFactory notificationItem={notification} />;
-
-    default:
-      break;
-  }
-
-  return <></>;
+  return (
+    <NotificationContainer
+      url={notification.actionUrl}
+      notification={notification}
+    >
+      <NotificationContentText notification={notification}>
+        {notification.content}
+      </NotificationContentText>
+    </NotificationContainer>
+  );
 }
 
 export function createToastNotification(item: NotificationProps) {
   const notification = formatNotificationContent(item);
 
-  switch (item.module) {
-    case MODULE_TYPES.social_network:
-      return <SocialNetworkToastNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.feedback:
-      return <FeedbackToastNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.schedule:
-      NotificationEvent.emit('update_schedule_module');
-      return <ScheduleToastNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.project:
-      NotificationEvent.emit('update_projects_module');
-      return <ProjectsToastNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.endomarketing:
-      return <EndomarketingToastNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.ombudsman:
-      return <OmbudsmanToastNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.evaluation360:
-      return <EvaluationToastNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.organizational_engineering:
-      return <OrganizationalEngineeringToastNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.personal_department:
-      NotificationEvent.emit('update_personal_department_module');
-      return <PersonalDepartmentToastNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.group:
-      return <GroupToastNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.policy:
-      return <PoliciesToastNotificationFactory notificationItem={notification} />;
-
-    case MODULE_TYPES.okr:
-      return <OKRToastNotificationFactory notificationItem={notification} />;
-
-    default:
-      break;
-  }
-
-  return <></>;
+  return (
+    <NotificationContainer
+      url={notification.actionUrl}
+      notification={notification}
+    >
+      <NotificationContentText notification={notification}>
+        {notification.content}
+      </NotificationContentText>
+    </NotificationContainer>
+  );
 }
 
 export function createBrowserNotification(item: NotificationProps) {
@@ -200,7 +91,9 @@ export function createBrowserNotification(item: NotificationProps) {
       return createEvaluationBrowserNotificationFactory(notification);
 
     case MODULE_TYPES.organizational_engineering:
-      return createOrganizationalEngineeringBrowserNotificationFactory(notification);
+      return createOrganizationalEngineeringBrowserNotificationFactory(
+        notification,
+      );
 
     case MODULE_TYPES.personal_department:
       NotificationEvent.emit('update_personal_department_module');

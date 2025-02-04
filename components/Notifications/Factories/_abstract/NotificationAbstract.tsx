@@ -1,5 +1,12 @@
 import React from 'react';
-import { MenuItem, Stack, Typography, Box, Theme, SxProps } from '@mui/material';
+import {
+  MenuItem,
+  Stack,
+  Typography,
+  Box,
+  Theme,
+  SxProps,
+} from '@mui/material';
 import CircleIcon from '@mui/icons-material/Circle';
 import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
 import { NotificationProps } from 'safira-app/services/notifications';
@@ -7,10 +14,8 @@ import RenderAvatar from 'safira-app/components/RenderAvatar';
 import { incicleNotificationModules } from 'safira-app/utils/modules';
 
 // TimeAgo
-import moment from 'moment';
 import TimeAgo from 'safira-app/libs/timeago';
 import { links } from 'safira-app/config/links';
-import { htmlDecode } from 'safira-app/utils/htmlDecode';
 import Cookies from 'js-cookie';
 import { Format } from 'safira-app/libs/timeago/types';
 
@@ -27,11 +32,12 @@ TimeAgo.defaultProps = {
   timeStyle: 'mini',
 };
 
-export const preventRedirect = (e: any) => {
-  e.preventDefault();
-};
-
-const markAsReaded = (e: any, notification: NotificationProps, api: any, url?: string) => {
+const markAsReaded = (
+  e: any,
+  notification: NotificationProps,
+  api: any,
+  url?: string,
+) => {
   e.preventDefault();
   api
     .patch(`${links.api.notification}/notifications/${notification._id}`)
@@ -47,24 +53,9 @@ const markAsReaded = (e: any, notification: NotificationProps, api: any, url?: s
     });
 };
 
-export function formatNotificationContent(notification: NotificationProps): NotificationProps {
-  if (!notification?.common?.content && typeof notification?.common?.content !== 'string') return notification;
-
-  return {
-    ...notification,
-    common: {
-      ...notification?.common,
-      content: htmlDecode(notification.common?.content),
-    },
-  };
-}
-
-export const NotificationContainer: React.FC<React.PropsWithChildren<IProps>> = ({
-  notification,
-  url,
-  onClick,
-  children,
-}) => {
+export const NotificationContainer: React.FC<
+  React.PropsWithChildren<IProps>
+> = ({ notification, url, onClick, children }) => {
   const { api } = useHeaderProvider();
 
   function handleClick(ev?: any) {
@@ -115,26 +106,36 @@ export const NotificationContainer: React.FC<React.PropsWithChildren<IProps>> = 
               }}
             >
               <img
-                src={incicleNotificationModules.find(incicleModule => incicleModule.slug === notification.module)?.icon}
+                src={
+                  incicleNotificationModules.find(
+                    (incicleModule) =>
+                      incicleModule.slug === notification.module,
+                  )?.icon
+                }
                 alt={notification.module}
                 style={{ width: '100%', height: 'auto' }}
               />
             </Box>
           )}
         </Box>
-        <Stack direction="column" spacing={1} style={{ width: '100%', marginRight: '10px' }}>
+        <Stack
+          direction="column"
+          spacing={1}
+          style={{ width: '100%', marginRight: '10px' }}
+        >
           {children}
         </Stack>
-        {!notification?.read && <CircleIcon sx={{ fill: '#00adcb', width: 10 }} />}
+        {!notification?.read && (
+          <CircleIcon sx={{ fill: '#00adcb', width: 10 }} />
+        )}
       </Stack>
     </MenuItem>
   );
 };
 
-export const NotificationContentText: React.FC<React.PropsWithChildren<{ notification: NotificationProps }>> = ({
-  notification,
-  children,
-}) => {
+export const NotificationContentText: React.FC<
+  React.PropsWithChildren<{ notification: NotificationProps }>
+> = ({ notification, children }) => {
   return (
     <Typography
       sx={{
@@ -155,7 +156,9 @@ export const NotificationContentText: React.FC<React.PropsWithChildren<{ notific
   );
 };
 
-export const NotificationHighlight: React.FC<React.PropsWithChildren<{ sx?: SxProps<Theme> }>> = ({ sx, children }) => {
+export const NotificationHighlight: React.FC<
+  React.PropsWithChildren<{ sx?: SxProps<Theme> }>
+> = ({ sx, children }) => {
   return (
     <Typography
       component="label"
@@ -169,31 +172,4 @@ export const NotificationHighlight: React.FC<React.PropsWithChildren<{ sx?: SxPr
       {children}
     </Typography>
   );
-};
-
-export const reduceString = (value = '', length: number) => {
-  /**
-   * This function is used to add '...' on strings.
-   *
-   * params:
-   *  value: the string to reduce
-   *  length: number of max characters for the string
-   *
-   * return: string reduced
-   */
-  if (value?.length <= length) return value;
-  return `${value.slice(0, length - 3)}...`;
-};
-
-export const dateFormat = (date: string | Date, format: string) => {
-  /**
-   * This function is used to format dates on notifications text
-   *
-   * params:
-   *  date: a valid string date format or a javascript date object
-   *  format: string representing the format for date string return (must be an moment valid format)
-   *
-   * return: formated date as string
-   */
-  return moment(date).locale('pt-br').format(format);
 };

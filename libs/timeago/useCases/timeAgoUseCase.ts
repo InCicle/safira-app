@@ -8,7 +8,11 @@ type TimeAgoUseCaseProps = {
   timeStyle: TimeStyle;
 };
 
-export function timeAgoUseCase({ date, format, timeStyle }: Partial<TimeAgoUseCaseProps>) {
+export function timeAgoUseCase({
+  date,
+  format,
+  timeStyle,
+}: Partial<TimeAgoUseCaseProps>) {
   const default_language = Cookies.get('default_language') || 'pt-BR';
   const controller: Controller = {
     format: default_language as Format,
@@ -43,7 +47,11 @@ export function timeAgoUseCase({ date, format, timeStyle }: Partial<TimeAgoUseCa
       const { initialDate } = controller;
       const now = new Date();
       const difference = now.getTime() - initialDate.getTime();
-      const daysInMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+      const daysInMonth = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        0,
+      ).getDate();
 
       controller.count = {
         seconds: Math.floor((difference / 1000) % 60),
@@ -61,9 +69,9 @@ export function timeAgoUseCase({ date, format, timeStyle }: Partial<TimeAgoUseCa
       const { count } = controller;
       const order = ['months', 'days', 'hours', 'minutes', 'seconds'];
       const keysToStopTimeout = ['months', 'days', 'hours'];
-      const arrAcounter = order.map(timeUnit => [timeUnit, count[timeUnit]]);
+      const arrAcounter = order.map((timeUnit) => [timeUnit, count[timeUnit]]);
 
-      for (let [key, value] of arrAcounter) {
+      for (const [key, value] of arrAcounter) {
         if (value > 0) {
           if (keysToStopTimeout.includes(key)) {
             Timer.stopCounter();
@@ -92,15 +100,18 @@ export function timeAgoUseCase({ date, format, timeStyle }: Partial<TimeAgoUseCa
           return replacer(options[format].days.one[timeStyle]!);
 
         case 'hours':
-          if (value > 1) return replacer(options[format].hours.more[timeStyle]!);
+          if (value > 1)
+            return replacer(options[format].hours.more[timeStyle]!);
           return replacer(options[format].hours.one[timeStyle]!);
 
         case 'minutes':
-          if (value > 1) return replacer(options[format].minutes.more[timeStyle]!);
+          if (value > 1)
+            return replacer(options[format].minutes.more[timeStyle]!);
           return replacer(options[format].minutes.one[timeStyle]!);
 
         case 'seconds':
-          if (value > 1) return replacer(options[format].seconds.more[timeStyle]!);
+          if (value > 1)
+            return replacer(options[format].seconds.more[timeStyle]!);
           return replacer(options[format].seconds.one[timeStyle]!);
 
         default:

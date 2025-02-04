@@ -14,7 +14,13 @@ import { NotificationFilterOptions } from 'safira-app/services/notifications';
 import { NotificationWrapper } from './style';
 
 const NotificationsContent: React.FC = () => {
-  const { notifications, notificationsReqData, params, isLoading, fetchNotifications } = useNotifications();
+  const {
+    notifications,
+    notificationsReqData,
+    params,
+    isLoading,
+    fetchNotifications,
+  } = useNotifications();
   const { t } = useTranslation();
 
   const perPage = params.perPage || 0;
@@ -47,11 +53,19 @@ const NotificationsContent: React.FC = () => {
       <IncicleModulesDropdown />
 
       <NotificationWrapper>
-        <Typography variant="body2" sx={{ padding: '0 15px', color: '#959595', fontSize: '11px' }}>
-          {translation(t, params.read === NotificationFilterOptions.UNREADED ? 'unread' : 'all')}
+        <Typography
+          variant="body2"
+          sx={{ padding: '0 15px', color: '#959595', fontSize: '11px' }}
+        >
+          {translation(
+            t,
+            params.read === NotificationFilterOptions.UNREADED
+              ? 'unread'
+              : 'all',
+          )}
         </Typography>
 
-        {notifications.map(item => (
+        {notifications.map((item) => (
           <NotificationItem key={item._id} data={item} />
         ))}
 
@@ -68,22 +82,48 @@ const NotificationsContent: React.FC = () => {
           </Typography>
         )}
 
-        {/* @ts-ignore */}
         <Waypoint topOffset="-80px" onEnter={handleLoadMoreContent}>
-          <Stack direction="row" justifyContent="center" alignItems="center" padding={1.5} height={70}>
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            padding={1.5}
+            height={70}
+          >
             {showLoading ? (
               <Stack direction="row" gap={1} alignItems="center">
                 <Stack>
                   <Skeleton variant="circular" width={42} height={42} />
                 </Stack>
                 <Stack gap={1}>
-                  <Skeleton variant="rectangular" width={270} height={8} sx={{ borderRadius: 50 }} />
-                  <Skeleton variant="rectangular" width={100} height={8} sx={{ borderRadius: 50 }} />
+                  <Skeleton
+                    variant="rectangular"
+                    width={270}
+                    height={8}
+                    sx={{ borderRadius: 50 }}
+                  />
+                  <Skeleton
+                    variant="rectangular"
+                    width={100}
+                    height={8}
+                    sx={{ borderRadius: 50 }}
+                  />
                 </Stack>
               </Stack>
             ) : (
-              <Stack direction="row" justifyContent="center" alignItems="center">
-                <Typography sx={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'gray', opacity: 0.5 }}>
+              <Stack
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Typography
+                  sx={{
+                    fontSize: '1.5rem',
+                    fontWeight: 'bold',
+                    color: 'gray',
+                    opacity: 0.5,
+                  }}
+                >
                   {translation(t, 'this_is_all')}
                 </Typography>
               </Stack>
