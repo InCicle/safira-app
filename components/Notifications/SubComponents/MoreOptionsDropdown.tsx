@@ -30,7 +30,7 @@ const MoreOptionsDropdown: React.FC = () => {
     /**
      * This function is used to check all notifications as readed
      */
-    api.get(`${links.api.notification}/notifications/read`);
+    api.get(`${links.api.notifications_v1}/notifications/read`);
     // Set notifications as viewed
     setNotifications(old =>
       old?.map(notification => {

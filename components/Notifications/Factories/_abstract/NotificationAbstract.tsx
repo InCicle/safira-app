@@ -40,7 +40,7 @@ const markAsReaded = (
 ) => {
   e.preventDefault();
   api
-    .patch(`${links.api.notification}/notifications/${notification._id}`)
+    .patch(`${links.api.notifications_v1}/notifications/${notification._id}`)
     .then((response: any) => {
       if (response.status === 204 && url) {
         window.location.href = url;

@@ -10,7 +10,8 @@ declare global {
       REACT_APP_API_URL_SOCIAL_NETWORK: string;
       REACT_APP_API_URL_PROJECTS: string;
       REACT_APP_API_URL_SCHEDULE: string;
-      REACT_APP_API_URL_NOTIFICATIONS: string;
+      REACT_APP_API_V1_URL_NOTIFICATIONS: string;
+      REACT_APP_API_V2_URL_NOTIFICATIONS: string;
       REACT_APP_API_URL_CORE: string;
       REACT_APP_API_URL_EVALUATION: string;
       REACT_APP_API_URL_PD: string;

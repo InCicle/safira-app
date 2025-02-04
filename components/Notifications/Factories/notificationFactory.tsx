@@ -1,8 +1,8 @@
-import { NotificationEvent } from '@/safira-app/providers/NotificationEvent';
+import { NotificationEvent } from 'safira-app/providers/NotificationEvent';
 import {
   MODULE_TYPES,
   NotificationProps,
-} from '@/safira-app/services/notifications';
+} from 'safira-app/services/notifications';
 
 import { createSocialNetworkBrowserNotificationFactory } from './socialNetwork';
 
@@ -31,7 +31,7 @@ import {
   NotificationContainer,
   NotificationContentText,
 } from './_abstract/NotificationAbstract';
-import { formatNotificationContent } from '@/safira-app/utils/formatNotificationContent';
+import { formatNotificationContent } from 'safira-app/utils/formatNotificationContent';
 
 export function createDropdownNotification(item: NotificationProps) {
   const notification = formatNotificationContent(item);

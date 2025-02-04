@@ -49,7 +49,7 @@ interface NotificationContextType {
   markAllAsViewed(key?: any[]): void;
 }
 
-const manager = new Manager(links.api.notification);
+const manager = new Manager(links.api.notifications_v1);
 const socket = manager.socket('/');
 
 export const NotificationContext = createContext<NotificationContextType>({} as any);
