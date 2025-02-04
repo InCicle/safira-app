@@ -5,9 +5,7 @@ import { Waypoint } from 'react-waypoint';
 
 import { useNotifications } from 'safira-app/hooks/useNotifications';
 
-import NotificationItem from './SubComponents/NotificationItem';
-import IncicleModulesDropdown from './SubComponents/IncicleModulesDropdown';
-import MoreOptionsDropdown from './SubComponents/MoreOptionsDropdown';
+import { NotificationItem, IncicleModulesDropdown,MoreOptionsDropdown } from './SubComponents';
 
 import { translation } from 'safira-app/utils/translation';
 import { NotificationFilterOptions } from 'safira-app/services/notifications';

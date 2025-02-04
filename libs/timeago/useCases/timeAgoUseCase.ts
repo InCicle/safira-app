@@ -10,12 +10,11 @@ type TimeAgoUseCaseProps = {
 
 export function timeAgoUseCase({
   date,
-  format,
   timeStyle,
 }: Partial<TimeAgoUseCaseProps>) {
-  const default_language = Cookies.get('default_language') || 'pt-BR';
+  const default_language = Cookies.get('default_language') || 'en';
   const controller: Controller = {
-    format: default_language as Format,
+    format: default_language as Format || 'en',
     timeStyle: 'full',
     initialDate: new Date(),
     timerInterval: null,
@@ -28,8 +27,6 @@ export function timeAgoUseCase({
     },
     onCountChange: null,
   };
-
-  controller.format = format || 'pt-BR';
   controller.timeStyle = timeStyle || 'mini';
   controller.initialDate = date ? new Date(date) : new Date();
 

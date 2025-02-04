@@ -11,7 +11,7 @@ import { links } from 'safira-app/config/links';
 
 type AnchorButton = EventTarget & HTMLButtonElement;
 
-const MoreOptionsDropdown: React.FC = () => {
+export const MoreOptionsDropdown: React.FC = () => {
   const { api, setNotifications } = useNotifications();
 
   const [anchorEl, setAnchorEl] = useState<AnchorButton | null>(null);
@@ -74,5 +74,3 @@ const MoreOptionsDropdown: React.FC = () => {
     </>
   );
 };
-
-export default MoreOptionsDropdown;

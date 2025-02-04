@@ -30,8 +30,10 @@ import { createOmbudsmanBrowserNotificationFactory } from './ombudsman';
 import {
   NotificationContainer,
   NotificationContentText,
-} from './_abstract/NotificationAbstract';
+  NotificationHighlight,
+} from '../SubComponents';
 import { formatNotificationContent } from 'safira-app/utils/formatNotificationContent';
+import { Trans } from 'react-i18next';
 
 export function createDropdownNotification(item: NotificationProps) {
   const notification = formatNotificationContent(item);
@@ -42,7 +44,9 @@ export function createDropdownNotification(item: NotificationProps) {
       notification={notification}
     >
       <NotificationContentText notification={notification}>
-        {notification.content}
+        <Trans
+        components={{ strong: <NotificationHighlight /> }}>
+        {notification.content}</Trans>
       </NotificationContentText>
     </NotificationContainer>
   );
@@ -57,7 +61,9 @@ export function createToastNotification(item: NotificationProps) {
       notification={notification}
     >
       <NotificationContentText notification={notification}>
-        {notification.content}
+       <Trans
+        components={{ strong: <NotificationHighlight /> }}>
+        {notification.content}</Trans>
       </NotificationContentText>
     </NotificationContainer>
   );

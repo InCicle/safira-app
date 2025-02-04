@@ -7,7 +7,7 @@ interface Props {
   data: NotificationProps;
 }
 
-const NotificationItem: React.FC<Props> = ({ data }) => {
+export const NotificationItem: React.FC<Props> = ({ data }) => {
   const notificationDTO = useMemo(() => {
     return new NotificationDTO(data);
   }, [data]);
@@ -15,4 +15,3 @@ const NotificationItem: React.FC<Props> = ({ data }) => {
   return notificationDTO.toDropdown();
 };
 
-export default NotificationItem;

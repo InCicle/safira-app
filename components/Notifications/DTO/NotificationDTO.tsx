@@ -1,7 +1,5 @@
-import React from 'react';
-
 import { NotificationProps } from 'safira-app/services/notifications';
-import { NotificationImageBox } from '../Factories/_abstract/ToastNotificationAbstract';
+import { NotificationImageBox } from '../SubComponents';
 import {
   createBrowserNotification,
   createDropdownNotification,

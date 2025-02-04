@@ -2,35 +2,20 @@ import React from 'react';
 import {
   MenuItem,
   Stack,
-  Typography,
   Box,
-  Theme,
-  SxProps,
 } from '@mui/material';
 import CircleIcon from '@mui/icons-material/Circle';
 import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
 import { NotificationProps } from 'safira-app/services/notifications';
 import RenderAvatar from 'safira-app/components/RenderAvatar';
 import { incicleNotificationModules } from 'safira-app/utils/modules';
-
-// TimeAgo
-import TimeAgo from 'safira-app/libs/timeago';
 import { links } from 'safira-app/config/links';
-import Cookies from 'js-cookie';
-import { Format } from 'safira-app/libs/timeago/types';
 
 interface IProps {
   notification?: NotificationProps;
   url?: string;
   onClick?: (ev?: any) => void;
 }
-
-const default_language = Cookies.get('default_language');
-
-TimeAgo.defaultProps = {
-  format: default_language as Format,
-  timeStyle: 'mini',
-};
 
 const markAsReaded = (
   e: any,
@@ -130,46 +115,5 @@ export const NotificationContainer: React.FC<
         )}
       </Stack>
     </MenuItem>
-  );
-};
-
-export const NotificationContentText: React.FC<
-  React.PropsWithChildren<{ notification: NotificationProps }>
-> = ({ notification, children }) => {
-  return (
-    <Typography
-      sx={{
-        lineHeight: '15px',
-        fontSize: '13px !important',
-        width: '100%',
-        overflowWrap: 'anywhere',
-        marginRight: '10px',
-        label: { fontSize: '13px' },
-        '*': { cursor: 'pointer' },
-      }}
-    >
-      {children}
-      <small className="time-count" style={{ display: 'block', fontSize: 11 }}>
-        <TimeAgo date={notification.createdAt} style={{ fontSize: 11 }} />
-      </small>
-    </Typography>
-  );
-};
-
-export const NotificationHighlight: React.FC<
-  React.PropsWithChildren<{ sx?: SxProps<Theme> }>
-> = ({ sx, children }) => {
-  return (
-    <Typography
-      component="label"
-      sx={{
-        lineHeight: '15px',
-        color: '#00558E',
-        fontSize: '13px',
-        ...sx,
-      }}
-    >
-      {children}
-    </Typography>
   );
 };
