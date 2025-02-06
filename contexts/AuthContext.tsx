@@ -172,6 +172,18 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
     const delay = 30 * 1000;
     const interval = setInterval(tokenTimeout, delay);
 
+    // This is a temporary solution to set the default language
+    const defaultLanguage = Cookies.get('default_language');
+    if (!defaultLanguage) {
+          let expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getMinutes() + 320);
+      Cookies.set('default_language', data.user.config.default_language, {
+        domain: domainName,
+      secure: true,
+      expires: expirationDate,
+      });
+    } 
+
     return () => {
       clearInterval(interval);
     };
