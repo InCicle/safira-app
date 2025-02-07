@@ -14,16 +14,7 @@ interface Page404Props {
 
 const Page404: React.FC<React.PropsWithChildren<Page404Props>> = ({ goToInitialPage, goBack, sx }) => {
   return (
-    <CSSDefault
-      component={Stack}
-      width="100%"
-      height="100%"
-      padding={2}
-      justifyContent="center"
-      alignItems="center"
-      gap={1}
-      sx={sx}
-    >
+    <CSSDefault width="100%" height="100%" padding={2} justifyContent="center" alignItems="center" gap={1} sx={sx}>
       <Stack
         alignItems="center"
         gap={2}
@@ -58,7 +49,6 @@ const Page404: React.FC<React.PropsWithChildren<Page404Props>> = ({ goToInitialP
           top="50%"
           left="50%"
           zIndex={2}
-          component={Stack}
           justifyContent="center"
           alignItems="center"
           width="100%"
@@ -73,7 +63,6 @@ const Page404: React.FC<React.PropsWithChildren<Page404Props>> = ({ goToInitialP
           }}
         />
         <IconBackground
-          component={Stack}
           justifyContent="center"
           alignItems="center"
           width="100%"

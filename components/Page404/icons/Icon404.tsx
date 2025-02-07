@@ -1,9 +1,9 @@
 import React from 'react';
 import { FunctionComponent } from 'react';
-import { Box, BoxProps } from '@mui/material';
+import { Stack, StackProps } from '@mui/material';
 
-const Icon404: FunctionComponent<React.PropsWithChildren<BoxProps>> = props => (
-  <Box {...props}>
+const Icon404: FunctionComponent<React.PropsWithChildren<StackProps>> = props => (
+  <Stack {...props}>
     <svg width="691" height="436" viewBox="0 0 691 436" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M446.952 422.55C449.448 421.151 452.253 420.395 455.113 420.348C457.974 420.301 460.802 420.966 463.342 422.283C465.882 423.6 468.055 425.527 469.665 427.891C471.275 430.255 472.271 432.982 472.565 435.827C462.101 435.827 451.843 433.394 446.952 422.55Z"
@@ -254,7 +254,7 @@ const Icon404: FunctionComponent<React.PropsWithChildren<BoxProps>> = props => (
       />
       <path d="M518.889 51.8973L513.677 51.9473L513.724 56.8147L518.935 56.7646L518.889 51.8973Z" fill="#0084C6" />
     </svg>
-  </Box>
+  </Stack>
 );
 
 export default Icon404;

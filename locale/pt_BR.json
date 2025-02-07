@@ -1,79 +1,80 @@
 {
   "safira-app": {
-      "modules": {
-        "title": "Módulos",
-        "feed": "Feed",
-        "schedule": "Agenda",
-        "schedule_description": "Visualize seus compromissos.",
-        "projects": "Gestão",
-        "projects_description": "Gerencie seus projetos pessoais e profissionais.",
-        "feedback": "Feedback",
-        "feedback_description": {
-          "company": "Receba, envie e crie eventos de feedbacks.",
-          "person": "Receba, envie e solicite feedbacks."
-        },
-        "tasks": "Tarefas",
-        "tasks_description": "Gerencie suas tarefas e acompanhe seu desempenho geral.",
-        "admission": "Admissão Digital",
-        "admission_description": {
-          "company": "Receba documentos dos colaboradores.",
-          "person": "Envie documentos para a empresa.",
-          "permission": "Gerencie as contratações da empresa que você tem vínculo."
-        },
-        "personal_department": "Departamento Pessoal",
-        "personal_department_description": "Cadastre colaboradores, setores, cargos e níveis.",
-        "endomarketing": "Endomarketing",
-        "endomarketing_description": "Acelere a comunicação na sua empresa.",
-        "evaluation": "Gestão por Competências",
-        "evaluation_description": "Avaliações e planos de desenvolvimento.",
-        "social_network": "Rede Social",
-        "social_network_description": "Acompanhe a rede social e sua produtividade.",
-        "policies_and_procedures": "Políticas e Procedimentos",
-        "policies_and_procedures_description": "Gerencie as políticas da sua empresa e compartilhe com seus colaboradores.",
-        "okr": "OKR",
-        "okr_description": "Objetivos e Resultados-Chave.",
-        "in_check": "InCheck",
-        "in_check_description": {
-          "company": "Crie checklist, planos de ações e relatórios.",
-          "person": "Responda checklists, crie ações e relatórios."
-        },
-        "system_configurations": "Configurações do Sistema",
-        "system_configurations_description": {
-          "company": "Gerencie permissões e outras preferências.",
-          "person": "Gerencie as preferências da sua conta."
-        },
-        "in_point": "InPonto",
-        "in_point_description": "Controle onde e como você quiser",
-        "corporative_university": "Universidade Corporativa",
-        "corporative_university_description": "Desenvolva talentos e gerencie conhecimento.",
-        "ombudsman": "Ouvidoria",
-        "ombudsman_description": {
-          "company": "Receba avaliações, sugestões e reclamações.",
-          "person": "Envie avaliações, sugestões e reclamações."
-        },
-        "hrconnect": "Conecta RH",
-        "hrconnect_description": {
-          "person": "Envie e receba documentos e facilite seu relacionamento com a empresa."
-        },
-        "climate_research": "Pesquisa de Clima",
-        "climate_research_description": "Crie pesquisas sobre a empresa pessoa.",
-        "manager_panel": "Painel do Gestor",
-        "manager_panel_description": "Gerencie informações e ações da sua equipe.",
-        "recruitment": "Recrutamento",
-        "all": "Todos"
+    "modules": {
+      "title": "Módulos",
+      "feed": "Feed",
+      "schedule": "Agenda",
+      "schedule_description": "Visualize seus compromissos.",
+      "projects": "Gestão",
+      "projects_description": "Gerencie seus projetos pessoais e profissionais.",
+      "feedback": "Feedback",
+      "feedback_description": {
+        "company": "Receba, envie e crie eventos de feedbacks.",
+        "person": "Receba, envie e solicite feedbacks."
       },
-      "find_someone": "Encontre alguém",
-      "no_result_found": "Nenhum resultado encontrado",
-      "company": "Company",
-      "unread": "Não Lidas",
-      "all": "Todas",
-      "notifications": "Notificações",
-      "no_notifications_yet": "Nenhuma notificação no momento",
-      "module_available_soon": "Módulo disponível em breve",
-      "friends": "Amigos",
-      "collaborators": "Colaboradores",
-      "tutorials": "Tutoriais",
-      "configurations": "Configurações",
-      "leave": "Sair"
-    }
+      "tasks": "Tarefas",
+      "tasks_description": "Gerencie suas tarefas e acompanhe seu desempenho geral.",
+      "admission": "Admissão Digital",
+      "admission_description": {
+        "company": "Receba documentos dos colaboradores.",
+        "person": "Envie documentos para a empresa.",
+        "permission": "Gerencie as contratações da empresa que você tem vínculo."
+      },
+      "personal_department": "Departamento Pessoal",
+      "personal_department_description": "Cadastre colaboradores, setores, cargos e níveis.",
+      "endomarketing": "Endomarketing",
+      "endomarketing_description": "Acelere a comunicação na sua empresa.",
+      "evaluation": "Gestão por Competências",
+      "evaluation_description": "Avaliações e planos de desenvolvimento.",
+      "social_network": "Rede Social",
+      "social_network_description": "Acompanhe a rede social e sua produtividade.",
+      "policies_and_procedures": "Políticas e Procedimentos",
+      "policies_and_procedures_description": "Gerencie as políticas da sua empresa e compartilhe com seus colaboradores.",
+      "okr": "OKR",
+      "okr_description": "Objetivos e Resultados-Chave.",
+      "in_check": "InCheck",
+      "in_check_description": {
+        "company": "Crie checklist, planos de ações e relatórios.",
+        "person": "Responda checklists, crie ações e relatórios."
+      },
+      "system_configurations": "Configurações do Sistema",
+      "system_configurations_description": {
+        "company": "Gerencie permissões e outras preferências.",
+        "person": "Gerencie as preferências da sua conta."
+      },
+      "in_point": "InPonto",
+      "in_point_description": "Controle onde e como você quiser",
+      "corporative_university": "Universidade Corporativa",
+      "corporative_university_description": "Desenvolva talentos e gerencie conhecimento.",
+      "ombudsman": "Ouvidoria",
+      "ombudsman_description": {
+        "company": "Receba avaliações, sugestões e reclamações.",
+        "person": "Envie avaliações, sugestões e reclamações."
+      },
+      "hrconnect": "Conecta RH",
+      "hrconnect_description": {
+        "person": "Envie e receba documentos e facilite seu relacionamento com a empresa."
+      },
+      "climate_research": "Pesquisa de Clima",
+      "climate_research_description": "Crie pesquisas sobre a empresa pessoa.",
+      "manager_panel": "Painel do Gestor",
+      "manager_panel_description": "Gerencie informações e ações da sua equipe.",
+      "recruitment": "Recrutamento",
+      "all": "Todos"
+    },
+    "find_someone": "Encontre alguém",
+    "no_result_found": "Nenhum resultado encontrado",
+    "company": "Company",
+    "unread": "Não Lidas",
+    "all": "Todas",
+    "notifications": "Notificações",
+    "no_notifications_yet": "Nenhuma notificação no momento",
+    "module_available_soon": "Módulo disponível em breve",
+    "friends": "Amigos",
+    "collaborators": "Colaboradores",
+    "tutorials": "Tutoriais",
+    "configurations": "Configurações",
+    "leave": "Sair",
+    "this_is_all": "Isso é tudo"
+  }
 }
