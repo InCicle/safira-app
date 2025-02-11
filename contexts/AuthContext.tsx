@@ -94,19 +94,32 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
 
   const doRefreshToken = useCallback(async () => {
     try {
-      const currentRefreshToken = Cookies.get('refreshToken');
+      const currentToken = Cookies.get('authToken');
 
-      if (!currentRefreshToken) return null;
+      if (!currentToken) return null;
 
-      const { data: response } = await axios.post(`${links.api.core}/refresh-token`, {
-        refresh_token: decode(currentRefreshToken),
+      const { data: response } = await axios.get(`${links.api.schedule}/auth/refresh`, {
+        headers: {
+          Authorization: `Bearer ${decode(currentToken)}`,
+        },
       });
 
-      Cookies.set('authToken', encode(response.token), {
+      Cookies.remove('authToken', { domain: domainName });
+      Cookies.remove('expiresIn', { domain: domainName });
+      Cookies.remove('user', { domain: domainName });
+
+      Cookies.set('expiresIn', encode(response.expires_in.toString()), {
         domain: domainName,
       });
 
-      Cookies.set('refreshToken', encode(response.refreshToken), {
+      Cookies.set('authToken', encode(response.access_token), {
+        domain: domainName,
+      });
+
+      const jwt: any = jwtDecode(response.access_token);
+      const user = JSON.stringify(jwt.user);
+
+      Cookies.set('user', encode(user), {
         domain: domainName,
       });
 
@@ -124,10 +137,11 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
       token = decode(token);
       axios({
         url: '/refresh',
-        baseURL: `${links.api.core}/auth`,
+        baseURL: `${links.api.schedule}/auth`,
         headers: {
           authorization: `Bearer ${token}`,
         },
+        method: 'GET'
       })
         .then(response => {
           const { access_token, expires_in } = response.data;
@@ -168,21 +182,8 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
   };
 
   useEffect(() => {
-    // const delay = Number(data.expiresIn) * 1000 - 90 * 1000;
     const delay = 30 * 1000;
     const interval = setInterval(tokenTimeout, delay);
-
-    // This is a temporary solution to set the default language
-    const defaultLanguage = Cookies.get('default_language');
-    if (!defaultLanguage) {
-          let expirationDate = new Date();
-    expirationDate.setDate(expirationDate.getMinutes() + 320);
-      Cookies.set('default_language', data.user.config.default_language, {
-        domain: domainName,
-      secure: true,
-      expires: expirationDate,
-      });
-    } 
 
     return () => {
       clearInterval(interval);
