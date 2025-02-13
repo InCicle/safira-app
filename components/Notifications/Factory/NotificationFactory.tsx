@@ -4,22 +4,22 @@ import {
   createBrowserNotification,
   createDropdownNotification,
   createToastNotification,
-} from '../Factories/notificationFactory';
+} from '../Builders/notificationFactory';
 
-export class NotificationDTO {
+export class NotificationFactory {
   notification: NotificationProps | null = null;
 
   constructor(notification: NotificationProps) {
     this.notification = notification;
   }
 
-  toDropdown() {
+  public toDropdown() {
     if (!this.notification) return <></>;
 
     return createDropdownNotification(this.notification);
   }
 
-  toToast() {
+  public toToast() {
     if (!this.notification) return null;
 
     return {
@@ -28,7 +28,7 @@ export class NotificationDTO {
     };
   }
 
-  toBrowserAPI() {
+  public toBrowserAPI() {
     if (!this.notification) return null;
 
     return createBrowserNotification(this.notification);

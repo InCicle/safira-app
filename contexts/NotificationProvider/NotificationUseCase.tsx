@@ -9,7 +9,7 @@ import notificationSound from 'safira-app/assets/audios/incicle-notification.mp3
 import { incicleMenuModules } from 'safira-app/utils/modules';
 import { FaviconOptionType } from 'safira-app/hooks/useHTMLHead';
 import { addToast } from 'safira-app/components/Toast';
-import { NotificationDTO } from 'safira-app/components/Notifications/DTO/NotificationDTO';
+import { NotificationFactory } from 'safira-app/components/Notifications/Factory/NotificationFactory';
 import { NotificationProps, updateSawNotifications } from 'safira-app/services/notifications';
 import { links } from 'safira-app/config/links';
 import { NotificationEvent } from 'safira-app/providers/NotificationEvent';
@@ -171,8 +171,8 @@ export default class NotificationUseCase {
   }
 
   executeToastNotification(notification: NotificationProps) {
-    const notificationDTO = new NotificationDTO(notification);
-    const { NotificationImageBox, NotificationComponent } = notificationDTO.toToast() || {};
+    const factory = new NotificationFactory(notification);
+    const { NotificationImageBox, NotificationComponent } = factory.toToast() || {};
 
     if (document.hidden) return;
 
@@ -195,8 +195,8 @@ export default class NotificationUseCase {
         return;
       }
 
-      const notificationDTO = new NotificationDTO(notification);
-      const notificationMessage = notificationDTO.toBrowserAPI();
+      const factory = new NotificationFactory(notification);
+      const notificationMessage = factory.toBrowserAPI();
       const { title } = incicleMenuModules.find(item => item.slug === notification.module) || {};
 
       const notif = new Notification(`${title || ''}`, {

@@ -5,13 +5,13 @@ import { Waypoint } from 'react-waypoint';
 
 import { useNotifications } from 'safira-app/hooks/useNotifications';
 
-import { NotificationItem, IncicleModulesDropdown,MoreOptionsDropdown } from './SubComponents';
+import { NotificationItem, IncicleModulesDropdown,MoreOptionsDropdown } from '.';
 
 import { translation } from 'safira-app/utils/translation';
 import { NotificationFilterOptions } from 'safira-app/services/notifications';
-import { NotificationWrapper } from './style';
+import { NotificationWrapper } from '../style';
 
-const NotificationsContent: React.FC = () => {
+export const NotificationsContent: React.FC = () => {
   const {
     notifications,
     notificationsReqData,

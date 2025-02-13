@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { NotificationDTO } from '../DTO/NotificationDTO';
+import { NotificationFactory } from '../Factory/NotificationFactory';
 import { NotificationProps } from 'safira-app/services/notifications';
 
 interface Props {
@@ -8,10 +8,10 @@ interface Props {
 }
 
 export const NotificationItem: React.FC<Props> = ({ data }) => {
-  const notificationDTO = useMemo(() => {
-    return new NotificationDTO(data);
+  const factory = useMemo(() => {
+    return new NotificationFactory(data);
   }, [data]);
 
-  return notificationDTO.toDropdown();
+  return factory.toDropdown();
 };
 

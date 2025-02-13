@@ -35,7 +35,7 @@ import {
 import { formatNotificationContent } from 'safira-app/utils/formatNotificationContent';
 import { Trans } from 'react-i18next';
 
-export function createDropdownNotification(item: NotificationProps) {
+export function   createDropdownNotification(item: NotificationProps) {
   const notification = formatNotificationContent(item);
 
   return (

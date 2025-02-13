@@ -87,7 +87,9 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
 
   const notificationsQuery = useQuery({
     queryKey: notificationKey,
-    queryFn: () => getNotifications(api, params),
+    queryFn: () => getNotifications(api, params, { 
+      language: user.config.default_language || 'en',
+    }),
     placeholderData: state => state,
     retry: false,
     refetchOnMount: false,
@@ -108,10 +110,10 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
   }
 
   function markAllAsViewed(key?: any[]) {
-    // api.patch(`${links.api.notification}/notifications/${data._id}`);
     const queryKey = key || [NOTIFICATION_REQUEST_KEY, DEFAULT_NOTIFICATION_PARAMS];
 
     queryClient.setQueryData(queryKey, (previous: any) => {
+      console.log('previous',previous);
       const prev: AxiosResponse<NotificationWrapper> = previous;
       if (!prev.data.data) return;
 

@@ -1,10 +1,11 @@
-import { NotificationContentText } from './NotificationContent';
+import { IncicleModulesDropdown } from './IncicleModulesDropdown'
+import { MoreOptionsDropdown } from './MoreOptionsDropdown'
 import { NotificationContainer } from './NotificationContainer';
+import { NotificationContentText } from './NotificationContentText';
 import { NotificationHighlight } from './NotificationHighlight';
 import { NotificationImageBox } from './NotificationImageBox';
-import {MoreOptionsDropdown} from './MoreOptionsDropdown'
-import {IncicleModulesDropdown} from './IncicleModulesDropdown'
-import {NotificationItem} from './NotificationItem'
+import { NotificationItem } from './NotificationItem'
+import { NotificationsContent } from './NotificationsContent';
 
 
-export { NotificationContainer, NotificationContentText, NotificationHighlight, NotificationImageBox, MoreOptionsDropdown, IncicleModulesDropdown, NotificationItem };
+export { NotificationContainer, NotificationContentText, NotificationHighlight, NotificationImageBox, MoreOptionsDropdown, IncicleModulesDropdown, NotificationItem, NotificationsContent };
