@@ -113,7 +113,6 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
     const queryKey = key || [NOTIFICATION_REQUEST_KEY, DEFAULT_NOTIFICATION_PARAMS];
 
     queryClient.setQueryData(queryKey, (previous: any) => {
-      console.log('previous',previous);
       const prev: AxiosResponse<NotificationWrapper> = previous;
       if (!prev.data.data) return;
 

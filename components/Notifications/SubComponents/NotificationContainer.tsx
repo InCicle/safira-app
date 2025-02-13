@@ -44,13 +44,27 @@ export const NotificationContainer: React.FC<
   const { api } = useHeaderProvider();
 
   function handleClick(ev?: any) {
+    
     if (onClick) {
       onClick(ev);
     }
-
+    
     if (notification) {
       markAsReaded(ev, notification, api, url);
     }
+
+    // if(!url) return;
+    
+    // const currentUrl = new URL(window.location.href);
+    // const notificationUrl = new URL(url);
+
+    // const currentDomain = `${currentUrl.hostname}`;
+    // const notificationDomain = `${notificationUrl.hostname}`;
+    // if (currentDomain === notificationDomain) {
+    //   ev.preventDefault();
+    //   const newUrl = `${notificationUrl.origin}${notificationUrl.pathname}`;
+    //   window.history.replaceState(null, '', newUrl);
+    // }
   }
 
   return (

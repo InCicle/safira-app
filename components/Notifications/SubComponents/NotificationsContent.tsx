@@ -25,7 +25,7 @@ export const NotificationsContent: React.FC = () => {
   const hasMoreContent = !(notificationsReqData.length < perPage);
   const showLoading = isLoading || hasMoreContent;
 
-  const handleLoadMoreContent = useCallback(() => {
+  const handleLoadMoreContent = useCallback(() => { 
     if (!isLoading && hasMoreContent) {
       fetchNotifications({ page: (params?.page || 1) + 1 });
     }
