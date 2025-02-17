@@ -17,7 +17,7 @@ import {
   NotificationProps,
   NotificationWrapper,
 } from 'safira-app/services/notifications';
-import NotificationUseCase from './NotificationUseCase';
+import NotificationService from '../services/notifications/NotificationService';
 
 type SetState<T = any> = React.Dispatch<React.SetStateAction<T>>;
 
@@ -71,7 +71,7 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
 
   const paramsFallbackRef = useRef<NotificationParamsType>(DEFAULT_NOTIFICATION_PARAMS);
 
-  const notificationUseCase = new NotificationUseCase({
+  const notificationUseCase = new NotificationService({
     api,
     dropdownOpened,
     notificationViewCount,

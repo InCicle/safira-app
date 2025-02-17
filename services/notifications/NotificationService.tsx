@@ -31,7 +31,7 @@ type NotificationOptionsType = {
 let DROPDOWN_TIMEOUT: NodeJS.Timeout | null = null;
 const DROPDOWN_DELAY = 800;
 
-export default class NotificationUseCase {
+export default class NotificationService {
   // presets ----------------------------------------- // --------------------------------------------------------- //
 
   private api: NotificationOptionsType['api'] = {} as any;
