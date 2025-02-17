@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { FC, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 

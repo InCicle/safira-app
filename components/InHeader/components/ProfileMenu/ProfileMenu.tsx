@@ -37,7 +37,7 @@ const CustomLink: React.FC<React.PropsWithChildren<CustomLinkProps>> = ({ childr
   </MUILink>
 );
 
-const ProfileMenu: React.ForwardRefRenderFunction<ProfileMenuRef> = (props, ref) => {
+const ProfileMenu: React.ForwardRefRenderFunction<ProfileMenuRef> = (_, ref) => {
   const { profiles } = useHeaderProvider();
   const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
