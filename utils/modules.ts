@@ -18,7 +18,7 @@ import InCheckIcon from 'safira-app/components/InHeader/components/icons/InCheck
 import SettingsIcon from 'safira-app/components/InHeader/components/icons/SettingsIcon';
 import InpontoIcon from 'safira-app/components/InHeader/components/icons/InpontoIcon';
 import ManagerIcon from 'safira-app/components/InHeader/components/icons/ManagerIcon';
-import ClimateResearchDisabledIcon from 'safira-app/components/InHeader/components/icons/ClimateResearchDisabledIcon';
+import ClimateResearchIcon from 'safira-app/components/InHeader/components/icons/ClimateResearchIcon';
 import OmbudsmanIcon from 'safira-app/components/InHeader/components/icons/OmbudsmanIcon';
 import HRConnectIcon from 'safira-app/components/InHeader/components/icons/HRConnectIcon';
 
@@ -287,7 +287,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   {
     title: 'climate_research',
     slug: MODULE_TYPES.climate_research,
-    icon: ClimateResearchDisabledIcon,
+    icon: ClimateResearchIcon,
     iconSize: 60,
     accountTypes: ['COMPANY'],
     url: `${links.web.survey}`,
