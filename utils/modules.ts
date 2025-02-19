@@ -290,7 +290,7 @@ export const incicleMenuModules: MenuModulesType[] = [
     icon: ClimateResearchDisabledIcon,
     iconSize: 60,
     accountTypes: ['COMPANY'],
-    url: null,
+    url: `${links.web.survey}`,
     description: {
       COMPANY: 'climate_research_description',
       PERSON: null,
@@ -458,13 +458,6 @@ export const incicleNotificationModules: FilterModulesType[] = [
     linkKey: 'social',
     userType: 'BOTH',
   },
-  // {
-  //   title: "Rede Social",
-  //   slug: MODULE_TYPES.group,
-  //   icon: "https://static-incicle.s3.amazonaws.com/rede-social.svg",
-  //   linkKey: "social",
-  //   userType: "BOTH",
-  // },
   {
     title: 'recruitment',
     slug: MODULE_TYPES.recruitment,
