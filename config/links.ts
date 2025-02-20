@@ -24,6 +24,7 @@ export type ModulesWeb = {
   incheck: string;
   ombudsman: string;
   hrconnect: string;
+  survey: string;
 };
 
 export type AwsUrl = {
@@ -67,7 +68,8 @@ export const links: Modulelinks = {
     manager: import.meta.env.VITE_APP_WEB_URL_MANAGER!,
     incheck: import.meta.env.VITE_APP_WEB_URL_INCHECK!,
     ombudsman: import.meta.env.VITE_APP_WEB_URL_OMBUDSMAN!,
-    hrconnect: import.meta.env.VITE_APP_WEB_URL_HRCONNECTION!
+    hrconnect: import.meta.env.VITE_APP_WEB_URL_HRCONNECTION!,
+    survey: import.meta.env.VITE_APP_WEB_URL_SURVEY!,
   },
   aws: {
     access_key_id: import.meta.env.VITE_APP_AWS_BUCKET_INCICLE_ACCESS_KEY_ID,

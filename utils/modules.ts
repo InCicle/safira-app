@@ -18,9 +18,10 @@ import InCheckIcon from '@/safira-app/components/InHeader/components/icons/InChe
 import SettingsIcon from '@/safira-app/components/InHeader/components/icons/SettingsIcon';
 import InpontoIcon from '@/safira-app/components/InHeader/components/icons/InpontoIcon';
 import ManagerIcon from '@/safira-app/components/InHeader/components/icons/ManagerIcon';
-import ClimateResearchDisabledIcon from '@/safira-app/components/InHeader/components/icons/ClimateResearchDisabledIcon';
 import OmbudsmanIcon from '@/safira-app/components/InHeader/components/icons/OmbudsmanIcon';
 import HRConnectIcon from '@/safira-app/components/InHeader/components/icons/HRConnectIcon';
+import ClimateResearchIcon from '@/safira-app/components/InHeader/components/icons/ClimateResearchIcon';
+import ClimateResearchDisabledIcon from '@/safira-app/components/InHeader/components/icons/ClimateResearchDisabledIcon';
 
 export type MenuModulesType = {
   title: string;
@@ -287,10 +288,10 @@ export const incicleMenuModules: MenuModulesType[] = [
   {
     title: 'climate_research',
     slug: MODULE_TYPES.climate_research,
-    icon: ClimateResearchDisabledIcon,
+    icon: links.production ? ClimateResearchDisabledIcon : ClimateResearchIcon,
     iconSize: 60,
     accountTypes: ['COMPANY'],
-    url: null,
+    url: `${links.web.survey}`,
     description: {
       COMPANY: 'climate_research_description',
       PERSON: null,
@@ -458,13 +459,6 @@ export const incicleNotificationModules: FilterModulesType[] = [
     linkKey: 'social',
     userType: 'BOTH',
   },
-  // {
-  //   title: "Rede Social",
-  //   slug: MODULE_TYPES.group,
-  //   icon: "https://static-incicle.s3.amazonaws.com/rede-social.svg",
-  //   linkKey: "social",
-  //   userType: "BOTH",
-  // },
   {
     title: 'recruitment',
     slug: MODULE_TYPES.recruitment,
