@@ -96,12 +96,12 @@ export function createBrowserNotification(item: NotificationProps) {
     case MODULE_TYPES.evaluation360:
       return createEvaluationBrowserNotificationFactory(notification);
 
-    case MODULE_TYPES.organizational_engineering:
+    case MODULE_TYPES.personal_department:
       return createOrganizationalEngineeringBrowserNotificationFactory(
         notification,
       );
 
-    case MODULE_TYPES.personal_department:
+    case MODULE_TYPES.admission:
       NotificationEvent.emit('update_personal_department_module');
       return createPersonalDepartmentBrowserNotificationFactory(notification);
 

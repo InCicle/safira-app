@@ -1,7 +1,12 @@
-import moment from 'moment';
 import { reduceString } from 'safira-app/utils/reduceString';
 import { NotificationProps } from 'safira-app/services/notifications';
-import { getStatus } from 'safira-app/utils/getStatus';
+
+ const statusMap: Record<string, string> = {
+    PENDING: "Pendente",
+    IN_PROGRESS: "Em Andamento",
+    COMPLETED: "Concluído",
+    ARCHIVED: "Arquivado",
+  };
 
 const notificationType = {
   TICKET_RECEIVED: 'TICKET_RECEIVED',
@@ -17,9 +22,7 @@ export function createOmbudsmanBrowserNotificationFactory(notification: Notifica
       return `Nova comunicação recebida: ${reduceString(common.content || '', 50)}`;
 
     case notificationType.TICKET_CHANGE_STATUS:
-      return `O status da sua comunicação com a ${common.company_name} foi atualizado para ${getStatus(
-        common.new_status,
-      )}`;
+      return `O status da sua comunicação com a ${common.company_name} foi atualizado para ${statusMap[common.new_status.toUpperCase()] || common.new_status}`;
 
     case notificationType.TICKET_NEW_MESSAGE:
       return `Uma nova mensagem foi enviada sobre a comunicação ${common.communication_id}`;

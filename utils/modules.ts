@@ -411,14 +411,14 @@ export const incicleNotificationModules: FilterModulesType[] = [
   },
   {
     title: 'admission',
-    slug: MODULE_TYPES.personal_department,
+    slug: MODULE_TYPES.admission,
     icon: 'https://static-incicle.s3.amazonaws.com/departamento-pessoal.svg',
     linkKey: 'personal_department',
     userType: 'BOTH',
   },
   {
     title: 'personal_department',
-    slug: MODULE_TYPES.organizational_engineering,
+    slug: MODULE_TYPES.personal_department,
     icon: 'https://static-incicle.s3.amazonaws.com/engenharia-organizacional.svg',
     linkKey: 'social',
     userType: 'COMPANY',

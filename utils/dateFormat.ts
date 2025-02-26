@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { getDefaultLanguage } from './getDefaultLanguage';
 
 export const dateFormat = (date: string | Date, format: string) => {
   /**
@@ -10,5 +11,6 @@ export const dateFormat = (date: string | Date, format: string) => {
    *
    * return: formated date as string
    */
-  return moment(date).locale('pt-br').format(format);
+  const default_language = getDefaultLanguage();
+  return moment(date).locale(default_language).format(format);
 };

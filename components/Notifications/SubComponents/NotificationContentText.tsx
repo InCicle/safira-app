@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import TimeAgo from "safira-app/libs/timeago";
 import { NotificationProps } from "safira-app/services/notifications";
 import { Format } from 'safira-app/libs/timeago/types';
-import { getDefaultLanguage } from "@/safira-app/utils/getDefaultLanguage";
+import { getDefaultLanguage } from "safira-app/utils/getDefaultLanguage";
 
 const default_language = getDefaultLanguage();
 
