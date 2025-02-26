@@ -53,18 +53,19 @@ export const NotificationContainer: React.FC<
       markAsReaded(ev, notification, api, url);
     }
 
-    // if(!url) return;
+    if(!url) return;
     
-    // const currentUrl = new URL(window.location.href);
-    // const notificationUrl = new URL(url);
+    // redirect to the same domain instead of reload window
+    const currentUrl = new URL(window.location.href);
+    const notificationUrl = new URL(url);
 
-    // const currentDomain = `${currentUrl.hostname}`;
-    // const notificationDomain = `${notificationUrl.hostname}`;
-    // if (currentDomain === notificationDomain) {
-    //   ev.preventDefault();
-    //   const newUrl = `${notificationUrl.origin}${notificationUrl.pathname}`;
-    //   window.history.replaceState(null, '', newUrl);
-    // }
+    const currentDomain = `${currentUrl.hostname}`;
+    const notificationDomain = `${notificationUrl.hostname}`;
+    if (currentDomain === notificationDomain) {
+      ev.preventDefault();
+      const newUrl = `${notificationUrl.origin}${notificationUrl.pathname}`;
+      window.history.replaceState(null, '', newUrl);
+    }
   }
 
   return (
