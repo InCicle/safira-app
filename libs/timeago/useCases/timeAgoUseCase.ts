@@ -1,6 +1,8 @@
 import Cookies from 'js-cookie';
 import { Controller, Format, TimeStyle } from '../types';
 import { options } from './data';
+import { useAuth } from 'safira-app/hooks/useAuth';
+import { getDefaultLanguage } from 'safira-app/utils/getDefaultLanguage';
 
 type TimeAgoUseCaseProps = {
   format: Format;
@@ -12,9 +14,9 @@ export function timeAgoUseCase({
   date,
   timeStyle,
 }: Partial<TimeAgoUseCaseProps>) {
-  const default_language = Cookies.get('default_language') || 'en';
+  const defaultLanguage = getDefaultLanguage();
   const controller: Controller = {
-    format: default_language as Format || 'en',
+    format: defaultLanguage as Format || 'en',
     timeStyle: 'full',
     initialDate: new Date(),
     timerInterval: null,
