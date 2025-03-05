@@ -87,7 +87,7 @@ export const NotificationContainer: React.FC<
     >
       <Stack direction="row" style={{ width: '100%' }} alignItems="center">
         <Box sx={{ position: 'relative' }}>
-          <RenderAvatar src={notification?.sender.avatar_url} />
+          {notification && <RenderAvatar src={notification?.sender.avatar_url} />}
 
           {!!notification?.module && (
             <Box

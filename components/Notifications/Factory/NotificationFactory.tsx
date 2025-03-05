@@ -31,6 +31,7 @@ import {
   NotificationContainer,
   NotificationContentText,
   NotificationHighlight,
+  NotificationContainerToast,
 } from '../SubComponents';
 import { formatNotificationContent } from 'safira-app/utils/formatNotificationContent';
 import { Trans } from 'react-i18next';
@@ -56,16 +57,13 @@ export function createToastNotification(item: NotificationProps) {
   const notification = formatNotificationContent(item);
 
   return (
-    <NotificationContainer
-      url={notification.actionUrl}
-      notification={notification}
-    >
+    <NotificationContainerToast>
       <NotificationContentText notification={notification}>
        <Trans
         components={{ strong: <NotificationHighlight /> }}>
         {notification.content}</Trans>
       </NotificationContentText>
-    </NotificationContainer>
+    </NotificationContainerToast>
   );
 }
 
