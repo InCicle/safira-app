@@ -4,7 +4,8 @@ export type ModulesApi = {
   schedule: string;
   project: string;
   evaluation: string;
-  notification: string;
+  notifications_v1: string;
+  notifications_v2: string;
   personal_department: string;
   ombudsman: string;
 };
@@ -47,7 +48,8 @@ export const links: Modulelinks = {
   api: {
     core: process.env.REACT_APP_API_URL_CORE,
     evaluation: process.env.REACT_APP_API_URL_EVALUATION,
-    notification: process.env.REACT_APP_API_URL_NOTIFICATIONS,
+    notifications_v1: process.env.REACT_APP_API_V1_URL_NOTIFICATIONS,
+    notifications_v2: process.env.REACT_APP_API_V2_URL_NOTIFICATIONS,
     personal_department: process.env.REACT_APP_API_URL_PD,
     project: process.env.REACT_APP_API_URL_PROJECTS,
     schedule: process.env.REACT_APP_API_URL_SCHEDULE,

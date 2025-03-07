@@ -1,4 +1,4 @@
-export type Format = 'pt-BR' | 'en-US';
+export type Format = 'pt-BR' | 'en-US' | 'en' | 'pt';
 
 export type TimeStyle = 'mini' | 'full';
 

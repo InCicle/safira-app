@@ -4,7 +4,7 @@ interface ToastProps extends ToastContainerProps {
   appearance?: 'error' | 'success' | 'warning' | 'info';
 }
 
-type ToastFn = (message: JSX.Element | string, toastProps?: ToastProps) => void;
+type ToastFn = (message: React.ReactNode, toastProps?: ToastProps) => void;
 
 export const addToast: ToastFn = (message, toastProps) => {
   const appearance = toastProps?.appearance || 'info';

@@ -41,6 +41,8 @@ const removeAuthCookies = () => {
   Cookies.remove('user', { domain: domainName });
 
   Cookies.remove('companySelected', { domain: domainName });
+
+  Cookies.remove('selected_schedules', { domain: domainName });
 };
 
 const redirectToCore = () => {

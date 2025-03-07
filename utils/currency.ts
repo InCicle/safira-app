@@ -1,16 +1,16 @@
 export type CurrencyOptions = {
-  locale: string;
-  currencyCode: string;
+  locale: 'pt'|'en'|'pt-BR'|'en-US';
+  currencyCode: 'BRL'|'USD';
   float?: boolean;
 };
 
 export const CurrencyHandler = {
   withCurrency(value: number, options?: CurrencyOptions) {
-    const { currencyCode = 'BRL', locale = 'pt-BR', float } = options || {};
-    return Intl.NumberFormat(locale, {
+    options = options || { locale: 'en', currencyCode: 'USD' };
+    return Intl.NumberFormat(options.locale, {
       style: 'currency',
-      currency: currencyCode,
-    }).format(float ? value : value / 100);
+      currency: options.currencyCode,
+    }).format(options.float ? value : value / 100);
   },
 
   asInteger(value: string | number) {
