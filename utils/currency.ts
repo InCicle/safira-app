@@ -1,6 +1,10 @@
+import { language } from "../interfaces/Language";
+
+export type CurrencyCodeType = 'BRL' | 'USD';
+
 export type CurrencyOptions = {
-  locale: 'pt'|'en'|'pt-BR'|'en-US';
-  currencyCode: 'BRL'|'USD';
+  locale: language;
+  currencyCode: CurrencyCodeType;
   float?: boolean;
 };
 

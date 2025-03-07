@@ -1,10 +1,10 @@
-export type Format = 'pt-BR' | 'en-US' | 'en' | 'pt';
+import { language } from "../../interfaces/Language";
 
 export type TimeStyle = 'mini' | 'full';
 
 export type TimeAgoData = {
   date: string | Date;
-  format: Format;
+  format: language;
   timeStyle: TimeStyle;
 };
 
@@ -18,7 +18,7 @@ export type TimeOptions = {
 };
 
 export type Options = {
-  [K in Format]: {
+  [K in language]: {
     months: TimeOptions;
     days: TimeOptions;
     hours: TimeOptions;
@@ -28,7 +28,7 @@ export type Options = {
 };
 
 export type Controller = {
-  format: Format;
+  format: language;
   timeStyle: TimeStyle;
   initialDate: Date;
   timerInterval: null | any;
