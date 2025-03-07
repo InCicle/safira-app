@@ -17,7 +17,7 @@ import { translation } from 'safira-app/utils/translation';
 
 type AnchorButton = EventTarget & HTMLButtonElement;
 
-const IncicleModulesDropdown: React.FC = () => {
+export const IncicleModulesDropdown: React.FC = () => {
   const { user } = useHeaderProvider();
   const { params, isLoading, fetchNotifications } = useNotifications();
   const { t } = useTranslation();
@@ -130,5 +130,3 @@ const IncicleModulesDropdown: React.FC = () => {
     </>
   );
 };
-
-export default IncicleModulesDropdown;

@@ -5,12 +5,12 @@ import { generateId } from '../generateId';
 
 type TimeAgoProps = TimeAgoData & React.HTMLAttributes<HTMLSpanElement>;
 
-function TimeAgo({ date, format, timeStyle, ...rest }: Partial<TimeAgoProps>) {
+function TimeAgo({ date, timeStyle, ...rest }: Partial<TimeAgoProps>) {
   const elId = useMemo(() => generateId({ amount: 20, lowercase: true, uppercase: true }), []);
 
   useLayoutEffect(() => {
     const timeElement = document.querySelector(`#${elId}`) as HTMLSpanElement;
-    const timeAgo = timeAgoUseCase({ date, format, timeStyle });
+    const timeAgo = timeAgoUseCase({ date, timeStyle });
 
     timeAgo.startCounter();
 
@@ -21,7 +21,7 @@ function TimeAgo({ date, format, timeStyle, ...rest }: Partial<TimeAgoProps>) {
     return () => {
       timeAgo.stopCounter();
     };
-  }, [elId, date, format, timeStyle]);
+  }, [elId, date, timeStyle]);
 
   return (
     <span id={elId} role="timer" {...rest}>

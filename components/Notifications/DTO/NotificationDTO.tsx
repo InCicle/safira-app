@@ -1,12 +1,10 @@
-import React from 'react';
-
 import { NotificationProps } from 'safira-app/services/notifications';
-import { NotificationImageBox } from '../Factories/_abstract/ToastNotificationAbstract';
+import { NotificationImageBox } from '../SubComponents';
 import {
   createBrowserNotification,
   createDropdownNotification,
   createToastNotification,
-} from '../Factories/notificationFactory';
+} from '../Factory/NotificationFactory';
 
 export class NotificationDTO {
   notification: NotificationProps | null = null;
@@ -15,13 +13,13 @@ export class NotificationDTO {
     this.notification = notification;
   }
 
-  toDropdown() {
+  public toDropdown() {
     if (!this.notification) return <></>;
 
     return createDropdownNotification(this.notification);
   }
 
-  toToast() {
+  public toToast() {
     if (!this.notification) return null;
 
     return {
@@ -30,7 +28,7 @@ export class NotificationDTO {
     };
   }
 
-  toBrowserAPI() {
+  public toBrowserAPI() {
     if (!this.notification) return null;
 
     return createBrowserNotification(this.notification);

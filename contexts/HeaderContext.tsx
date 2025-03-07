@@ -76,7 +76,7 @@ const HeaderProvider: React.FC<React.PropsWithChildren<Props>> = ({ children, va
       }));
 
       // Mark notification as readed
-      api.patch(`${links.api.notification}/notifications/${data._id}`);
+      api.patch(`${links.api.notifications_v1}/notifications/${data._id}`);
     }
   };
 

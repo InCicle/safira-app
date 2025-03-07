@@ -3,12 +3,15 @@ import { MODULE_TYPES, NotificationFilterOptions } from './enums';
 export type NotificationFiltersType = {
   read?: NotificationFilterOptions;
   module?: MODULE_TYPES;
-  // module_filter: MODULE_TYPES;
 };
 
 export type NotificationParamsType = Partial<NotificationFiltersType> & {
   page?: number;
   perPage?: number;
+};
+
+export type NotificationHeadersType = {
+  language: string;
 };
 
 export type NotificationCommon = {
@@ -35,6 +38,8 @@ export type NotificationProps = {
   type: string;
   createdAt: string;
   updatedAt: string;
+  actionUrl: string;
+  content: string;
 };
 
 export type NotificationWrapper = {

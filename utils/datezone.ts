@@ -5,7 +5,7 @@ export function DateZoneHandler(dateValue: string) {
   const { user } = useHeaderProvider();
 
   function getDateTime() {
-    const dateTime = new Date(dateValue).toLocaleString('en-US', {
+    const dateTime = new Date(dateValue).toLocaleString(user.config.default_language, {
       timeZone: user.config.default_timezone,
     });
 

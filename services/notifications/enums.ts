@@ -7,8 +7,8 @@ export enum NotificationFilterOptions {
 export enum MODULE_TYPES {
   all = '',
   schedule = 'schedule',
-  personal_department = 'personal_department',
-  organizational_engineering = 'organizational_engineering',
+  admission = 'personal_department',
+  personal_department = 'organizational_engineering',
   endomarketing = 'endomarketing',
   feedback = 'feedback',
   project = 'project',
