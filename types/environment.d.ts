@@ -10,11 +10,12 @@ declare global {
       VITE_APP_API_URL_SOCIAL_NETWORK: string;
       VITE_APP_API_URL_PROJECTS: string;
       VITE_APP_API_URL_SCHEDULE: string;
-      VITE_APP_API_URL_NOTIFICATIONS: string;
       VITE_APP_API_URL_CORE: string;
       VITE_APP_API_URL_EVALUATION: string;
       VITE_APP_API_URL_PD: string;
       VITE_APP_API_URL_OB: string;
+      VITE_APP_API_V1_URL_NOTIFICATIONS: string;
+      VITE_APP_API_V2_URL_NOTIFICATIONS: string;
 
       // WEB
       VITE_APP_WEB_URL_SOCIAL_NETWORK: string;

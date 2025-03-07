@@ -4,7 +4,8 @@ export type ModulesApi = {
   schedule: string;
   project: string;
   evaluation: string;
-  notification: string;
+  notifications_v1: string;
+  notifications_v2: string;
   personal_department: string;
   ombudsman: string;
 };
@@ -47,12 +48,13 @@ export const links: Modulelinks = {
   api: {
     core: import.meta.env.VITE_APP_API_URL_CORE,
     evaluation: import.meta.env.VITE_APP_API_URL_EVALUATION,
-    notification: import.meta.env.VITE_APP_API_URL_NOTIFICATIONS,
     personal_department: import.meta.env.VITE_APP_API_URL_PD,
     project: import.meta.env.VITE_APP_API_URL_PROJECTS,
     schedule: import.meta.env.VITE_APP_API_URL_SCHEDULE,
     social: import.meta.env.VITE_APP_API_URL_SOCIAL_NETWORK,
     ombudsman: import.meta.env.VITE_APP_API_URL_OB,
+    notifications_v1: import.meta.env.VITE_APP_API_V1_URL_NOTIFICATIONS,
+    notifications_v2: import.meta.env.VITE_APP_API_V2_URL_NOTIFICATIONS,
   },
   web: {
     core: import.meta.env.VITE_APP_WEB_URL_CORE,

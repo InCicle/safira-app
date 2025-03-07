@@ -6,13 +6,11 @@ export function createEmitter<EventsType = any>() {
     events: null,
 
     addNewEventsInList(name, eventList) {
-      // @ts-ignore
       const events = Emitter.events![name]?.filter(event => {
         const keys = eventList.map(item => item?.key);
         return !keys.includes(event?.key);
       });
 
-      // @ts-ignore
       Emitter.events![name] = eventList.concat(events) as any;
     },
 
@@ -61,7 +59,6 @@ export function createEmitter<EventsType = any>() {
       }
 
       const event = Emitter.events![eventName];
-      // @ts-ignore
       const newEventList: any = event.filter(eventItem => eventItem?.key !== eventItemName);
 
       Emitter.events![eventName] = newEventList;
@@ -74,7 +71,6 @@ export function createEmitter<EventsType = any>() {
       }
 
       const event = Emitter.events![eventName];
-      // @ts-ignore
       const newEventList: any = event.filter(eventItem => eventItem?.key !== eventItemName);
 
       Emitter.events![eventName] = newEventList;

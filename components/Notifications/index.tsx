@@ -8,7 +8,7 @@ import { useNotifications } from '@/safira-app/hooks/useNotifications';
 import { useQuery } from '@/safira-app/hooks/useQuery';
 import { useRender } from '@/safira-app/hooks/useRender';
 
-import NotificationsContent from './NotificationsContent';
+import { NotificationsContent } from './SubComponents';
 
 type AnchorButton = EventTarget & HTMLButtonElement;
 
