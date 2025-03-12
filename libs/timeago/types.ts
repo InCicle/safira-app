@@ -1,4 +1,4 @@
-import { LanguageType } from 'safira-app/interfaces/Language';
+import { LanguageType } from '../../interfaces/Language';
 
 export type TimeStyle = 'mini' | 'full';
 
