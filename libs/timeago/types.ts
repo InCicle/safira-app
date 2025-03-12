@@ -1,10 +1,10 @@
-import { language } from '../../interfaces/Language';
+import { LanguageType } from '@/safira-app/interfaces/Language';
 
 export type TimeStyle = 'mini' | 'full';
 
 export type TimeAgoData = {
   date: string | Date;
-  format: language;
+  format: LanguageType;
   timeStyle: TimeStyle;
 };
 
@@ -18,7 +18,7 @@ export type TimeOptions = {
 };
 
 export type Options = {
-  [K in language]: {
+  [K in LanguageType]: {
     months: TimeOptions;
     days: TimeOptions;
     hours: TimeOptions;
@@ -28,7 +28,7 @@ export type Options = {
 };
 
 export type Controller = {
-  format: language;
+  format: LanguageType;
   timeStyle: TimeStyle;
   initialDate: Date;
   timerInterval: null | any;

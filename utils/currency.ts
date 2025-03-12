@@ -1,16 +1,16 @@
-import { language } from '../interfaces/Language';
+import { LanguageType } from '@/safira-app/interfaces/Language';
 
 export type CurrencyCodeType = 'BRL' | 'USD';
 
 export type CurrencyOptions = {
-  locale: language;
+  locale: LanguageType;
   currencyCode: CurrencyCodeType;
   float?: boolean;
 };
 
 export const CurrencyHandler = {
   withCurrency(value: number, options?: CurrencyOptions) {
-    options = options || { locale: 'en', currencyCode: 'USD' };
+    options = options || { locale: LanguageType.en, currencyCode: 'USD' };
     return Intl.NumberFormat(options.locale, {
       style: 'currency',
       currency: options.currencyCode,

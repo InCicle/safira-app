@@ -1,10 +1,10 @@
-import { language } from '../../../interfaces/Language';
+import { LanguageType } from '@/safira-app/interfaces/Language';
 import { Controller, TimeStyle } from '../types';
 import { options } from './data';
 import { getDefaultLanguage } from '@/safira-app/utils/getDefaultLanguage';
 
 type TimeAgoUseCaseProps = {
-  format: language;
+  format: LanguageType;
   date: string | Date;
   timeStyle: TimeStyle;
 };
@@ -12,7 +12,7 @@ type TimeAgoUseCaseProps = {
 export function timeAgoUseCase({ date, timeStyle }: Partial<TimeAgoUseCaseProps>) {
   const defaultLanguage = getDefaultLanguage();
   const controller: Controller = {
-    format: defaultLanguage as language || 'en',
+    format: defaultLanguage as LanguageType,
     timeStyle: 'full',
     initialDate: new Date(),
     timerInterval: null,
