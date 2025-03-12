@@ -40,14 +40,9 @@ export function createDropdownNotification(item: NotificationProps) {
   const notification = formatNotificationContent(item);
 
   return (
-    <NotificationContainer
-      url={notification.actionUrl}
-      notification={notification}
-    >
+    <NotificationContainer url={notification.actionUrl} notification={notification}>
       <NotificationContentText notification={notification}>
-        <Trans
-        components={{ strong: <NotificationHighlight /> }}>
-        {notification.content}</Trans>
+        <Trans components={{ strong: <NotificationHighlight /> }}>{notification.content}</Trans>
       </NotificationContentText>
     </NotificationContainer>
   );
@@ -59,9 +54,7 @@ export function createToastNotification(item: NotificationProps) {
   return (
     <NotificationContainerToast>
       <NotificationContentText notification={notification}>
-       <Trans
-        components={{ strong: <NotificationHighlight /> }}>
-        {notification.content}</Trans>
+        <Trans components={{ strong: <NotificationHighlight /> }}>{notification.content}</Trans>
       </NotificationContentText>
     </NotificationContainerToast>
   );
@@ -95,9 +88,7 @@ export function createBrowserNotification(item: NotificationProps) {
       return createEvaluationBrowserNotificationFactory(notification);
 
     case MODULE_TYPES.personal_department:
-      return createOrganizationalEngineeringBrowserNotificationFactory(
-        notification,
-      );
+      return createOrganizationalEngineeringBrowserNotificationFactory(notification);
 
     case MODULE_TYPES.admission:
       NotificationEvent.emit('update_personal_department_module');

@@ -24,11 +24,7 @@ export const NotificationImageBox: React.FC<{
           }}
         >
           <img
-            src={
-              incicleNotificationModules.find(
-                (incicleModule) => incicleModule.slug === notification.module,
-              )?.icon
-            }
+            src={incicleNotificationModules.find(incicleModule => incicleModule.slug === notification.module)?.icon}
             alt={notification.module}
             style={{ width: '100%', height: 'auto' }}
           />

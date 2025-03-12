@@ -1,12 +1,12 @@
 import { reduceString } from '@/safira-app/utils/reduceString';
 import { NotificationProps } from '@/safira-app/services/notifications';
 
- const statusMap: Record<string, string> = {
-    PENDING: "Pendente",
-    IN_PROGRESS: "Em Andamento",
-    COMPLETED: "Concluído",
-    ARCHIVED: "Arquivado",
-  };
+const statusMap: Record<string, string> = {
+  PENDING: 'Pendente',
+  IN_PROGRESS: 'Em Andamento',
+  COMPLETED: 'Concluído',
+  ARCHIVED: 'Arquivado',
+};
 
 
 const notificationType = {

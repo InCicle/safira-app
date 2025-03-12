@@ -25,11 +25,11 @@ type CustomLinkProps = {
 const CustomLink: React.FC<React.PropsWithChildren<CustomLinkProps>> = ({ children, href, icon }) => (
   <MUILink
     href={href}
-    underline={"none"}
+    underline={'none'}
     sx={{
       color: theme => theme.palette.grey[600],
-      display: "flex",
-      alignItems: "center",
+      display: 'flex',
+      alignItems: 'center',
     }}
   >
     <ListItemIcon>{icon}</ListItemIcon>
@@ -44,7 +44,7 @@ const ProfileMenu: React.ForwardRefRenderFunction<ProfileMenuRef> = (_, ref) => 
   const [openTutorial, setOpenTutorial] = useState(false);
 
   function handleSignOut() {
-    window.location.href = links.web.core + "/?signout=true";
+    window.location.href = links.web.core + '/?signout=true';
   }
 
   function openDropdown(ev: any) {
@@ -58,7 +58,7 @@ const ProfileMenu: React.ForwardRefRenderFunction<ProfileMenuRef> = (_, ref) => 
   function getMenuItemUrl() {
     const personUrl = `${links.web.social}/friends`;
     const companyUrl = `${links.web.department}/#/collaborators`;
-    return profiles?.type === "PERSON" ? personUrl : profiles?.type === "COMPANY" ? companyUrl : "#";
+    return profiles?.type === 'PERSON' ? personUrl : profiles?.type === 'COMPANY' ? companyUrl : '#';
   }
 
   useImperativeHandle(ref, () => {
@@ -79,47 +79,47 @@ const ProfileMenu: React.ForwardRefRenderFunction<ProfileMenuRef> = (_, ref) => 
         PaperProps={{
           elevation: 0,
           sx: {
-            overflow: "visible",
-            maxWidth: "250px",
-            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+            overflow: 'visible',
+            maxWidth: '250px',
+            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
             mt: 1.5,
-            "& .MuiAvatar-root": {
+            '& .MuiAvatar-root': {
               width: 32,
               height: 32,
               ml: -0.5,
               mr: 1,
             },
 
-            "&:before": {
+            '&:before': {
               content: '""',
-              display: "block",
-              position: "absolute",
+              display: 'block',
+              position: 'absolute',
               top: 0,
               right: 14,
               width: 10,
               height: 10,
-              bgcolor: "background.paper",
-              transform: "translateY(-50%) rotate(45deg)",
+              bgcolor: 'background.paper',
+              transform: 'translateY(-50%) rotate(45deg)',
               zIndex: 0,
             },
-            "& li, & a": {
+            '& li, & a': {
               fontFamily: '"Open Sans", sans-serif',
-              fontSize: "13px",
+              fontSize: '13px',
             },
             span: {
-              fontSize: "13px",
+              fontSize: '13px',
             },
           },
         }}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem
           sx={{
-            width: "initial !important",
-            textTransform: "capitalize",
-            overflowWrap: "anywhere",
-            whiteSpace: "break-spaces",
+            width: 'initial !important',
+            textTransform: 'capitalize',
+            overflowWrap: 'anywhere',
+            whiteSpace: 'break-spaces',
           }}
         >
           <CustomLink
@@ -128,8 +128,8 @@ const ProfileMenu: React.ForwardRefRenderFunction<ProfileMenuRef> = (_, ref) => 
               <RenderAvatar
                 src={profiles?.avatar}
                 sx={{
-                  width: "32px !important",
-                  height: "32px !important",
+                  width: '32px !important',
+                  height: '32px !important',
                   marginRight: 15,
                 }}
               />
@@ -143,23 +143,23 @@ const ProfileMenu: React.ForwardRefRenderFunction<ProfileMenuRef> = (_, ref) => 
         <Divider />
         <MenuItem>
           <CustomLink href={getMenuItemUrl()} icon={<PeopleAltIcon fontSize="small" />}>
-            {translation(t, profiles?.type === "PERSON" ? "friends" : "collaborators")}
+            {translation(t, profiles?.type === 'PERSON' ? 'friends' : 'collaborators')}
           </CustomLink>
         </MenuItem>
         <Divider />
         <MenuItem onClick={() => setOpenTutorial(true)}>
-          <CustomLink icon={<School fontSize="small" />}>{translation(t, "tutorials")}</CustomLink>
+          <CustomLink icon={<School fontSize="small" />}>{translation(t, 'tutorials')}</CustomLink>
         </MenuItem>
         <MenuItem>
           <CustomLink href={links.web.settings} icon={<SettingsIcon fontSize="small" />}>
-            {translation(t, "configurations")}
+            {translation(t, 'configurations')}
           </CustomLink>
         </MenuItem>
         <MenuItem onClick={() => handleSignOut()} sx={{ color: theme => theme.palette.grey[600] }}>
           <ListItemIcon>
             <ExitToAppIcon fontSize="small" />
           </ListItemIcon>
-          <span>{translation(t, "leave")}</span>
+          <span>{translation(t, 'leave')}</span>
         </MenuItem>
       </Menu>
     </>

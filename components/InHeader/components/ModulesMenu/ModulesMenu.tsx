@@ -30,7 +30,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
   const { activeManagerMenu } = props;
   const { checkPermission, companyId } = usePermissions();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-  const urlStepOne = "https://lp.stepone.com.br/";
+  const urlStepOne = 'https://lp.stepone.com.br/';
 
   function openDropdown(ev: any) {
     setAnchorEl(ev.currentTarget);
@@ -47,18 +47,18 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
     };
   });
   const getUrlUniversidadeCorporativa = moduleItem => {
-    if (moduleItem.title !== "corporative_university") {
+    if (moduleItem.title !== 'corporative_university') {
       return moduleItem.url;
     }
 
     const getUrlStepOne = redirects => {
-      const redirecionamentoStepOne = redirects.find(redirect => redirect.type === 1 || redirect.type === "STEPONE");
+      const redirecionamentoStepOne = redirects.find(redirect => redirect.type === 1 || redirect.type === 'STEPONE');
       return redirecionamentoStepOne ? redirecionamentoStepOne.url : urlStepOne;
     };
 
-    if (profiles?.type === "COMPANY") {
+    if (profiles?.type === 'COMPANY') {
       return profiles.redirects && profiles.redirects.length > 0 ? getUrlStepOne(profiles.redirects) : urlStepOne;
-    } else if (profiles?.type === "PERSON" && profiles.companies && profiles.companies.length > 0) {
+    } else if (profiles?.type === 'PERSON' && profiles.companies && profiles.companies.length > 0) {
       const currentCompany = profiles.companies.find(company => company.id === companyId);
       if (currentCompany && currentCompany.redirects && currentCompany.redirects.length > 0) {
         return getUrlStepOne(currentCompany.redirects);
@@ -81,21 +81,21 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
       PaperProps={{
         sx: {
           maxWidth: 680,
-          scrollbarWidth: "thin",
-          "&::-webkit-scrollbar": {
-            width: "10px",
-            height: "10px",
+          scrollbarWidth: 'thin',
+          '&::-webkit-scrollbar': {
+            width: '10px',
+            height: '10px',
           },
-          "&::-webkit-scrollbar-thumb": {
-            backgroundColor: "#a5a5a5",
-            borderRadius: "7px",
-            boxShadow: "none",
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: '#a5a5a5',
+            borderRadius: '7px',
+            boxShadow: 'none',
           },
 
-          "&::-webkit-scrollbar-track": {
-            backgroundColor: "#d8d9db",
-            borderRadius: "7px",
-            boxShadow: "none",
+          '&::-webkit-scrollbar-track': {
+            backgroundColor: '#d8d9db',
+            borderRadius: '7px',
+            boxShadow: 'none',
           },
         },
       }}
@@ -111,39 +111,39 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
       >
         <Box
           sx={{
-            width: "100%",
-            marginTop: "12px",
-            marginBottom: "16px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "8px",
+            width: '100%',
+            marginTop: '12px',
+            marginBottom: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px',
           }}
         >
           <Typography
             sx={{
-              color: "#008AC1",
-              fontSize: "22px",
-              fontWeight: "bold",
+              color: '#008AC1',
+              fontSize: '22px',
+              fontWeight: 'bold',
             }}
           >
-            {translation(t, "modules.title")}
+            {translation(t, 'modules.title')}
           </Typography>
         </Box>
-        <IconButton sx={{ marginBottom: "8px" }} onClick={closeDropdown}>
+        <IconButton sx={{ marginBottom: '8px' }} onClick={closeDropdown}>
           <CloseIcon />
         </IconButton>
       </Stack>
       <Divider />
       <Box
         sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-          padding: "8px 8px 0",
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+          padding: '8px 8px 0',
           [breakpoints.down(breakpointValue)]: {
-            display: "flex",
-            flexDirection: "column",
+            display: 'flex',
+            flexDirection: 'column',
           },
         }}
       >
@@ -174,35 +174,35 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
           <Divider />
           <Box
             sx={{
-              width: "100%",
-              marginTop: "12px",
-              marginBottom: "16px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "8px",
+              width: '100%',
+              marginTop: '12px',
+              marginBottom: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
             }}
           >
             <Typography
               sx={{
-                color: "#008AC1",
-                fontSize: "22px",
-                fontWeight: "bold",
+                color: '#008AC1',
+                fontSize: '22px',
+                fontWeight: 'bold',
               }}
             >
-              {translation(t, "company")}
+              {translation(t, 'company')}
             </Typography>
           </Box>
           <Divider />
           <Box
             sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "space-between",
-              padding: "8px 8px 0",
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'space-between',
+              padding: '8px 8px 0',
               [breakpoints.down(breakpointValue)]: {
-                display: "flex",
-                flexDirection: "column",
+                display: 'flex',
+                flexDirection: 'column',
               },
             }}
           >
