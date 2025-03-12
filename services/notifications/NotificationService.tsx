@@ -103,7 +103,7 @@ export default class NotificationService {
       return;
     }
 
-    this.setAllNotifications(old => [...old,...newNotifications]);
+    this.setAllNotifications(old => [...old, ...newNotifications]);
   }
 
   public appendNew(notification: NotificationProps) {

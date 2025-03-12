@@ -101,7 +101,7 @@ export const options: Options = {
       },
     },
   },
-  'pt': {
+  pt: {
     months: {
       one: {
         full: '[n] mês atrás',
@@ -151,7 +151,7 @@ export const options: Options = {
       },
     },
   },
-  'en': {
+  en: {
     months: {
       one: {
         full: '[n] month ago',

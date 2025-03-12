@@ -64,7 +64,7 @@ const HeaderProvider: React.FC<React.PropsWithChildren<Props>> = ({ children, va
      * return: void
      */
     const notificationIndex = notificationsData.data.findIndex(item => {
-      return item._id === data._id;
+      return item.id === data.id;
     });
     if (notificationIndex !== -1) {
       // Notification found
@@ -76,7 +76,7 @@ const HeaderProvider: React.FC<React.PropsWithChildren<Props>> = ({ children, va
       }));
 
       // Mark notification as readed
-      api.patch(`${links.api.notifications_v1}/notifications/${data._id}`);
+      api.patch(`${links.api.notifications_v1}/notifications/${data.id}`);
     }
   };
 

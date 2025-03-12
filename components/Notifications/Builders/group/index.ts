@@ -2,10 +2,10 @@ import { NotificationProps } from 'safira-app/services/notifications';
 import { reduceString } from 'safira-app/utils/reduceString';
 
 const converted = {
-    OPEN: 'aberto',
-    CLOSE: 'fechado',
-    SECRET: 'secreto',
-  };
+  OPEN: 'aberto',
+  CLOSE: 'fechado',
+  SECRET: 'secreto',
+};
 
 const notificationType = {
   USER_GRANT_ADMIN_TO_GROUP: 'USER_GRANT_ADMIN_TO_GROUP',
@@ -66,8 +66,8 @@ export function createGroupBrowserNotificationFactory(notification: Notification
       return `${sender.name} comentou em um comentário do grupo "${reduceString(common.group_name, 30)}"`;
 
     case notificationType.GROUP_TYPE_CHANGED:
-      return `O grupo ${reduceString(common.group_name, 30)} que você participa mudou seu tipo de ${converted
-        [common.old_type]
+      return `O grupo ${reduceString(common.group_name, 30)} que você participa mudou seu tipo de ${
+        converted[common.old_type]
       } para ${converted[common.new_type]}`;
 
     case notificationType.GROUP_DELETED:

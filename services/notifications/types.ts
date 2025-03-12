@@ -27,7 +27,7 @@ export type NotificationSender = {
 };
 
 export type NotificationProps = {
-  _id: string;
+  id: string;
   common: any;
   module: MODULE_TYPES;
   read: boolean;
