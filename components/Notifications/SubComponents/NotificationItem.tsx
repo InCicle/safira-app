@@ -14,4 +14,3 @@ export const NotificationItem: React.FC<Props> = ({ data }) => {
 
   return factory.toDropdown();
 };
-

@@ -1,4 +1,4 @@
-import { language } from "../../interfaces/Language";
+import { language } from '../../interfaces/Language';
 
 export type TimeStyle = 'mini' | 'full';
 

@@ -2,14 +2,18 @@ import { AxiosInstance } from 'axios';
 import { links } from 'safira-app/config/links';
 import { NotificationHeadersType, NotificationParamsType, NotificationWrapper } from './types';
 
-export const getNotifications = (api: AxiosInstance, params: NotificationParamsType, headers: NotificationHeadersType) => {
+export const getNotifications = (
+  api: AxiosInstance,
+  params: NotificationParamsType,
+  headers: NotificationHeadersType,
+) => {
   const { page, perPage, ...rest } = params;
   const { language } = headers;
   return api.get<NotificationWrapper>(`${links.api.notifications_v2}/notifications/me`, {
     params: { ...rest, page, size: perPage },
-    headers:{
+    headers: {
       'accept-language': language,
-    }
+    },
   });
 };
 

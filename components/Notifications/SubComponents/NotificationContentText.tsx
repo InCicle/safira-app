@@ -1,10 +1,11 @@
-import { Typography } from "@mui/material";
-import TimeAgo from "safira-app/libs/timeago";
-import { NotificationProps } from "safira-app/services/notifications";
+import { Typography } from '@mui/material';
+import TimeAgo from 'safira-app/libs/timeago';
+import { NotificationProps } from 'safira-app/services/notifications';
 
-export const NotificationContentText: React.FC<
-  React.PropsWithChildren<{ notification: NotificationProps }>
-> = ({ notification, children }) => {
+export const NotificationContentText: React.FC<React.PropsWithChildren<{ notification: NotificationProps }>> = ({
+  notification,
+  children,
+}) => {
   return (
     <Typography
       sx={{
