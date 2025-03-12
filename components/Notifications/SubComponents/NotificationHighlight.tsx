@@ -1,8 +1,6 @@
-import { SxProps, Typography,  Theme } from "@mui/material";
+import { SxProps, Typography, Theme } from '@mui/material';
 
-export const NotificationHighlight: React.FC<
-  React.PropsWithChildren<{ sx?: SxProps<Theme> }>
-> = ({ sx, children }) => {
+export const NotificationHighlight: React.FC<React.PropsWithChildren<{ sx?: SxProps<Theme> }>> = ({ sx, children }) => {
   return (
     <Typography
       component="label"

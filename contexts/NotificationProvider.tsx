@@ -87,9 +87,10 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
 
   const notificationsQuery = useQuery({
     queryKey: notificationKey,
-    queryFn: () => getNotifications(api, params, { 
-      language: user.config.default_language || 'en',
-    }),
+    queryFn: () =>
+      getNotifications(api, params, {
+        language: user.config.default_language || 'en',
+      }),
     placeholderData: state => state,
     retry: false,
     refetchOnMount: false,

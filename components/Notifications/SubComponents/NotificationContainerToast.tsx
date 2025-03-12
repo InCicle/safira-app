@@ -1,5 +1,5 @@
-import { Box, Stack } from "@mui/material";
-import { NotificationEvent } from "safira-app/providers/NotificationEvent";
+import { Box, Stack } from '@mui/material';
+import { NotificationEvent } from 'safira-app/providers/NotificationEvent';
 
 export const NotificationContainerToast: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
   function handleOpenDropdown() {

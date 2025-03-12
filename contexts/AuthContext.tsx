@@ -143,7 +143,7 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
         headers: {
           authorization: `Bearer ${token}`,
         },
-        method: 'GET'
+        method: 'GET',
       })
         .then(response => {
           const { access_token, expires_in } = response.data;
