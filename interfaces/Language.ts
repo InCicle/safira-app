@@ -1,1 +1,6 @@
-export type language = 'pt-BR' | 'en-US' | 'en' | 'pt';
+export enum LanguageType {
+  'pt-BR' = 'pt-BR',
+  'en-US' = 'en-US',
+  en = 'en',
+  pt = 'pt',
+}
