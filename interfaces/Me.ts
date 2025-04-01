@@ -60,6 +60,7 @@ export interface MeProps {
   name: string;
   logo: string | null;
   type: 'COMPANY' | 'PERSON';
+  cover: string | null;
   profile_id: string;
   avatar: string;
   companies: MeCompany[];
