@@ -67,7 +67,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
 
   useEffect(() => {
     if (user.type === 'COMPANY' || !me || !me?.companies) return;
-    const companySelected = me.companies.find(company => company.id === companyId);
+    const companySelected = me?.companies.find(company => company.id === companyId);
     if (!companySelected) return;
     if (
       !!companySelected.is_manager_competence ||
@@ -88,7 +88,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
 
       logoUrl = companyLogo || INCICLE_LOGO;
       isPublicUrl = !companyLogo;
-    } else if (me.type === 'COMPANY') {
+    } else if (me?.type === 'COMPANY') {
       logoUrl = me?.logo || INCICLE_LOGO;
       isPublicUrl = !me?.logo;
     }
@@ -126,8 +126,8 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
       if (me?.companies.length > 0) {
         const companySelected = Cookies.get('companySelected');
         if (!companySelected) {
-          Cookies.set('companySelected', me.companies[0].id, { domain: domainName });
-          setSelectedCompany(me.companies[0]);
+          Cookies.set('companySelected', me?.companies[0].id, { domain: domainName });
+          setSelectedCompany(me?.companies[0]);
         } else {
           const comp = me?.companies.find(company => company.id === companySelected);
           setSelectedCompany(comp);
