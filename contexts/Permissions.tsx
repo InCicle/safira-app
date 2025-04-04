@@ -53,22 +53,25 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
       me?.companies?.find(company => company.id === companySelected) ||
       (me?.companies?.length > 0 ? me?.companies[0] : undefined);
 
-    if (!!company || user.type === 'COMPANY') {
-      getAllPermissionsList(company?.id ?? user.profile_id)
-        .then(response => {
-          setPermissionsList(response);
-          if (user.type === 'PERSON') {
-            const hasVacationPermission = response.some(permission => permission.slug === 'managers_vacations_list');
-            const has360Permission = company?.is_manager_competence;
-            setManagerPermission(has360Permission || hasVacationPermission);
-          }
-
-          setRequestFinished(true);
-        })
-        .catch(() => {
-          setRequestFinished(true);
-        });
+    if (!company || user.type !== 'COMPANY') {
+      setRequestFinished(true);
+      return;
     }
+    
+    getAllPermissionsList(company?.id ?? user.profile_id)
+      .then(response => {
+        setPermissionsList(response);
+        if (user.type === 'PERSON') {
+          const hasVacationPermission = response.some(permission => permission.slug === 'managers_vacations_list');
+          const has360Permission = company?.is_manager_competence;
+          setManagerPermission(has360Permission || hasVacationPermission);
+        }
+
+        setRequestFinished(true);
+      })
+      .catch(() => {
+        setRequestFinished(true);
+      });
   }, [companySelected, me]); // eslint-disable-line
 
   const context = {
