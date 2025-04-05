@@ -1,16 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { getS3Object, BucketType } from '@/safira-app/services/aws/s3';
-// import { GetObjectRequest } from 'aws-sdk/clients/s3';
+import { BucketType, getS3Object } from '@/safira-app/services/aws/s3';
 
 export interface ImgProps extends React.HTMLAttributes<HTMLImageElement> {
   src: string;
   alt?: string;
-  bucket: BucketType;
+  bucket?: BucketType;
   options?: any;
 }
 
-const RenderImage: React.FC<ImgProps> = ({ src, alt, style, bucket, options, ...rest }) => {
+const RenderImage: React.FC<ImgProps> = ({ src, alt, style, bucket = "incicle", options, ...rest }) => {
   const [url, setUrl] = useState('');
+
 
   const fetcher = useCallback(async () => {
     try {
@@ -18,7 +18,7 @@ const RenderImage: React.FC<ImgProps> = ({ src, alt, style, bucket, options, ...
         const imageUrl = await getS3Object({ src, bucket, ...options });
         return imageUrl.base64;
       }
-    } catch (err) {
+    } catch {
       return '';
     }
   }, [src, bucket]); // eslint-disable-line

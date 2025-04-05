@@ -14,7 +14,7 @@ const getLowerCase = () => String.fromCharCode(rand(97, 122));
 const getSymbols = () => symbols[rand(0, symbols.length)];
 const getNumber = () => rand(0, 9);
 
-/* eslint-disable */
+
 // @ts-ignore
 Array.prototype.shuffle = function () {
   // Loop em todos os elementos
@@ -27,7 +27,7 @@ Array.prototype.shuffle = function () {
   // Retornando array com aleatoriedade
   return this;
 };
-/* eslint-enable */
+
 
 export function generateId({ amount, lowercase, uppercase, numbers, symbols }: PasswordConfig) {
   const arr: any[] = [];

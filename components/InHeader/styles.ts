@@ -41,6 +41,7 @@ export const HeaderInStyle = styled.header`
   .incicleheader-inputsearch {
     width: 100% !important;
     color: #747474;
+    font-family: 'Open Sans', sans-serif;
 
     &::placeholder {
       color: #747474aa !important;

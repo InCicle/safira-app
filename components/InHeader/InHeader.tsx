@@ -263,7 +263,6 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                     {!isPublicUrl ? (
                       <RenderImage
                         src={logoUrl}
-                        bucket="incicle"
                         className="logo"
                         alt="logo"
                         options={{ ResponseCacheControl: 'max-age=30000' }}
@@ -686,7 +685,6 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                     {!isPublicUrl ? (
                       <RenderImage
                         src={logoUrl}
-                        bucket="incicle"
                         className="logo"
                         alt="logo"
                         options={{ ResponseCacheControl: 'max-age=30000' }}

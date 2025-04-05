@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar, SxProps, Theme } from '@mui/material';
-import { getS3Object, BucketType } from '@/safira-app/services/aws/s3';
-
+import { BucketType } from '@/safira-app/services/aws/s3';
+import { fetcher } from '@/safira-app/utils/fetcher';
 import NoAvatar from '@/safira-app/assets/profileNotPhoto.svg';
 
 export interface RenderAvatarProps {
@@ -27,21 +27,10 @@ const RenderAvatar: React.FC<React.PropsWithChildren<RenderAvatarProps>> = ({
 }) => {
   const [url, setUrl] = useState('');
 
-  const fetcher = useCallback(async () => {
-    try {
-      if (!src) return;
-
-      const { base64 } = await getS3Object({ src, bucket });
-      return base64;
-    } catch {
-      return '';
-    }
-  }, [src, bucket]);
-
   useEffect(() => {
     if (!src) return;
 
-    fetcher().then(data => setUrl(data!));
+    fetcher(src, bucket).then(data => setUrl(data!));
   }, [fetcher, src]);
 
   return (
