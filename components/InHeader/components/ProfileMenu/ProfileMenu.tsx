@@ -8,7 +8,7 @@ import TutorialVideos from "../TutorialVideos";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import { School } from "@mui/icons-material";
+import School from "@mui/icons-material/School";
 import { translation } from "@/safira-app/utils/translation";
 import { useTranslation } from "react-i18next";
 
