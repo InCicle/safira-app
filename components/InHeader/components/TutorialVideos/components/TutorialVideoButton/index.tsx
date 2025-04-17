@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Typography, Modal } from '@mui/material';
-import { CheckCircle } from '@mui/icons-material';
+import CheckCircle from '@mui/icons-material/CheckCircle';
 import { Layout, WatchButton, ViewedButton } from './styles';
 
 interface Props {

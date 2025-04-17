@@ -1,16 +1,16 @@
-import React, { useImperativeHandle, useState } from "react";
-import { Box, Divider, IconButton, Menu, Stack, Typography, useTheme } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import { useHeaderProvider } from "@/safira-app/contexts/HeaderContext";
+import React, { useImperativeHandle, useState } from 'react';
+import { Box, Divider, IconButton, Menu, Stack, Typography, useTheme } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { useHeaderProvider } from '@/safira-app/contexts/HeaderContext';
 import {
   incicleMenuModules,
   incicleCollaboratorsMenuModules,
   incicleManagerMenuModules,
-} from "@/safira-app/utils/modules";
-import ModuleMenuItem from "./ModuleMenuItem";
-import { usePermissions } from "@/safira-app/contexts/Permissions";
-import { useTranslation } from "react-i18next";
-import { translation } from "@/safira-app/utils/translation";
+} from '@/safira-app/utils/modules';
+import ModuleMenuItem from './ModuleMenuItem';
+import { usePermissions } from '@/safira-app/contexts/PermissionsContext';
+import { useTranslation } from 'react-i18next';
+import { translation } from '@/safira-app/utils/translation';
 
 export type ModulesMenuRef = {
   openDropdown: (ev: any) => void;
