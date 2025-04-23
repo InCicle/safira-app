@@ -1,5 +1,5 @@
-import moment from 'moment';
 import { NotificationProps } from '@/safira-app/services/notifications';
+import { DateTime } from 'luxon';
 
 const notificationType = {
   NEW_EVENT_SCHEDULE_INVITATION: 'NEW_EVENT_SCHEDULE_INVITATION',
@@ -45,17 +45,17 @@ export function createScheduleBrowserNotificationFactory(notification: Notificat
   function returnEventUpdate(type: 'date' | 'local' | 'hour' | 'other') {
     switch (type) {
       case 'date':
-        return `a data do evento ${common.event_name} de ${moment(common.from).format('DD/MM/YYYY')} para ${moment(
-          common.to,
-        ).format('DD/MM/YYYY')}`;
+        return `a data do evento ${common.event_name} de ${DateTime.fromISO(common.from).toFormat(
+          'dd/MM/yyyy',
+        )} para ${DateTime.fromISO(common.to).toFormat('dd/MM/yyyy')}`;
 
       case 'local':
         return `o local do evento ${common.event_name} de ${common.from} para ${common.to}`;
 
       case 'hour':
-        return `o horário do evento de ${moment(common.from).format('DD/MM/YYYY')} às ${moment(common.from).format(
-          'HH:mm',
-        )} para às ${moment(common.to).format('HH:mm')}`;
+        return `o horário do evento de ${DateTime.fromISO(common.from).toFormat('dd/MM/yyyy')} às ${DateTime.fromISO(
+          common.from,
+        ).toFormat('HH:mm')} para às ${DateTime.fromISO(common.to).toFormat('HH:mm')}`;
 
       case 'other':
         return `o evento "${common.event_name}"`;
@@ -67,16 +67,18 @@ export function createScheduleBrowserNotificationFactory(notification: Notificat
 
   switch (notification.type) {
     case notificationType.NEW_EVENT_SCHEDULE_INVITATION:
-      return `${sender.name} convidou você para o evento "${common.event_name}" que acontecerá no dia ${moment(
-        common.date,
-      ).format('DD/MM/YYYY')} ${!notification.common.whole_day ? `às ${moment(common.date).format('HH:mm')}` : ''}.`;
+      return `${sender.name} convidou você para o evento "${
+        common.event_name
+      }" que acontecerá no dia ${DateTime.fromISO(common.date).toFormat('dd/MM/yyyy')} ${
+        !notification.common.whole_day ? `às ${DateTime.fromISO(common.date).toFormat('HH:mm')}` : ''
+      }.`;
 
     case notificationType.NEW_TASK_INVITATION:
       return `${sender.name} delegou a tarefa "${common.task_title}" ${
         common.date_hour
-          ? `com vencimento em ${moment(common.date_hour).format('DD/MM/YYYY')} às ${moment(common.date_hour).format(
-              'HH:mm',
-            )}`
+          ? `com vencimento em ${DateTime.fromISO(common.date_hour).toFormat('dd/MM/yyyy')} às ${DateTime.fromISO(
+              common.date_hour,
+            ).toFormat('HH:mm')}`
           : 'para você'
       }.`;
 

@@ -1,7 +1,6 @@
-import moment from 'moment';
-
 import { NotificationProps } from '@/safira-app/services/notifications';
 import { DateZoneHandler } from '@/safira-app/utils/datezone';
+import { DateTime } from 'luxon';
 
 const notificationType = {
   LINK_TO_RESEARCH: 'LINK_TO_RESEARCH',
@@ -22,7 +21,7 @@ export function createEvaluationBrowserNotificationFactory(notification: Notific
   const { sender, common } = notification;
 
   function formatDateNotification(date: string) {
-    return moment(date).format('yyyy-MM-DD');
+    return DateTime.fromISO(date, { zone: 'UTC' }).toFormat('yyyy-MM-dd');
   }
 
   switch (notification.type) {
@@ -44,7 +43,10 @@ export function createEvaluationBrowserNotificationFactory(notification: Notific
     case notificationType.SEARCH_EXPIRATION_OWN_EVALUATION:
       const maxDateHandlerToSearchExpirationOwnEvaluation = DateZoneHandler(formatDateNotification(common?.max_date));
       const dateNotificationMaxDate =
-        moment(maxDateHandlerToSearchExpirationOwnEvaluation.getDateTime()).diff(moment(), 'day') + 1;
+        DateTime.fromISO(maxDateHandlerToSearchExpirationOwnEvaluation.getDateTime(), { zone: 'UTC' }).diff(
+          DateTime.now(),
+          'days',
+        ).days + 1;
 
       return `A empresa ${sender.name} aguarda sua auto-avaliação da pesquisa "${
         common.name_research

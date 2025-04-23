@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { DateTime } from 'luxon';
 import { useHeaderProvider } from '@/safira-app/contexts/HeaderContext';
 
 export function DateZoneHandler(dateValue: string) {
@@ -20,7 +20,8 @@ export function DateZoneHandler(dateValue: string) {
     return dateTimeLocal;
   }
 
-  const withFormat = (format: string) => moment(getDateTime()).locale(user.config.default_language).format(format);
+  const withFormat = (format: string) =>
+    DateTime.fromJSDate(new Date(getDateTime())).setLocale(user.config.default_language).toFormat(format);
 
   return {
     withFormat,

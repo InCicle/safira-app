@@ -14,14 +14,14 @@ import WorkIcon from '@mui/icons-material/Work';
 
 import RenderAvatar from '@/safira-app/components/RenderAvatar';
 import Notifications from '@/safira-app/components/Notifications';
-import NotificationProvider from '@/safira-app/contexts/NotificationProvider';
+import NotificationProvider from '@/safira-app/contexts/NotificationContext';
 import { SearchItemInterface } from '@/safira-app/interfaces/Search';
 import { HeaderProvider } from '@/safira-app/contexts/HeaderContext';
 import { IUser } from '@/safira-app/interfaces/User';
 import { MeProps } from '@/safira-app/interfaces/Me';
 import { links } from '@/safira-app/config/links';
 
-import maxLetters from './utils/maxLettes';
+import maxLetters from './utils/maxLetters';
 import RenderSearchItem from './components/RenderSearchItem';
 import ModulesMenu, { ModulesMenuRef } from './components/ModulesMenu';
 import ProfileMenu, { ProfileMenuRef } from './components/ProfileMenu';
@@ -29,7 +29,7 @@ import { HeaderInStyle } from './styles';
 import { ToastUI } from '../Toast';
 import { domainName } from '@/safira-app/contexts/AuthContext';
 import RenderImage from '../RenderImage';
-import { usePermissions } from '../../contexts/Permissions';
+import { usePermissions } from '../../contexts/PermissionsContext';
 import WhatsAppButton from '../WhatsAppButton';
 import { translation } from '@/safira-app/utils/translation';
 
@@ -88,7 +88,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
 
       logoUrl = companyLogo || INCICLE_LOGO;
       isPublicUrl = !companyLogo;
-    } else if (me.type === 'COMPANY') {
+    } else if (me?.type === 'COMPANY') {
       logoUrl = me?.logo || INCICLE_LOGO;
       isPublicUrl = !me?.logo;
     }
@@ -126,8 +126,8 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
       if (me?.companies.length > 0) {
         const companySelected = Cookies.get('companySelected');
         if (!companySelected) {
-          Cookies.set('companySelected', me.companies[0].id, { domain: domainName });
-          setSelectedCompany(me.companies[0]);
+          Cookies.set('companySelected', me?.companies[0].id, { domain: domainName });
+          setSelectedCompany(me?.companies[0]);
         } else {
           const comp = me?.companies.find(company => company.id === companySelected);
           setSelectedCompany(comp);

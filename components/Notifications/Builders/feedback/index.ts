@@ -1,7 +1,6 @@
-import moment from 'moment';
-
 import { reduceString } from '@/safira-app/utils/reduceString';
 import { NotificationProps } from '@/safira-app/services/notifications';
+import { DateTime } from 'luxon';
 
 const notificationType = {
   RECEIVED_FEEDBACK: 'RECEIVED_FEEDBACK',
@@ -40,7 +39,8 @@ export function createFeedbackBrowserFactory(notification: NotificationProps) {
       return `${sender.name} respondeu sua solicitação de feedback.`;
 
     case notificationType.FEEDBACK_NEAR_END:
-      const dateNotificationMaxDate = moment(common?.max_date).diff(moment(), 'day') + 1;
+      const dateNotificationMaxDate =
+        DateTime.fromISO(common?.max_date, { zone: 'UTC' }).diff(DateTime.now(), 'days').days + 1;
 
       return `O evento de feedback "${common.event_name}" vencerá ${
         dateNotificationMaxDate > 1 ? `em ${dateNotificationMaxDate}` : 'amanhã'
