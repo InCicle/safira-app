@@ -1,4 +1,4 @@
-import { NotificationProps } from '@/safira-app/services/notifications';
+import { NotificationProps } from '@/safira-app/services/queries/notifications';
 import { reduceString } from '@/safira-app/utils/reduceString';
 
 const notificationType = {

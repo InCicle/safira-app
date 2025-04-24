@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import InCicleBotIcon from './incicle_bot.jpg';
+import InCicleBotIcon from '@/safira-app/assets/incicle/incicle_bot.jpg';
 
 const WhatsAppLink = styled.a`
   position: fixed;

@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const ToastUI: FC = () => {
+export const ToastUI: FC = () => {
   const toastContainer = useMemo<HTMLDivElement>(() => {
     const element = document.createElement('div');
 
@@ -15,9 +15,6 @@ const ToastUI: FC = () => {
   }, []);
 
   useEffect(() => {
-    // if (!Array.from(document.body.children).some(child => child.id === "toast-root")) {
-    //   document.body.insertBefore(toastContainer, document.body.firstChild);
-    // }
     document.body.appendChild(toastContainer);
 
     return () => {
@@ -32,5 +29,3 @@ const ToastUI: FC = () => {
     toastContainer,
   );
 };
-
-export default ToastUI;

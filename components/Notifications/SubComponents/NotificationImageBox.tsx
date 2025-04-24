@@ -1,6 +1,6 @@
-import { NotificationProps } from '@/safira-app/services/notifications';
+import { NotificationProps } from '@/safira-app/services/queries/notifications';
 import { Box } from '@mui/material';
-import RenderAvatar from '@/safira-app/components/RenderAvatar';
+import { RenderAvatar } from '@/safira-app/components/RenderAvatar';
 import { incicleNotificationModules } from '@/safira-app/utils/modules';
 
 export const NotificationImageBox: React.FC<{

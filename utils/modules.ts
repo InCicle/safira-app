@@ -1,27 +1,27 @@
-import { links, ModulesWeb } from '@/safira-app/config/links';
 import { MeProps } from '@/safira-app/interfaces/Me';
-import { MODULE_TYPES } from '@/safira-app/services/notifications';
+import { links, ModulesWeb } from '@/safira-app/config/links';
+import { MODULES, ModulesType } from '@/safira-app/interfaces/Modules';
 
-import SteponeIcon from '@/safira-app/components/InHeader/components/icons/SteponeIcon';
-import ScheduleIcon from '@/safira-app/components/InHeader/components/icons/ScheduleIcon';
-import AdmissionIcon from '@/safira-app/components/InHeader/components/icons/AdmissionIcon';
-import PersonalDepartmentIcon from '@/safira-app/components/InHeader/components/icons/PersonalDepartmentIcon';
-import EndoMarketingIcon from '@/safira-app/components/InHeader/components/icons/EndoMarketingIcon';
-import FeedbackIcon from '@/safira-app/components/InHeader/components/icons/FeedbackIcon';
-import ProjectManagementIcon from '@/safira-app/components/InHeader/components/icons/ProjectManagementIcon';
-import CompetencyIcon from '@/safira-app/components/InHeader/components/icons/CompetencyIcon';
-import SocialNetworkIcon from '@/safira-app/components/InHeader/components/icons/SocialNetworkIcon';
-import PolicyIcon from '@/safira-app/components/InHeader/components/icons/PolicyIcon';
-import OkrIcon from '@/safira-app/components/InHeader/components/icons/OkrIcon';
-import TaskIcon from '@/safira-app/components/InHeader/components/icons/TaskIcon';
-import InCheckIcon from '@/safira-app/components/InHeader/components/icons/InCheckIcon';
-import SettingsIcon from '@/safira-app/components/InHeader/components/icons/SettingsIcon';
-import InpontoIcon from '@/safira-app/components/InHeader/components/icons/InpontoIcon';
-import ManagerIcon from '@/safira-app/components/InHeader/components/icons/ManagerIcon';
-import OmbudsmanIcon from '@/safira-app/components/InHeader/components/icons/OmbudsmanIcon';
-import HRConnectIcon from '@/safira-app/components/InHeader/components/icons/HRConnectIcon';
-import ClimateResearchIcon from '@/safira-app/components/InHeader/components/icons/ClimateResearchIcon';
-import ClimateResearchDisabledIcon from '@/safira-app/components/InHeader/components/icons/ClimateResearchDisabledIcon';
+import SteponeIcon from '@/safira-app/assets/tutorials/SteponeIcon';
+import ScheduleIcon from '@/safira-app/assets/tutorials/ScheduleIcon';
+import AdmissionIcon from '@/safira-app/assets/tutorials/AdmissionIcon';
+import PersonalDepartmentIcon from '@/safira-app/assets/tutorials/PersonalDepartmentIcon';
+import EndoMarketingIcon from '@/safira-app/assets/tutorials/EndoMarketingIcon';
+import FeedbackIcon from '@/safira-app/assets/tutorials/FeedbackIcon';
+import ProjectManagementIcon from '@/safira-app/assets/tutorials/ProjectManagementIcon';
+import CompetencyIcon from '@/safira-app/assets/tutorials/CompetencyIcon';
+import SocialNetworkIcon from '@/safira-app/assets/tutorials/SocialNetworkIcon';
+import PolicyIcon from '@/safira-app/assets/tutorials/PolicyIcon';
+import OkrIcon from '@/safira-app/assets/tutorials/OkrIcon';
+import TaskIcon from '@/safira-app/assets/tutorials/TaskIcon';
+import InCheckIcon from '@/safira-app/assets/tutorials/InCheckIcon';
+import SettingsIcon from '@/safira-app/assets/tutorials/SettingsIcon';
+import InpontoIcon from '@/safira-app/assets/tutorials/InpontoIcon';
+import ManagerIcon from '@/safira-app/assets/tutorials/ManagerIcon';
+import OmbudsmanIcon from '@/safira-app/assets/tutorials/OmbudsmanIcon';
+import HRConnectIcon from '@/safira-app/assets/tutorials/HRConnectIcon';
+import ClimateResearchIcon from '@/safira-app/assets/tutorials/ClimateResearchIcon';
+import ClimateResearchDisabledIcon from '@/safira-app/assets/tutorials/ClimateResearchDisabledIcon';
 
 export type MenuModulesType = {
   title: string;
@@ -41,7 +41,7 @@ export type MenuModulesType = {
 export const incicleMenuModules: MenuModulesType[] = [
   {
     title: 'schedule',
-    slug: MODULE_TYPES.schedule,
+    slug: MODULES.schedule,
     icon: ScheduleIcon,
     iconSize: 60,
     url: links.web.schedule,
@@ -54,7 +54,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   },
   {
     title: 'admission',
-    slug: MODULE_TYPES.schedule,
+    slug: MODULES.schedule,
     icon: AdmissionIcon,
     iconSize: 60,
     url: links.web.personal_department,
@@ -67,7 +67,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   },
   {
     title: 'personal_department',
-    slug: MODULE_TYPES.schedule,
+    slug: MODULES.schedule,
     icon: PersonalDepartmentIcon,
     iconSize: 60,
     url: links.web.department,
@@ -80,7 +80,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   },
   {
     title: 'endomarketing',
-    slug: MODULE_TYPES.schedule,
+    slug: MODULES.schedule,
     icon: EndoMarketingIcon,
     iconSize: 60,
     url: `${links.web.social}/endomarketing`,
@@ -93,7 +93,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   },
   {
     title: 'feedback',
-    slug: MODULE_TYPES.schedule,
+    slug: MODULES.schedule,
     icon: FeedbackIcon,
     iconSize: 60,
     url: `${links.web.social}/feedback`,
@@ -106,7 +106,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   },
   {
     title: 'projects',
-    slug: MODULE_TYPES.project,
+    slug: MODULES.project,
     icon: ProjectManagementIcon,
     iconSize: 60,
     url: links.web.project,
@@ -119,7 +119,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   },
   {
     title: 'evaluation',
-    slug: MODULE_TYPES.evaluation360,
+    slug: MODULES.evaluation360,
     icon: CompetencyIcon,
     iconSize: 60,
     url: links.web.evaluation,
@@ -132,7 +132,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   },
   {
     title: 'evaluation',
-    slug: MODULE_TYPES.evaluation360,
+    slug: MODULES.evaluation360,
     icon: CompetencyIcon,
     iconSize: 60,
     url: links.web.evaluation + '/user_view',
@@ -145,7 +145,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   },
   {
     title: 'social_network',
-    slug: MODULE_TYPES.social_network,
+    slug: MODULES.social_network,
     icon: SocialNetworkIcon,
     iconSize: 60,
     url: links.web.social,
@@ -158,7 +158,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   },
   {
     title: 'policies_and_procedures',
-    slug: MODULE_TYPES.policy,
+    slug: MODULES.policy,
     icon: PolicyIcon,
     iconSize: 60,
     accountTypes: ['COMPANY'],
@@ -184,7 +184,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   },
   {
     title: 'tasks',
-    slug: MODULE_TYPES.task_manager,
+    slug: MODULES.task_manager,
     icon: TaskIcon,
     iconSize: 60,
     url: `${links.web.schedule}/taskmanager`,
@@ -197,7 +197,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   },
   {
     title: 'in_check',
-    slug: MODULE_TYPES.in_check,
+    slug: MODULES.in_check,
     icon: InCheckIcon,
     iconSize: 60,
     url: links.web.incheck,
@@ -216,13 +216,13 @@ export const incicleMenuModules: MenuModulesType[] = [
       '0d89f852-b668-400c-aa44-21ca27070460',
       'f3211394-f05b-4d61-a20c-478eea1bd200',
       '27b1d388-b9ce-4999-9189-01118412a4e9',
-      '52778a5e-ee6d-4884-86a9-cad72599f0f6'
+      '52778a5e-ee6d-4884-86a9-cad72599f0f6',
     ],
     redirectType: 'internal',
   },
   {
     title: 'system_configurations',
-    slug: MODULE_TYPES.task_manager,
+    slug: MODULES.task_manager,
     icon: SettingsIcon,
     iconSize: 60,
     url: `${links.web.settings}`,
@@ -236,7 +236,7 @@ export const incicleMenuModules: MenuModulesType[] = [
 
   {
     title: 'in_point',
-    slug: MODULE_TYPES.in_point,
+    slug: MODULES.in_point,
     icon: InpontoIcon,
     iconSize: 60,
     url: 'https://inponto.incicle.com/',
@@ -249,7 +249,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   },
   {
     title: 'corporative_university',
-    slug: MODULE_TYPES.task_manager,
+    slug: MODULES.task_manager,
     icon: SteponeIcon,
     iconSize: 60,
     url: 'https://lp.stepone.com.br/',
@@ -262,7 +262,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   },
   {
     title: 'ombudsman',
-    slug: MODULE_TYPES.ombudsman,
+    slug: MODULES.ombudsman,
     icon: OmbudsmanIcon,
     iconSize: 60,
     url: `${links.web.ombudsman}`,
@@ -275,7 +275,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   },
   {
     title: 'hrconnect',
-    slug: MODULE_TYPES.hr_connect,
+    slug: MODULES.hr_connect,
     icon: HRConnectIcon,
     iconSize: 60,
     url: `${links.web.hrconnect}`,
@@ -288,7 +288,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   },
   {
     title: 'climate_research',
-    slug: MODULE_TYPES.climate_research,
+    slug: MODULES.climate_research,
     icon: links.production ? ClimateResearchDisabledIcon : ClimateResearchIcon,
     iconSize: 60,
     accountTypes: ['COMPANY'],
@@ -304,7 +304,7 @@ export const incicleMenuModules: MenuModulesType[] = [
 export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
   {
     title: 'personal_department',
-    slug: MODULE_TYPES.all,
+    slug: MODULES.all,
     icon: PersonalDepartmentIcon,
     iconSize: 60,
     url: links.web.department,
@@ -318,7 +318,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
   },
   {
     title: 'endomarketing',
-    slug: MODULE_TYPES.schedule,
+    slug: MODULES.schedule,
     icon: EndoMarketingIcon,
     iconSize: 60,
     url: `${links.web.social}/endomarketing`,
@@ -332,7 +332,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
   },
   {
     title: 'admission',
-    slug: MODULE_TYPES.schedule,
+    slug: MODULES.schedule,
     icon: AdmissionIcon,
     iconSize: 60,
     url: `${links.web.personal_department}/dashboard`,
@@ -346,7 +346,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
   },
   {
     title: 'evaluation',
-    slug: MODULE_TYPES.evaluation360,
+    slug: MODULES.evaluation360,
     icon: CompetencyIcon,
     iconSize: 60,
     url: links.web.evaluation,
@@ -360,7 +360,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
   },
   {
     title: 'in_check',
-    slug: MODULE_TYPES.in_check,
+    slug: MODULES.in_check,
     icon: InCheckIcon,
     iconSize: 60,
     url: `${links.web.incheck}/dashboard`,
@@ -376,7 +376,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
 
 export const incicleManagerMenuModules: MenuModulesType = {
   title: 'manager_panel',
-  slug: MODULE_TYPES.all,
+  slug: MODULES.all,
   icon: ManagerIcon,
   iconSize: 50,
   url: links.web.manager,
@@ -390,7 +390,7 @@ export const incicleManagerMenuModules: MenuModulesType = {
 
 export type FilterModulesType = {
   title: string;
-  slug: MODULE_TYPES;
+  slug: ModulesType;
   icon: string;
   linkKey: keyof ModulesWeb | 'disabled';
   userType: 'BOTH' | 'COMPANY' | 'PERSON';
@@ -399,98 +399,98 @@ export type FilterModulesType = {
 export const incicleNotificationModules: FilterModulesType[] = [
   {
     title: 'all',
-    slug: MODULE_TYPES.all,
+    slug: MODULES.all,
     icon: 'https://static-incicle.s3.amazonaws.com/all.svg',
     linkKey: null as any,
     userType: 'BOTH',
   },
   {
     title: 'schedule',
-    slug: MODULE_TYPES.schedule,
+    slug: MODULES.schedule,
     icon: 'https://static-incicle.s3.amazonaws.com/agenda.svg',
     linkKey: 'schedule',
     userType: 'BOTH',
   },
   {
     title: 'admission',
-    slug: MODULE_TYPES.admission,
+    slug: MODULES.admission,
     icon: 'https://static-incicle.s3.amazonaws.com/departamento-pessoal.svg',
     linkKey: 'personal_department',
     userType: 'BOTH',
   },
   {
     title: 'personal_department',
-    slug: MODULE_TYPES.personal_department,
+    slug: MODULES.personal_department,
     icon: 'https://static-incicle.s3.amazonaws.com/engenharia-organizacional.svg',
     linkKey: 'social',
     userType: 'COMPANY',
   },
   {
     title: 'endomarketing',
-    slug: MODULE_TYPES.endomarketing,
+    slug: MODULES.endomarketing,
     icon: 'https://static-incicle.s3.amazonaws.com/endo-marketing.svg',
     linkKey: 'social',
     userType: 'COMPANY',
   },
   {
     title: 'feedback',
-    slug: MODULE_TYPES.feedback,
+    slug: MODULES.feedback,
     icon: 'https://static-incicle.s3.amazonaws.com/feedback.svg',
     linkKey: 'social',
     userType: 'BOTH',
   },
   {
     title: 'projects',
-    slug: MODULE_TYPES.project,
+    slug: MODULES.project,
     icon: 'https://static-incicle.s3.amazonaws.com/projetos.svg',
     linkKey: 'project',
     userType: 'BOTH',
   },
   {
     title: 'evaluation',
-    slug: MODULE_TYPES.evaluation360,
+    slug: MODULES.evaluation360,
     icon: 'https://static-incicle.s3.amazonaws.com/avaliacao-por-competencia.svg',
     linkKey: 'evaluation',
     userType: 'BOTH',
   },
   {
     title: 'social_network',
-    slug: MODULE_TYPES.social_network,
+    slug: MODULES.social_network,
     icon: 'https://static-incicle.s3.amazonaws.com/rede-social.svg',
     linkKey: 'social',
     userType: 'BOTH',
   },
   {
     title: 'recruitment',
-    slug: MODULE_TYPES.recruitment,
+    slug: MODULES.recruitment,
     icon: 'https://static-incicle.s3.amazonaws.com/recruitment-disabled.svg',
     linkKey: 'disabled',
     userType: 'BOTH',
   },
   {
     title: 'ombudsman',
-    slug: MODULE_TYPES.ombudsman,
+    slug: MODULES.ombudsman,
     icon: 'https://static-incicle.s3.us-east-1.amazonaws.com/ombudsman_icon.svg',
     linkKey: 'ombudsman',
     userType: 'BOTH',
   },
   {
     title: 'climate_research',
-    slug: MODULE_TYPES.climate_research,
+    slug: MODULES.climate_research,
     icon: 'https://static-incicle.s3.amazonaws.com/pesquisa-clima-disabled.svg',
     linkKey: 'disabled',
     userType: 'COMPANY',
   },
   {
     title: 'policies_and_procedures',
-    slug: MODULE_TYPES.policy,
+    slug: MODULES.policy,
     icon: 'https://static-incicle.s3.amazonaws.com/policies.svg',
     linkKey: 'policy',
     userType: 'BOTH',
   },
   {
     title: 'okr',
-    slug: MODULE_TYPES.okr,
+    slug: MODULES.okr,
     icon: 'https://static-incicle.s3.amazonaws.com/okr-icon.svg',
     linkKey: 'okr',
     userType: 'BOTH',

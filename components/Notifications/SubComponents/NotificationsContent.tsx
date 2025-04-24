@@ -1,30 +1,28 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Skeleton, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { Waypoint } from 'react-waypoint';
 
-import { useNotifications } from '@/safira-app/hooks/useNotifications';
-
-import { IncicleModulesDropdown, MoreOptionsDropdown } from '.';
+import { NotificationWrapper } from '../style';
 import { NotificationItem } from './NotificationItem';
+import { IncicleModulesDropdown, MoreOptionsDropdown } from '.';
 
 import { translation } from '@/safira-app/utils/translation';
-import { NotificationFilterOptions } from '@/safira-app/services/notifications';
-import { NotificationWrapper } from '../style';
+import { useNotifications } from '@/safira-app/hooks/useNotifications';
+import { NotificationsReadOptions } from '@/safira-app/services/queries/notifications';
+import { useIntersectionObserver } from '@/safira-app/hooks/useIntersectionObserver';
 
 export const NotificationsContent: React.FC = () => {
-  const { notifications, notificationsReqData, params, isLoading, fetchNotifications } = useNotifications();
+  const { notifications, params, isLoading, fetchNotifications, hasNextPage, isFetchingNextPage } = useNotifications();
   const { t } = useTranslation();
 
-  const perPage = params.perPage || 0;
-  const hasMoreContent = !(notificationsReqData.length < perPage);
-  const showLoading = isLoading || hasMoreContent;
+  const showLoading = isLoading || isFetchingNextPage || hasNextPage;
 
   const handleLoadMoreContent = useCallback(() => {
-    if (!isLoading && hasMoreContent) {
-      fetchNotifications({ page: (params?.page || 1) + 1 });
-    }
+    if (!isLoading && hasNextPage) fetchNotifications({ page: params.page + 1 });
   }, [isLoading, params]); // eslint-disable-line
+
+  const observerRef = useRef<HTMLDivElement | null>(null);
+  useIntersectionObserver({ observerRef, hasNextPage, isFetchingNextPage, fetchNextPage: handleLoadMoreContent });
 
   return (
     <>
@@ -47,7 +45,7 @@ export const NotificationsContent: React.FC = () => {
 
       <NotificationWrapper>
         <Typography variant="body2" sx={{ padding: '0 15px', color: '#959595', fontSize: '11px' }}>
-          {translation(t, params.read === NotificationFilterOptions.UNREADED ? 'unread' : 'all')}
+          {translation(t, params.read === NotificationsReadOptions.UNREADED ? 'unread' : 'all')}
         </Typography>
 
         {notifications.map(item => (
@@ -67,7 +65,7 @@ export const NotificationsContent: React.FC = () => {
           </Typography>
         )}
 
-        <Waypoint topOffset="-80px" onEnter={handleLoadMoreContent}>
+        <div ref={observerRef}>
           <Stack direction="row" justifyContent="center" alignItems="center" padding={1.5} height={70}>
             {showLoading ? (
               <Stack direction="row" gap={1} alignItems="center">
@@ -94,7 +92,7 @@ export const NotificationsContent: React.FC = () => {
               </Stack>
             )}
           </Stack>
-        </Waypoint>
+        </div>
       </NotificationWrapper>
     </>
   );

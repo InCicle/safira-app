@@ -1,4 +1,4 @@
-import { NotificationProps } from '@/safira-app/services/notifications';
+import { NotificationProps } from '@/safira-app/services/queries/notifications';
 
 const notificationType = {
   NEW_POLICY: 'NEW_POLICY',

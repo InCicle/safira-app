@@ -14,7 +14,7 @@ export interface RenderAvatarProps {
   bucket?: BucketType;
 }
 
-const RenderAvatar: React.FC<React.PropsWithChildren<RenderAvatarProps>> = ({
+export const RenderAvatar: React.FC<React.PropsWithChildren<RenderAvatarProps>> = ({
   children,
   src,
   alt,
@@ -47,5 +47,3 @@ const RenderAvatar: React.FC<React.PropsWithChildren<RenderAvatarProps>> = ({
     </Avatar>
   );
 };
-
-export default RenderAvatar;

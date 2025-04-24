@@ -2,8 +2,8 @@ import React from 'react';
 import { MenuItem, Stack, Box } from '@mui/material';
 import CircleIcon from '@mui/icons-material/Circle';
 import { useHeaderProvider } from '@/safira-app/contexts/HeaderContext';
-import { NotificationProps } from '@/safira-app/services/notifications';
-import RenderAvatar from '@/safira-app/components/RenderAvatar';
+import { NotificationProps } from '@/safira-app/services/queries/notifications';
+import { RenderAvatar } from '@/safira-app/components/RenderAvatar';
 import { incicleNotificationModules } from '@/safira-app/utils/modules';
 import { links } from '@/safira-app/config/links';
 
@@ -38,7 +38,6 @@ export const NotificationContainer: React.FC<React.PropsWithChildren<IProps>> = 
   const { api } = useHeaderProvider();
 
   function handleClick(ev?: any) {
-
     if (onClick) {
       onClick(ev);
     }
@@ -47,7 +46,7 @@ export const NotificationContainer: React.FC<React.PropsWithChildren<IProps>> = 
       markAsReaded(ev, notification, api, url);
     }
 
-    if(!url) return;
+    if (!url) return;
 
     // redirect to the same domain instead of reload window
     const currentUrl = new URL(window.location.href);

@@ -1,4 +1,4 @@
-import { NotificationProps } from '@/safira-app/services/notifications';
+import { NotificationProps } from '@/safira-app/services/queries/notifications';
 
 const notificationType = {
   ADDED_IN_ACTIVITY: 'ADDED_IN_ACTIVITY',

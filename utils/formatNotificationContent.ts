@@ -1,4 +1,4 @@
-import { NotificationProps } from '../services/notifications';
+import { NotificationProps } from '../services/queries/notifications';
 import { htmlDecode } from './htmlDecode';
 
 export function formatNotificationContent(notification: NotificationProps): NotificationProps {

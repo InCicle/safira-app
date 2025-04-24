@@ -14,18 +14,10 @@ export interface S3ObjectsReturnInterface {
   base64: string;
 }
 
-function getBucketName(bucket: BucketType): string {
-  switch (bucket) {
-    case 'incicle':
-      return links.aws.bucket;
-
-    case 'projects':
-      return links.aws_project.bucket;
-
-    default:
-      return '';
-  }
-}
+const buckets = {
+  incicle: links.aws.bucket,
+  projects: links.aws_project.bucket,
+};
 
 async function fetchFile(src: string, bucket: string, s3: S3Client) {
   const command = new GetObjectCommand({ Bucket: bucket, Key: src });
@@ -49,7 +41,7 @@ export async function getS3Object({ src, bucket }: S3AttachmentArgs) {
     },
   });
 
-  const response = await fetchFile(src, getBucketName(bucket), s3);
+  const response = await fetchFile(src, buckets[bucket], s3);
 
   return {
     base64: response?.base64 ? `data:${response.type};base64,${response.base64}` : '',

@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 import { IUser } from '@/safira-app/interfaces/User';
-import { NotificationProps } from '@/safira-app/services/notifications';
+import { NotificationProps } from '@/safira-app/services/queries/notifications';
 import { decode } from '@/safira-app/utils/crypto';
 import { reduceString } from '@/safira-app/utils/reduceString';
 

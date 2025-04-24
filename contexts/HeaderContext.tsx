@@ -4,16 +4,16 @@ import { AxiosInstance } from 'axios';
 import { links } from '@/safira-app/config/links';
 import { IUser } from '@/safira-app/interfaces/User';
 import { MeProps } from '@/safira-app/interfaces/Me';
-import { NotificationProps } from '@/safira-app/services/notifications';
+import { NotificationProps } from '@/safira-app/services/queries/notifications';
 
 export type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
 export interface HeaderProviderProps {
   user: IUser;
-  profiles?: MeProps;
-  companySelected?: string;
+  me?: MeProps;
   api: AxiosInstance;
   signOut: () => void;
+  companySelected?: string;
 }
 
 export interface NotificationsDataProps {
@@ -26,7 +26,7 @@ export interface NotificationsDataProps {
 
 export interface HeaderContextProps extends HeaderProviderProps {
   setUser: SetState<IUser>;
-  setProfiles: SetState<MeProps>;
+  setMe: SetState<MeProps>;
   setCompanySelected: SetState<string>;
   setProduction: SetState<boolean>;
   notificationsData: NotificationsDataProps;
@@ -43,7 +43,7 @@ const HeaderContext = createContext<HeaderContextProps>({} as HeaderContextProps
 const HeaderProvider: React.FC<React.PropsWithChildren<Props>> = ({ children, value }) => {
   const { api, signOut } = value;
   const [user, setUser] = useState(value.user);
-  const [profiles, setProfiles] = useState(value.profiles);
+  const [me, setMe] = useState(value.me);
   const [companySelected, setCompanySelected] = useState(value.companySelected);
   const [notificationsData, setNotificationsData] = useState<NotificationsDataProps>({
     currentPage: 1,
@@ -56,7 +56,7 @@ const HeaderProvider: React.FC<React.PropsWithChildren<Props>> = ({ children, va
   const updateNotificationItem = (data: NotificationProps) => {
     /**
      * This function updates a notification item in the notificationsData data array.
-     * Then it marks the notification provided on params as readed.
+     * Then it marks the notification provided on params as read.
      *
      * params:
      *  data: notification object with new values
@@ -82,15 +82,15 @@ const HeaderProvider: React.FC<React.PropsWithChildren<Props>> = ({ children, va
 
   useEffect(() => {
     if (value.user) setUser(value.user);
-    if (value.profiles) setProfiles(value.profiles);
+    if (value.me) setMe(value.me);
     if (value.companySelected) setCompanySelected(value.companySelected);
   }, [value]);
 
   const context = {
     user,
     setUser,
-    profiles,
-    setProfiles,
+    me,
+    setMe,
     companySelected,
     setCompanySelected,
     notificationsData,

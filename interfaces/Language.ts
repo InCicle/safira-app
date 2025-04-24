@@ -3,4 +3,5 @@ export enum LanguageType {
   'en-US' = 'en-US',
   en = 'en',
   pt = 'pt',
+  es = 'es',
 }

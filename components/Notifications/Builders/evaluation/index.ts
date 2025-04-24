@@ -1,4 +1,4 @@
-import { NotificationProps } from '@/safira-app/services/notifications';
+import { NotificationProps } from '@/safira-app/services/queries/notifications';
 import { DateZoneHandler } from '@/safira-app/utils/datezone';
 import { DateTime } from 'luxon';
 

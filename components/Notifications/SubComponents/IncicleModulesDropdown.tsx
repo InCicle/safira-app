@@ -2,11 +2,6 @@ import React, { useState } from 'react';
 import { ListItemIcon, Menu, MenuItem, Stack } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-import {
-  DEFAULT_NOTIFICATION_PARAMS,
-  MODULE_TYPES,
-  NotificationFilterOptions,
-} from '@/safira-app/services/notifications';
 import { useNotifications } from '@/safira-app/hooks/useNotifications';
 import { useHeaderProvider } from '@/safira-app/contexts/HeaderContext';
 
@@ -14,6 +9,9 @@ import { incicleNotificationModules } from '@/safira-app/utils/modules';
 import { ButtonNotification } from '../style';
 import { useTranslation } from 'react-i18next';
 import { translation } from '@/safira-app/utils/translation';
+import { DEFAULT_NOTIFICATION_PARAMS } from '@/safira-app/utils/constants';
+import { MODULES, ModulesType } from '@/safira-app/interfaces/Modules';
+import { NotificationsReadOptions, NotificationReadOptionsType } from '@/safira-app/services/queries/notifications';
 
 type AnchorButton = EventTarget & HTMLButtonElement;
 
@@ -34,18 +32,18 @@ export const IncicleModulesDropdown: React.FC = () => {
     setAnchorEl(null);
   }
 
-  function handleChangeNotificationOption(value: NotificationFilterOptions) {
+  function handleChangeNotificationOption(value: NotificationReadOptionsType) {
     fetchNotifications({
       ...DEFAULT_NOTIFICATION_PARAMS,
-      read: value === NotificationFilterOptions.UNREADED ? value : undefined,
+      read: value === NotificationsReadOptions.UNREADED ? value : undefined,
     });
   }
 
-  function handleSetNotificationsModuleFilter(value: MODULE_TYPES) {
+  function handleSetNotificationsModuleFilter(value: ModulesType) {
     fetchNotifications({
       ...DEFAULT_NOTIFICATION_PARAMS,
-      read: value === MODULE_TYPES.all ? undefined : NotificationFilterOptions.ALL,
-      module: value === MODULE_TYPES.all ? undefined : value,
+      read: value === MODULES.all ? undefined : (NotificationsReadOptions.ALL as NotificationReadOptionsType),
+      module: value === MODULES.all ? undefined : value,
     });
   }
 
@@ -60,15 +58,17 @@ export const IncicleModulesDropdown: React.FC = () => {
         <Stack direction="row" spacing={1}>
           <ButtonNotification
             disabled={isLoading}
-            onClick={() => handleChangeNotificationOption(NotificationFilterOptions.ALL)}
-            active={params.read !== NotificationFilterOptions.UNREADED ? 1 : 0}
+            onClick={() => handleChangeNotificationOption(NotificationsReadOptions.ALL as NotificationReadOptionsType)}
+            active={params.read !== NotificationsReadOptions.UNREADED ? 1 : 0}
           >
             {translation(t, 'all')}
           </ButtonNotification>
           <ButtonNotification
             disabled={isLoading}
-            onClick={() => handleChangeNotificationOption(NotificationFilterOptions.UNREADED)}
-            active={params.read === NotificationFilterOptions.UNREADED ? 1 : 0}
+            onClick={() =>
+              handleChangeNotificationOption(NotificationsReadOptions.UNREADED as NotificationReadOptionsType)
+            }
+            active={params.read === NotificationsReadOptions.UNREADED ? 1 : 0}
           >
             {translation(t, 'unread')}
           </ButtonNotification>
@@ -78,8 +78,7 @@ export const IncicleModulesDropdown: React.FC = () => {
           {translation(
             t,
             `modules.${
-              incicleNotificationModules.find(module => module.slug === (params.module || MODULE_TYPES.all))?.title ??
-              ''
+              incicleNotificationModules.find(module => module.slug === (params.module || MODULES.all))?.title ?? ''
             }`,
           )}
           <ArrowDropDownIcon
