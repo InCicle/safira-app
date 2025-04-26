@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Typography, Modal } from '@mui/material';
 import CheckCircle from '@mui/icons-material/CheckCircle';
-import { Layout, WatchButton, ViewedButton } from './styles';
+import { TutorialVideoLayout, WatchButton, ViewedButton } from './styles';
 
 interface Props {
   name: string;
@@ -42,9 +42,9 @@ export const TutorialVideoButton: React.FC<Props> = ({
           height="315"
           src={videoUrl}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-        ></iframe>
+        />
       </Modal>
-      <Layout
+      <TutorialVideoLayout
         onClick={() => {
           handleModal();
           if (!isViewed) markAsViewed();
@@ -64,7 +64,7 @@ export const TutorialVideoButton: React.FC<Props> = ({
             <p>Iniciar</p>
           </WatchButton>
         )}
-      </Layout>
+      </TutorialVideoLayout>
     </>
   );
 };

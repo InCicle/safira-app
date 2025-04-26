@@ -10,7 +10,7 @@ import { addToast } from '@/safira-app/components/Toast';
 import { NotificationDTO } from '@/safira-app/pages/Header/components/Notifications/DTO/NotificationDTO';
 import { NotificationProps, updateSawNotifications } from '@/safira-app/services/queries/notifications';
 import { links } from '@/safira-app/config/links';
-import { NotificationEvent } from '@/safira-app/providers/NotificationEvent';
+import { NotificationEvent } from '@/safira-app/services/emitters/NotificationEvent';
 
 type NotificationServiceType = {
   api: AxiosInstance;

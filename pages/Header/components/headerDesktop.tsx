@@ -10,7 +10,7 @@ import Notifications from '@/safira-app/pages/Header/components/Notifications';
 import { RenderImage } from '@/safira-app/components/RenderImage';
 import { RenderAvatar } from '@/safira-app/components/RenderAvatar';
 import { maxLetters } from '@/safira-app/utils/maxLetters';
-import RenderSearchItem from '../../../components/RenderSearchItem';
+import RenderSearchItem from '@/safira-app/components/RenderSearchItem';
 import { translation } from '@/safira-app/utils/translation';
 import { FC } from 'react';
 import { HeaderDesktopProps } from '../interfaces';

@@ -7,11 +7,11 @@ import {
   incicleManagerMenuModules,
 } from '@/safira-app/utils/modules';
 import { ModuleMenuItem } from './moduleMenuItem';
-import { usePermissions } from '@/safira-app/contexts/PermissionsContext';
+import { usePermissions } from '@/safira-app/hooks/usePermissions';
 import { useTranslation } from 'react-i18next';
 import { translation } from '@/safira-app/utils/translation';
 import { useAuth } from '@/safira-app/hooks/useAuth';
-import { useProfileContext } from '@/hooks/useProfileContext';
+import { useProfile } from '@/safira-app/hooks/useProfile';
 
 export type ModulesMenuRef = {
   openDropdown: (ev: any) => void;
@@ -27,7 +27,7 @@ const breakpointValue = 700;
 const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (props, ref) => {
   const { t } = useTranslation();
   const { user } = useAuth();
-  const { me } = useProfileContext();
+  const { me } = useProfile();
   const { breakpoints } = useTheme();
   const { activeManagerMenu } = props;
   const { checkPermission, companyId } = usePermissions();

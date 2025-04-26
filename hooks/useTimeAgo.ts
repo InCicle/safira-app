@@ -1,7 +1,6 @@
 import { LanguageType } from '@/safira-app/interfaces/Language';
-import { Controller, TimeStyle } from '../types';
-import { options } from './data';
-import { getDefaultLanguage } from '@/safira-app/utils/getDefaultLanguage';
+import { Controller, TimeStyle } from '../components/TimeAgo/types';
+import { useTranslation } from 'react-i18next';
 
 type TimeAgoUseCaseProps = {
   format: LanguageType;
@@ -9,10 +8,10 @@ type TimeAgoUseCaseProps = {
   timeStyle: TimeStyle;
 };
 
-const defaultLanguage = getDefaultLanguage();
-
 // Criar um hook
-export function timeAgoUseCase({ date, timeStyle }: Partial<TimeAgoUseCaseProps>) {
+export function useTimeAgo({ date, timeStyle }: Partial<TimeAgoUseCaseProps>) {
+  const { t } = useTranslation();
+
   const controller: Controller = {
     timeStyle: 'full',
     initialDate: new Date(),
@@ -78,34 +77,20 @@ export function timeAgoUseCase({ date, timeStyle }: Partial<TimeAgoUseCaseProps>
         controller.onCountChange(message);
       }
     },
-    getMessage(keyName: string, value: number) {
-      const { format, timeStyle } = controller;
-      const replacer = (msg: string) => msg.replace('[n]', String(value));
+    getMessage(keyName: string, count: number) {
+      const { timeStyle } = controller;
 
-      switch (keyName) {
-        case 'months':
-          if (value > 1) return replacer(options[format].months.more.full!);
-          return replacer(options[format].months.one.full!);
+      const isMoreThanOne = count > 1;
 
-        case 'days':
-          if (value > 1) return replacer(options[format].days.more[timeStyle]!);
-          return replacer(options[format].days.one[timeStyle]!);
+      const firstKey = isMoreThanOne ? keyName : keyName.slice(0, -1);
+      const secondKey = keyName !== 'months' ? `${timeStyle}_` : '';
+      const fullKey = `safira-app.time_ago.${secondKey}${firstKey}`;
 
-        case 'hours':
-          if (value > 1) return replacer(options[format].hours.more[timeStyle]!);
-          return replacer(options[format].hours.one[timeStyle]!);
-
-        case 'minutes':
-          if (value > 1) return replacer(options[format].minutes.more[timeStyle]!);
-          return replacer(options[format].minutes.one[timeStyle]!);
-
-        case 'seconds':
-          if (value > 1) return replacer(options[format].seconds.more[timeStyle]!);
-          return replacer(options[format].seconds.one[timeStyle]!);
-
-        default:
-          return '';
-      }
+      return isMoreThanOne
+        ? t(fullKey, {
+            count,
+          })
+        : t(fullKey);
     },
   };
 

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 
 export type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
@@ -31,9 +31,4 @@ const HeaderProvider: React.FC<React.PropsWithChildren<Props>> = ({ children, va
   return <HeaderContext.Provider value={context}>{children}</HeaderContext.Provider>;
 };
 
-function useHeaderProvider() {
-  const context = useContext(HeaderContext);
-  return context;
-}
-
-export { HeaderContext, HeaderProvider, useHeaderProvider };
+export { HeaderContext, HeaderProvider };

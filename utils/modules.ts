@@ -1,7 +1,6 @@
 import { MeProps } from '@/safira-app/interfaces/Me';
 import { links, ModulesWeb } from '@/safira-app/config/links';
-import { MODULES, ModulesType } from '@/safira-app/interfaces/Modules';
-
+import { MODULES } from '@/safira-app/interfaces/Modules';
 import SteponeIcon from '@/safira-app/assets/tutorials/SteponeIcon';
 import ScheduleIcon from '@/safira-app/assets/tutorials/ScheduleIcon';
 import AdmissionIcon from '@/safira-app/assets/tutorials/AdmissionIcon';
@@ -390,7 +389,7 @@ export const incicleManagerMenuModules: MenuModulesType = {
 
 export type FilterModulesType = {
   title: string;
-  slug: ModulesType;
+  slug: string;
   icon: string;
   linkKey: keyof ModulesWeb | 'disabled';
   userType: 'BOTH' | 'COMPANY' | 'PERSON';

@@ -1,7 +1,7 @@
 import { ModulesMenuRef } from '@/safira-app/pages/Header/components/modulesMenu';
-import { ProfileMenuRef } from '@/safira-app/components/ProfileMenu';
+import { ProfileMenuRef } from '@/safira-app/pages/Header/components/profileMenu';
 import { domainName } from '@/safira-app/contexts/AuthContext';
-import { usePermissions } from '@/safira-app/contexts/PermissionsContext';
+import { usePermissions } from '@/safira-app/hooks/usePermissions';
 import { MeProps } from '@/safira-app/interfaces/Me';
 import { SearchItemInterface } from '@/safira-app/interfaces/Search';
 import { IUser } from '@/safira-app/interfaces/User';

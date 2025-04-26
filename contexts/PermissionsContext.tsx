@@ -1,9 +1,9 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { api } from '@/services/api';
 import { links } from '@/safira-app/config/links';
 import { useAuth } from '@/safira-app/hooks/useAuth';
-import { useProfileContext } from '@/hooks/useProfileContext';
+import { useProfile } from '@/safira-app/hooks/useProfile';
 
 export interface PermissionObject {
   id: string;
@@ -23,12 +23,11 @@ export interface PermissionsContextProps {
 export const PermissionsContext = createContext<PermissionsContextProps>({} as PermissionsContextProps);
 
 const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
+  const { user } = useAuth();
+  const { me } = useProfile();
   const [permissionsList, setPermissionsList] = useState<PermissionObject[]>([]);
   const [requestFinished, setRequestFinished] = useState(false);
   const [managerPermission, setManagerPermission] = useState<boolean>(false);
-  const { me } = useProfileContext();
-
-  const { user } = useAuth();
 
   const companySelected = Cookies.get('companySelected');
   const companyId = user.type === 'PERSON' && companySelected ? companySelected : user.profile_id;
@@ -87,6 +86,4 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
   return <PermissionsContext.Provider value={context}>{children}</PermissionsContext.Provider>;
 };
 
-const usePermissions = () => useContext(PermissionsContext);
-
-export { PermissionsProvider, usePermissions };
+export { PermissionsProvider };

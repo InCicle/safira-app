@@ -1,16 +1,15 @@
-import React, { useLayoutEffect, useMemo } from 'react';
-import { timeAgoUseCase } from './useCases/timeAgoUseCase';
+import React, { useLayoutEffect, useRef } from 'react';
+import { useTimeAgo } from '@/safira-app/hooks/useTimeAgo';
 import { TimeAgoData } from './types';
-import { generateId } from '@/safira-app/utils/generateId';
 
 type TimeAgoProps = TimeAgoData & React.HTMLAttributes<HTMLSpanElement>;
 
 function TimeAgo({ date, timeStyle, ...rest }: Partial<TimeAgoProps>) {
-  const elId = useMemo(() => generateId({ amount: 20, lowercase: true, uppercase: true }), []);
+  const timeElementRef = useRef<HTMLSpanElement | null>(null);
+  const timeAgo = useTimeAgo({ date, timeStyle });
 
   useLayoutEffect(() => {
-    const timeElement = document.querySelector(`#${elId}`) as HTMLSpanElement;
-    const timeAgo = timeAgoUseCase({ date, timeStyle });
+    const timeElement = timeElementRef.current as HTMLSpanElement;
 
     timeAgo.startCounter();
 
@@ -21,10 +20,10 @@ function TimeAgo({ date, timeStyle, ...rest }: Partial<TimeAgoProps>) {
     return () => {
       timeAgo.stopCounter();
     };
-  }, [elId, date, timeStyle]);
+  }, [timeElementRef, date, timeStyle]);
 
   return (
-    <span id={elId} role="timer" {...rest}>
+    <span ref={timeElementRef} role="timer" {...rest}>
       - - -
     </span>
   );

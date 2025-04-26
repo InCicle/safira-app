@@ -1,14 +1,14 @@
-import { ToastUI } from '../../../components/Toast';
-import WhatsAppButton from '../../../components/WhatsAppButton';
+import { TFunction } from 'i18next';
 import { HeaderInStyle } from './styles';
-import ModulesMenu, { ModulesMenuRef } from '../components/modulesMenu';
-import ProfileMenu, { ProfileMenuRef } from '../../../components/ProfileMenu';
 import { FC, JSX, RefObject } from 'react';
 import { IUser } from '@/safira-app/interfaces/User';
 import { MeProps } from '@/safira-app/interfaces/Me';
-import { TFunction } from 'i18next';
-import { HeaderDesktop } from '../components/headerDesktop';
+import { ToastUI } from '@/safira-app/components/Toast';
 import { HeaderMobile } from '../components/headerMobile';
+import { HeaderDesktop } from '../components/headerDesktop';
+import WhatsAppButton from '@/safira-app/components/WhatsAppButton';
+import ModulesMenu, { ModulesMenuRef } from '@/safira-app/pages/Header/components/modulesMenu';
+import ProfileMenu, { ProfileMenuRef } from '@/safira-app/pages/Header/components/profileMenu';
 
 export interface HeaderViewProps {
   me: MeProps;

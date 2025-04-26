@@ -52,6 +52,38 @@ const redirectToCore = () => {
   window.location.href = `${links.web.core}/?redirect_to=${urlToRedirect}`;
 };
 
+async function validateToken(verifyTokenData: VerifyTokenData): Promise<boolean> {
+  try {
+    const response = await axios.post(`${links.api.core}/account/verify`, {
+      email: verifyTokenData.email,
+      token: verifyTokenData.token,
+    });
+
+    if (response.status === 200 && !response.data.errors) {
+      return true;
+    }
+
+    return false;
+  } catch (error) {
+    return false;
+  }
+}
+
+function getSignedUser(): IUser | false {
+  try {
+    const encodedUser = Cookies.get('user');
+    const user = encodedUser && decode(encodedUser);
+
+    if (user) {
+      return JSON.parse(user);
+    }
+
+    return false;
+  } catch (error) {
+    return false;
+  }
+}
+
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
@@ -205,37 +237,5 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
     </AuthContext.Provider>
   );
 };
-
-async function validateToken(verifyTokenData: VerifyTokenData): Promise<boolean> {
-  try {
-    const response = await axios.post(`${links.api.core}/account/verify`, {
-      email: verifyTokenData.email,
-      token: verifyTokenData.token,
-    });
-
-    if (response.status === 200 && !response.data.errors) {
-      return true;
-    }
-
-    return false;
-  } catch (error) {
-    return false;
-  }
-}
-
-function getSignedUser(): IUser | false {
-  try {
-    const encodedUser = Cookies.get('user');
-    const user = encodedUser && decode(encodedUser);
-
-    if (user) {
-      return JSON.parse(user);
-    }
-
-    return false;
-  } catch (error) {
-    return false;
-  }
-}
 
 export { AuthContext, AuthProvider, validateToken, getSignedUser };

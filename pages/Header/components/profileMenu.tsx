@@ -9,9 +9,9 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import School from '@mui/icons-material/School';
 
 import { links } from '@/safira-app/config/links';
-import TutorialVideos from '../../pages/TutorialVideos';
+import TutorialVideos from '@/safira-app/pages/TutorialVideos';
 import { translation } from '@/safira-app/utils/translation';
-import { useProfileContext } from '@/hooks/useProfileContext';
+import { useProfile } from '@/safira-app/hooks/useProfile';
 import { RenderAvatar } from '@/safira-app/components/RenderAvatar';
 
 export type ProfileMenuRef = {
@@ -40,7 +40,7 @@ const CustomLink: React.FC<React.PropsWithChildren<CustomLinkProps>> = ({ childr
 );
 
 const ProfileMenu: React.ForwardRefRenderFunction<ProfileMenuRef> = (_, ref) => {
-  const { me } = useProfileContext();
+  const { me } = useProfile();
   const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [openTutorial, setOpenTutorial] = useState(false);

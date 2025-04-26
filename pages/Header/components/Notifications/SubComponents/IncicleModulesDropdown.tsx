@@ -112,7 +112,7 @@ export const IncicleModulesDropdown: React.FC = () => {
               <MenuItem
                 key={module.slug}
                 disabled={isLoading}
-                onClick={() => handleSetNotificationsModuleFilter(module.slug)}
+                onClick={() => handleSetNotificationsModuleFilter(module.slug as ModulesType)}
                 sx={{ fontSize: '14px' }}
                 value={module.slug}
               >

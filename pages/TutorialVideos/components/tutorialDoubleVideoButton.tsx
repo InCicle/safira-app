@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Typography, Modal } from '@mui/material';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 
-import { Layout, WatchButton, ViewedButton, FinalButtons } from '../styles';
+import { TutorialDoubleVideoLayout, WatchButton, ViewedButton, FinalButtons } from './styles';
 
 interface Props {
   name: string;
@@ -51,7 +51,7 @@ export const TutorialDoubleVideoButton: React.FC<Props> = ({
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
         ></iframe>
       </Modal>
-      <Layout>
+      <TutorialDoubleVideoLayout>
         <Box className="overlay">
           <Box
             className="leftHalf"
@@ -103,7 +103,7 @@ export const TutorialDoubleVideoButton: React.FC<Props> = ({
             </Box>
           </Box>
         </FinalButtons>
-      </Layout>
+      </TutorialDoubleVideoLayout>
     </>
   );
 };

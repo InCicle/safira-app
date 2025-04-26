@@ -1,4 +1,4 @@
-import { NotificationEvent } from '@/safira-app/providers/NotificationEvent';
+import { NotificationEvent } from '@/safira-app/services/emitters/NotificationEvent';
 import { NotificationProps } from '@/safira-app/services/queries/notifications';
 
 import { createSocialNetworkBrowserNotificationFactory } from '../Builders/socialNetwork';

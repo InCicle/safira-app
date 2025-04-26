@@ -8,7 +8,7 @@ import { links } from '@/safira-app/config/links';
 import Notifications from '@/safira-app/pages/Header/components/Notifications';
 import { RenderImage } from '@/safira-app/components/RenderImage';
 import { RenderAvatar } from '@/safira-app/components/RenderAvatar';
-import RenderSearchItem from '../../../components/RenderSearchItem';
+import RenderSearchItem from '@/safira-app/components/RenderSearchItem';
 import { translation } from '@/safira-app/utils/translation';
 import { FC } from 'react';
 
