@@ -3,7 +3,6 @@ import { ListItemIcon, Menu, MenuItem, Stack } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 import { useNotifications } from '@/safira-app/hooks/useNotifications';
-import { useHeaderProvider } from '@/safira-app/contexts/HeaderContext';
 
 import { incicleNotificationModules } from '@/safira-app/utils/modules';
 import { ButtonNotification } from '../style';
@@ -12,11 +11,12 @@ import { translation } from '@/safira-app/utils/translation';
 import { DEFAULT_NOTIFICATION_PARAMS } from '@/safira-app/utils/constants';
 import { MODULES, ModulesType } from '@/safira-app/interfaces/Modules';
 import { NotificationsReadOptions, NotificationReadOptionsType } from '@/safira-app/services/queries/notifications';
+import { useAuth } from '@/safira-app/hooks/useAuth';
 
 type AnchorButton = EventTarget & HTMLButtonElement;
 
 export const IncicleModulesDropdown: React.FC = () => {
-  const { user } = useHeaderProvider();
+  const { user } = useAuth();
   const { params, isLoading, fetchNotifications } = useNotifications();
   const { t } = useTranslation();
 

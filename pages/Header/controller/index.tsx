@@ -1,0 +1,208 @@
+import { ModulesMenuRef } from '@/safira-app/pages/Header/components/modulesMenu';
+import { ProfileMenuRef } from '@/safira-app/components/ProfileMenu';
+import { domainName } from '@/safira-app/contexts/AuthContext';
+import { usePermissions } from '@/safira-app/contexts/PermissionsContext';
+import { MeProps } from '@/safira-app/interfaces/Me';
+import { SearchItemInterface } from '@/safira-app/interfaces/Search';
+import { IUser } from '@/safira-app/interfaces/User';
+import Cookies from 'js-cookie';
+import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { HeaderView } from '../view';
+import { companiesAvatar } from '../components/companiesAvatar';
+import { getProfile } from '@/safira-app/services/queries/profile/requests';
+import { HeaderProvider } from '@/safira-app/contexts/HeaderContext';
+import NotificationProvider from '@/safira-app/contexts/NotificationContext';
+
+interface HeaderControllerProps {
+  user: IUser;
+  me: MeProps;
+  signOut: () => void;
+}
+
+export const HeaderController: React.FC<HeaderControllerProps> = ({ me, user }) => {
+  const { t } = useTranslation();
+  const { companyId, checkPermission, permissionsList } = usePermissions();
+  const [resultSearch, setResultSearch] = useState([] as SearchItemInterface[]);
+  const [hasResult, setHasResult] = useState(false);
+  const [companies, setCompanies] = useState<any>([]);
+  const [accountType, setAccountType] = useState('');
+  const [selectedCompany, setSelectedCompany] = useState<any>();
+  const [inputBoxClassName, setInputBoxClassName] = useState('');
+  const [activeManagerMenu, setActiveManagerPanel] = useState(false);
+  const [anchorCompanyEl, setAnchorCompanyEl] = useState(null);
+  const modulesMenuRef = useRef<ModulesMenuRef | null>(null);
+  const profileMenuRef = useRef<ProfileMenuRef | null>(null);
+  const anchorRef = useRef<HTMLFormElement | null>(null);
+
+  const openMenuCompanys = Boolean(anchorCompanyEl);
+  const INCICLE_LOGO = 'https://static-incicle.s3.amazonaws.com/logo_incicle.svg';
+  const contentSideBarElement = document.querySelector('.contentSidebar > div') as any;
+
+  useEffect(() => {
+    getManagerPermission();
+  }, [permissionsList, getManagerPermission]);
+
+  useEffect(() => {
+    getCompany();
+  }, [me, getCompany]);
+
+  useEffect(() => {
+    changeSidebarDisplay();
+    window.addEventListener('resize', changeSidebarDisplay);
+
+    return () => {
+      window.removeEventListener('resize', changeSidebarDisplay);
+    };
+  }, []);
+
+  useEffect(() => {
+    clearInputClassName();
+    window.addEventListener('resize', clearInputClassName);
+
+    return () => {
+      window.removeEventListener('resize', clearInputClassName);
+    };
+  }, []);
+
+  function getCompany() {
+    if (me?.type === 'PERSON') {
+      setAccountType('PERSON');
+      if (me?.companies.length > 0) {
+        const companySelected = Cookies.get('companySelected');
+        if (!companySelected) {
+          Cookies.set('companySelected', me?.companies[0].id, { domain: domainName });
+          setSelectedCompany(me?.companies[0]);
+        } else {
+          const comp = me?.companies.find(company => company.id === companySelected);
+          setSelectedCompany(comp);
+        }
+
+        setCompanies(me?.companies);
+      }
+    }
+  }
+
+  function clearInputClassName() {
+    if (window.innerWidth > 1200 && inputBoxClassName.length) setInputBoxClassName('');
+  }
+
+  function changeSidebarDisplay() {
+    if (contentSideBarElement) {
+      if (window.innerWidth < 800) {
+        contentSideBarElement!.style.display = 'none';
+        return;
+      }
+
+      contentSideBarElement!.style.display = 'initial';
+    }
+  }
+
+  function getManagerPermission() {
+    if (user.type === 'COMPANY' || !me || !me?.companies) return;
+    const companySelected = me.companies.find(company => company.id === companyId);
+    if (!companySelected) return;
+    if (
+      !!companySelected.is_manager_competence ||
+      checkPermission(['managers_vacations_list']) ||
+      checkPermission(['managers_list_occurrences']) ||
+      checkPermission(['in_check'])
+    ) {
+      setActiveManagerPanel(true);
+    }
+  }
+
+  function getLogoUrl() {
+    let isPublicUrl = true;
+    let logoUrl = '';
+
+    if (me?.type === 'PERSON') {
+      const companyLogo = getLogoFromCompanies(selectedCompany?.id, companies);
+
+      logoUrl = companyLogo || INCICLE_LOGO;
+      isPublicUrl = !companyLogo;
+    } else if (me?.type === 'COMPANY') {
+      logoUrl = me?.logo || INCICLE_LOGO;
+      isPublicUrl = !me?.logo;
+    }
+
+    return { logoUrl, isPublicUrl };
+  }
+
+  function getLogoFromCompanies(companyId: string, companies: MeProps['companies']) {
+    return companies.find(item => item.id === companyId)!?.logo;
+  }
+
+  function searchFunction(username: string) {
+    setResultSearch([]);
+    setHasResult(false);
+    if (username.trim().length >= 3) {
+      getProfile(username)
+        .then((response: any) => {
+          setResultSearch(response?.data);
+          setHasResult(true);
+        })
+        .catch(() => {
+          setHasResult(false);
+        });
+
+      setHasResult(false);
+    }
+  }
+
+  function handleOpenMenuCompanies(ev: any) {
+    setAnchorCompanyEl(ev.currentTarget);
+  }
+
+  function handleCloseMenuCompanies() {
+    setAnchorCompanyEl(null);
+  }
+
+  function handleOpenMenuProfile(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    profileMenuRef.current?.openProfileMenu(ev);
+  }
+
+  function handleOpenModulesMenu(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    modulesMenuRef.current?.openDropdown(ev);
+  }
+
+  function changeChipContent(index: number) {
+    Cookies.remove('companySelected');
+    const companyId = companies[index].id;
+    Cookies.set('companySelected', companyId, { domain: domainName });
+    window.location.reload();
+  }
+
+  return (
+    <HeaderProvider value={{ companySelected: selectedCompany?.id }}>
+      <NotificationProvider>
+        <HeaderView
+          t={t}
+          me={me}
+          user={user}
+          anchorRef={anchorRef}
+          hasResult={hasResult}
+          companies={companies}
+          getLogoUrl={getLogoUrl}
+          accountType={accountType}
+          resultSearch={resultSearch}
+          modulesMenuRef={modulesMenuRef}
+          profileMenuRef={profileMenuRef}
+          searchFunction={searchFunction}
+          companiesAvatar={companiesAvatar}
+          selectedCompany={selectedCompany}
+          anchorCompaniesEl={anchorCompanyEl}
+          openMenuCompanies={openMenuCompanys}
+          inputBoxClassName={inputBoxClassName}
+          changeChipContent={changeChipContent}
+          activeManagerMenu={activeManagerMenu}
+          setInputBoxClassName={setInputBoxClassName}
+          handleOpenMenuProfile={handleOpenMenuProfile}
+          handleOpenModulesMenu={handleOpenModulesMenu}
+          handleOpenMenuCompanies={handleOpenMenuCompanies}
+          handleCloseMenuCompanies={handleCloseMenuCompanies}
+        />
+      </NotificationProvider>
+    </HeaderProvider>
+  );
+};

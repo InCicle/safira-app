@@ -17,18 +17,7 @@ export type TimeOptions = {
   };
 };
 
-export type Options = {
-  [K in LanguageType]: {
-    months: TimeOptions;
-    days: TimeOptions;
-    hours: TimeOptions;
-    minutes: TimeOptions;
-    seconds: TimeOptions;
-  };
-};
-
 export type Controller = {
-  format: LanguageType;
   timeStyle: TimeStyle;
   initialDate: Date;
   timerInterval: null | any;

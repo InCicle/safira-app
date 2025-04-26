@@ -8,11 +8,11 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import School from '@mui/icons-material/School';
 
-import TutorialVideos from '../TutorialVideos';
 import { links } from '@/safira-app/config/links';
+import TutorialVideos from '../../pages/TutorialVideos';
 import { translation } from '@/safira-app/utils/translation';
-import { RenderAvatar } from '@/safira-app/components/RenderAvatar';
 import { useProfileContext } from '@/hooks/useProfileContext';
+import { RenderAvatar } from '@/safira-app/components/RenderAvatar';
 
 export type ProfileMenuRef = {
   openProfileMenu: (ev: any) => void;

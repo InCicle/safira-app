@@ -9,10 +9,11 @@ type TimeAgoUseCaseProps = {
   timeStyle: TimeStyle;
 };
 
+const defaultLanguage = getDefaultLanguage();
+
+// Criar um hook
 export function timeAgoUseCase({ date, timeStyle }: Partial<TimeAgoUseCaseProps>) {
-  const defaultLanguage = getDefaultLanguage();
   const controller: Controller = {
-    format: defaultLanguage as LanguageType,
     timeStyle: 'full',
     initialDate: new Date(),
     timerInterval: null,

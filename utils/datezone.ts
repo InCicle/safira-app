@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon';
-import { useHeaderProvider } from '@/safira-app/contexts/HeaderContext';
+import { useAuth } from '../hooks/useAuth';
 
 export function DateZoneHandler(dateValue: string) {
-  const { user } = useHeaderProvider();
+  const { user } = useAuth();
 
   function getDateTime() {
     const dateTime = new Date(dateValue).toLocaleString(user.config.default_language, {

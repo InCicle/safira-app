@@ -13,8 +13,8 @@ import api from '@/services/api';
 import { ModalLayout, Layout } from './styles';
 import { links } from '@/safira-app/config/links';
 import { useAuth } from '@/safira-app/hooks/useAuth';
-import { TutorialVideoButton } from './SubComponents/TutorialVideoButton';
-import { TutorialDoubleVideoButton } from './SubComponents/TutorialDoubleVideoButton';
+import { TutorialVideoButton } from './components/TutorialVideoButton';
+import { TutorialDoubleVideoButton } from './components/TutorialDoubleVideoButton';
 
 interface Props {
   open: boolean;

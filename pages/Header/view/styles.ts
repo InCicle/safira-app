@@ -12,11 +12,6 @@ export const HeaderInStyle = styled.header`
   background: #fff;
   border-bottom: 1px solid #ccc;
 
-  /* img.logo {
-    height: 40px;
-    width: auto;
-  } */
-
   .incicleheader-content {
     display: flex;
     justify-content: space-between;
@@ -69,9 +64,7 @@ export const HeaderInStyle = styled.header`
     padding: 4px;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow:
-      0 0 8px rgba(0, 0, 0, 0.3),
-      0 0 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3), 0 0 16px rgba(0, 0, 0, 0.2);
 
     a.MuiTypography-root {
       position: relative;
@@ -99,9 +92,7 @@ export const HeaderInStyle = styled.header`
     max-width: 715px;
     padding: 0 16px;
     background-color: #fff;
-    box-shadow:
-      0 0 8px rgba(0, 0, 0, 0.3),
-      0 0 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3), 0 0 16px rgba(0, 0, 0, 0.2);
 
     a.MuiTypography-root {
       position: relative;

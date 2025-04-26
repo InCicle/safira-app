@@ -1,16 +1,17 @@
 import React, { useImperativeHandle, useState } from 'react';
 import { Box, Divider, IconButton, Menu, Stack, Typography, useTheme } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { useHeaderProvider } from '@/safira-app/contexts/HeaderContext';
 import {
   incicleMenuModules,
   incicleCollaboratorsMenuModules,
   incicleManagerMenuModules,
 } from '@/safira-app/utils/modules';
-import { ModuleMenuItem } from './ModuleMenuItem';
+import { ModuleMenuItem } from './moduleMenuItem';
 import { usePermissions } from '@/safira-app/contexts/PermissionsContext';
 import { useTranslation } from 'react-i18next';
 import { translation } from '@/safira-app/utils/translation';
+import { useAuth } from '@/safira-app/hooks/useAuth';
+import { useProfileContext } from '@/hooks/useProfileContext';
 
 export type ModulesMenuRef = {
   openDropdown: (ev: any) => void;
@@ -25,7 +26,8 @@ const breakpointValue = 700;
 
 const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (props, ref) => {
   const { t } = useTranslation();
-  const { user, me } = useHeaderProvider();
+  const { user } = useAuth();
+  const { me } = useProfileContext();
   const { breakpoints } = useTheme();
   const { activeManagerMenu } = props;
   const { checkPermission, companyId } = usePermissions();

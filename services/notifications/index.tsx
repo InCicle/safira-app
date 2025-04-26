@@ -7,7 +7,7 @@ import notificationSound from '@/safira-app/assets/audios/incicle-notification.m
 import { incicleMenuModules } from '@/safira-app/utils/modules';
 import { FaviconOptionType } from '@/safira-app/hooks/useHTMLHead';
 import { addToast } from '@/safira-app/components/Toast';
-import { NotificationDTO } from '@/safira-app/components/Notifications/DTO/NotificationDTO';
+import { NotificationDTO } from '@/safira-app/pages/Header/components/Notifications/DTO/NotificationDTO';
 import { NotificationProps, updateSawNotifications } from '@/safira-app/services/queries/notifications';
 import { links } from '@/safira-app/config/links';
 import { NotificationEvent } from '@/safira-app/providers/NotificationEvent';

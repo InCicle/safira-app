@@ -2,8 +2,8 @@ import React from 'react';
 import { Divider, Stack, SxProps, Theme, Typography } from '@mui/material';
 
 // Icons
-import Icon404 from './icons/Icon404';
-import IconBackground from './icons/IconBackground2';
+import Icon404 from '@/safira-app/assets/page404/Icon404';
+import IconBackground from '@/safira-app/assets/page404/IconBackground2';
 
 interface Page404Props {
   goToInitialPage: () => void;

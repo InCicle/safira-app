@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useMemo } from 'react';
 import { timeAgoUseCase } from './useCases/timeAgoUseCase';
 import { TimeAgoData } from './types';
-import { generateId } from '@/safira-app/libs/generateId';
+import { generateId } from '@/safira-app/utils/generateId';
 
 type TimeAgoProps = TimeAgoData & React.HTMLAttributes<HTMLSpanElement>;
 

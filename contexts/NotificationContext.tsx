@@ -6,7 +6,6 @@ import { AxiosInstance, AxiosResponse } from 'axios';
 
 import { useHTMLHead } from '@/safira-app/hooks/useHTMLHead';
 import { useRender } from '@/safira-app/hooks/useRender';
-import { IUser } from '@/safira-app/interfaces/User';
 import { decode } from '@/safira-app/utils/crypto';
 import { links } from '@/safira-app/config/links';
 import {
@@ -17,13 +16,10 @@ import {
 } from '@/safira-app/services/queries/notifications';
 import NotificationService from '../services/notifications';
 import { DEFAULT_NOTIFICATION_PARAMS, NOTIFICATION_REQUEST_KEY } from '../utils/constants';
+import api from '@/services/api';
+import { useAuth } from '../hooks/useAuth';
 
 type SetState<T = any> = React.Dispatch<React.SetStateAction<T>>;
-
-interface NotificationSocketProviderProps {
-  api: AxiosInstance;
-  user: IUser;
-}
 
 interface NotificationContextType {
   api: AxiosInstance;
@@ -57,14 +53,11 @@ const socket = manager.socket('/');
 
 export const NotificationContext = createContext<NotificationContextType>({} as any);
 
-const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketProviderProps>> = ({
-  api,
-  user,
-  children,
-}) => {
+const NotificationProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { fn } = useRender();
-  const { defineFavicon, definePageTitle } = useHTMLHead();
   const queryClient = useQueryClient();
+  const { user } = useAuth();
+  const { defineFavicon, definePageTitle } = useHTMLHead();
 
   const [dropdownOpened, setDropdownOpened] = useState(false);
   const [badgeIsInvisible, setBadgeIsInvisible] = useState(true);
@@ -103,10 +96,6 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
       const nextPage = lastPage.currentPage + 1;
       return nextPage <= lastPage.totalPage ? nextPage : undefined;
     },
-    refetchOnMount: false,
-    refetchOnReconnect: false,
-    refetchOnWindowFocus: false,
-    gcTime: 1000 * 60 * 5, // 5 minutes
     staleTime: 1000 * 60 * 2, // 2 minutes
   });
 
