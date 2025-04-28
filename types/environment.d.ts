@@ -1,8 +1,7 @@
 export {};
 
 declare global {
-  namespace NodeJS {
-    interface ProcessEnv {
+    interface ImportMetaEnv {
       VITE_APP_API_URL: string;
       VITE_APP_AUTHENTICATE: string;
 
@@ -44,5 +43,4 @@ declare global {
       VITE_APP_SECRET_KEY: string;
       VITE_APP_PRODUCTION: string;
     }
-  }
 }
