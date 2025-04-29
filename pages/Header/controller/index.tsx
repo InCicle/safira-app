@@ -11,7 +11,6 @@ import { useTranslation } from 'react-i18next';
 import { HeaderView } from '../view';
 import { companiesAvatar } from '../components/companiesAvatar';
 import { getProfile } from '@/safira-app/services/queries/profile/requests';
-import { HeaderProvider } from '@/safira-app/contexts/HeaderContext';
 import NotificationProvider from '@/safira-app/contexts/NotificationContext';
 
 interface HeaderControllerProps {
@@ -174,35 +173,33 @@ export const HeaderController: React.FC<HeaderControllerProps> = ({ me, user }) 
   }
 
   return (
-    <HeaderProvider value={{ companySelected: selectedCompany?.id }}>
-      <NotificationProvider>
-        <HeaderView
-          t={t}
-          me={me}
-          user={user}
-          anchorRef={anchorRef}
-          hasResult={hasResult}
-          companies={companies}
-          getLogoUrl={getLogoUrl}
-          accountType={accountType}
-          resultSearch={resultSearch}
-          modulesMenuRef={modulesMenuRef}
-          profileMenuRef={profileMenuRef}
-          searchFunction={searchFunction}
-          companiesAvatar={companiesAvatar}
-          selectedCompany={selectedCompany}
-          anchorCompaniesEl={anchorCompanyEl}
-          openMenuCompanies={openMenuCompanys}
-          inputBoxClassName={inputBoxClassName}
-          changeChipContent={changeChipContent}
-          activeManagerMenu={activeManagerMenu}
-          setInputBoxClassName={setInputBoxClassName}
-          handleOpenMenuProfile={handleOpenMenuProfile}
-          handleOpenModulesMenu={handleOpenModulesMenu}
-          handleOpenMenuCompanies={handleOpenMenuCompanies}
-          handleCloseMenuCompanies={handleCloseMenuCompanies}
-        />
-      </NotificationProvider>
-    </HeaderProvider>
+    <NotificationProvider>
+      <HeaderView
+        t={t}
+        me={me}
+        user={user}
+        anchorRef={anchorRef}
+        hasResult={hasResult}
+        companies={companies}
+        getLogoUrl={getLogoUrl}
+        accountType={accountType}
+        resultSearch={resultSearch}
+        modulesMenuRef={modulesMenuRef}
+        profileMenuRef={profileMenuRef}
+        searchFunction={searchFunction}
+        companiesAvatar={companiesAvatar}
+        selectedCompany={selectedCompany}
+        anchorCompaniesEl={anchorCompanyEl}
+        openMenuCompanies={openMenuCompanys}
+        inputBoxClassName={inputBoxClassName}
+        changeChipContent={changeChipContent}
+        activeManagerMenu={activeManagerMenu}
+        setInputBoxClassName={setInputBoxClassName}
+        handleOpenMenuProfile={handleOpenMenuProfile}
+        handleOpenModulesMenu={handleOpenModulesMenu}
+        handleOpenMenuCompanies={handleOpenMenuCompanies}
+        handleCloseMenuCompanies={handleCloseMenuCompanies}
+      />
+    </NotificationProvider>
   );
 };

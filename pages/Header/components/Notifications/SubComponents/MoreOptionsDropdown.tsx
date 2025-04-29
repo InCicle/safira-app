@@ -8,11 +8,12 @@ import ComputerIcon from '@mui/icons-material/Computer';
 
 import { useNotifications } from '@/safira-app/hooks/useNotifications';
 import { links } from '@/safira-app/config/links';
+import api from '@/services/api';
 
 type AnchorButton = EventTarget & HTMLButtonElement;
 
 export const MoreOptionsDropdown: React.FC = () => {
-  const { api, setNotifications } = useNotifications();
+  const { setNotifications } = useNotifications();
 
   const [anchorEl, setAnchorEl] = useState<AnchorButton | null>(null);
 
@@ -31,7 +32,6 @@ export const MoreOptionsDropdown: React.FC = () => {
      * This function is used to check all notifications as readed
      */
     api.get(`${links.api.notifications_v1}/notifications/read`);
-    // Set notifications as viewed
     setNotifications(old =>
       old?.map(notification => {
         notification.read = true;
@@ -50,9 +50,11 @@ export const MoreOptionsDropdown: React.FC = () => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleCloseDropdown}
-        PaperProps={{
-          elevation: 0,
-          sx: { boxShadow: '0 0px 8px 1px rgba(0, 0, 0, 0.1)' },
+        slotProps={{
+          paper: {
+            elevation: 0,
+            sx: { boxShadow: '0 0px 8px 1px rgba(0, 0, 0, 0.1)' },
+          },
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}

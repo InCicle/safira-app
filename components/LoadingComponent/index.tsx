@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { CircularProgress, Stack } from '@mui/material';
 
-const LoadingComponent: FC<{ withoutProgress?: boolean }> = ({ withoutProgress }) => {
+export const LoadingComponent: FC<{ withoutProgress?: boolean }> = ({ withoutProgress }) => {
   return (
     <Stack
       sx={{
@@ -20,5 +20,3 @@ const LoadingComponent: FC<{ withoutProgress?: boolean }> = ({ withoutProgress }
     </Stack>
   );
 };
-
-export default LoadingComponent;

@@ -96,9 +96,11 @@ export const IncicleModulesDropdown: React.FC = () => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleCloseDropdown}
-        PaperProps={{
-          elevation: 0,
-          sx: { boxShadow: '0 0px 8px 1px rgba(0, 0, 0, 0.1)' },
+        slotProps={{
+          paper: {
+            elevation: 0,
+            sx: { boxShadow: '0 0px 8px 1px rgba(0, 0, 0, 0.1)' },
+          },
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
