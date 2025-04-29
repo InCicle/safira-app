@@ -292,7 +292,7 @@ export const incicleMenuModules: MenuModulesType[] = [
     icon: links.production ? ClimateResearchDisabledIcon : ClimateResearchIcon,
     iconSize: 60,
     accountTypes: ['COMPANY'],
-    url: `${links.web.survey}`,
+    url: links.web.survey? `${links.web.survey}` : null,
     description: {
       COMPANY: 'climate_research_description',
       PERSON: null,
