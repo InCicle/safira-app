@@ -40,6 +40,6 @@ declare global {
       readonly VITE_APP_AWS_BUCKET_PROJECTS_SECRET_ACCESS_KEY: string;
       readonly VITE_APP_AWS_BUCKET_PROJECTS_REGION: string;
 
-      readonly VITE_ENV: string;
+      readonly VITE_APP_ENV: string;
     }
 }
