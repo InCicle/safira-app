@@ -1,14 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 
-type RequestArgs<R> = {
-  fn: () => Promise<R> | null;
+type RequestArgs<T> = {
+  fn: () => Promise<T> | null;
   delayMs?: number;
   deps?: any[];
 };
 
-export function useRequest<R extends any>({ fn: request, delayMs, deps = [] }: RequestArgs<R>) {
+export function useRequest<T extends any>({
+  fn: request,
+  delayMs,
+  deps = [],
+}: RequestArgs<T>) {
   const [loading, setLoading] = useState(false);
-  const [response, setResponse] = useState<R | null>(null);
+  const [response, setResponse] = useState<T | null>(null);
   const [error, setError] = useState<any | null>(null);
 
   const timeoutRef = useRef<null | NodeJS.Timeout>(null);
@@ -41,5 +45,13 @@ export function useRequest<R extends any>({ fn: request, delayMs, deps = [] }: R
     fetchData();
   }, [...deps, delayMs]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return { loading, response, setResponse, error, refetch: fetchData, forceLoad, breakLoad };
+  return {
+    loading,
+    response,
+    setResponse,
+    error,
+    refetch: fetchData,
+    forceLoad,
+    breakLoad,
+  };
 }

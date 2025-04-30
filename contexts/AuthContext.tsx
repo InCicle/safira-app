@@ -5,6 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 import { links } from '@/safira-app/config/links';
 import { IUser } from '@/safira-app/interfaces/User';
 import { encode, decode } from '@/safira-app/utils/crypto';
+import { domainName } from '../utils/domainName';
 
 export interface VerifyTokenData {
   email: string;
@@ -23,15 +24,6 @@ export interface AuthContextData {
   updateUser(user: IUser): void;
   refreshToken(): Promise<string | null>;
 }
-
-export const domainName = (() => {
-  const { hostname } = window.location;
-  const isDevelopmentDomain = hostname.includes('stage');
-  const jumpNumber = isDevelopmentDomain ? -3 : -2;
-  const domain = hostname.split('.').slice(jumpNumber).join('.');
-
-  return domain;
-})();
 
 const removeAuthCookies = () => {
   Cookies.remove('authToken', { domain: domainName });
@@ -52,38 +44,6 @@ const redirectToCore = () => {
   window.location.href = `${links.web.core}/?redirect_to=${urlToRedirect}`;
 };
 
-async function validateToken(verifyTokenData: VerifyTokenData): Promise<boolean> {
-  try {
-    const response = await axios.post(`${links.api.core}/account/verify`, {
-      email: verifyTokenData.email,
-      token: verifyTokenData.token,
-    });
-
-    if (response.status === 200 && !response.data.errors) {
-      return true;
-    }
-
-    return false;
-  } catch (error) {
-    return false;
-  }
-}
-
-function getSignedUser(): IUser | false {
-  try {
-    const encodedUser = Cookies.get('user');
-    const user = encodedUser && decode(encodedUser);
-
-    if (user) {
-      return JSON.parse(user);
-    }
-
-    return false;
-  } catch (error) {
-    return false;
-  }
-}
-
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
@@ -99,7 +59,7 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
       if (token && expiresIn && user) {
         return { token, expiresIn, user: JSON.parse(user) as IUser };
       }
-    } catch (error) {
+    } catch {
       signOut();
 
       return {} as AuthState;
@@ -158,7 +118,7 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
       });
 
       return response.token;
-    } catch (error) {
+    } catch {
       signOut();
     }
 
@@ -238,4 +198,4 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
   );
 };
 
-export { AuthContext, AuthProvider, validateToken, getSignedUser };
+export { AuthContext, AuthProvider };

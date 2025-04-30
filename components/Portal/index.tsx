@@ -31,7 +31,9 @@ const Portal: FC<PropsWithChildren<PortalProps>> = ({ children, passport }) => {
         if (portalEl) {
           document.removeChild(portalEl);
         }
-      } catch {}
+      } catch (err) {
+        console.error('Error removing portal element:', err);
+      }
     };
   }, [passport]);
 

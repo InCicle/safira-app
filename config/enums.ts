@@ -43,5 +43,3 @@ export enum ProjectViewType {
   PAINEL = 'PAINEL',
   CALENDAR = 'CALENDAR',
 }
-
-//

@@ -126,7 +126,10 @@ const NotificationProvider: React.FC<React.PropsWithChildren> = ({ children }) =
       if (!prev?.data?.data) return;
 
       const prevNotifications = prev?.data?.data || [];
-      const newNotifications = prevNotifications.map(n => ({ ...n, saw: true }));
+      const newNotifications = prevNotifications.map(n => ({
+        ...n,
+        saw: true,
+      }));
       const newData: AxiosResponse<NotificationWrapper> = {
         ...prev,
         data: { ...prev.data, data: newNotifications },
