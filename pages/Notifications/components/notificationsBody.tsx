@@ -1,17 +1,16 @@
 import React, { useCallback, useRef } from 'react';
 import { Skeleton, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-
-import { NotificationWrapper } from '../style';
-import { NotificationItem } from './NotificationItem';
-import { IncicleModulesDropdown, MoreOptionsDropdown } from '.';
-
 import { translation } from '@/safira-app/utils/translation';
 import { useNotifications } from '@/safira-app/hooks/useNotifications';
 import { NotificationsReadOptions } from '@/safira-app/services/queries/notifications';
 import { useIntersectionObserver } from '@/safira-app/hooks/useIntersectionObserver';
+import { MoreOptionsDropdown } from './moreOptionsDropdown';
+import { IncicleModulesDropdown } from './incicleModulesDropdown';
+import { NotificationWrapper } from './styles';
+import { NotificationItem } from './notificationItem';
 
-export const NotificationsContent: React.FC = () => {
+export const NotificationsBody: React.FC = () => {
   const { notifications, params, isLoading, fetchNotifications, hasNextPage, isFetchingNextPage } = useNotifications();
   const { t } = useTranslation();
 
@@ -97,5 +96,3 @@ export const NotificationsContent: React.FC = () => {
     </>
   );
 };
-
-export default NotificationsContent;

@@ -29,9 +29,8 @@ export const RenderAvatar: React.FC<React.PropsWithChildren<RenderAvatarProps>> 
 
   useEffect(() => {
     if (!src) return;
-
-    fetcher(src, bucket).then(data => setUrl(data!));
-  }, [fetcher, src]);
+    fetcher({ src, bucket }).then(data => setUrl(data!));
+  }, [src, bucket]);
 
   return (
     <Avatar

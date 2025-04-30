@@ -1,22 +1,13 @@
 import { NotificationEvent } from '@/safira-app/services/emitters/NotificationEvent';
 import { NotificationProps } from '@/safira-app/services/queries/notifications';
-
 import { createSocialNetworkBrowserNotificationFactory } from '../Builders/socialNetwork';
-
 import { createFeedbackBrowserFactory } from '../Builders/feedback';
-
 import { createScheduleBrowserNotificationFactory } from '../Builders/schedule';
-
 import { createProjectsBrowserNotificationFactory } from '../Builders/projects';
-
 import { createEndomarketingBrowserNotificationFactory } from '../Builders/endomarketing';
-
 import { createEvaluationBrowserNotificationFactory } from '../Builders/evaluation';
-
 import { createOrganizationalEngineeringBrowserNotificationFactory } from '../Builders/organizationalEngineering';
-
 import { createPersonalDepartmentBrowserNotificationFactory } from '../Builders/personalDepartment';
-
 import { createGroupBrowserNotificationFactory } from '../Builders/group';
 
 import { createPoliciesBrowserNotificationFactory } from '../Builders/policies';
@@ -24,15 +15,13 @@ import { createPoliciesBrowserNotificationFactory } from '../Builders/policies';
 import { createOKRBrowserNotificationFactory } from '../Builders/okr';
 import { createOmbudsmanBrowserNotificationFactory } from '../Builders/ombudsman';
 
-import {
-  NotificationContainer,
-  NotificationContentText,
-  NotificationHighlight,
-  NotificationContainerToast,
-} from '../SubComponents';
+import { NotificationContentText } from '../../../pages/Notifications/components/notificationContentText';
 import { formatNotificationContent } from '@/safira-app/utils/formatNotificationContent';
 import { Trans } from 'react-i18next';
 import { MODULES } from '@/safira-app/interfaces/Modules';
+import { NotificationContainer } from '../../../pages/Notifications/components/notificationContainer';
+import { NotificationHighlight } from '../../../pages/Notifications/components/notificationHighlight';
+import { NotificationContainerToast } from '../../../pages/Notifications/components/notificationContainerToast';
 
 export function createDropdownNotification(item: NotificationProps) {
   const notification = formatNotificationContent(item);

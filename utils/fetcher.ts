@@ -1,10 +1,17 @@
 import { BucketType, getS3Object } from '@/safira-app/services/aws/s3';
 
-export async function fetcher(src: string, bucket: BucketType = 'incicle') {
+interface FetcherOptions {
+  bucket?: BucketType;
+  src: string;
+  options?: any;
+}
+
+export async function fetcher({ src, bucket, options }: FetcherOptions): Promise<string> {
   try {
-    const imgUrl = await getS3Object({ bucket, src });
+    const imgUrl = await getS3Object({ bucket, src, ...options });
     return imgUrl.base64;
   } catch (err) {
     console.error(err);
+    return '';
   }
 }

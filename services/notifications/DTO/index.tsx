@@ -1,11 +1,7 @@
 import { NotificationProps } from '@/safira-app/services/queries/notifications';
-import { NotificationImageBox } from '../SubComponents';
+import { NotificationImageBox } from '@/safira-app/pages/Notifications/components/notificationImageBox';
 
-import {
-  createBrowserNotification,
-  createDropdownNotification,
-  createToastNotification,
-} from '../Factory/NotificationFactory';
+import { createBrowserNotification, createDropdownNotification, createToastNotification } from '../Factory';
 
 export class NotificationDTO {
   notification: NotificationProps | null = null;

@@ -6,7 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import WorkIcon from '@mui/icons-material/Work';
 import { links } from '@/safira-app/config/links';
-import Notifications from '@/safira-app/pages/Header/components/Notifications';
+import Notifications from '@/safira-app/pages/Notifications';
 import { RenderImage } from '@/safira-app/components/RenderImage';
 import { RenderAvatar } from '@/safira-app/components/RenderAvatar';
 import { maxLetters } from '@/safira-app/utils/maxLetters';
@@ -294,8 +294,7 @@ export const HeaderDesktop: FC<HeaderDesktopProps> = ({
                   return <RenderSearchItem liProps={props} item={item} />;
                 }}
                 getOptionLabel={(option: any) => option.name}
-                // @ts-ignore-next-line
-                onInputChange={(e, value: string) => searchFunction(value)}
+                onInputChange={(_, value: string) => searchFunction(value)}
                 fullWidth
               />
 

@@ -5,7 +5,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useNotifications } from '@/safira-app/hooks/useNotifications';
 
 import { incicleNotificationModules } from '@/safira-app/utils/modules';
-import { ButtonNotification } from '../style';
+import { ButtonNotification } from './styles';
 import { useTranslation } from 'react-i18next';
 import { translation } from '@/safira-app/utils/translation';
 import { DEFAULT_NOTIFICATION_PARAMS } from '@/safira-app/utils/constants';
