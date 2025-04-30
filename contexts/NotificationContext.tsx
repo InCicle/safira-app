@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useRef, useState } from 'react';
 import Cookies from 'js-cookie';
 import { Manager } from 'socket.io-client';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
-import { AxiosInstance, AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 
 import { useHTMLHead } from '@/safira-app/hooks/useHTMLHead';
 import { useRender } from '@/safira-app/hooks/useRender';
@@ -16,13 +16,11 @@ import {
 } from '@/safira-app/services/queries/notifications';
 import NotificationService from '../services/notifications';
 import { DEFAULT_NOTIFICATION_PARAMS, NOTIFICATION_REQUEST_KEY } from '../utils/constants';
-import api from '@/services/api';
 import { useAuth } from '../hooks/useAuth';
 
 type SetState<T = any> = React.Dispatch<React.SetStateAction<T>>;
 
 interface NotificationContextType {
-  api: AxiosInstance;
   notificationViewCount: number;
   error: any;
   isLoading: boolean;
@@ -51,7 +49,7 @@ interface NotificationContextType {
 const manager = new Manager(links.api.notifications_v1);
 const socket = manager.socket('/');
 
-export const NotificationContext = createContext<NotificationContextType>({} as any);
+const NotificationContext = createContext({} as NotificationContextType);
 
 const NotificationProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { fn } = useRender();
@@ -68,7 +66,6 @@ const NotificationProvider: React.FC<React.PropsWithChildren> = ({ children }) =
   const paramsFallbackRef = useRef<NotificationParamsType>(DEFAULT_NOTIFICATION_PARAMS);
 
   const notificationService = new NotificationService({
-    api,
     dropdownOpened,
     notificationViewCount,
     setBadgeIsInvisible,
@@ -85,7 +82,6 @@ const NotificationProvider: React.FC<React.PropsWithChildren> = ({ children }) =
     queryKey: notificationKey,
     queryFn: async ({ pageParam = 1 }) =>
       getNotifications(
-        api,
         { ...params, page: pageParam },
         {
           language: user.config.default_language || 'en',
@@ -206,7 +202,6 @@ const NotificationProvider: React.FC<React.PropsWithChildren> = ({ children }) =
   return (
     <NotificationContext.Provider
       value={{
-        api,
         notificationViewCount,
         dropdownOpened,
         error,
@@ -236,4 +231,4 @@ const NotificationProvider: React.FC<React.PropsWithChildren> = ({ children }) =
   );
 };
 
-export default NotificationProvider;
+export { NotificationProvider, NotificationContext };

@@ -2,21 +2,43 @@ import React, { FC } from 'react';
 import { Badge, IconButton, Menu } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { NotificationsBody } from '../components/notificationsBody';
+import { NotificationReadOptionsType } from '@/safira-app/services/queries/notifications';
+import { ModulesType } from '@/safira-app/interfaces/Modules';
 
-interface NotificationsProps {
+interface NotificationsViewProps {
   anchorRef: React.RefObject<HTMLButtonElement | null>;
   badgeIsInvisible: boolean;
   dropdownOpened: boolean;
   handleOpenDropdown: (ev?: any) => void;
   handleCloseDropdown: (ev?: any) => void;
+  observerRef: React.RefObject<HTMLDivElement | null>;
+  showLoading: boolean;
+  handleSetNotificationsModuleFilter: (module: ModulesType) => void;
+  handleChangeNotificationOption: (value: NotificationReadOptionsType) => void;
+  handleOpenFilters: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  handleCloseFilters: () => void;
+  openFilters: boolean;
+  anchorElFilter: HTMLButtonElement | null;
+  isLoading: boolean;
+  handleLoadMoreContent: () => void;
 }
 
-export const NotificationsView: FC<NotificationsProps> = ({
+export const NotificationsView: FC<NotificationsViewProps> = ({
   anchorRef,
   badgeIsInvisible,
   dropdownOpened,
   handleOpenDropdown,
   handleCloseDropdown,
+  observerRef,
+  showLoading,
+  anchorElFilter,
+  handleChangeNotificationOption,
+  handleCloseFilters,
+  handleLoadMoreContent,
+  handleOpenFilters,
+  handleSetNotificationsModuleFilter,
+  isLoading,
+  openFilters,
 }) => {
   return (
     <>
@@ -69,7 +91,20 @@ export const NotificationsView: FC<NotificationsProps> = ({
           },
         }}
       >
-        {dropdownOpened && <NotificationsBody />}
+        {dropdownOpened && (
+          <NotificationsBody
+            observerRef={observerRef}
+            showLoading={showLoading}
+            anchorElFilter={anchorElFilter}
+            openFilters={openFilters}
+            handleChangeNotificationOption={handleChangeNotificationOption}
+            handleCloseFilters={handleCloseFilters}
+            handleLoadMoreContent={handleLoadMoreContent}
+            handleOpenFilters={handleOpenFilters}
+            handleSetNotificationsModuleFilter={handleSetNotificationsModuleFilter}
+            isLoading={isLoading}
+          />
+        )}
       </Menu>
     </>
   );

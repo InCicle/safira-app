@@ -3,14 +3,14 @@ import { ProfileMenuRef } from '@/safira-app/pages/Header/components/profileMenu
 import { domainName } from '@/safira-app/utils/domainName';
 import { usePermissions } from '@/safira-app/hooks/usePermissions';
 import { MeProps } from '@/safira-app/interfaces/Me';
-import { SearchItemInterface } from '@/safira-app/interfaces/Search';
+import { IProfile } from '@/safira-app/interfaces/Profile';
 import Cookies from 'js-cookie';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { HeaderView } from '../view';
 import { companiesAvatar } from '../components/companiesAvatar';
 import { getProfile } from '@/safira-app/services/queries/profile/requests';
-import NotificationProvider from '@/safira-app/contexts/NotificationContext';
+import { NotificationProvider } from '@/safira-app/contexts/NotificationContext';
 import { useProfile } from '@/safira-app/hooks/useProfile';
 import { useAuth } from '@/safira-app/hooks/useAuth';
 
@@ -19,7 +19,7 @@ export const HeaderController: React.FC = () => {
   const { me } = useProfile();
   const { user } = useAuth();
   const { companyId, checkPermission, permissionsList } = usePermissions();
-  const [resultSearch, setResultSearch] = useState([] as SearchItemInterface[]);
+  const [resultSearch, setResultSearch] = useState([] as IProfile[]);
   const [hasResult, setHasResult] = useState(false);
   const [companies, setCompanies] = useState<any>([]);
   const [accountType, setAccountType] = useState('');

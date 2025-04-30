@@ -1,22 +1,18 @@
 import React from 'react';
 import { MenuItem, Stack, Box } from '@mui/material';
 import CircleIcon from '@mui/icons-material/Circle';
-import { NotificationProps } from '@/safira-app/services/queries/notifications';
+import { markAsReadNotification, NotificationProps } from '@/safira-app/services/queries/notifications';
 import { RenderAvatar } from '@/safira-app/components/RenderAvatar';
 import { incicleNotificationModules } from '@/safira-app/utils/modules';
-import { links } from '@/safira-app/config/links';
-import api from '@/services/api';
-
 interface IProps {
   notification?: NotificationProps;
   url?: string;
   onClick?: (ev?: any) => void;
 }
 
-const markAsReaded = (e: any, notification: NotificationProps, api: any, url?: string) => {
+const markAsRead = (e: any, notification: NotificationProps, url?: string) => {
   e.preventDefault();
-  api
-    .patch(`${links.api.notifications_v1}/notifications/${notification.id}`)
+  markAsReadNotification(notification.id)
     .then((response: any) => {
       if (response.status === 204 && url) {
         window.location.href = url;
@@ -41,7 +37,7 @@ export const NotificationContainer: React.FC<React.PropsWithChildren<IProps>> = 
     }
 
     if (notification) {
-      markAsReaded(ev, notification, api, url);
+      markAsRead(ev, notification, url);
     }
 
     if (!url) return;

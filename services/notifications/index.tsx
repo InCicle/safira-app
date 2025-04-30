@@ -1,9 +1,6 @@
 import React from 'react';
-import { AxiosInstance } from 'axios';
-
 import notificationLogoImg from '@/safira-app/assets/incicle/incicle-favicon.png';
 import notificationSound from '@/safira-app/assets/audios/incicle-notification.mp3';
-
 import { incicleMenuModules } from '@/safira-app/utils/modules';
 import { FaviconOptionType } from '@/safira-app/hooks/useHTMLHead';
 import { addToast } from '@/safira-app/components/Toast';
@@ -13,7 +10,6 @@ import { links } from '@/safira-app/config/links';
 import { NotificationEvent } from '@/safira-app/services/emitters/NotificationEvent';
 
 type NotificationServiceType = {
-  api: AxiosInstance;
   dropdownOpened: boolean;
   notificationViewCount: number;
 
@@ -32,7 +28,6 @@ const DROPDOWN_DELAY = 800;
 export default class NotificationService {
   // presets ----------------------------------------- // --------------------------------------------------------- //
 
-  private api: NotificationServiceType['api'] = {} as any;
   private dropdownOpened: boolean = false;
   private notificationViewCount: number = 0;
 
@@ -67,7 +62,6 @@ export default class NotificationService {
   // constructor ----------------------------------- // ----------------------------------------------------------- //
 
   constructor({
-    api,
     dropdownOpened,
     notificationViewCount,
     defineFavicon,
@@ -77,7 +71,6 @@ export default class NotificationService {
     setNotificationViewCount,
     setAllNotifications,
   }: NotificationServiceType) {
-    this.api = api;
     this.dropdownOpened = dropdownOpened;
     this.notificationViewCount = notificationViewCount;
 
@@ -128,7 +121,7 @@ export default class NotificationService {
   public notify(notification: NotificationProps) {
     // handle new notification when dropdown is open
     if (this.dropdownOpened) {
-      updateSawNotifications(this.api);
+      updateSawNotifications();
     } else {
       this.executeBrowserTab(this.notificationViewCount + 1);
     }
@@ -221,7 +214,7 @@ export default class NotificationService {
     clearTimeout(DROPDOWN_TIMEOUT!);
 
     DROPDOWN_TIMEOUT = setTimeout(() => {
-      updateSawNotifications(this.api);
+      updateSawNotifications();
     }, DROPDOWN_DELAY);
   }
 

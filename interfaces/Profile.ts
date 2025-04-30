@@ -1,5 +1,4 @@
-// Interface for an item on search bar on header
-export interface SearchItemInterface {
+export interface IProfile {
   profile_id: string;
   name: string;
   avatar: string;

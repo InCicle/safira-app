@@ -1,52 +1,37 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ListItemIcon, Menu, MenuItem, Stack } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-
-import { useNotifications } from '@/safira-app/hooks/useNotifications';
-
 import { incicleNotificationModules } from '@/safira-app/utils/modules';
 import { ButtonNotification } from './styles';
 import { useTranslation } from 'react-i18next';
 import { translation } from '@/safira-app/utils/translation';
-import { DEFAULT_NOTIFICATION_PARAMS } from '@/safira-app/utils/constants';
 import { MODULES, ModulesType } from '@/safira-app/interfaces/Modules';
 import { NotificationsReadOptions, NotificationReadOptionsType } from '@/safira-app/services/queries/notifications';
 import { useAuth } from '@/safira-app/hooks/useAuth';
+import { useNotifications } from '@/safira-app/hooks/useNotifications';
 
-type AnchorButton = EventTarget & HTMLButtonElement;
+interface NotificationsFiltersProps {
+  handleSetNotificationsModuleFilter: (module: ModulesType) => void;
+  handleChangeNotificationOption: (value: NotificationReadOptionsType) => void;
+  handleOpenFilters: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  handleCloseFilters: () => void;
+  open: boolean;
+  anchorEl: HTMLButtonElement | null;
+  isLoading: boolean;
+}
 
-export const IncicleModulesDropdown: React.FC = () => {
-  const { user } = useAuth();
-  const { params, isLoading, fetchNotifications } = useNotifications();
+export const NotificationsFilters: React.FC<NotificationsFiltersProps> = ({
+  anchorEl,
+  open,
+  handleChangeNotificationOption,
+  handleCloseFilters,
+  handleOpenFilters,
+  handleSetNotificationsModuleFilter,
+  isLoading,
+}) => {
   const { t } = useTranslation();
-
-  const [anchorEl, setAnchorEl] = useState<AnchorButton | null>(null);
-
-  const open = Boolean(anchorEl);
-
-  function handleOpenDropdown(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    setAnchorEl(ev.currentTarget);
-  }
-
-  function handleCloseDropdown() {
-    setAnchorEl(null);
-  }
-
-  function handleChangeNotificationOption(value: NotificationReadOptionsType) {
-    fetchNotifications({
-      ...DEFAULT_NOTIFICATION_PARAMS,
-      read: value === NotificationsReadOptions.UNREADED ? value : undefined,
-    });
-  }
-
-  function handleSetNotificationsModuleFilter(value: ModulesType) {
-    fetchNotifications({
-      ...DEFAULT_NOTIFICATION_PARAMS,
-      read: value === MODULES.all ? undefined : (NotificationsReadOptions.ALL as NotificationReadOptionsType),
-      module: value === MODULES.all ? undefined : value,
-    });
-  }
-
+  const { user } = useAuth();
+  const { params } = useNotifications();
   return (
     <>
       <Stack
@@ -74,7 +59,7 @@ export const IncicleModulesDropdown: React.FC = () => {
           </ButtonNotification>
         </Stack>
 
-        <ButtonNotification disabled={isLoading} onClick={handleOpenDropdown}>
+        <ButtonNotification disabled={isLoading} onClick={handleOpenFilters}>
           {translation(
             t,
             `modules.${
@@ -95,7 +80,7 @@ export const IncicleModulesDropdown: React.FC = () => {
       <Menu
         anchorEl={anchorEl}
         open={open}
-        onClose={handleCloseDropdown}
+        onClose={handleCloseFilters}
         slotProps={{
           paper: {
             elevation: 0,
@@ -125,7 +110,7 @@ export const IncicleModulesDropdown: React.FC = () => {
               </MenuItem>
             );
           }
-          return <React.Fragment key={index}></React.Fragment>;
+          return <React.Fragment key={index} />;
         })}
       </Menu>
     </>

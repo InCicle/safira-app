@@ -8,7 +8,7 @@ import ComputerIcon from '@mui/icons-material/Computer';
 
 import { useNotifications } from '@/safira-app/hooks/useNotifications';
 import { links } from '@/safira-app/config/links';
-import api from '@/services/api';
+import { checkAllReadNotifications } from '@/safira-app/services/queries/notifications';
 
 type AnchorButton = EventTarget & HTMLButtonElement;
 
@@ -31,7 +31,7 @@ export const MoreOptionsDropdown: React.FC = () => {
     /**
      * This function is used to check all notifications as readed
      */
-    api.get(`${links.api.notifications_v1}/notifications/read`);
+    checkAllReadNotifications();
     setNotifications(old =>
       old?.map(notification => {
         notification.read = true;

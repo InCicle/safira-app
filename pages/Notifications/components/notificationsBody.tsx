@@ -1,28 +1,44 @@
-import React, { useCallback, useRef } from 'react';
+import React from 'react';
 import { Skeleton, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { translation } from '@/safira-app/utils/translation';
-import { useNotifications } from '@/safira-app/hooks/useNotifications';
-import { NotificationsReadOptions } from '@/safira-app/services/queries/notifications';
-import { useIntersectionObserver } from '@/safira-app/hooks/useIntersectionObserver';
+import { NotificationReadOptionsType, NotificationsReadOptions } from '@/safira-app/services/queries/notifications';
 import { MoreOptionsDropdown } from './moreOptionsDropdown';
-import { IncicleModulesDropdown } from './incicleModulesDropdown';
+import { NotificationsFilters } from './incicleModulesDropdown';
 import { NotificationWrapper } from './styles';
 import { NotificationItem } from './notificationItem';
+import { useNotifications } from '@/safira-app/hooks/useNotifications';
+import { ModulesType } from '@/safira-app/interfaces/Modules';
+import { useIntersectionObserver } from '@/safira-app/hooks/useIntersectionObserver';
 
-export const NotificationsBody: React.FC = () => {
-  const { notifications, params, isLoading, fetchNotifications, hasNextPage, isFetchingNextPage } = useNotifications();
+interface NotificationsBodyProps {
+  observerRef: React.RefObject<HTMLDivElement | null>;
+  showLoading: boolean;
+  handleSetNotificationsModuleFilter: (module: ModulesType) => void;
+  handleChangeNotificationOption: (value: NotificationReadOptionsType) => void;
+  handleOpenFilters: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  handleCloseFilters: () => void;
+  openFilters: boolean;
+  anchorElFilter: HTMLButtonElement | null;
+  isLoading: boolean;
+  handleLoadMoreContent: () => void;
+}
+
+export const NotificationsBody: React.FC<NotificationsBodyProps> = ({
+  observerRef,
+  showLoading,
+  anchorElFilter,
+  handleChangeNotificationOption,
+  handleCloseFilters,
+  handleLoadMoreContent,
+  handleOpenFilters,
+  handleSetNotificationsModuleFilter,
+  isLoading,
+  openFilters,
+}) => {
   const { t } = useTranslation();
-
-  const showLoading = isLoading || isFetchingNextPage || hasNextPage;
-
-  const handleLoadMoreContent = useCallback(() => {
-    if (!isLoading && hasNextPage) fetchNotifications({ page: params.page + 1 });
-  }, [isLoading, params]); // eslint-disable-line
-
-  const observerRef = useRef<HTMLDivElement | null>(null);
+  const { params, notifications, hasNextPage, isFetchingNextPage } = useNotifications();
   useIntersectionObserver({ observerRef, hasNextPage, isFetchingNextPage, fetchNextPage: handleLoadMoreContent });
-
   return (
     <>
       <Stack
@@ -40,7 +56,15 @@ export const NotificationsBody: React.FC = () => {
         <MoreOptionsDropdown />
       </Stack>
 
-      <IncicleModulesDropdown />
+      <NotificationsFilters
+        anchorEl={anchorElFilter}
+        open={openFilters}
+        handleChangeNotificationOption={handleChangeNotificationOption}
+        handleCloseFilters={handleCloseFilters}
+        handleOpenFilters={handleOpenFilters}
+        handleSetNotificationsModuleFilter={handleSetNotificationsModuleFilter}
+        isLoading={isLoading}
+      />
 
       <NotificationWrapper>
         <Typography variant="body2" sx={{ padding: '0 15px', color: '#959595', fontSize: '11px' }}>

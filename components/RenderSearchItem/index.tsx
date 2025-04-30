@@ -1,5 +1,5 @@
 import React from 'react';
-import { SearchItemInterface } from '@/safira-app/interfaces/Search';
+import { SearchItemInterface } from '@/safira-app/interfaces/Profile';
 import { RenderAvatar } from '@/safira-app/components/RenderAvatar';
 import { links } from '@/safira-app/config/links';
 

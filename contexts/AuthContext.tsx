@@ -6,6 +6,7 @@ import { links } from '@/safira-app/config/links';
 import { IUser } from '@/safira-app/interfaces/User';
 import { encode, decode } from '@/safira-app/utils/crypto';
 import { domainName } from '../utils/domainName';
+import { IToken } from '@/safira-app/interfaces/Token';
 
 export interface VerifyTokenData {
   email: string;
@@ -25,7 +26,7 @@ export interface AuthContextData {
   refreshToken(): Promise<string | null>;
 }
 
-const removeAuthCookies = () => {
+function removeAuthCookies() {
   Cookies.remove('authToken', { domain: domainName });
 
   Cookies.remove('expiresIn', { domain: domainName });
@@ -35,14 +36,14 @@ const removeAuthCookies = () => {
   Cookies.remove('companySelected', { domain: domainName });
 
   Cookies.remove('selected_schedules', { domain: domainName });
-};
+}
 
-const redirectToCore = () => {
+function redirectToCore() {
   const rule = /[h][t]{2}[p]s?[:][\/]{2}/; // eslint-disable-line
   const urlToRedirect = `${window.location.href.replace(rule, '')}`;
 
   window.location.href = `${links.web.core}/?redirect_to=${urlToRedirect}`;
-};
+}
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
@@ -86,77 +87,53 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
     [setData],
   );
 
-  const doRefreshToken = useCallback(async () => {
-    try {
-      const currentToken = Cookies.get('authToken');
-
-      if (!currentToken) return null;
-
-      const { data: response } = await axios.get(`${links.api.schedule}/auth/refresh`, {
-        headers: {
-          Authorization: `Bearer ${decode(currentToken)}`,
-        },
+  const updateAuth = useCallback(
+    (token: string, expiresIn: string | number) => {
+      Cookies.set('authToken', encode(token), {
+        domain: domainName,
       });
-
-      Cookies.remove('authToken', { domain: domainName });
-      Cookies.remove('expiresIn', { domain: domainName });
-      Cookies.remove('user', { domain: domainName });
-
-      Cookies.set('expiresIn', encode(response.expires_in.toString()), {
+      Cookies.set('expiresIn', encode(expiresIn.toString()), {
         domain: domainName,
       });
 
-      Cookies.set('authToken', encode(response.access_token), {
-        domain: domainName,
-      });
+      setData(prevState => ({
+        ...prevState,
+        token,
+        expiresIn,
+      }));
+    },
+    [setData],
+  );
 
-      const jwt: any = jwtDecode(response.access_token);
-      const user = JSON.stringify(jwt.user);
-
-      Cookies.set('user', encode(user), {
-        domain: domainName,
-      });
-
-      return response.token;
-    } catch {
-      signOut();
-    }
-
-    return null;
-  }, []);
-
-  const refreshToken = useCallback(() => {
+  const refreshToken = useCallback(async (): Promise<string | null> => {
     let token = Cookies.get('authToken');
-    if (token) {
-      token = decode(token);
-      axios({
+    if (!token) return null;
+    token = decode(token);
+    try {
+      const response = await axios({
         url: '/refresh',
         baseURL: `${links.api.schedule}/auth`,
         headers: {
           authorization: `Bearer ${token}`,
         },
         method: 'GET',
-      })
-        .then(response => {
-          const { access_token, expires_in } = response.data;
-          const jwt: any = jwtDecode(access_token);
-          const user = JSON.stringify(jwt.user);
+      });
 
-          Cookies.set('authToken', encode(access_token), {
-            domain: domainName,
-          });
-          Cookies.set('expiresIn', encode(expires_in.toString()), {
-            domain: domainName,
-          });
-          Cookies.set('user', encode(user), {
-            domain: domainName,
-          });
-        })
-        .catch(() => {
-          signOut();
-        });
+      removeAuthCookies();
+
+      const { access_token, expires_in } = response.data;
+      const jwt = jwtDecode<IToken>(access_token);
+      const user = JSON.stringify(jwt.user);
+
+      updateAuth(access_token, expires_in);
+      updateUser(JSON.parse(user) as IUser);
+
+      return access_token;
+    } catch {
+      signOut();
+      return null;
     }
-  }, []);
+  }, [updateAuth, updateUser]);
 
   const tokenTimeout = () => {
     const expiresIn = Cookies.get('expiresIn');
@@ -190,7 +167,7 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) 
         user: data.user,
         signOut,
         updateUser,
-        refreshToken: doRefreshToken,
+        refreshToken,
       }}
     >
       {children}
