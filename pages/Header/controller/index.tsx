@@ -1,26 +1,23 @@
 import { ModulesMenuRef } from '@/safira-app/pages/Header/components/modulesMenu';
 import { ProfileMenuRef } from '@/safira-app/pages/Header/components/profileMenu';
-import { domainName } from '@/safira-app/contexts/AuthContext';
+import { domainName } from '@/safira-app/utils/domainName';
 import { usePermissions } from '@/safira-app/hooks/usePermissions';
 import { MeProps } from '@/safira-app/interfaces/Me';
 import { SearchItemInterface } from '@/safira-app/interfaces/Search';
-import { IUser } from '@/safira-app/interfaces/User';
 import Cookies from 'js-cookie';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { HeaderView } from '../view';
 import { companiesAvatar } from '../components/companiesAvatar';
 import { getProfile } from '@/safira-app/services/queries/profile/requests';
 import NotificationProvider from '@/safira-app/contexts/NotificationContext';
+import { useProfile } from '@/safira-app/hooks/useProfile';
+import { useAuth } from '@/safira-app/hooks/useAuth';
 
-interface HeaderControllerProps {
-  user: IUser;
-  me: MeProps;
-  signOut: () => void;
-}
-
-export const HeaderController: React.FC<HeaderControllerProps> = ({ me, user }) => {
+export const HeaderController: React.FC = () => {
   const { t } = useTranslation();
+  const { me } = useProfile();
+  const { user } = useAuth();
   const { companyId, checkPermission, permissionsList } = usePermissions();
   const [resultSearch, setResultSearch] = useState([] as SearchItemInterface[]);
   const [hasResult, setHasResult] = useState(false);
@@ -37,6 +34,38 @@ export const HeaderController: React.FC<HeaderControllerProps> = ({ me, user }) 
   const openMenuCompanys = Boolean(anchorCompanyEl);
   const INCICLE_LOGO = 'https://static-incicle.s3.amazonaws.com/logo_incicle.svg';
   const contentSideBarElement = document.querySelector('.contentSidebar > div') as any;
+
+  const getManagerPermission = useCallback(() => {
+    if (user.type === 'COMPANY' || !me || !me?.companies) return;
+    const companySelected = me.companies.find(company => company.id === companyId);
+    if (!companySelected) return;
+    if (
+      !!companySelected.is_manager_competence ||
+      checkPermission(['managers_vacations_list']) ||
+      checkPermission(['managers_list_occurrences']) ||
+      checkPermission(['in_check'])
+    ) {
+      setActiveManagerPanel(true);
+    }
+  }, [user.type, me, companyId, checkPermission]);
+
+  const getCompany = useCallback(() => {
+    if (me?.type === 'PERSON') {
+      setAccountType('PERSON');
+      if (me?.companies.length > 0) {
+        const companySelected = Cookies.get('companySelected');
+        if (!companySelected) {
+          Cookies.set('companySelected', me?.companies[0].id, { domain: domainName });
+          setSelectedCompany(me?.companies[0]);
+        } else {
+          const comp = me?.companies.find(company => company.id === companySelected);
+          setSelectedCompany(comp);
+        }
+
+        setCompanies(me?.companies);
+      }
+    }
+  }, [me]);
 
   useEffect(() => {
     getManagerPermission();
@@ -64,51 +93,18 @@ export const HeaderController: React.FC<HeaderControllerProps> = ({ me, user }) 
     };
   }, []);
 
-  function getCompany() {
-    if (me?.type === 'PERSON') {
-      setAccountType('PERSON');
-      if (me?.companies.length > 0) {
-        const companySelected = Cookies.get('companySelected');
-        if (!companySelected) {
-          Cookies.set('companySelected', me?.companies[0].id, { domain: domainName });
-          setSelectedCompany(me?.companies[0]);
-        } else {
-          const comp = me?.companies.find(company => company.id === companySelected);
-          setSelectedCompany(comp);
-        }
-
-        setCompanies(me?.companies);
-      }
-    }
-  }
-
   function clearInputClassName() {
     if (window.innerWidth > 1200 && inputBoxClassName.length) setInputBoxClassName('');
   }
 
   function changeSidebarDisplay() {
-    if (contentSideBarElement) {
-      if (window.innerWidth < 800) {
-        contentSideBarElement!.style.display = 'none';
-        return;
-      }
-
-      contentSideBarElement!.style.display = 'initial';
+    if (!contentSideBarElement) return;
+    if (window.innerWidth < 800) {
+      contentSideBarElement!.style.display = 'none';
+      return;
     }
-  }
 
-  function getManagerPermission() {
-    if (user.type === 'COMPANY' || !me || !me?.companies) return;
-    const companySelected = me.companies.find(company => company.id === companyId);
-    if (!companySelected) return;
-    if (
-      !!companySelected.is_manager_competence ||
-      checkPermission(['managers_vacations_list']) ||
-      checkPermission(['managers_list_occurrences']) ||
-      checkPermission(['in_check'])
-    ) {
-      setActiveManagerPanel(true);
-    }
+    contentSideBarElement!.style.display = 'initial';
   }
 
   function getLogoUrl() {
@@ -129,7 +125,8 @@ export const HeaderController: React.FC<HeaderControllerProps> = ({ me, user }) 
   }
 
   function getLogoFromCompanies(companyId: string, companies: MeProps['companies']) {
-    return companies.find(item => item.id === companyId)!?.logo;
+    const company = companies.find(item => item.id === companyId);
+    return company?.logo || '';
   }
 
   function searchFunction(username: string) {
