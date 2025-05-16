@@ -23,7 +23,7 @@ const messageGroup = {
   FIFTEEN_MINUTES: '15 minutos',
 };
 
-export function createProjectsBrowserNotificationFactory(notification: NotificationProps) {
+export function createProjects(notification: NotificationProps) {
   const { sender, common } = notification;
 
   switch (notification.type) {

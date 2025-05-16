@@ -76,7 +76,7 @@ const NotificationProvider: React.FC<React.PropsWithChildren> = ({ children }) =
     definePageTitle,
   });
 
-  const notificationKey = [NOTIFICATION_REQUEST_KEY];
+  const notificationKey = [NOTIFICATION_REQUEST_KEY, params.module, params.read];
 
   const notificationsQuery = useInfiniteQuery({
     queryKey: notificationKey,
@@ -103,15 +103,10 @@ const NotificationProvider: React.FC<React.PropsWithChildren> = ({ children }) =
   const lastPage = notificationsQuery.data?.pages[0].totalPage || 0;
 
   async function fetchNotifications(newParams: NotificationParamsType) {
-    if (notificationsQuery.data?.pages.some(page => page.currentPage === newParams.page)) return;
-
-    console.log(newParams);
-    console.log(notificationsQuery.data?.pageParams);
-
     paramsFallbackRef.current = { ...params };
     setParams(prev => ({ ...prev, ...newParams }));
 
-    await notificationsQuery.fetchNextPage();
+    await notificationsQuery.refetch();
   }
 
   function markAllAsViewed(key?: any[]) {

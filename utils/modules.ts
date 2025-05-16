@@ -22,7 +22,7 @@ import HRConnectIcon from '@/safira-app/assets/tutorials/HRConnectIcon';
 import ClimateResearchIcon from '@/safira-app/assets/tutorials/ClimateResearchIcon';
 import ClimateResearchDisabledIcon from '@/safira-app/assets/tutorials/ClimateResearchDisabledIcon';
 
-export type MenuModulesType = {
+export type ModulesType = {
   title: string;
   icon: string | React.ComponentType<React.SVGProps<SVGSVGElement>>;
   iconSize: number;
@@ -37,7 +37,7 @@ export type MenuModulesType = {
   redirectType: 'internal' | 'external';
 };
 
-export const incicleMenuModules: MenuModulesType[] = [
+export const CompanyMenuModules: ModulesType[] = [
   {
     title: 'schedule',
     slug: MODULES.schedule,
@@ -82,7 +82,7 @@ export const incicleMenuModules: MenuModulesType[] = [
     slug: MODULES.schedule,
     icon: EndoMarketingIcon,
     iconSize: 60,
-    url: `${links.web.social}/endomarketing`,
+    url: `${links.web.endomarketing}`,
     accountTypes: ['COMPANY'],
     description: {
       COMPANY: 'endomarketing_description',
@@ -95,7 +95,7 @@ export const incicleMenuModules: MenuModulesType[] = [
     slug: MODULES.schedule,
     icon: FeedbackIcon,
     iconSize: 60,
-    url: `${links.web.social}/feedback`,
+    url: `${links.web.feedback}`,
     accountTypes: ['COMPANY', 'PERSON'],
     description: {
       COMPANY: 'feedback_description.company',
@@ -186,7 +186,7 @@ export const incicleMenuModules: MenuModulesType[] = [
     slug: MODULES.task_manager,
     icon: TaskIcon,
     iconSize: 60,
-    url: `${links.web.schedule}/taskmanager`,
+    url: `${links.web.task_manager}`,
     accountTypes: ['PERSON'],
     description: {
       COMPANY: null,
@@ -232,7 +232,6 @@ export const incicleMenuModules: MenuModulesType[] = [
     },
     redirectType: 'internal',
   },
-
   {
     title: 'in_point',
     slug: MODULES.in_point,
@@ -291,7 +290,7 @@ export const incicleMenuModules: MenuModulesType[] = [
     icon: links.production ? ClimateResearchDisabledIcon : ClimateResearchIcon,
     iconSize: 60,
     accountTypes: ['COMPANY'],
-    url: links.web.survey? `${links.web.survey}` : null,
+    url: links.web.survey ? `${links.web.survey}` : null,
     description: {
       COMPANY: 'climate_research_description',
       PERSON: null,
@@ -300,7 +299,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   },
 ];
 
-export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
+export const CollaboratorsMenuModules: ModulesType[] = [
   {
     title: 'personal_department',
     slug: MODULES.all,
@@ -320,7 +319,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
     slug: MODULES.schedule,
     icon: EndoMarketingIcon,
     iconSize: 60,
-    url: `${links.web.social}/endomarketing`,
+    url: `${links.web.endomarketing}`,
     accountTypes: ['PERSON'],
     description: {
       COMPANY: null,
@@ -373,7 +372,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
   },
 ];
 
-export const incicleManagerMenuModules: MenuModulesType = {
+export const ManagerMenuModules: ModulesType = {
   title: 'manager_panel',
   slug: MODULES.all,
   icon: ManagerIcon,
@@ -389,13 +388,13 @@ export const incicleManagerMenuModules: MenuModulesType = {
 
 export type FilterModulesType = {
   title: string;
-  slug: string;
+  slug: MODULES;
   icon: string;
   linkKey: keyof ModulesWeb | 'disabled';
   userType: 'BOTH' | 'COMPANY' | 'PERSON';
 };
 
-export const incicleNotificationModules: FilterModulesType[] = [
+export const FilterModules: FilterModulesType[] = [
   {
     title: 'all',
     slug: MODULES.all,
@@ -421,21 +420,21 @@ export const incicleNotificationModules: FilterModulesType[] = [
     title: 'personal_department',
     slug: MODULES.personal_department,
     icon: 'https://static-incicle.s3.amazonaws.com/engenharia-organizacional.svg',
-    linkKey: 'social',
+    linkKey: 'department',
     userType: 'COMPANY',
   },
   {
     title: 'endomarketing',
     slug: MODULES.endomarketing,
     icon: 'https://static-incicle.s3.amazonaws.com/endo-marketing.svg',
-    linkKey: 'social',
+    linkKey: 'endomarketing',
     userType: 'COMPANY',
   },
   {
     title: 'feedback',
     slug: MODULES.feedback,
     icon: 'https://static-incicle.s3.amazonaws.com/feedback.svg',
-    linkKey: 'social',
+    linkKey: 'feedback',
     userType: 'BOTH',
   },
   {
@@ -493,5 +492,19 @@ export const incicleNotificationModules: FilterModulesType[] = [
     icon: 'https://static-incicle.s3.amazonaws.com/okr-icon.svg',
     linkKey: 'okr',
     userType: 'BOTH',
+  },
+  {
+    title: 'group',
+    slug: MODULES.group,
+    icon: 'https://static-incicle.s3.amazonaws.com/grupo.svg',
+    linkKey: 'group',
+    userType: 'BOTH',
+  },
+  {
+    title: 'tasks',
+    slug: MODULES.task_manager,
+    icon: 'https://static-incicle.s3.amazonaws.com/task.svg',
+    linkKey: 'task_manager',
+    userType: 'PERSON',
   },
 ];

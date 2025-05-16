@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 
-export function useQuery() {
+export function useURLQuery() {
   const [forceState, setForceState] = useState(0);
 
   function updateState() {

@@ -23,7 +23,7 @@ const notificationType = {
   GROUP_DELETED: 'GROUP_DELETED',
 };
 
-export function createGroupBrowserNotificationFactory(notification: NotificationProps) {
+export function createGroup(notification: NotificationProps) {
   const { sender, common } = notification;
 
   switch (notification.type) {

@@ -1,69 +1,39 @@
 import { NotificationProps } from '@/safira-app/services/queries/notifications';
-import { reduceString } from '@/safira-app/utils/reduceString';
 
 const notificationType = {
-  HIRING_PENDING: 'HIRING_PENDING',
-  HIRING_UPDATED: 'HIRING_UPDATED',
-  HIRING_APPROVED: 'HIRING_APPROVED',
-  HIRING_CANCELED: 'HIRING_CANCELED',
-  HIRING_CANCELED_BY_CANDIDATE: 'HIRING_CANCELED_BY_CANDIDATE',
-  HIRING_ACCEPTED_BY_CANDIDATE: 'HIRING_ACCEPTED_BY_CANDIDATE',
-  HIRING_PENDING_DEADLINE: 'HIRING_PENDING_DEADLINE',
-  NEW_HIRING: 'NEW_HIRING',
-  DOCUMENT_REJECTED: 'DOCUMENT_REJECTED',
-  FREE_NOTIFICATION: 'FREE_NOTIFICATION',
-  NEW_DOCUMENT: 'NEW_DOCUMENT',
-  CANCELED_SOLICITATION_DOCUMENT: 'CANCELED_SOLICITATION_DOCUMENT',
-  NEW_SOLICITATION_DOCUMENT: 'NEW_SOLICITATION_DOCUMENT',
+  EMPLOYEE_LINK_REQUEST: 'EMPLOYEE_LINK_REQUEST',
+  EMPLOYEE_LINK_ANSWER: 'EMPLOYEE_LINK_ANSWER',
+  EMPLOYEE_UNLINK: 'EMPLOYEE_UNLINK',
+  EMPLOYEE_LINK_CANCELED: 'EMPLOYEE_LINK_CANCELED',
+  CORPORATE_FEEDBACK: 'CORPORATE_FEEDBACK',
+  PAYSLIP_RECEIVED: 'PAYSLIP_RECEIVED',
 };
 
-export function createPersonalDepartmentBrowserNotificationFactory(notification: NotificationProps) {
-  const { sender, common } = notification;
+export function createPersonalDepartment(notification: NotificationProps) {
+  const { sender } = notification;
 
   switch (notification.type) {
-    case notificationType.HIRING_PENDING:
-      return `${sender.name} precisa que você envie documentos faltantes para a continuidade da sua contratação`;
+    case notificationType.EMPLOYEE_LINK_REQUEST:
+      return `${sender.name} convidou você para vincular-se como colaborador.`;
 
-    case notificationType.HIRING_UPDATED:
-      return `${sender.name} modificou os dados de sua contratação`;
+    case notificationType.EMPLOYEE_LINK_ANSWER:
+      return `${sender.name} ${
+        notification.common.content === 'ACCEPTED' ? 'aceitou' : 'recusou'
+      } o convite de vinculação.`;
 
-    case notificationType.HIRING_APPROVED:
-      return `${sender.name} concluiu seu processo de contratação. "${reduceString(common.content, 60)}"`;
+    case notificationType.EMPLOYEE_UNLINK:
+      return `Você foi desvinculado da empresa ${sender.name}.`;
 
-    case notificationType.HIRING_CANCELED:
-      return `${sender.name}: "${reduceString(common.content, 80)}"`;
+    case notificationType.EMPLOYEE_LINK_CANCELED:
+      return `A empresa ${notification.sender.name} cancelou o convite de vinculação.`;
 
-    case notificationType.HIRING_CANCELED_BY_CANDIDATE:
-      return `${sender.name} "${reduceString(common.content, 80)}"`;
+    case notificationType.CORPORATE_FEEDBACK:
+      return `${notification.sender.name} enviou um feedback que precisa da sua atenção.`;
 
-    case notificationType.HIRING_ACCEPTED_BY_CANDIDATE:
-      return `${sender.name}: Aceitou iniciar o processo de contratação como ${reduceString(
-        notification.common.content,
-        80,
-      )}`;
-
-    case notificationType.HIRING_PENDING_DEADLINE:
-      return `O prazo limite para o cadastro de suas informações se encerra amanhã`;
-
-    case notificationType.NEW_HIRING:
-      return `${sender.name} deseja te contratar como colaborador`;
-
-    case notificationType.DOCUMENT_REJECTED:
-      return `${sender.name} rejeitou o documento "${common.document}"`;
-
-    case notificationType.FREE_NOTIFICATION:
-      return `${sender.name}: ${reduceString(common.content, 120)}`;
-
-    case notificationType.NEW_DOCUMENT:
-      return `${sender.name} te enviou um documento referente à sua contratação`;
-
-    case notificationType.CANCELED_SOLICITATION_DOCUMENT:
-      return `${sender.name} cancelou a solicitação de um documento referente à sua contratação`;
-
-    case notificationType.NEW_SOLICITATION_DOCUMENT:
-      return `${sender.name} te solicitou um novo documento referente à sua contratação`;
+    case notificationType.PAYSLIP_RECEIVED:
+      return `${notification.sender.name} enviou um holerite para você.`;
 
     default:
-      return '';
+      return ``;
   }
 }

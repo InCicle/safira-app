@@ -3,6 +3,7 @@
     "modules": {
       "title": "Módulos",
       "feed": "Feed",
+      "group": "Grupos",
       "schedule": "Agenda",
       "schedule_description": "Visualize seus compromissos.",
       "projects": "Gestão",

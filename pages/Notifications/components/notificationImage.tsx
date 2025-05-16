@@ -1,16 +1,16 @@
 import { NotificationProps } from '@/safira-app/services/queries/notifications';
 import { Box } from '@mui/material';
 import { RenderAvatar } from '@/safira-app/components/RenderAvatar';
-import { incicleNotificationModules } from '@/safira-app/utils/modules';
+import { FilterModules } from '@/safira-app/utils/modules';
 
-export const NotificationImageBox: React.FC<{
+export const NotificationImage: React.FC<{
   notification: NotificationProps;
 }> = ({ notification }) => {
   return (
     <Box sx={{ position: 'relative' }}>
       <RenderAvatar src={notification.sender.avatar_url} />
 
-      {!!notification.module && (
+      {Boolean(notification.module) && (
         <Box
           sx={{
             position: 'absolute',
@@ -24,7 +24,7 @@ export const NotificationImageBox: React.FC<{
           }}
         >
           <img
-            src={incicleNotificationModules.find(incicleModule => incicleModule.slug === notification.module)?.icon}
+            src={FilterModules.find(module => module.slug === notification.module)?.icon}
             alt={notification.module}
             style={{ width: '100%', height: 'auto' }}
           />

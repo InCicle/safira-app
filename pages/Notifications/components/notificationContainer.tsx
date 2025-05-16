@@ -3,34 +3,35 @@ import { MenuItem, Stack, Box } from '@mui/material';
 import CircleIcon from '@mui/icons-material/Circle';
 import { markAsReadNotification, NotificationProps } from '@/safira-app/services/queries/notifications';
 import { RenderAvatar } from '@/safira-app/components/RenderAvatar';
-import { incicleNotificationModules } from '@/safira-app/utils/modules';
-interface IProps {
+import { FilterModules } from '@/safira-app/utils/modules';
+
+interface NotificationContainerProps {
   notification?: NotificationProps;
   url?: string;
   onClick?: (ev?: any) => void;
 }
 
-const markAsRead = (e: any, notification: NotificationProps, url?: string) => {
-  e.preventDefault();
-  markAsReadNotification(notification.id)
-    .then((response: any) => {
-      if (response.status === 204 && url) {
-        window.location.href = url;
-      }
-    })
-    .catch(() => {
-      if (url) {
-        window.location.href = url;
-      }
-    });
-};
-
-export const NotificationContainer: React.FC<React.PropsWithChildren<IProps>> = ({
-  notification,
+export const NotificationContainer: React.FC<React.PropsWithChildren<NotificationContainerProps>> = ({
   url,
   onClick,
   children,
+  notification,
 }) => {
+  function markAsRead(e: any, notification: NotificationProps, url?: string) {
+    e.preventDefault();
+    markAsReadNotification(notification.id)
+      .then((response: any) => {
+        if (response.status === 204 && url) {
+          window.location.href = url;
+        }
+      })
+      .catch(() => {
+        if (url) {
+          window.location.href = url;
+        }
+      });
+  }
+
   function handleClick(ev?: any) {
     if (onClick) {
       onClick(ev);
@@ -76,7 +77,7 @@ export const NotificationContainer: React.FC<React.PropsWithChildren<IProps>> = 
         <Box sx={{ position: 'relative' }}>
           {notification && <RenderAvatar src={notification?.sender.avatar_url} />}
 
-          {!!notification?.module && (
+          {Boolean(notification?.module) && (
             <Box
               sx={{
                 position: 'absolute',
@@ -93,8 +94,8 @@ export const NotificationContainer: React.FC<React.PropsWithChildren<IProps>> = 
               }}
             >
               <img
-                src={incicleNotificationModules.find(incicleModule => incicleModule.slug === notification.module)?.icon}
-                alt={notification.module}
+                src={FilterModules.find(module => module.slug === notification?.module)?.icon}
+                alt={notification?.module}
                 style={{ width: '100%', height: 'auto' }}
               />
             </Box>

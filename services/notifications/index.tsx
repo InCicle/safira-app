@@ -1,7 +1,7 @@
 import React from 'react';
 import notificationLogoImg from '@/safira-app/assets/incicle/incicle-favicon.png';
 import notificationSound from '@/safira-app/assets/audios/incicle-notification.mp3';
-import { incicleMenuModules } from '@/safira-app/utils/modules';
+import { CompanyMenuModules } from '@/safira-app/utils/modules';
 import { FaviconOptionType } from '@/safira-app/hooks/useHTMLHead';
 import { addToast } from '@/safira-app/components/Toast';
 import { NotificationDTO } from './DTO';
@@ -181,7 +181,7 @@ export default class NotificationService {
 
       const factory = new NotificationDTO(notification);
       const notificationMessage = factory.toBrowserAPI();
-      const { title } = incicleMenuModules.find(item => item.slug === notification.module) || {};
+      const { title } = CompanyMenuModules.find(item => item.slug === notification.module) || {};
 
       const notif = new Notification(`${title || ''}`, {
         icon: notificationLogoImg,

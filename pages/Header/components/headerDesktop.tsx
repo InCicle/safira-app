@@ -14,12 +14,11 @@ import RenderSearchItem from '@/safira-app/components/RenderSearchItem';
 import { translation } from '@/safira-app/utils/translation';
 import { FC } from 'react';
 import { HeaderDesktopProps } from '../interfaces';
+import { useTranslation } from 'react-i18next';
 
 export const HeaderDesktop: FC<HeaderDesktopProps> = ({
+  userAvatar,
   accountType,
-  me,
-  t,
-  user,
   hasResult,
   inputBoxClassName,
   openMenuCompanies,
@@ -36,8 +35,10 @@ export const HeaderDesktop: FC<HeaderDesktopProps> = ({
   searchFunction,
   handleOpenModulesMenu,
   handleOpenMenuProfile,
-  getLogoUrl,
+  logoUrl,
+  isPublicUrl,
 }) => {
+  const { t } = useTranslation();
   return (
     <>
       <section className="incicleheader-content">
@@ -61,15 +62,15 @@ export const HeaderDesktop: FC<HeaderDesktopProps> = ({
               },
             }}
           >
-            {!getLogoUrl().isPublicUrl ? (
+            {!isPublicUrl ? (
               <RenderImage
-                src={getLogoUrl().logoUrl}
+                src={logoUrl}
                 className="logo"
                 alt="logo"
                 options={{ ResponseCacheControl: 'max-age=30000' }}
               />
             ) : (
-              <img src={getLogoUrl().logoUrl} className="logo" alt="logo" />
+              <img src={logoUrl} className="logo" alt="logo" />
             )}
           </Link>
 
@@ -91,12 +92,12 @@ export const HeaderDesktop: FC<HeaderDesktopProps> = ({
                 },
                 {
                   text: 'feedback',
-                  link: `${links.web?.social}/feedback`,
+                  link: `${links.web?.feedback}`,
                 },
-                user.type === 'PERSON'
+                accountType === 'PERSON'
                   ? {
                       text: 'tasks',
-                      link: `${links.web.schedule}/taskmanager`,
+                      link: `${links.web.task_manager}`,
                     }
                   : {},
               ].map((anchor: any) => {
@@ -332,7 +333,7 @@ export const HeaderDesktop: FC<HeaderDesktopProps> = ({
               size="small"
               style={{ marginRight: 15 }}
             >
-              <RenderAvatar sx={{ width: 35, height: 35 }} src={me?.avatar} />
+              <RenderAvatar sx={{ width: 35, height: 35 }} src={userAvatar} />
             </IconButton>
           </Stack>
         </nav>

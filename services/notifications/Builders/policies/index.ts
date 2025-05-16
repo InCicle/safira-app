@@ -5,7 +5,7 @@ const notificationType = {
   POLICY_REVIEW: 'POLICY_REVIEW',
 };
 
-export function createPoliciesBrowserNotificationFactory(notification: NotificationProps) {
+export function createPolicies(notification: NotificationProps) {
   const { sender } = notification;
 
   switch (notification.type) {

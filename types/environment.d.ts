@@ -26,19 +26,29 @@ declare global {
     readonly VITE_APP_WEB_URL_POLICY: string;
     readonly VITE_APP_WEB_URL_OKR: string;
     readonly VITE_APP_WEB_URL_DEPARTMENT: string;
+    readonly VITE_APP_WEB_URL_TASK_MANAGER: string;
+    readonly VITE_APP_WEB_URL_SETTINGS: string;
+    readonly VITE_APP_WEB_URL_MANAGER: string;
+    readonly VITE_APP_WEB_URL_INCHECK: string;
+    readonly VITE_APP_WEB_URL_OMBUDSMAN: string;
+    readonly VITE_APP_WEB_URL_HRCONNECTION: string;
+    readonly VITE_APP_WEB_URL_SURVEY: string;
+    readonly VITE_APP_WEB_URL_GROUP: string;
+    readonly VITE_APP_WEB_URL_FEEDBACK: string;
+    readonly VITE_APP_WEB_URL_ENDOMARKETING: string;
 
     // AWS
     // Incicle
-    readonly VITE_APP_AWS_BUCKET_INCICLE_BUCKET_NAME: string;
-    readonly VITE_APP_AWS_BUCKET_INCICLE_ACCESS_KEY_ID: string;
-    readonly VITE_APP_AWS_BUCKET_INCICLE_SECRET_ACCESS_KEY: string;
-    readonly VITE_APP_AWS_BUCKET_INCICLE_REGION: string;
+    readonly VITE_APP_S3_BUCKET_INCICLE: string;
+    readonly VITE_APP_S3_REGION_INCICLE: string;
+    readonly VITE_APP_S3_ACCESS_KEY_ID_INCICLE: string;
+    readonly VITE_APP_S3_SECRET_ACCESS_KEY_INCICLE: string;
 
     // Projects
-    readonly VITE_APP_AWS_BUCKET_BUCKET_PROJECTS_NAME: string;
-    readonly VITE_APP_AWS_BUCKET_PROJECTS_ACCESS_KEY_ID: string;
-    readonly VITE_APP_AWS_BUCKET_PROJECTS_SECRET_ACCESS_KEY: string;
-    readonly VITE_APP_AWS_BUCKET_PROJECTS_REGION: string;
+    readonly VITE_APP_S3_BUCKET_PROJECTS: string;
+    readonly VITE_APP_S3_REGION_PROJECTS: string;
+    readonly VITE_APP_S3_ACCESS_KEY_ID_PROJECTS: string;
+    readonly VITE_APP_S3_SECRET_ACCESS_KEY_PROJECTS: string;
 
     readonly VITE_APP_ENV: 'development' | 'production' | 'staging';
   }

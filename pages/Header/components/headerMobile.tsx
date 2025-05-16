@@ -11,10 +11,10 @@ import { RenderAvatar } from '@/safira-app/components/RenderAvatar';
 import RenderSearchItem from '@/safira-app/components/RenderSearchItem';
 import { translation } from '@/safira-app/utils/translation';
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const HeaderMobile: FC<HeaderMobileProps> = ({
-  me,
-  t,
+  userAvatar,
   hasResult,
   inputBoxClassName,
   anchorRef,
@@ -23,8 +23,10 @@ export const HeaderMobile: FC<HeaderMobileProps> = ({
   setInputBoxClassName,
   searchFunction,
   handleOpenMenuProfile,
-  getLogoUrl,
+  logoUrl,
+  isPublicUrl,
 }) => {
+  const { t } = useTranslation();
   return (
     <>
       <section className="incicleheader-content">
@@ -167,15 +169,15 @@ export const HeaderMobile: FC<HeaderMobileProps> = ({
               },
             }}
           >
-            {!getLogoUrl().isPublicUrl ? (
+            {!isPublicUrl ? (
               <RenderImage
-                src={getLogoUrl().logoUrl}
+                src={logoUrl}
                 className="logo"
                 alt="logo"
                 options={{ ResponseCacheControl: 'max-age=30000' }}
               />
             ) : (
-              <img src={getLogoUrl().logoUrl} className="logo" alt="logo" />
+              <img src={logoUrl} className="logo" alt="logo" />
             )}
           </Link>
         </nav>
@@ -194,7 +196,7 @@ export const HeaderMobile: FC<HeaderMobileProps> = ({
               size="small"
               style={{ marginRight: 15 }}
             >
-              <RenderAvatar sx={{ width: 35, height: 35 }} src={me?.avatar} />
+              <RenderAvatar sx={{ width: 35, height: 35 }} src={userAvatar} />
             </IconButton>
           </Stack>
         </nav>

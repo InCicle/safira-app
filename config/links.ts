@@ -26,6 +26,10 @@ export type ModulesWeb = {
   ombudsman: string;
   hrconnect: string;
   survey: string;
+  task_manager: string;
+  group: string;
+  endomarketing: string;
+  feedback: string;
 };
 
 export type AwsUrl = {
@@ -62,28 +66,32 @@ export const links: Modulelinks = {
     personal_department: import.meta.env.VITE_APP_WEB_URL_PD,
     project: import.meta.env.VITE_APP_WEB_URL_PROJECTS,
     schedule: import.meta.env.VITE_APP_WEB_URL_SCHEDULE,
-    social: import.meta.env.VITE_APP_WEB_URL_SOCIAL_NETWORK!,
-    policy: import.meta.env.VITE_APP_WEB_URL_POLICY!,
+    task_manager: import.meta.env.VITE_APP_WEB_URL_TASK_MANAGER,
+    social: import.meta.env.VITE_APP_WEB_URL_SOCIAL_NETWORK,
+    policy: import.meta.env.VITE_APP_WEB_URL_POLICY,
     okr: import.meta.env.VITE_APP_WEB_URL_OKR,
     department: import.meta.env.VITE_APP_WEB_URL_DEPARTMENT,
-    settings: import.meta.env.VITE_APP_WEB_URL_SETTINGS!,
-    manager: import.meta.env.VITE_APP_WEB_URL_MANAGER!,
-    incheck: import.meta.env.VITE_APP_WEB_URL_INCHECK!,
-    ombudsman: import.meta.env.VITE_APP_WEB_URL_OMBUDSMAN!,
-    hrconnect: import.meta.env.VITE_APP_WEB_URL_HRCONNECTION!,
-    survey: import.meta.env.VITE_APP_WEB_URL_SURVEY!,
+    settings: import.meta.env.VITE_APP_WEB_URL_SETTINGS,
+    manager: import.meta.env.VITE_APP_WEB_URL_MANAGER,
+    incheck: import.meta.env.VITE_APP_WEB_URL_INCHECK,
+    ombudsman: import.meta.env.VITE_APP_WEB_URL_OMBUDSMAN,
+    hrconnect: import.meta.env.VITE_APP_WEB_URL_HRCONNECTION,
+    survey: import.meta.env.VITE_APP_WEB_URL_SURVEY,
+    group: import.meta.env.VITE_APP_WEB_URL_GROUP,
+    feedback: import.meta.env.VITE_APP_WEB_URL_FEEDBACK,
+    endomarketing: import.meta.env.VITE_APP_WEB_URL_ENDOMARKETING,
   },
   aws: {
-    access_key_id: import.meta.env.VITE_APP_AWS_BUCKET_INCICLE_ACCESS_KEY_ID,
-    bucket: import.meta.env.VITE_APP_AWS_BUCKET_INCICLE_BUCKET_NAME,
-    region: import.meta.env.VITE_APP_AWS_BUCKET_INCICLE_REGION,
-    secret_access_key: import.meta.env.VITE_APP_AWS_BUCKET_INCICLE_SECRET_ACCESS_KEY,
+    bucket: import.meta.env.VITE_APP_S3_BUCKET_INCICLE,
+    region: import.meta.env.VITE_APP_S3_REGION_INCICLE,
+    access_key_id: import.meta.env.VITE_APP_S3_ACCESS_KEY_ID_INCICLE,
+    secret_access_key: import.meta.env.VITE_APP_S3_SECRET_ACCESS_KEY_INCICLE,
   },
   aws_project: {
-    access_key_id: import.meta.env.VITE_APP_AWS_BUCKET_PROJECTS_ACCESS_KEY_ID,
-    bucket: import.meta.env.VITE_APP_AWS_BUCKET_BUCKET_PROJECTS_NAME,
-    region: import.meta.env.VITE_APP_AWS_BUCKET_PROJECTS_REGION,
-    secret_access_key: import.meta.env.VITE_APP_AWS_BUCKET_PROJECTS_SECRET_ACCESS_KEY,
+    bucket: import.meta.env.VITE_APP_S3_BUCKET_PROJECTS,
+    region: import.meta.env.VITE_APP_S3_REGION_PROJECTS,
+    access_key_id: import.meta.env.VITE_APP_S3_ACCESS_KEY_ID_PROJECTS,
+    secret_access_key: import.meta.env.VITE_APP_APP_S3_SECRET_ACCESS_KEY_PROJECTS,
   },
   production: import.meta.env.VITE_APP_ENV === 'production',
   secret_key: import.meta.env.VITE_APP_SECRET_KEY,

@@ -12,7 +12,7 @@ const notificationType = {
   FEEDBACK_NEAR_END: 'FEEDBACK_NEAR_END',
 };
 
-export function createFeedbackBrowserFactory(notification: NotificationProps) {
+export function createFeedback(notification: NotificationProps) {
   const { sender, common } = notification;
 
   switch (notification.type) {

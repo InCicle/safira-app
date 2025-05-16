@@ -1,15 +1,11 @@
-import { ModulesType } from '@/safira-app/interfaces/Modules';
-
-export const NotificationsReadOptions = {
-  ALL: 'ALL',
-  UNREADED: 'UNREADED',
-};
-
-export type NotificationReadOptionsType = keyof typeof NotificationsReadOptions;
+export enum NotificationsReadOptions {
+  ALL = 'ALL',
+  UNREAD = 'UNREADED',
+}
 
 export type NotificationFiltersType = {
-  read?: NotificationReadOptionsType;
-  module?: ModulesType;
+  read?: string;
+  module?: string;
 };
 
 export type NotificationParamsType = Partial<NotificationFiltersType> & {
@@ -35,11 +31,11 @@ export type NotificationSender = {
 
 export type NotificationProps = {
   id: string;
-  common: any;
-  module: ModulesType;
+  module: string;
   read: boolean;
   recipient_email?: string;
   recipient_id: string;
+  common?: any;
   saw: boolean;
   sender: NotificationSender;
   type: string;

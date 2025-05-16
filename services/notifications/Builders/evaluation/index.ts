@@ -17,7 +17,7 @@ const notificationType = {
   PARTICIPANT_SELF_ANSWER_PENDING: 'PARTICIPANT_SELF_ANSWER_PENDING',
 };
 
-export function createEvaluationBrowserNotificationFactory(notification: NotificationProps) {
+export function createEvaluation(notification: NotificationProps) {
   const { sender, common } = notification;
 
   function formatDateNotification(date: string) {

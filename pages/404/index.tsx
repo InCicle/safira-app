@@ -11,7 +11,7 @@ interface Page404Props {
   sx?: SxProps<Theme>;
 }
 
-const Page404: React.FC<React.PropsWithChildren<Page404Props>> = ({ goToInitialPage, goBack, sx }) => {
+export const Page404: React.FC<React.PropsWithChildren<Page404Props>> = ({ goToInitialPage, goBack, sx }) => {
   return (
     <Stack
       sx={sx}
@@ -113,5 +113,3 @@ const Page404: React.FC<React.PropsWithChildren<Page404Props>> = ({ goToInitialP
     </Stack>
   );
 };
-
-export default Page404;

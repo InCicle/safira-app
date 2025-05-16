@@ -1,8 +1,5 @@
-import { TFunction } from 'i18next';
 import { HeaderInStyle } from './styles';
 import { FC, JSX, RefObject } from 'react';
-import { IUser } from '@/safira-app/interfaces/User';
-import { MeProps } from '@/safira-app/interfaces/Me';
 import { ToastUI } from '@/safira-app/components/Toast';
 import { HeaderMobile } from '../components/headerMobile';
 import { HeaderDesktop } from '../components/headerDesktop';
@@ -11,9 +8,7 @@ import ModulesMenu, { ModulesMenuRef } from '@/safira-app/pages/Header/component
 import ProfileMenu, { ProfileMenuRef } from '@/safira-app/pages/Header/components/profileMenu';
 
 export interface HeaderViewProps {
-  me: MeProps;
-  t: TFunction<'translation', undefined>;
-  user: IUser;
+  userAvatar: string;
   hasResult: boolean;
   accountType: string;
   inputBoxClassName: string;
@@ -34,37 +29,34 @@ export interface HeaderViewProps {
   searchFunction: (value: string) => void;
   handleOpenModulesMenu: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   handleOpenMenuProfile: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  getLogoUrl: () => {
-    logoUrl: string;
-    isPublicUrl: boolean;
-  };
+  logoUrl: string;
+  isPublicUrl: boolean;
 }
 
 export const HeaderView: FC<HeaderViewProps> = ({
-  me,
-  user,
+  logoUrl,
+  companies,
+  hasResult,
+  anchorRef,
+  userAvatar,
+  isPublicUrl,
   accountType,
+  resultSearch,
+  profileMenuRef,
+  modulesMenuRef,
+  selectedCompany,
   activeManagerMenu,
   anchorCompaniesEl,
-  companiesAvatar,
-  companies,
-  handleCloseMenuCompanies,
-  changeChipContent,
-  handleOpenMenuCompanies,
-  handleOpenMenuProfile,
-  handleOpenModulesMenu,
-  hasResult,
   inputBoxClassName,
-  setInputBoxClassName,
-  getLogoUrl,
-  modulesMenuRef,
   openMenuCompanies,
-  resultSearch,
   searchFunction,
-  selectedCompany,
-  anchorRef,
-  t,
-  profileMenuRef,
+  companiesAvatar,
+  changeChipContent,
+  setInputBoxClassName,
+  handleOpenModulesMenu,
+  handleOpenMenuProfile,
+  handleOpenMenuCompanies,
+  handleCloseMenuCompanies,
 }) => {
   const isDesktop = window.innerWidth > 600;
   return (
@@ -75,10 +67,8 @@ export const HeaderView: FC<HeaderViewProps> = ({
         <ProfileMenu ref={profileMenuRef} />
         {isDesktop ? (
           <HeaderDesktop
+            userAvatar={userAvatar}
             accountType={accountType}
-            me={me}
-            user={user}
-            t={t}
             hasResult={hasResult}
             inputBoxClassName={inputBoxClassName}
             openMenuCompanies={openMenuCompanies}
@@ -95,13 +85,13 @@ export const HeaderView: FC<HeaderViewProps> = ({
             searchFunction={searchFunction}
             handleOpenModulesMenu={handleOpenModulesMenu}
             handleOpenMenuProfile={handleOpenMenuProfile}
-            getLogoUrl={getLogoUrl}
+            logoUrl={logoUrl}
+            isPublicUrl={isPublicUrl}
           />
         ) : (
           <HeaderMobile
+            userAvatar={userAvatar}
             anchorRef={anchorRef}
-            me={me}
-            t={t}
             hasResult={hasResult}
             inputBoxClassName={inputBoxClassName}
             resultSearch={resultSearch}
@@ -109,7 +99,8 @@ export const HeaderView: FC<HeaderViewProps> = ({
             setInputBoxClassName={setInputBoxClassName}
             searchFunction={searchFunction}
             handleOpenMenuProfile={handleOpenMenuProfile}
-            getLogoUrl={getLogoUrl}
+            logoUrl={logoUrl}
+            isPublicUrl={isPublicUrl}
           />
         )}
       </HeaderInStyle>

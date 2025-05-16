@@ -1,37 +1,36 @@
 import React from 'react';
 import { ListItemIcon, Menu, MenuItem, Stack } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { incicleNotificationModules } from '@/safira-app/utils/modules';
+import { FilterModules } from '@/safira-app/utils/modules';
 import { ButtonNotification } from './styles';
 import { useTranslation } from 'react-i18next';
 import { translation } from '@/safira-app/utils/translation';
-import { MODULES, ModulesType } from '@/safira-app/interfaces/Modules';
-import { NotificationsReadOptions, NotificationReadOptionsType } from '@/safira-app/services/queries/notifications';
+import { NotificationsReadOptions } from '@/safira-app/services/queries/notifications';
 import { useAuth } from '@/safira-app/hooks/useAuth';
 import { useNotifications } from '@/safira-app/hooks/useNotifications';
+import { MODULES } from '@/safira-app/interfaces/Modules';
 
 interface NotificationsFiltersProps {
-  handleSetNotificationsModuleFilter: (module: ModulesType) => void;
-  handleChangeNotificationOption: (value: NotificationReadOptionsType) => void;
-  handleOpenFilters: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  handleCloseFilters: () => void;
-  open: boolean;
-  anchorEl: HTMLButtonElement | null;
   isLoading: boolean;
+  anchorEl: HTMLButtonElement | null;
+  handleClose: () => void;
+  handleSetModuleFilter: (module: MODULES) => void;
+  handleOpen: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  handleChangeReadOptionReader: (value: NotificationsReadOptions) => void;
 }
 
 export const NotificationsFilters: React.FC<NotificationsFiltersProps> = ({
   anchorEl,
-  open,
-  handleChangeNotificationOption,
-  handleCloseFilters,
-  handleOpenFilters,
-  handleSetNotificationsModuleFilter,
   isLoading,
+  handleOpen,
+  handleClose,
+  handleChangeReadOptionReader,
+  handleSetModuleFilter,
 }) => {
   const { t } = useTranslation();
   const { user } = useAuth();
   const { params } = useNotifications();
+
   return (
     <>
       <Stack
@@ -43,34 +42,30 @@ export const NotificationsFilters: React.FC<NotificationsFiltersProps> = ({
         <Stack direction="row" spacing={1}>
           <ButtonNotification
             disabled={isLoading}
-            onClick={() => handleChangeNotificationOption(NotificationsReadOptions.ALL as NotificationReadOptionsType)}
-            active={params.read !== NotificationsReadOptions.UNREADED ? 1 : 0}
+            onClick={() => handleChangeReadOptionReader(NotificationsReadOptions.ALL)}
+            active={params.read !== NotificationsReadOptions.UNREAD ? 1 : 0}
           >
             {translation(t, 'all')}
           </ButtonNotification>
           <ButtonNotification
             disabled={isLoading}
-            onClick={() =>
-              handleChangeNotificationOption(NotificationsReadOptions.UNREADED as NotificationReadOptionsType)
-            }
-            active={params.read === NotificationsReadOptions.UNREADED ? 1 : 0}
+            onClick={() => handleChangeReadOptionReader(NotificationsReadOptions.UNREAD)}
+            active={params.read === NotificationsReadOptions.UNREAD ? 1 : 0}
           >
             {translation(t, 'unread')}
           </ButtonNotification>
         </Stack>
 
-        <ButtonNotification disabled={isLoading} onClick={handleOpenFilters}>
+        <ButtonNotification disabled={isLoading} onClick={handleOpen}>
           {translation(
             t,
-            `modules.${
-              incicleNotificationModules.find(module => module.slug === (params.module || MODULES.all))?.title ?? ''
-            }`,
+            `modules.${FilterModules.find(module => module.slug === (params.module || MODULES.all))?.title ?? ''}`,
           )}
           <ArrowDropDownIcon
             fontSize="small"
             style={{
               transition: 'transform 500ms ease',
-              transform: open ? 'rotate(180deg)' : 'rotate(0)',
+              transform: anchorEl ? 'rotate(180deg)' : 'rotate(0)',
               marginLeft: '5px',
             }}
           />
@@ -79,8 +74,8 @@ export const NotificationsFilters: React.FC<NotificationsFiltersProps> = ({
 
       <Menu
         anchorEl={anchorEl}
-        open={open}
-        onClose={handleCloseFilters}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
         slotProps={{
           paper: {
             elevation: 0,
@@ -90,7 +85,7 @@ export const NotificationsFilters: React.FC<NotificationsFiltersProps> = ({
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        {incicleNotificationModules.map((module, index) => {
+        {FilterModules.map((module, index) => {
           if (module.linkKey === 'disabled') {
             return <React.Fragment key={index}></React.Fragment>;
           }
@@ -99,7 +94,7 @@ export const NotificationsFilters: React.FC<NotificationsFiltersProps> = ({
               <MenuItem
                 key={module.slug}
                 disabled={isLoading}
-                onClick={() => handleSetNotificationsModuleFilter(module.slug as ModulesType)}
+                onClick={() => handleSetModuleFilter(module.slug)}
                 sx={{ fontSize: '14px' }}
                 value={module.slug}
               >

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Box, IconButton, Stack, Tooltip, Typography, useTheme, Link as MUILink } from '@mui/material';
-import { MenuModulesType } from '@/safira-app/utils/modules';
+import { ModulesType } from '@/safira-app/utils/modules';
 import { useAuth } from '@/safira-app/hooks/useAuth';
 import { translation } from '@/safira-app/utils/translation';
 import { useTranslation } from 'react-i18next';
 
 interface ModuleMenuItemProps {
-  module: MenuModulesType;
+  module: ModulesType;
 }
 
 export const ModuleMenuItem: React.FC<ModuleMenuItemProps> = ({ module }) => {

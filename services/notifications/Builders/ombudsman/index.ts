@@ -14,7 +14,7 @@ const notificationType = {
   TICKET_NEW_MESSAGE: 'TICKET_NEW_MESSAGE',
 };
 
-export function createOmbudsmanBrowserNotificationFactory(notification: NotificationProps) {
+export function createOmbudsman(notification: NotificationProps) {
   const { common } = notification;
 
   switch (notification.type) {

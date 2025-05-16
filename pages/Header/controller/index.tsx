@@ -6,7 +6,6 @@ import { MeProps } from '@/safira-app/interfaces/Me';
 import { IProfile } from '@/safira-app/interfaces/Profile';
 import Cookies from 'js-cookie';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { HeaderView } from '../view';
 import { companiesAvatar } from '../components/companiesAvatar';
 import { getProfile } from '@/safira-app/services/queries/profile/requests';
@@ -15,14 +14,13 @@ import { useProfile } from '@/safira-app/hooks/useProfile';
 import { useAuth } from '@/safira-app/hooks/useAuth';
 
 export const HeaderController: React.FC = () => {
-  const { t } = useTranslation();
   const { me } = useProfile();
   const { user } = useAuth();
   const { companyId, checkPermission, permissionsList } = usePermissions();
   const [resultSearch, setResultSearch] = useState([] as IProfile[]);
   const [hasResult, setHasResult] = useState(false);
   const [companies, setCompanies] = useState<any>([]);
-  const [accountType, setAccountType] = useState('');
+  const [accountType, setAccountType] = useState('COMPANY');
   const [selectedCompany, setSelectedCompany] = useState<any>();
   const [inputBoxClassName, setInputBoxClassName] = useState('');
   const [activeManagerMenu, setActiveManagerPanel] = useState(false);
@@ -113,13 +111,14 @@ export const HeaderController: React.FC = () => {
 
     if (me?.type === 'PERSON') {
       const companyLogo = getLogoFromCompanies(selectedCompany?.id, companies);
-
-      logoUrl = companyLogo || INCICLE_LOGO;
+      logoUrl = companyLogo ? companyLogo : INCICLE_LOGO;
       isPublicUrl = !companyLogo;
     } else if (me?.type === 'COMPANY') {
       logoUrl = me?.logo || INCICLE_LOGO;
       isPublicUrl = !me?.logo;
     }
+    console.log('logoUrl', logoUrl);
+    console.log('isPublicUrl', isPublicUrl);
 
     return { logoUrl, isPublicUrl };
   }
@@ -169,16 +168,17 @@ export const HeaderController: React.FC = () => {
     window.location.reload();
   }
 
+  const { logoUrl, isPublicUrl } = getLogoUrl();
+
   return (
     <NotificationProvider>
       <HeaderView
-        t={t}
-        me={me}
-        user={user}
+        userAvatar={me?.avatar}
         anchorRef={anchorRef}
         hasResult={hasResult}
         companies={companies}
-        getLogoUrl={getLogoUrl}
+        logoUrl={logoUrl}
+        isPublicUrl={isPublicUrl}
         accountType={accountType}
         resultSearch={resultSearch}
         modulesMenuRef={modulesMenuRef}

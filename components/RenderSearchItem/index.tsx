@@ -1,10 +1,10 @@
 import React from 'react';
-import { SearchItemInterface } from '@/safira-app/interfaces/Profile';
+import { IProfile } from '@/safira-app/interfaces/Profile';
 import { RenderAvatar } from '@/safira-app/components/RenderAvatar';
 import { links } from '@/safira-app/config/links';
 
 interface Props {
-  item: SearchItemInterface;
+  item: IProfile;
   liProps: React.HTMLAttributes<HTMLLIElement>;
 }
 
@@ -13,11 +13,10 @@ const RenderSearchItem: React.FC<React.PropsWithChildren<Props>> = ({ liProps, i
     /**
      * This function is used to know the link to set on anchor item.
      */
-    if (item.type === 'PERSON' || item.type === 'COMPANY') {
-      return `${links.web?.social}/p/${item.username}`;
-    } else if (item.type === 'GROUP') {
+    if (item.type === 'GROUP') {
       return `${links.web?.social}/group/${item.profile_id}/home`;
     }
+    return `${links.web?.social}/p/${item.username}`;
   };
 
   return (

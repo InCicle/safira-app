@@ -16,7 +16,7 @@ const notificationType = {
   REMOVED_FROM_ACTION: 'REMOVED_FROM_ACTION',
 };
 
-export function createOKRBrowserNotificationFactory(notification: NotificationProps) {
+export function createOKR(notification: NotificationProps) {
   const { common } = notification;
 
   switch (notification.type) {

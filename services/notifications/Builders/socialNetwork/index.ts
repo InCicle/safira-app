@@ -22,7 +22,7 @@ const notificationType = {
   GROUP_PUBLICATION_COMMENT_REMOVED: 'GROUP_PUBLICATION_COMMENT_REMOVED',
 };
 
-export function createSocialNetworkBrowserNotificationFactory(notification: NotificationProps) {
+export function createSocialNetwork(notification: NotificationProps) {
   const { sender, common } = notification;
   const encodedUser = Cookies.get('user');
   const user: IUser = JSON.parse(decode(encodedUser || ''));

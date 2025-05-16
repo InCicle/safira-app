@@ -1,13 +1,8 @@
-import { MeProps } from '@/safira-app/interfaces/Me';
-import { IUser } from '@/safira-app/interfaces/User';
-import { TFunction } from 'i18next';
 import { RefObject } from 'react';
 import { JSX } from 'react/jsx-runtime';
 
 export interface HeaderDesktopProps {
-  me: MeProps;
-  t: TFunction<'translation', undefined>;
-  user: IUser;
+  userAvatar: string;
   hasResult: boolean;
   accountType: string;
   inputBoxClassName: string;
@@ -25,15 +20,13 @@ export interface HeaderDesktopProps {
   searchFunction: (value: string) => void;
   handleOpenModulesMenu: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   handleOpenMenuProfile: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  getLogoUrl: () => {
-    logoUrl: string;
-    isPublicUrl: boolean;
-  };
+
+  logoUrl: string;
+  isPublicUrl: boolean;
 }
 
 export interface HeaderMobileProps {
-  me: MeProps;
-  t: TFunction<'translation', undefined>;
+  userAvatar: string;
   hasResult: boolean;
   inputBoxClassName: string;
   resultSearch: Array<any>;
@@ -42,8 +35,6 @@ export interface HeaderMobileProps {
   searchFunction: (value: string) => void;
   handleOpenModulesMenu: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   handleOpenMenuProfile: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  getLogoUrl: () => {
-    logoUrl: string;
-    isPublicUrl: boolean;
-  };
+  logoUrl: string;
+  isPublicUrl: boolean;
 }

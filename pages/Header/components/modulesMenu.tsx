@@ -1,11 +1,7 @@
 import React, { useImperativeHandle, useState } from 'react';
 import { Box, Divider, IconButton, Menu, Stack, Typography, useTheme } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import {
-  incicleMenuModules,
-  incicleCollaboratorsMenuModules,
-  incicleManagerMenuModules,
-} from '@/safira-app/utils/modules';
+import { CompanyMenuModules, CollaboratorsMenuModules, ManagerMenuModules } from '@/safira-app/utils/modules';
 import { ModuleMenuItem } from './moduleMenuItem';
 import { usePermissions } from '@/safira-app/hooks/usePermissions';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +18,7 @@ type Props = {
   activeManagerMenu: boolean;
 };
 
-const breakpointValue = 700;
+const BREAKPOINT = 700;
 
 const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (props, ref) => {
   const { t } = useTranslation();
@@ -32,7 +28,14 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
   const { activeManagerMenu } = props;
   const { checkPermission, companyId } = usePermissions();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-  const urlStepOne = 'https://lp.stepone.com.br/';
+  const URL_STEP_ONE = 'https://lp.stepone.com.br/';
+
+  useImperativeHandle(ref, () => {
+    return {
+      openDropdown,
+      closeDropdown,
+    };
+  });
 
   function openDropdown(ev: any) {
     setAnchorEl(ev.currentTarget);
@@ -42,39 +45,34 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
     setAnchorEl(null);
   }
 
-  useImperativeHandle(ref, () => {
-    return {
-      openDropdown,
-      closeDropdown,
-    };
-  });
-  const getUrlUniversidadeCorporativa = moduleItem => {
+  function getUrlUniversidadeCorporativa(moduleItem) {
     if (moduleItem.title !== 'corporative_university') {
       return moduleItem.url;
     }
 
-    const getUrlStepOne = redirects => {
+    function getUrlStepOne(redirects) {
       const redirecionamentoStepOne = redirects.find(redirect => redirect.type === 1 || redirect.type === 'STEPONE');
-      return redirecionamentoStepOne ? redirecionamentoStepOne.url : urlStepOne;
-    };
+      return redirecionamentoStepOne ? redirecionamentoStepOne.url : URL_STEP_ONE;
+    }
 
     if (me?.type === 'COMPANY') {
-      return me.redirects && me.redirects.length > 0 ? getUrlStepOne(me.redirects) : urlStepOne;
+      return me.redirects && me.redirects.length > 0 ? getUrlStepOne(me.redirects) : URL_STEP_ONE;
     } else if (me?.type === 'PERSON' && me.companies && me.companies.length > 0) {
       const currentCompany = me.companies.find(company => company.id === companyId);
       if (currentCompany && currentCompany.redirects && currentCompany.redirects.length > 0) {
         return getUrlStepOne(currentCompany.redirects);
       }
     }
-    return urlStepOne;
-  };
+    return URL_STEP_ONE;
+  }
 
-  const filteredCollaboratorsModules = incicleCollaboratorsMenuModules
-    .filter(item => item.accountTypes.includes(user.type))
-    .filter(moduleItem => {
-      if (!moduleItem.permission) return true;
-      return checkPermission([moduleItem.permission]);
-    });
+  const filteredCollaboratorsModules = CollaboratorsMenuModules.filter(item =>
+    item.accountTypes.includes(user.type),
+  ).filter(moduleItem => {
+    if (!moduleItem.permission) return true;
+    return checkPermission([moduleItem.permission]);
+  });
+
   return (
     <Menu
       open={Boolean(anchorEl)}
@@ -145,14 +143,13 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
           flexWrap: 'wrap',
           justifyContent: 'space-between',
           padding: '8px 8px 0',
-          [breakpoints.down(breakpointValue)]: {
+          [breakpoints.down(BREAKPOINT)]: {
             display: 'flex',
             flexDirection: 'column',
           },
         }}
       >
-        {incicleMenuModules
-          .filter(item => item.accountTypes.includes(user.type))
+        {CompanyMenuModules.filter(item => item.accountTypes.includes(user.type))
           .filter(itemModule => {
             if (!itemModule.enableOnlyTo) return true;
             if (itemModule.enableOnlyTo.includes(companyId)) return true;
@@ -204,7 +201,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
               flexWrap: 'wrap',
               justifyContent: 'space-between',
               padding: '8px 8px 0',
-              [breakpoints.down(breakpointValue)]: {
+              [breakpoints.down(BREAKPOINT)]: {
                 display: 'flex',
                 flexDirection: 'column',
               },
@@ -220,7 +217,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
               />
             ))}
 
-            {activeManagerMenu ? <ModuleMenuItem module={incicleManagerMenuModules} /> : null}
+            {activeManagerMenu ? <ModuleMenuItem module={ManagerMenuModules} /> : null}
           </Box>
         </>
       ) : null}

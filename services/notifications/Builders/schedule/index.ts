@@ -20,7 +20,7 @@ const notificationType = {
   TASK_SUPERVISOR: 'TASK_SUPERVISOR',
 };
 
-export function createScheduleBrowserNotificationFactory(notification: NotificationProps) {
+export function createSchedule(notification: NotificationProps) {
   const { sender, common } = notification;
 
   function returnAlertTime(alertValue: string) {

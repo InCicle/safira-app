@@ -1,50 +1,68 @@
 import React, { useCallback, useImperativeHandle, useLayoutEffect, useRef, useState } from 'react';
 import { NotificationEvent } from '@/safira-app/services/emitters/NotificationEvent';
 import { useNotifications } from '@/safira-app/hooks/useNotifications';
-import { useQuery } from '@/safira-app/hooks/useQuery';
+import { useURLQuery } from '@/safira-app/hooks/useURLQuery';
 import { useRender } from '@/safira-app/hooks/useRender';
 import { NotificationsView } from '../view';
-import { NotificationReadOptionsType, NotificationsReadOptions } from '@/safira-app/services/queries/notifications';
+import { checkAllReadNotifications, NotificationsReadOptions } from '@/safira-app/services/queries/notifications';
 import { DEFAULT_NOTIFICATION_PARAMS } from '@/safira-app/utils/constants';
-import { MODULES, ModulesType } from '@/safira-app/interfaces/Modules';
-import { useIntersectionObserver } from '@/safira-app/hooks/useIntersectionObserver';
+import { MODULES } from '@/safira-app/interfaces/Modules';
 
 type AnchorButton = EventTarget & HTMLButtonElement;
 
-type NotificationsRef = {
+type NotificationsControllerProps = {
   openDropdown(anchorEl: AnchorButton): void;
   closeDropdown(): void;
 };
 
-export const NotificationsController: React.ForwardRefRenderFunction<NotificationsRef> = (_, ref) => {
+export const NotificationsController: React.ForwardRefRenderFunction<NotificationsControllerProps> = (_, ref) => {
   const {
     notifications,
     params,
     isLoading,
-    fetchNotifications,
     hasNextPage,
-    isFetchingNextPage,
-    badgeIsInvisible,
     dropdownOpened,
+    badgeIsInvisible,
+    isFetchingNextPage,
     markAllAsViewed,
+    setNotifications,
+    fetchNotifications,
     handleCloseDropdown: handleClose,
   } = useNotifications();
+  const query = useURLQuery();
   const { fn } = useRender();
-  const query = useQuery();
-
-  const anchorRef = useRef<HTMLButtonElement | null>(null);
 
   const [anchorElFilter, setAnchorElFilter] = useState<AnchorButton | null>(null);
-  const openFilters = Boolean(anchorElFilter);
+  const [anchorElOptions, setAnchorElOptions] = useState<AnchorButton | null>(null);
 
-  const showLoading = isLoading || isFetchingNextPage || hasNextPage;
-  const observerRef = useRef<HTMLDivElement | null>(null);
+  const anchorRef = useRef<HTMLButtonElement | null>(null);
+  const observerNotificationsRef = useRef<HTMLDivElement | null>(null);
+  const showNotificationsLoading = isLoading || isFetchingNextPage || hasNextPage;
+
+  function handleOpenOptions(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    setAnchorElOptions(ev.currentTarget);
+  }
+
+  function handleCloseOptions() {
+    setAnchorElOptions(null);
+  }
+
+  function handleCheckAllRead() {
+    /**
+     * This function is used to check all notifications as readed
+     */
+    checkAllReadNotifications();
+    setNotifications(old =>
+      old?.map(notification => {
+        notification.read = true;
+        return notification;
+      }),
+    );
+  }
 
   const handleLoadMoreContent = useCallback(() => {
     if (!isLoading && hasNextPage) fetchNotifications({ page: params.page + 1 });
   }, [isLoading, params]); // eslint-disable-line
-
-  useIntersectionObserver({ observerRef, hasNextPage, isFetchingNextPage, fetchNextPage: handleLoadMoreContent });
 
   function handleOpenFilters(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     setAnchorElFilter(ev.currentTarget);
@@ -54,17 +72,17 @@ export const NotificationsController: React.ForwardRefRenderFunction<Notificatio
     setAnchorElFilter(null);
   }
 
-  function handleChangeNotificationOption(value: NotificationReadOptionsType) {
+  function handleChangeNotificationsOption(value: NotificationsReadOptions) {
     fetchNotifications({
       ...DEFAULT_NOTIFICATION_PARAMS,
-      read: value === NotificationsReadOptions.UNREADED ? value : undefined,
+      read: value === NotificationsReadOptions.UNREAD ? value : undefined,
     });
   }
 
-  function handleSetNotificationsModuleFilter(value: ModulesType) {
+  function handleSetModuleFilter(value: MODULES) {
     fetchNotifications({
       ...DEFAULT_NOTIFICATION_PARAMS,
-      read: value === MODULES.all ? undefined : (NotificationsReadOptions.ALL as NotificationReadOptionsType),
+      read: value === MODULES.all ? undefined : NotificationsReadOptions.ALL,
       module: value === MODULES.all ? undefined : value,
     });
   }
@@ -93,7 +111,6 @@ export const NotificationsController: React.ForwardRefRenderFunction<Notificatio
       }
     });
   }, [query, fn, notifications]);
-
   useImperativeHandle(ref, () => {
     return {
       openDropdown: handleOpenDropdown,
@@ -105,18 +122,21 @@ export const NotificationsController: React.ForwardRefRenderFunction<Notificatio
     <NotificationsView
       anchorRef={anchorRef}
       badgeIsInvisible={badgeIsInvisible}
-      dropdownOpened={dropdownOpened}
-      handleOpenDropdown={handleOpenDropdown}
-      handleCloseDropdown={handleCloseDropdown}
-      observerRef={observerRef}
-      showLoading={showLoading}
-      handleSetNotificationsModuleFilter={handleSetNotificationsModuleFilter}
+      open={dropdownOpened}
+      handleOpenMenu={handleOpenDropdown}
+      handleCloseMenu={handleCloseDropdown}
+      anchorElFilter={anchorElFilter}
       handleOpenFilters={handleOpenFilters}
       handleCloseFilters={handleCloseFilters}
-      anchorElFilter={anchorElFilter}
-      openFilters={openFilters}
+      handleSetModuleFilter={handleSetModuleFilter}
+      anchorElOptions={anchorElOptions}
+      handleOpenOptions={handleOpenOptions}
+      handleCloseOptions={handleCloseOptions}
+      handleCheckAllRead={handleCheckAllRead}
+      observerNotificationsRef={observerNotificationsRef}
+      showNotificationsLoading={showNotificationsLoading}
       handleLoadMoreContent={handleLoadMoreContent}
-      handleChangeNotificationOption={handleChangeNotificationOption}
+      handleChangeNotificationsOption={handleChangeNotificationsOption}
       isLoading={isLoading}
     />
   );

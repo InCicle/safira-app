@@ -5,7 +5,7 @@ const notificationType = {
   ENDOMARKETING_COMMUNICATION: 'ENDOMARKETING_COMMUNICATION',
 };
 
-export function createEndomarketingBrowserNotificationFactory(notification: NotificationProps) {
+export function createEndomarketing(notification: NotificationProps) {
   switch (notification.type) {
     case notificationType.ENDOMARKETING_COMMUNICATION:
       return `Comunicado "${reduceString(notification.common.content, 100)}"`;

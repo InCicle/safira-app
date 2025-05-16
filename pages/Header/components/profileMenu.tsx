@@ -1,5 +1,5 @@
 import React, { useImperativeHandle, useState } from 'react';
-import { Divider, Link as MUILink, ListItemIcon, Menu, MenuItem } from '@mui/material';
+import { Divider, ListItemIcon, Menu, MenuItem } from '@mui/material';
 
 // icons
 import { useTranslation } from 'react-i18next';
@@ -13,31 +13,12 @@ import TutorialVideos from '@/safira-app/pages/TutorialVideos';
 import { translation } from '@/safira-app/utils/translation';
 import { useProfile } from '@/safira-app/hooks/useProfile';
 import { RenderAvatar } from '@/safira-app/components/RenderAvatar';
+import { MenuItemLink } from './menuItemLink';
 
 export type ProfileMenuRef = {
   openProfileMenu: (ev: any) => void;
   closeProfileMenu: () => void;
 };
-
-type CustomLinkProps = {
-  href?: string;
-  icon: React.ReactElement;
-};
-
-const CustomLink: React.FC<React.PropsWithChildren<CustomLinkProps>> = ({ children, href, icon }) => (
-  <MUILink
-    href={href}
-    underline={'none'}
-    sx={{
-      color: theme => theme.palette.grey[600],
-      display: 'flex',
-      alignItems: 'center',
-    }}
-  >
-    <ListItemIcon>{icon}</ListItemIcon>
-    <span>{children}</span>
-  </MUILink>
-);
 
 const ProfileMenu: React.ForwardRefRenderFunction<ProfileMenuRef> = (_, ref) => {
   const { me } = useProfile();
@@ -118,46 +99,36 @@ const ProfileMenu: React.ForwardRefRenderFunction<ProfileMenuRef> = (_, ref) => 
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem
-          sx={{
-            width: 'initial !important',
-            textTransform: 'capitalize',
-            overflowWrap: 'anywhere',
-            whiteSpace: 'break-spaces',
-          }}
+        <MenuItemLink
+          href={`${links.web.social}/p/${me?.username}`}
+          icon={
+            <RenderAvatar
+              src={me?.avatar}
+              sx={{
+                width: '32px !important',
+                height: '32px !important',
+                marginRight: 15,
+              }}
+            />
+          }
         >
-          <CustomLink
-            href={`${links.web.social}/p/${me?.username}`}
-            icon={
-              <RenderAvatar
-                src={me?.avatar}
-                sx={{
-                  width: '32px !important',
-                  height: '32px !important',
-                  marginRight: 15,
-                }}
-              />
-            }
-          >
-            {me?.social_name && me.social_name.length > 40 ? `${me?.social_name.substring(0, 40)}...` : me?.social_name}
-          </CustomLink>
-        </MenuItem>
+          {me?.social_name && me.social_name.length > 40 ? `${me?.social_name.substring(0, 40)}...` : me?.social_name}
+        </MenuItemLink>
         <Divider />
-        <MenuItem>
-          <CustomLink href={getMenuItemUrl()} icon={<PeopleAltIcon fontSize="small" />}>
-            {translation(t, me?.type === 'PERSON' ? 'friends' : 'collaborators')}
-          </CustomLink>
-        </MenuItem>
+        <MenuItemLink href={getMenuItemUrl()} icon={<PeopleAltIcon fontSize="small" />}>
+          {translation(t, me?.type === 'PERSON' ? 'friends' : 'collaborators')}
+        </MenuItemLink>
         <Divider />
         <MenuItem onClick={() => setOpenTutorial(true)}>
-          <CustomLink icon={<School fontSize="small" />}>{translation(t, 'tutorials')}</CustomLink>
+          <ListItemIcon>
+            <School fontSize="small" />
+          </ListItemIcon>
+          <span>{translation(t, 'tutorials')}</span>
         </MenuItem>
-        <MenuItem>
-          <CustomLink href={links.web.settings} icon={<SettingsIcon fontSize="small" />}>
-            {translation(t, 'configurations')}
-          </CustomLink>
-        </MenuItem>
-        <MenuItem onClick={() => handleSignOut()} sx={{ color: theme => theme.palette.grey[600] }}>
+        <MenuItemLink href={links.web.settings} icon={<SettingsIcon fontSize="small" />}>
+          {translation(t, 'configurations')}
+        </MenuItemLink>
+        <MenuItem onClick={() => handleSignOut()}>
           <ListItemIcon>
             <ExitToAppIcon fontSize="small" />
           </ListItemIcon>
