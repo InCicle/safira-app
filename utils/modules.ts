@@ -161,11 +161,11 @@ export const incicleMenuModules: MenuModulesType[] = [
     slug: MODULE_TYPES.policy,
     icon: PolicyIcon,
     iconSize: 60,
-    accountTypes: ['COMPANY'],
+    accountTypes: ['COMPANY', 'PERSON'],
     url: links.web.policy,
     description: {
       COMPANY: 'policies_and_procedures_description',
-      PERSON: null,
+      PERSON: 'policies_and_procedures_description_person',
     },
     redirectType: 'internal',
   },
