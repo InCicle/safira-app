@@ -11,7 +11,7 @@ export function useRequest<R extends any>({ fn: request, delayMs, deps = [] }: R
   const [response, setResponse] = useState<R | null>(null);
   const [error, setError] = useState<any | null>(null);
 
-  const timeoutRef = useRef<null | number>(null);
+  const timeoutRef = useRef(null);
 
   const forceLoad = () => setLoading(true);
 

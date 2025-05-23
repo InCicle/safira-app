@@ -26,7 +26,7 @@ type NotificationOptionsType = {
   definePageTitle(content: string | ((title: string) => string)): void;
 };
 
-let DROPDOWN_TIMEOUT: number | null = null;
+let DROPDOWN_TIMEOUT = null;
 const DROPDOWN_DELAY = 800;
 
 export default class NotificationService {
