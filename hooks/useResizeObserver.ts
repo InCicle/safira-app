@@ -5,7 +5,7 @@ type ObserverRect = Omit<DOMRectReadOnly, 'toJSON'>;
 export function useResizeObserver(delay: number = 100) {
   const ref = useRef<any>(null);
   const [rect, setRect] = useState<ObserverRect>();
-  const timeout = useRef<NodeJS.Timeout | null>(null);
+  const timeout = useRef<number | null>(null);
 
   useEffect(() => {
     const element = ref.current || document.body;
