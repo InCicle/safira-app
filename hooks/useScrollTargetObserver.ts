@@ -25,7 +25,7 @@ export type ScrollObserverOptions = {
 
 export function useScrollTargetObserver(cb: () => ScrollObserverOptions, dependencies: any[] = []) {
   const rootElementResizeRef = useRef<{
-    timeout;
+    timeout: ReturnType<typeof setTimeout> | null;
     delayMs: number;
   }>({
     timeout: null,
