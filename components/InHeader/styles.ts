@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const HeaderInStyle = styled.header`
-  position: relative;
+  position: fixed;
+  z-index: 10;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

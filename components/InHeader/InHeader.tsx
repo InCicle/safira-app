@@ -227,7 +227,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
       }}
     >
       <NotificationProvider api={api} user={user}>
-        <HeaderInStyle role="heading" className="incicleheader">
+        <HeaderInStyle role="heading">
           {/* PORTAL */}
           <ToastUI />
 
