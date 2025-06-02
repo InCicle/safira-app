@@ -21,7 +21,6 @@ import ManagerIcon from '@/safira-app/components/InHeader/components/icons/Manag
 import OmbudsmanIcon from '@/safira-app/components/InHeader/components/icons/OmbudsmanIcon';
 import HRConnectIcon from '@/safira-app/components/InHeader/components/icons/HRConnectIcon';
 import ClimateResearchIcon from '@/safira-app/components/InHeader/components/icons/ClimateResearchIcon';
-import ClimateResearchDisabledIcon from '@/safira-app/components/InHeader/components/icons/ClimateResearchDisabledIcon';
 
 export type MenuModulesType = {
   title: string;
@@ -291,14 +290,20 @@ export const incicleMenuModules: MenuModulesType[] = [
   {
     title: 'climate_research',
     slug: MODULE_TYPES.climate_research,
-    icon: links.production ? ClimateResearchDisabledIcon : ClimateResearchIcon,
+    icon: ClimateResearchIcon,
     iconSize: 60,
-    accountTypes: ['COMPANY'],
-    url: links.web.survey? `${links.web.survey}` : null,
+    accountTypes: ['COMPANY', 'PERSON'],
+    url: `${links.web.survey}`,
     description: {
-      COMPANY: 'climate_research_description',
-      PERSON: null,
+      COMPANY: 'climate_research_description.company',
+      PERSON: 'climate_research_description.person',
     },
+    enableOnlyTo: [
+      "9d99be3a-d5e1-4bcf-bff1-cf7081f4472c","e4e444c0-3e3f-4b12-a6d8-d8869bcf38e3","63c88351-3386-4a8f-8b6f-a61ab594fe70",
+      "1197599f-dac0-4a1f-9d08-efab8961efa1",
+      "4d7a2110-45c5-465d-bccf-806413fc1034",
+      "ff10a931-e804-48c2-becf-19b7d133c183",
+    ],
     redirectType: 'internal',
   },
 ];
