@@ -300,8 +300,10 @@ export const incicleMenuModules: MenuModulesType[] = [
       PERSON: 'climate_research_description.person',
     },
     enableOnlyTo: [
-      "9d99be3a-d5e1-4bcf-bff1-cf7081f4472c","e4e444c0-3e3f-4b12-a6d8-d8869bcf38e3","63c88351-3386-4a8f-8b6f-a61ab594fe70"," 1197599f-dac0-4a1f-9d08-efab8961efa1",
-      "4d7a2110-45c5-465d-bccf-806413fc1034"
+      "9d99be3a-d5e1-4bcf-bff1-cf7081f4472c","e4e444c0-3e3f-4b12-a6d8-d8869bcf38e3","63c88351-3386-4a8f-8b6f-a61ab594fe70",
+      "1197599f-dac0-4a1f-9d08-efab8961efa1",
+      "4d7a2110-45c5-465d-bccf-806413fc1034",
+      "ff10a931-e804-48c2-becf-19b7d133c183",
     ],
     redirectType: 'internal',
   },
