@@ -21,7 +21,6 @@ import ManagerIcon from 'safira-app/components/InHeader/components/icons/Manager
 import ClimateResearchIcon from 'safira-app/components/InHeader/components/icons/ClimateResearchIcon';
 import OmbudsmanIcon from 'safira-app/components/InHeader/components/icons/OmbudsmanIcon';
 import HRConnectIcon from 'safira-app/components/InHeader/components/icons/HRConnectIcon';
-import ClimateResearchDisabledIcon from 'safira-app/components/InHeader/components/icons/ClimateResearchDisabledIcon';
 
 export type MenuModulesType = {
   title: string;
