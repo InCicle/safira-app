@@ -64,7 +64,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
   const modulesMenuRef = useRef<ModulesMenuRef | null>(null);
   const profileMenuRef = useRef<ProfileMenuRef | null>(null);
 
-  const { companyId, checkPermission, permissionsList,requestFinished } = usePermissions();
+  const { companyId, checkPermission, permissionsList } = usePermissions();
   const { t } = useTranslation();
 
   const activateManagerPanel = useCallback(
@@ -75,7 +75,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
       const hasAuthorization = hasManagerPermissions(user, checkPermission, companySelected);
       setActiveManagerPanel(hasAuthorization);
     },
-    [user, checkPermission, selectedCompany, requestFinished],
+    [user, checkPermission, selectedCompany, permissionsList.length],
   );
 
   useEffect(() => {
