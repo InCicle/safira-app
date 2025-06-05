@@ -73,6 +73,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
       const companySelected = me?.companies.find(company => company.id === companyId);
       if (!companySelected) return;
       const hasAuthorization = hasManagerPermissions(user, checkPermission, companySelected);
+      if (!hasAuthorization && permissionsList.length <= 0) return;
       setActiveManagerPanel(hasAuthorization);
     },
     [user, checkPermission, selectedCompany, permissionsList.length],
