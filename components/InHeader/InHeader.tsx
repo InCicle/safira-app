@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IconButton, Avatar, Menu, MenuItem, Stack, Paper, Link, Chip, Box, Typography } from '@mui/material';
 import { AxiosInstance } from 'axios';
@@ -18,7 +18,7 @@ import NotificationProvider from 'safira-app/contexts/NotificationProvider';
 import { SearchItemInterface } from 'safira-app/interfaces/Search';
 import { HeaderProvider } from 'safira-app/contexts/HeaderContext';
 import { IUser } from 'safira-app/interfaces/User';
-import { MeProps } from 'safira-app/interfaces/Me';
+import { MeCompany, MeProps } from 'safira-app/interfaces/Me';
 import { links } from 'safira-app/config/links';
 
 import maxLetters from './utils/maxLettes';
@@ -32,6 +32,7 @@ import RenderImage from '../RenderImage';
 import { usePermissions } from '../../contexts/Permissions';
 import WhatsAppButton from '../WhatsAppButton';
 import { translation } from 'safira-app/utils/translation';
+import { hasManagerPermissions } from 'safira-app/utils/hasManagerPanel';
 
 interface props {
   user: IUser;
@@ -45,6 +46,7 @@ const INCICLE_LOGO = 'https://static-incicle.s3.amazonaws.com/logo_incicle.svg';
 function getLogoFromCompanies(companyId: string, companies: MeProps['companies']) {
   return companies.find(item => item.id === companyId)!?.logo;
 }
+
 
 const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, signOut }) => {
   // Array of search result on header
@@ -65,19 +67,21 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
   const { companyId, checkPermission, permissionsList } = usePermissions();
   const { t } = useTranslation();
 
+  const activateManagerPanel = useCallback(
+    () => {
+      if (user.type === 'COMPANY' || !me || !me?.companies) return;
+      const companySelected = me?.companies.find(company => company.id === companyId);
+      if (!companySelected) return;
+      const hasAuthorization = hasManagerPermissions(user, checkPermission, companySelected);
+      if (!hasAuthorization && permissionsList.length <= 0) return;
+      setActiveManagerPanel(hasAuthorization);
+    },
+    [user, checkPermission, selectedCompany, permissionsList.length],
+  );
+
   useEffect(() => {
-    if (user.type === 'COMPANY' || !me || !me?.companies) return;
-    const companySelected = me?.companies.find(company => company.id === companyId);
-    if (!companySelected) return;
-    if (
-      !!companySelected.is_manager_competence ||
-      checkPermission(['managers_vacations_list']) ||
-      checkPermission(['managers_list_occurrences']) ||
-      checkPermission(['in_check'])
-    ) {
-      setActiveManagerPanel(true);
-    }
-  }, [permissionsList]); // eslint-disable-line
+    activateManagerPanel();
+  }, [activateManagerPanel]);
 
   function getLogoUrl() {
     let isPublicUrl = true;
