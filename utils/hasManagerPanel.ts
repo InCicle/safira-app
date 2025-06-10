@@ -1,5 +1,5 @@
-import { MeCompany } from "safira-app/interfaces/Me";
-import { IUser } from "safira-app/interfaces/User";
+import { MeCompany } from '@/safira-app/interfaces/Me';
+import { IUser } from '@/safira-app/interfaces/User';
 
 export function hasManagerPermissions(
   user: IUser,
