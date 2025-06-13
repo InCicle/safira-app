@@ -127,7 +127,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
   useEffect(() => {
     if (me?.type === 'PERSON') {
       setAccountType('PERSON');
-      if (me?.companies.length > 0) {
+      if (me?.companies?.length > 0) {
         const companySelected = Cookies.get('companySelected');
         if (!companySelected) {
           Cookies.set('companySelected', me?.companies[0].id, { domain: domainName });
