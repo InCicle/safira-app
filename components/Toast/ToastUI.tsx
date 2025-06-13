@@ -28,7 +28,16 @@ const ToastUI: FC = () => {
   }, []); // eslint-disable-line
 
   return createPortal(
-    <ToastContainer position="top-right" autoClose={5000} pauseOnHover closeButton closeOnClick={false} />,
+    <ToastContainer
+      toastStyle={{
+        fontSize: '14px',
+      }}
+      position="top-right" 
+      autoClose={5000} 
+      pauseOnHover 
+      closeButton 
+      closeOnClick={false} 
+    />,
     toastContainer,
   );
 };
