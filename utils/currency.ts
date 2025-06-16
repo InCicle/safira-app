@@ -3,9 +3,16 @@ import { LanguageType } from 'safira-app/interfaces/Language';
 export type CurrencyCodeType = 'BRL' | 'USD';
 
 export type CurrencyOptions = {
-  locale: LanguageType;
-  currencyCode: CurrencyCodeType;
   float?: boolean;
+  locale: LanguageType;
+  currencyCode?: CurrencyCodeType;
+};
+
+const currencyCodeMap: Record<LanguageType, CurrencyCodeType> = {
+  [LanguageType.pt]: 'BRL',
+  [LanguageType['pt-BR']]: 'BRL',
+  [LanguageType.en]: 'USD',
+  [LanguageType['en-US']]: 'USD',
 };
 
 export const CurrencyHandler = {
@@ -13,7 +20,7 @@ export const CurrencyHandler = {
     options = options || { locale: LanguageType.en, currencyCode: 'USD' };
     return Intl.NumberFormat(options.locale, {
       style: 'currency',
-      currency: options.currencyCode,
+      currency:  options.currencyCode || currencyCodeMap[options.locale],
     }).format(options.float ? value : value / 100);
   },
 
