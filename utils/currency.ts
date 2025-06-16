@@ -9,11 +9,11 @@ export type CurrencyOptions = {
 };
 
 const currencyCodeMap: Record<LanguageType, CurrencyCodeType> = {
-  [LanguageType.pt]: 'BRL',
-  [LanguageType['pt-BR']]: 'BRL',
-  [LanguageType.en]: 'USD',
-  [LanguageType['en-US']]: 'USD',
-};
+  'pt': 'BRL',
+  'pt-BR': 'BRL',
+  'en': 'USD',
+  'en-US': 'USD',
+} as const;
 
 export const CurrencyHandler = {
   withCurrency(value: number, options?: CurrencyOptions) {
