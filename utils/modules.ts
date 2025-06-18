@@ -121,7 +121,7 @@ export const incicleMenuModules: MenuModulesType[] = [
     slug: MODULE_TYPES.evaluation360,
     icon: CompetencyIcon,
     iconSize: 60,
-    url: links.web.evaluation,
+    url: links.web.evaluation + '/home',
     accountTypes: ['COMPANY'],
     description: {
       COMPANY: 'evaluation_description',
@@ -393,7 +393,7 @@ export const incicleCollaboratorsMenuModules: MenuModulesType[] = [
     slug: MODULE_TYPES.evaluation360,
     icon: CompetencyIcon,
     iconSize: 60,
-    url: links.web.evaluation,
+    url: links.web.evaluation + '/home',
     accountTypes: ['PERSON'],
     description: {
       COMPANY: 'evaluation_description',
