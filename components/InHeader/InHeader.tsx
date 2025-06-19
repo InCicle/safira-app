@@ -18,7 +18,7 @@ import NotificationProvider from 'safira-app/contexts/NotificationProvider';
 import { SearchItemInterface } from 'safira-app/interfaces/Search';
 import { HeaderProvider } from 'safira-app/contexts/HeaderContext';
 import { IUser } from 'safira-app/interfaces/User';
-import { MeCompany, MeProps } from 'safira-app/interfaces/Me';
+import { CollaboratorsInterface, MeProps } from 'safira-app/interfaces/Me';
 import { links } from 'safira-app/config/links';
 
 import maxLetters from './utils/maxLettes';
@@ -43,8 +43,8 @@ interface props {
 
 const INCICLE_LOGO = 'https://static-incicle.s3.amazonaws.com/logo_incicle.svg';
 
-function getLogoFromCompanies(companyId: string, companies: MeProps['companies']) {
-  return companies.find(item => item.id === companyId)!?.logo;
+function getLogoFromCompanies(companyId: string, companies: MeProps['collaborators']) {
+  return companies.find(item => item.id === companyId)!?.company.logo;
 }
 
 
@@ -52,9 +52,9 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
   // Array of search result on header
   const [resultSearch, setResultSearch] = useState([] as SearchItemInterface[]);
   const [hasResult, setHasResult] = useState(false);
-  const [companies, setCompanies] = useState<any[]>([]);
+  const [companies, setCompanies] = useState<CollaboratorsInterface[]>([]);
   const [accountType, setAccountType] = useState('');
-  const [selectedCompany, setSelectedCompany] = useState<any>();
+  const [selectedCompany, setSelectedCompany] = useState<CollaboratorsInterface>();
   const [inputBoxClassName, setInputBoxClassName] = useState('');
   const [activeManagerMenu, setActiveManagerPanel] = useState(false);
 
@@ -69,10 +69,10 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
 
   const activateManagerPanel = useCallback(
     () => {
-      if (user.type === 'COMPANY' || !me || !me?.companies) return;
-      const companySelected = me?.companies.find(company => company.id === companyId);
+      if (user.type === 'COMPANY' || !me || !me?.collaborators) return;
+      const companySelected = me?.collaborators.find(col => col.company.id === companyId);
       if (!companySelected) return;
-      const hasAuthorization = hasManagerPermissions(user, checkPermission, companySelected);
+      const hasAuthorization = hasManagerPermissions(user, checkPermission, companySelected.company);
       if (!hasAuthorization && permissionsList.length <= 0) return;
       setActiveManagerPanel(hasAuthorization);
     },
@@ -87,8 +87,8 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
     let isPublicUrl = true;
     let logoUrl = '';
 
-    if (me?.type === 'PERSON') {
-      const companyLogo = getLogoFromCompanies(selectedCompany?.id, companies);
+    if (me?.type === 'PERSON' && selectedCompany) {
+      const companyLogo = getLogoFromCompanies(selectedCompany.company.id, companies);
 
       logoUrl = companyLogo || INCICLE_LOGO;
       isPublicUrl = !companyLogo;
@@ -127,17 +127,17 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
   useEffect(() => {
     if (me?.type === 'PERSON') {
       setAccountType('PERSON');
-      if (me?.companies?.length > 0) {
+      if (me?.collaborators?.length > 0) {
         const companySelected = Cookies.get('companySelected');
         if (!companySelected) {
-          Cookies.set('companySelected', me?.companies[0].id, { domain: domainName });
-          setSelectedCompany(me?.companies[0]);
+          Cookies.set('companySelected', me?.collaborators[0].company.id, { domain: domainName });
+          setSelectedCompany(me?.collaborators[0]);
         } else {
-          const comp = me?.companies.find(company => company.id === companySelected);
+          const comp = me?.collaborators.find(col => col.company.id === companySelected);
           setSelectedCompany(comp);
         }
 
-        setCompanies(me?.companies);
+        setCompanies(me?.collaborators);
       }
     }
   }, [me]);
@@ -184,7 +184,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
 
   function changeChipContent(index: number) {
     Cookies.remove('companySelected');
-    const companyId = companies[index].id;
+    const companyId = companies[index].company.id;
     Cookies.set('companySelected', companyId, { domain: domainName });
     window.location.reload();
   }
@@ -350,7 +350,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                           size="small"
                           clickable
                           avatar={companiesAvatar()}
-                          label={<span style={{ fontSize: '13px' }}>{maxLetters(selectedCompany?.name, 200)}</span>}
+                          label={<span style={{ fontSize: '13px' }}>{selectedCompany ? maxLetters(selectedCompany.company.name, 200) : null}</span>}
                           onDelete={handleOpenMenuCompanys}
                           deleteIcon={<ArrowDropDownIcon />}
                           variant="outlined"
@@ -399,10 +399,10 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                       >
                         {companies.map((company, index) => (
                           <MenuItem key={index} component="li" onClick={() => changeChipContent(index)}>
-                            <Avatar alt={company.name}>
+                            <Avatar alt={company.company.name}>
                               <WorkIcon />
                             </Avatar>
-                            <span style={{ padding: '0 !important' }}>{company.name}</span>
+                            <span style={{ padding: '0 !important' }}>{company.company.name}</span>
                           </MenuItem>
                         ))}
                       </Menu>

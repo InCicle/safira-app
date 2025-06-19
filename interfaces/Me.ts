@@ -54,6 +54,15 @@ export interface UserConfig {
   user_id: string;
 }
 
+export interface CollaboratorsInterface {
+  id: string;
+  job: DPItemInterface | null;
+  unit: DPItemInterface | null;
+  level: DPItemInterface | null;
+  sector: DPItemInterface | null;
+  company: MeCompany;
+}
+
 export interface MeProps {
   user_id: string;
   username: string;
@@ -63,9 +72,14 @@ export interface MeProps {
   cover: string | null;
   profile_id: string;
   avatar: string;
-  companies: MeCompany[];
+  collaborators: CollaboratorsInterface[];
   redirects?: Redirect[];
   profile_config: ProfileConfig;
   user_config: UserConfig;
   social_name: string;
+}
+
+export interface DPItemInterface {
+  id: string;
+  name: string;
 }

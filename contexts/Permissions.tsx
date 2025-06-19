@@ -50,8 +50,8 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
 
   useEffect(() => {
     const company =
-      me?.companies?.find(company => company.id === companySelected) ||
-      (me?.companies?.length > 0 ? me?.companies[0] : undefined);
+      me?.collaborators?.find(company => company.company.id === companySelected) ||
+      (me?.collaborators?.length > 0 ? me?.collaborators[0] : undefined);
 
     if (!company && user.type !== 'COMPANY') {
       setRequestFinished(true);
@@ -63,7 +63,7 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
         setPermissionsList(response);
         if (user.type === 'PERSON') {
           const hasVacationPermission = response.some(permission => permission.slug === 'managers_vacations_list');
-          const has360Permission = company?.is_manager_competence;
+          const has360Permission = company?.company.is_manager_competence;
           setManagerPermission(has360Permission || hasVacationPermission);
         }
 
