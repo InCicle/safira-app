@@ -58,10 +58,10 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
 
     if (profiles?.type === 'COMPANY') {
       return profiles.redirects && profiles.redirects.length > 0 ? getUrlStepOne(profiles.redirects) : urlStepOne;
-    } else if (profiles?.type === 'PERSON' && profiles.companies && profiles.companies.length > 0) {
-      const currentCompany = profiles.companies.find(company => company.id === companyId);
-      if (currentCompany && currentCompany.redirects && currentCompany.redirects.length > 0) {
-        return getUrlStepOne(currentCompany.redirects);
+    } else if (profiles?.type === 'PERSON' && profiles.collaborators && profiles.collaborators.length > 0) {
+      const currentCompany = profiles.collaborators.find(company => company.id === companyId);
+      if (currentCompany && currentCompany.company.redirects && currentCompany.company.redirects.length > 0) {
+        return getUrlStepOne(currentCompany.company.redirects);
       }
     }
     return urlStepOne;
