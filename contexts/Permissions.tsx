@@ -6,7 +6,7 @@ import { useAuth } from 'safira-app/hooks/useAuth';
 import { useProfileContext } from 'contexts/ProfileContext';
 
 export interface PermissionObject {
-  id: string;
+  name: string;
   slug: string;
 }
 
