@@ -49,22 +49,23 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
   };
 
   useEffect(() => {
-    const company =
-      me?.collaborators?.find(company => company.company.id === companySelected) ||
-      (me?.collaborators?.length > 0 ? me?.collaborators[0] : undefined);
+    const collaborator =
+      me?.collaborators?.find(collaborator => collaborator.company.id === companySelected) ||
+      (me?.collaborators[0] ? me?.collaborators[0] : undefined);
 
-    if (!company && user.type !== 'COMPANY') {
+    if (!collaborator && user.type !== 'COMPANY') {
       setRequestFinished(true);
       return;
     }
 
-    getAllPermissionsList(company?.id ?? user.profile_id)
+    getAllPermissionsList(collaborator?.company.id ?? user.profile_id)
       .then(response => {
         setPermissionsList(response);
         if (user.type === 'PERSON') {
           const hasVacationPermission = response.some(permission => permission.slug === 'managers_vacations_list');
-          const has360Permission = company?.company.is_manager_competence;
-          setManagerPermission(has360Permission || hasVacationPermission);
+          const has360Permission = collaborator?.company.is_manager_competence;
+          const hasInCheckPermission = collaborator?.company.is_manager_in_check;
+          setManagerPermission(has360Permission || hasVacationPermission||hasInCheckPermission);
         }
 
         setRequestFinished(true);
