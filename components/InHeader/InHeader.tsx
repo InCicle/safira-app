@@ -21,6 +21,7 @@ import { IUser } from '@/safira-app/interfaces/User';
 import { CollaboratorsInterface, MeProps } from '@/safira-app/interfaces/Me';
 import { links } from '@/safira-app/config/links';
 
+
 import maxLetters from './utils/maxLetters';
 import RenderSearchItem from './components/RenderSearchItem';
 import ModulesMenu, { ModulesMenuRef } from './components/ModulesMenu';
@@ -70,9 +71,9 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
   const activateManagerPanel = useCallback(
     () => {
       if (user.type === 'COMPANY' || !me || !me?.collaborators) return;
-      const companySelected = me?.collaborators.find(col => col.company.id === companyId);
-      if (!companySelected) return;
-      const hasAuthorization = hasManagerPermissions(user, checkPermission, companySelected.company);
+      const collaborator = me?.collaborators.find(col => col.company.id === companyId);
+      if (!collaborator) return;
+      const hasAuthorization = hasManagerPermissions(user, checkPermission, collaborator.company);
       if (!hasAuthorization && permissionsList.length <= 0) return;
       setActiveManagerPanel(hasAuthorization);
     },

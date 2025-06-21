@@ -4,9 +4,10 @@ import { api } from '@/services/api';
 import { links } from '@/safira-app/config/links';
 import { useAuth } from '@/safira-app/hooks/useAuth';
 import { useProfileContext } from '@/contexts/ProfileContext';
+import { hasManagerPermissions } from '../utils/hasManagerPanel';
 
 export interface PermissionObject {
-  id: string;
+  name: string;
   slug: string;
 }
 
@@ -49,22 +50,21 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
   };
 
   useEffect(() => {
-    const company =
-      me?.collaborators?.find(company => company.company.id === companySelected) ||
-      (me?.collaborators?.length > 0 ? me?.collaborators[0] : undefined);
+    const collaborator =
+      me?.collaborators?.find(collaborator => collaborator.company.id === companySelected) ||
+      (me?.collaborators && me?.collaborators[0] ? me?.collaborators[0] : undefined);
 
-    if (!company && user.type !== 'COMPANY') {
+    if (!collaborator && user.type !== 'COMPANY') {
       setRequestFinished(true);
       return;
     }
 
-    getAllPermissionsList(company?.id ?? user.profile_id)
+    getAllPermissionsList(collaborator?.company.id ?? user.profile_id)
       .then(response => {
         setPermissionsList(response);
         if (user.type === 'PERSON') {
-          const hasVacationPermission = response.some(permission => permission.slug === 'managers_vacations_list');
-          const has360Permission = company?.company.is_manager_competence;
-          setManagerPermission(has360Permission || hasVacationPermission);
+           const hasAuthorization = hasManagerPermissions(user, checkPermission, collaborator?.company);
+          setManagerPermission(hasAuthorization);
         }
 
         setRequestFinished(true);
