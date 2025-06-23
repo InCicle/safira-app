@@ -23,6 +23,12 @@ type Props = {
 
 const breakpointValue = 700;
 
+enum RedirectTypeEnum {
+  STEPONE = 1,
+  THREEPONTO = 2,
+  RECRUITMENT = 3,
+}
+
 const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (props, ref) => {
   const { t } = useTranslation();
   const { user, profiles } = useHeaderProvider();
@@ -30,7 +36,9 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
   const { activeManagerMenu } = props;
   const { checkPermission, companyId } = usePermissions();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-  const urlStepOne = 'https://lp.stepone.com.br/';
+  const socialLinkByEnvironment = process.env.REACT_APP_SOCIAL_LINK || '';
+
+  const integrationTitles = ['corporative_university', 'in_point'];
 
   function openDropdown(ev: any) {
     setAnchorEl(ev.currentTarget);
@@ -46,25 +54,44 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
       closeDropdown,
     };
   });
-  const getUrlUniversidadeCorporativa = moduleItem => {
-    if (moduleItem.title !== 'corporative_university') {
+
+  function findRedirectUrlByType(redirects, type: RedirectTypeEnum) {
+    const redirectEntry = redirects.find(redirect => redirect.type === type);
+    return redirectEntry ? redirectEntry.url : socialLinkByEnvironment;
+  }
+
+  const resolveModuleUrl = moduleItem => {
+    if (!integrationTitles.includes(moduleItem.title)) {
       return moduleItem.url;
     }
 
-    const getUrlStepOne = redirects => {
-      const redirecionamentoStepOne = redirects.find(redirect => redirect.type === 1 || redirect.type === 'STEPONE');
-      return redirecionamentoStepOne ? redirecionamentoStepOne.url : urlStepOne;
-    };
+    const redirects = profiles?.redirects;
+
+    let redirectType: RedirectTypeEnum | undefined;
+    if (moduleItem.title === 'corporative_university') {
+      redirectType = RedirectTypeEnum.STEPONE;
+    } else if (moduleItem.title === 'in_point') {
+      redirectType = RedirectTypeEnum.THREEPONTO;
+    } else if (moduleItem.title === 'recruitment') {
+      redirectType = RedirectTypeEnum.RECRUITMENT;
+    }
 
     if (profiles?.type === 'COMPANY') {
-      return profiles.redirects && profiles.redirects.length > 0 ? getUrlStepOne(profiles.redirects) : urlStepOne;
+      return redirects && redirects.length > 0 && redirectType
+        ? findRedirectUrlByType(redirects, redirectType)
+        : socialLinkByEnvironment;
     } else if (profiles?.type === 'PERSON' && profiles.collaborators && profiles.collaborators.length > 0) {
       const currentCompany = profiles.collaborators.find(company => company.id === companyId);
-      if (currentCompany && currentCompany.company.redirects && currentCompany.company.redirects.length > 0) {
-        return getUrlStepOne(currentCompany.company.redirects);
+      if (
+        currentCompany &&
+        currentCompany.company.redirects &&
+        currentCompany.company.redirects.length > 0 &&
+        redirectType
+      ) {
+        return findRedirectUrlByType(currentCompany.company.redirects, redirectType);
       }
     }
-    return urlStepOne;
+    return socialLinkByEnvironment;
   };
 
   const filteredCollaboratorsModules = incicleCollaboratorsMenuModules
@@ -163,7 +190,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
               key={index.toString()}
               module={{
                 ...moduleItem,
-                url: getUrlUniversidadeCorporativa(moduleItem),
+                url: resolveModuleUrl(moduleItem),
               }}
             />
           ))}
@@ -211,7 +238,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
                 key={index.toString()}
                 module={{
                   ...moduleItem,
-                  url: getUrlUniversidadeCorporativa(moduleItem),
+                  url: resolveModuleUrl(moduleItem),
                 }}
               />
             ))}
