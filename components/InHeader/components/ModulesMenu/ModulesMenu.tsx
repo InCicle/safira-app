@@ -55,7 +55,11 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const socialLinkByEnvironment = process.env.REACT_APP_SOCIAL_LINK || '';
 
-  const integrationTitles = ['corporative_university', 'in_point'];
+  const integrationTitles = [
+    'corporative_university',
+    'in_point',
+    'recruitment',
+  ];
 
   function openDropdown(ev: any) {
     setAnchorEl(ev.currentTarget);
