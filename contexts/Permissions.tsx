@@ -4,6 +4,7 @@ import api from 'services/api';
 import { links } from 'safira-app/config/links';
 import { useAuth } from 'safira-app/hooks/useAuth';
 import { useProfileContext } from 'contexts/ProfileContext';
+import { hasManagerPermissions } from 'safira-app/utils/hasManagerPanel';
 
 export interface PermissionObject {
   name: string;
@@ -14,7 +15,7 @@ export interface PermissionsContextProps {
   companySelected: string | undefined;
   checkPermission: (slugs: string[]) => boolean;
   companyId: string;
-  permissionsList: PermissionObject[];
+  permissionsList: PermissionObject[] | null;
   requestFinished: boolean;
   managerPermission: boolean;
   setManagerPermission: React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,7 +24,7 @@ export interface PermissionsContextProps {
 export const PermissionsContext = createContext<PermissionsContextProps>({} as PermissionsContextProps);
 
 const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
-  const [permissionsList, setPermissionsList] = useState<PermissionObject[]>([]);
+  const [permissionsList, setPermissionsList] = useState<PermissionObject[] | null>(null);
   const [requestFinished, setRequestFinished] = useState(false);
   const [managerPermission, setManagerPermission] = useState<boolean>(false);
   const { me } = useProfileContext();
@@ -44,7 +45,7 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
   };
 
   const checkPermission = (slugs: string[]) => {
-    const hasPermission = slugs.every(slug => permissionsList.some(permission => permission.slug === slug));
+    const hasPermission = slugs.every(slug => permissionsList?.some(permission => permission.slug === slug));
     return hasPermission;
   };
 
@@ -62,10 +63,8 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
       .then(response => {
         setPermissionsList(response);
         if (user.type === 'PERSON') {
-          const hasVacationPermission = response.some(permission => permission.slug === 'managers_vacations_list');
-          const has360Permission = collaborator?.company.is_manager_competence;
-          const hasInCheckPermission = collaborator?.company.is_manager_in_check;
-          setManagerPermission(has360Permission || hasVacationPermission||hasInCheckPermission);
+          const hasAuthorization = hasManagerPermissions(user, checkPermission, collaborator?.company);
+          setManagerPermission(hasAuthorization);
         }
 
         setRequestFinished(true);

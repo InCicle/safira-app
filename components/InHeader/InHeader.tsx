@@ -70,13 +70,13 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
   const activateManagerPanel = useCallback(
     () => {
       if (user.type === 'COMPANY' || !me || !me?.collaborators) return;
-      const companySelected = me?.collaborators.find(col => col.company.id === companyId);
-      if (!companySelected) return;
-      const hasAuthorization = hasManagerPermissions(user, checkPermission, companySelected.company);
-      if (!hasAuthorization && permissionsList.length <= 0) return;
+      const collaboratorSelected = me?.collaborators.find(col => col.company.id === companyId);
+      if (!collaboratorSelected) return;
+      const hasAuthorization = hasManagerPermissions(user, checkPermission, collaboratorSelected.company);
+      if (!hasAuthorization && permissionsList) return;
       setActiveManagerPanel(hasAuthorization);
     },
-    [user, checkPermission, selectedCompany, permissionsList.length],
+    [user, checkPermission, selectedCompany, permissionsList],
   );
 
   useEffect(() => {
