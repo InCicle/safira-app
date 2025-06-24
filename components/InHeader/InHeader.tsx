@@ -73,7 +73,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
     const hasAuthorization = hasManagerPermissions(user, checkPermission, collaboratorSelected.company);
     if (!hasAuthorization && permissionsList) return;
     setActiveManagerPanel(hasAuthorization);
-  }, [user, checkPermission, selectedCompany, permissionsList]);
+  }, [user, me, checkPermission, permissionsList, companyId]);
 
   useEffect(() => {
     activateManagerPanel();
