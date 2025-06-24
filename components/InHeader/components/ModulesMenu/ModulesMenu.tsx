@@ -1,5 +1,13 @@
 import React, { useImperativeHandle, useState } from 'react';
-import { Box, Divider, IconButton, Menu, Stack, Typography, useTheme } from '@mui/material';
+import {
+  Box,
+  Divider,
+  IconButton,
+  Menu,
+  Stack,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
 import {
@@ -23,14 +31,31 @@ type Props = {
 
 const breakpointValue = 700;
 
-const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (props, ref) => {
+enum RedirectTypeEnum {
+  STEPONE = 1,
+  THREEPONTO = 2,
+  RECRUITMENT = 3,
+}
+
+const moduleRedirectType = {
+  corporative_university: RedirectTypeEnum.STEPONE,
+  in_point: RedirectTypeEnum.THREEPONTO,
+  recruitment: RedirectTypeEnum.RECRUITMENT,
+} as const;
+
+const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (
+  props,
+  ref
+) => {
   const { t } = useTranslation();
   const { user, profiles } = useHeaderProvider();
   const { breakpoints } = useTheme();
   const { activeManagerMenu } = props;
   const { checkPermission, companyId } = usePermissions();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-  const urlStepOne = 'https://lp.stepone.com.br/';
+  const socialLinkByEnvironment = process.env.REACT_APP_SOCIAL_LINK || '';
+
+  const integrationTitles = ['corporative_university', 'in_point'];
 
   function openDropdown(ev: any) {
     setAnchorEl(ev.currentTarget);
@@ -46,30 +71,51 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
       closeDropdown,
     };
   });
-  const getUrlUniversidadeCorporativa = moduleItem => {
-    if (moduleItem.title !== 'corporative_university') {
+
+  function findRedirectUrlByType(redirects, type: RedirectTypeEnum) {
+    const redirectEntry = redirects.find((redirect) => redirect.type === type);
+    return redirectEntry ? redirectEntry.url : socialLinkByEnvironment;
+  }
+
+  const resolveModuleUrl = (moduleItem) => {
+    if (!integrationTitles.includes(moduleItem.title)) {
       return moduleItem.url;
     }
 
-    const getUrlStepOne = redirects => {
-      const redirecionamentoStepOne = redirects.find(redirect => redirect.type === 1 || redirect.type === 'STEPONE');
-      return redirecionamentoStepOne ? redirecionamentoStepOne.url : urlStepOne;
-    };
+    const redirects = profiles?.redirects;
+
+    const redirectType = moduleRedirectType[moduleItem.title];
 
     if (profiles?.type === 'COMPANY') {
-      return profiles.redirects && profiles.redirects.length > 0 ? getUrlStepOne(profiles.redirects) : urlStepOne;
-    } else if (profiles?.type === 'PERSON' && profiles.collaborators && profiles.collaborators.length > 0) {
-      const currentCompany = profiles.collaborators.find(company => company.id === companyId);
-      if (currentCompany && currentCompany.company.redirects && currentCompany.company.redirects.length > 0) {
-        return getUrlStepOne(currentCompany.company.redirects);
+      return redirects && redirects.length > 0 && redirectType
+        ? findRedirectUrlByType(redirects, redirectType)
+        : socialLinkByEnvironment;
+    } else if (
+      profiles?.type === 'PERSON' &&
+      profiles.collaborators &&
+      profiles.collaborators.length > 0
+    ) {
+      const currentCompany = profiles.collaborators.find(
+        (company) => company.id === companyId
+      );
+      if (
+        currentCompany &&
+        currentCompany.company.redirects &&
+        currentCompany.company.redirects.length > 0 &&
+        redirectType
+      ) {
+        return findRedirectUrlByType(
+          currentCompany.company.redirects,
+          redirectType
+        );
       }
     }
-    return urlStepOne;
+    return socialLinkByEnvironment;
   };
 
   const filteredCollaboratorsModules = incicleCollaboratorsMenuModules
-    .filter(item => item.accountTypes.includes(user.type))
-    .filter(moduleItem => {
+    .filter((item) => item.accountTypes.includes(user.type))
+    .filter((moduleItem) => {
       if (!moduleItem.permission) return true;
       return checkPermission([moduleItem.permission]);
     });
@@ -101,12 +147,12 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
       }}
     >
       <Stack
-        position="relative"
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        width="100%"
-        padding="0 16px"
+        position='relative'
+        direction='row'
+        justifyContent='space-between'
+        alignItems='center'
+        width='100%'
+        padding='0 16px'
         gap={2}
       >
         <Box
@@ -148,13 +194,13 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
         }}
       >
         {incicleMenuModules
-          .filter(item => item.accountTypes.includes(user.type))
-          .filter(itemModule => {
+          .filter((item) => item.accountTypes.includes(user.type))
+          .filter((itemModule) => {
             if (!itemModule.enableOnlyTo) return true;
             if (itemModule.enableOnlyTo.includes(companyId)) return true;
             return false;
           })
-          .filter(moduleItem => {
+          .filter((moduleItem) => {
             if (!moduleItem.permission) return true;
             return checkPermission([moduleItem.permission]);
           })
@@ -163,7 +209,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
               key={index.toString()}
               module={{
                 ...moduleItem,
-                url: getUrlUniversidadeCorporativa(moduleItem),
+                url: resolveModuleUrl(moduleItem),
               }}
             />
           ))}
@@ -211,12 +257,14 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
                 key={index.toString()}
                 module={{
                   ...moduleItem,
-                  url: getUrlUniversidadeCorporativa(moduleItem),
+                  url: resolveModuleUrl(moduleItem),
                 }}
               />
             ))}
 
-            {activeManagerMenu ? <ModuleMenuItem module={incicleManagerMenuModules} /> : null}
+            {activeManagerMenu ? (
+              <ModuleMenuItem module={incicleManagerMenuModules} />
+            ) : null}
           </Box>
         </>
       ) : null}
