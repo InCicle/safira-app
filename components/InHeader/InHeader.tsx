@@ -21,7 +21,6 @@ import { IUser } from '@/safira-app/interfaces/User';
 import { CollaboratorsInterface, MeProps } from '@/safira-app/interfaces/Me';
 import { links } from '@/safira-app/config/links';
 
-
 import maxLetters from './utils/maxLetters';
 import RenderSearchItem from './components/RenderSearchItem';
 import ModulesMenu, { ModulesMenuRef } from './components/ModulesMenu';
@@ -48,7 +47,6 @@ function getLogoFromCompanies(companyId: string, companies: MeProps['collaborato
   return companies.find(item => item.id === companyId)!?.company.logo;
 }
 
-
 const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, signOut }) => {
   // Array of search result on header
   const [resultSearch, setResultSearch] = useState([] as SearchItemInterface[]);
@@ -68,17 +66,14 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
   const { companyId, checkPermission, permissionsList } = usePermissions();
   const { t } = useTranslation();
 
-  const activateManagerPanel = useCallback(
-    () => {
-      if (user.type === 'COMPANY' || !me || !me?.collaborators) return;
-      const collaborator = me?.collaborators.find(col => col.company.id === companyId);
-      if (!collaborator) return;
-      const hasAuthorization = hasManagerPermissions(user, checkPermission, collaborator.company);
-      if (!hasAuthorization && permissionsList.length <= 0) return;
-      setActiveManagerPanel(hasAuthorization);
-    },
-    [user, me, checkPermission, permissionsList.length, companyId],
-  );
+  const activateManagerPanel = useCallback(() => {
+    if (user.type === 'COMPANY' || !me || !me?.collaborators) return;
+    const collaboratorSelected = me?.collaborators.find(col => col.company.id === companyId);
+    if (!collaboratorSelected) return;
+    const hasAuthorization = hasManagerPermissions(user, checkPermission, collaboratorSelected.company);
+    if (!hasAuthorization && permissionsList) return;
+    setActiveManagerPanel(hasAuthorization);
+  }, [user, checkPermission, selectedCompany, permissionsList]);
 
   useEffect(() => {
     activateManagerPanel();
@@ -350,7 +345,11 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                           size="small"
                           clickable
                           avatar={companiesAvatar()}
-                          label={<span style={{ fontSize: '13px' }}>{selectedCompany ? maxLetters(selectedCompany.company.name, 200) : null}</span>}
+                          label={
+                            <span style={{ fontSize: '13px' }}>
+                              {selectedCompany ? maxLetters(selectedCompany.company.name, 200) : null}
+                            </span>
+                          }
                           onDelete={handleOpenMenuCompanys}
                           deleteIcon={<ArrowDropDownIcon />}
                           variant="outlined"

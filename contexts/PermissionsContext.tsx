@@ -15,7 +15,7 @@ export interface PermissionsContextProps {
   companySelected: string | undefined;
   checkPermission: (slugs: string[]) => boolean;
   companyId: string;
-  permissionsList: PermissionObject[];
+  permissionsList: PermissionObject[] | null;
   requestFinished: boolean;
   managerPermission: boolean;
   setManagerPermission: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,7 +24,7 @@ export interface PermissionsContextProps {
 export const PermissionsContext = createContext<PermissionsContextProps>({} as PermissionsContextProps);
 
 const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
-  const [permissionsList, setPermissionsList] = useState<PermissionObject[]>([]);
+  const [permissionsList, setPermissionsList] = useState<PermissionObject[] | null>(null);
   const [requestFinished, setRequestFinished] = useState(false);
   const [managerPermission, setManagerPermission] = useState<boolean>(false);
   const { me } = useProfileContext();
@@ -45,7 +45,7 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
   };
 
   const checkPermission = (slugs: string[]) => {
-    const hasPermission = slugs.every(slug => permissionsList.some(permission => permission.slug === slug));
+    const hasPermission = slugs.every(slug => permissionsList?.some(permission => permission.slug === slug));
     return hasPermission;
   };
 
@@ -63,7 +63,7 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
       .then(response => {
         setPermissionsList(response);
         if (user.type === 'PERSON') {
-           const hasAuthorization = hasManagerPermissions(user, checkPermission, collaborator?.company);
+          const hasAuthorization = hasManagerPermissions(user, checkPermission, collaborator?.company);
           setManagerPermission(hasAuthorization);
         }
 
