@@ -53,7 +53,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (
   const { activeManagerMenu } = props;
   const { checkPermission, companyId } = usePermissions();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-  const socialLinkByEnvironment = process.env.REACT_APP_SOCIAL_LINK || '';
+  const socialLinkByEnvironment = import.meta.env.VITE_APP_WEB_URL_SOCIAL_NETWORK! || '';
 
   const integrationTitles = [
     'corporative_university',
