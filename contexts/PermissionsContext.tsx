@@ -54,7 +54,7 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
       me?.companies?.find(company => company.id === companySelected) ||
       (me?.companies?.length > 0 ? me?.companies[0] : undefined);
 
-    if (!company && me.type !== 'COMPANY') {
+    if (!company && me?.type !== 'COMPANY') {
       setRequestFinished(true);
       return;
     }
