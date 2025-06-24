@@ -1,5 +1,13 @@
 import React, { useImperativeHandle, useState } from 'react';
-import { Box, Divider, IconButton, Menu, Stack, Typography, useTheme } from '@mui/material';
+import {
+  Box,
+  Divider,
+  IconButton,
+  Menu,
+  Stack,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useHeaderProvider } from 'safira-app/contexts/HeaderContext';
 import {
@@ -29,7 +37,16 @@ enum RedirectTypeEnum {
   RECRUITMENT = 3,
 }
 
-const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (props, ref) => {
+const moduleRedirectType = {
+  corporative_university: RedirectTypeEnum.STEPONE,
+  in_point: RedirectTypeEnum.THREEPONTO,
+  recruitment: RedirectTypeEnum.RECRUITMENT,
+} as const;
+
+const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (
+  props,
+  ref
+) => {
   const { t } = useTranslation();
   const { user, profiles } = useHeaderProvider();
   const { breakpoints } = useTheme();
@@ -56,47 +73,49 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
   });
 
   function findRedirectUrlByType(redirects, type: RedirectTypeEnum) {
-    const redirectEntry = redirects.find(redirect => redirect.type === type);
+    const redirectEntry = redirects.find((redirect) => redirect.type === type);
     return redirectEntry ? redirectEntry.url : socialLinkByEnvironment;
   }
 
-  const resolveModuleUrl = moduleItem => {
+  const resolveModuleUrl = (moduleItem) => {
     if (!integrationTitles.includes(moduleItem.title)) {
       return moduleItem.url;
     }
 
     const redirects = profiles?.redirects;
 
-    let redirectType: RedirectTypeEnum | undefined;
-    if (moduleItem.title === 'corporative_university') {
-      redirectType = RedirectTypeEnum.STEPONE;
-    } else if (moduleItem.title === 'in_point') {
-      redirectType = RedirectTypeEnum.THREEPONTO;
-    } else if (moduleItem.title === 'recruitment') {
-      redirectType = RedirectTypeEnum.RECRUITMENT;
-    }
+    const redirectType = moduleRedirectType[moduleItem.title];
 
     if (profiles?.type === 'COMPANY') {
       return redirects && redirects.length > 0 && redirectType
         ? findRedirectUrlByType(redirects, redirectType)
         : socialLinkByEnvironment;
-    } else if (profiles?.type === 'PERSON' && profiles.collaborators && profiles.collaborators.length > 0) {
-      const currentCompany = profiles.collaborators.find(company => company.id === companyId);
+    } else if (
+      profiles?.type === 'PERSON' &&
+      profiles.collaborators &&
+      profiles.collaborators.length > 0
+    ) {
+      const currentCompany = profiles.collaborators.find(
+        (company) => company.id === companyId
+      );
       if (
         currentCompany &&
         currentCompany.company.redirects &&
         currentCompany.company.redirects.length > 0 &&
         redirectType
       ) {
-        return findRedirectUrlByType(currentCompany.company.redirects, redirectType);
+        return findRedirectUrlByType(
+          currentCompany.company.redirects,
+          redirectType
+        );
       }
     }
     return socialLinkByEnvironment;
   };
 
   const filteredCollaboratorsModules = incicleCollaboratorsMenuModules
-    .filter(item => item.accountTypes.includes(user.type))
-    .filter(moduleItem => {
+    .filter((item) => item.accountTypes.includes(user.type))
+    .filter((moduleItem) => {
       if (!moduleItem.permission) return true;
       return checkPermission([moduleItem.permission]);
     });
@@ -128,12 +147,12 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
       }}
     >
       <Stack
-        position="relative"
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        width="100%"
-        padding="0 16px"
+        position='relative'
+        direction='row'
+        justifyContent='space-between'
+        alignItems='center'
+        width='100%'
+        padding='0 16px'
         gap={2}
       >
         <Box
@@ -175,13 +194,13 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
         }}
       >
         {incicleMenuModules
-          .filter(item => item.accountTypes.includes(user.type))
-          .filter(itemModule => {
+          .filter((item) => item.accountTypes.includes(user.type))
+          .filter((itemModule) => {
             if (!itemModule.enableOnlyTo) return true;
             if (itemModule.enableOnlyTo.includes(companyId)) return true;
             return false;
           })
-          .filter(moduleItem => {
+          .filter((moduleItem) => {
             if (!moduleItem.permission) return true;
             return checkPermission([moduleItem.permission]);
           })
@@ -243,7 +262,9 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (prop
               />
             ))}
 
-            {activeManagerMenu ? <ModuleMenuItem module={incicleManagerMenuModules} /> : null}
+            {activeManagerMenu ? (
+              <ModuleMenuItem module={incicleManagerMenuModules} />
+            ) : null}
           </Box>
         </>
       ) : null}
