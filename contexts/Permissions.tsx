@@ -51,7 +51,7 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
   useEffect(() => {
     const collaborator =
       me?.collaborators?.find(collaborator => collaborator.company.id === companySelected) ||
-      (me?.collaborators[0] ? me?.collaborators[0] : undefined);
+      (me?.collaborators && me?.collaborators[0] ? me?.collaborators[0] : undefined);
 
     if (!collaborator && user.type !== 'COMPANY') {
       setRequestFinished(true);
