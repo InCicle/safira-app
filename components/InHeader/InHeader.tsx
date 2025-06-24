@@ -47,7 +47,6 @@ function getLogoFromCompanies(companyId: string, companies: MeProps['companies']
   return companies.find(item => item.id === companyId)!?.logo;
 }
 
-
 const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, signOut }) => {
   // Array of search result on header
   const [resultSearch, setResultSearch] = useState([] as SearchItemInterface[]);
@@ -67,17 +66,14 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
   const { companyId, checkPermission, permissionsList } = usePermissions();
   const { t } = useTranslation();
 
-  const activateManagerPanel = useCallback(
-    () => {
-      if (user.type === 'COMPANY' || !me || !me?.companies) return;
-      const companySelected = me?.companies.find(company => company.id === companyId);
-      if (!companySelected) return;
-      const hasAuthorization = hasManagerPermissions(user, checkPermission, companySelected);
-      if (!hasAuthorization && permissionsList.length <= 0) return;
-      setActiveManagerPanel(hasAuthorization);
-    },
-    [user, me, checkPermission, permissionsList.length, companyId],
-  );
+  const activateManagerPanel = useCallback(() => {
+    if (user.type === 'COMPANY' || !me || !me?.companies) return;
+    const companySelected = me?.companies.find(company => company.id === companyId);
+    if (!companySelected) return;
+    const hasAuthorization = hasManagerPermissions(user, checkPermission, companySelected);
+    if (!hasAuthorization && permissionsList) return;
+    setActiveManagerPanel(hasAuthorization);
+  }, [user, checkPermission, selectedCompany, permissionsList]);
 
   useEffect(() => {
     activateManagerPanel();
