@@ -265,7 +265,7 @@ export const incicleMenuModules: MenuModulesType[] = [
   },
   {
     title: 'recruitment',
-    slug: MODULE_TYPES.task_manager,
+    slug: MODULE_TYPES.recruitment,
     icon: RecruitmentIcon,
     iconSize: 60,
     url: 'https://app.recrutei.com.br/signin',
