@@ -1,10 +1,10 @@
-import { MeCompany } from "safira-app/interfaces/Me";
+import { CollaboratorsInterface, MeCompany } from "safira-app/interfaces/Me";
 import { IUser } from "safira-app/interfaces/User";
 
 export function hasManagerPermissions(
   user: IUser,
   checkPermission: (permissions: string[]) => boolean,
-  selectedCompany?: MeCompany,
+  selectedCompany?: CollaboratorsInterface,
 ) {
   const isPerson = user.type === 'PERSON';
   const isManagerCompetence = selectedCompany?.is_manager_competence;
