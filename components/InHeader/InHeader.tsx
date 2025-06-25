@@ -38,22 +38,21 @@ interface props {
   user: IUser;
   me: MeProps;
   api: AxiosInstance;
-  signOut: () => any;
+  signOut: () => void;
 }
 
 const INCICLE_LOGO = 'https://static-incicle.s3.amazonaws.com/logo_incicle.svg';
 
-function getLogoFromCompanies(companyId: string, companies: MeProps['collaborators']) {
-  return companies.find(item => item.id === companyId)!?.company.logo;
+function getLogoFromCompanies(companyId: string, collaborators: MeProps['collaborators']) {
+  return collaborators.find(col => col.company.id === companyId)!?.company.logo;
 }
 
 const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, signOut }) => {
-  // Array of search result on header
   const [resultSearch, setResultSearch] = useState([] as SearchItemInterface[]);
   const [hasResult, setHasResult] = useState(false);
-  const [companies, setCompanies] = useState<CollaboratorsInterface[]>([]);
+  const [collaborators, setCollaborators] = useState<CollaboratorsInterface[]>([]);
   const [accountType, setAccountType] = useState('');
-  const [selectedCompany, setSelectedCompany] = useState<CollaboratorsInterface>();
+  const [selectedCollaborator, setSelectedCollaborator] = useState<CollaboratorsInterface>();
   const [inputBoxClassName, setInputBoxClassName] = useState('');
   const [activeManagerMenu, setActiveManagerPanel] = useState(false);
 
@@ -83,8 +82,8 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
     let isPublicUrl = true;
     let logoUrl = '';
 
-    if (me?.type === 'PERSON' && selectedCompany) {
-      const companyLogo = getLogoFromCompanies(selectedCompany.company.id, companies);
+    if (me?.type === 'PERSON' && selectedCollaborator) {
+      const companyLogo = getLogoFromCompanies(selectedCollaborator.company.id, collaborators);
 
       logoUrl = companyLogo || INCICLE_LOGO;
       isPublicUrl = !companyLogo;
@@ -127,13 +126,13 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
         const companySelected = Cookies.get('companySelected');
         if (!companySelected) {
           Cookies.set('companySelected', me?.collaborators[0].company.id, { domain: domainName });
-          setSelectedCompany(me?.collaborators[0]);
+          setSelectedCollaborator(me?.collaborators[0]);
         } else {
           const comp = me?.collaborators.find(col => col.company.id === companySelected);
-          setSelectedCompany(comp);
+          setSelectedCollaborator(comp);
         }
 
-        setCompanies(me?.collaborators);
+        setCollaborators(me?.collaborators);
       }
     }
   }, [me]);
@@ -180,7 +179,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
 
   function changeChipContent(index: number) {
     Cookies.remove('companySelected');
-    const companyId = companies[index].company.id;
+    const companyId = collaborators[index].company.id;
     Cookies.set('companySelected', companyId, { domain: domainName });
     window.location.reload();
   }
@@ -339,7 +338,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                   <Stack spacing={1} direction="row" sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
                     {/* COMPANIES */}
                     <div className="incicleheader-companies">
-                      {companies.length > 0 && accountType === 'PERSON' && (
+                      {collaborators.length > 0 && accountType === 'PERSON' && (
                         <Chip
                           key={1}
                           onClick={handleOpenMenuCompanys}
@@ -348,7 +347,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                           avatar={companiesAvatar()}
                           label={
                             <span style={{ fontSize: '13px' }}>
-                              {selectedCompany ? maxLetters(selectedCompany.company.name, 200) : null}
+                              {selectedCollaborator ? maxLetters(selectedCollaborator.company.name, 200) : null}
                             </span>
                           }
                           onDelete={handleOpenMenuCompanys}
@@ -397,7 +396,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                       >
-                        {companies.map((company, index) => (
+                        {collaborators.map((company, index) => (
                           <MenuItem key={index} component="li" onClick={() => changeChipContent(index)}>
                             <Avatar alt={company.company.name}>
                               <WorkIcon />
