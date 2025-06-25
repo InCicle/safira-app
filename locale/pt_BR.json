@@ -64,7 +64,10 @@
       "manager_panel": "Painel do Gestor",
       "manager_panel_description": "Gerencie informações e ações da sua equipe.",
       "recruitment": "Recrutamento",
-      "all": "Todos"
+      "all": "Todos",
+      "recruitment_description": {
+        "company": "Gerencie todo o processo de captação de talentos de maneira estratégica."
+      }
     },
     "find_someone": "Encontre alguém",
     "no_result_found": "Nenhum resultado encontrado",

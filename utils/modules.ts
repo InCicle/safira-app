@@ -2,25 +2,27 @@ import { links, ModulesWeb } from 'safira-app/config/links';
 import { MeProps } from 'safira-app/interfaces/Me';
 import { MODULE_TYPES } from 'safira-app/services/notifications';
 
-import SteponeIcon from 'safira-app/components/InHeader/components/icons/SteponeIcon';
-import ScheduleIcon from 'safira-app/components/InHeader/components/icons/ScheduleIcon';
-import AdmissionIcon from 'safira-app/components/InHeader/components/icons/AdmissionIcon';
-import PersonalDepartmentIcon from 'safira-app/components/InHeader/components/icons/PersonalDepartmentIcon';
-import EndoMarketingIcon from 'safira-app/components/InHeader/components/icons/EndoMarketingIcon';
-import FeedbackIcon from 'safira-app/components/InHeader/components/icons/FeedbackIcon';
-import ProjectManagementIcon from 'safira-app/components/InHeader/components/icons/ProjectManagementIcon';
-import CompetencyIcon from 'safira-app/components/InHeader/components/icons/CompetencyIcon';
-import SocialNetworkIcon from 'safira-app/components/InHeader/components/icons/SocialNetworkIcon';
-import PolicyIcon from 'safira-app/components/InHeader/components/icons/PolicyIcon';
-import OkrIcon from 'safira-app/components/InHeader/components/icons/OkrIcon';
-import TaskIcon from 'safira-app/components/InHeader/components/icons/TaskIcon';
-import InCheckIcon from 'safira-app/components/InHeader/components/icons/InCheckIcon';
-import SettingsIcon from 'safira-app/components/InHeader/components/icons/SettingsIcon';
-import InpontoIcon from 'safira-app/components/InHeader/components/icons/InpontoIcon';
-import ManagerIcon from 'safira-app/components/InHeader/components/icons/ManagerIcon';
-import ClimateResearchIcon from 'safira-app/components/InHeader/components/icons/ClimateResearchIcon';
-import OmbudsmanIcon from 'safira-app/components/InHeader/components/icons/OmbudsmanIcon';
-import HRConnectIcon from 'safira-app/components/InHeader/components/icons/HRConnectIcon';
+import SteponeIcon from '@/safira-app/components/InHeader/components/icons/SteponeIcon';
+import ScheduleIcon from '@/safira-app/components/InHeader/components/icons/ScheduleIcon';
+import AdmissionIcon from '@/safira-app/components/InHeader/components/icons/AdmissionIcon';
+import PersonalDepartmentIcon from '@/safira-app/components/InHeader/components/icons/PersonalDepartmentIcon';
+import EndoMarketingIcon from '@/safira-app/components/InHeader/components/icons/EndoMarketingIcon';
+import FeedbackIcon from '@/safira-app/components/InHeader/components/icons/FeedbackIcon';
+import ProjectManagementIcon from '@/safira-app/components/InHeader/components/icons/ProjectManagementIcon';
+import CompetencyIcon from '@/safira-app/components/InHeader/components/icons/CompetencyIcon';
+import SocialNetworkIcon from '@/safira-app/components/InHeader/components/icons/SocialNetworkIcon';
+import PolicyIcon from '@/safira-app/components/InHeader/components/icons/PolicyIcon';
+import OkrIcon from '@/safira-app/components/InHeader/components/icons/OkrIcon';
+import TaskIcon from '@/safira-app/components/InHeader/components/icons/TaskIcon';
+import InCheckIcon from '@/safira-app/components/InHeader/components/icons/InCheckIcon';
+import SettingsIcon from '@/safira-app/components/InHeader/components/icons/SettingsIcon';
+import InpontoIcon from '@/safira-app/components/InHeader/components/icons/InpontoIcon';
+import ManagerIcon from '@/safira-app/components/InHeader/components/icons/ManagerIcon';
+import OmbudsmanIcon from '@/safira-app/components/InHeader/components/icons/OmbudsmanIcon';
+import HRConnectIcon from '@/safira-app/components/InHeader/components/icons/HRConnectIcon';
+import ClimateResearchIcon from '@/safira-app/components/InHeader/components/icons/ClimateResearchIcon';
+import RecruitmentIcon from '../components/InHeader/components/icons/RecruitmentIcon';
+
 
 export type MenuModulesType = {
   title: string;
@@ -258,6 +260,19 @@ export const incicleMenuModules: MenuModulesType[] = [
     description: {
       COMPANY: 'corporative_university_description',
       PERSON: 'corporative_university_description',
+    },
+    redirectType: 'external',
+  },
+  {
+    title: 'recruitment',
+    slug: MODULE_TYPES.recruitment,
+    icon: RecruitmentIcon,
+    iconSize: 60,
+    url: 'https://app.recrutei.com.br/signin',
+    accountTypes: ['COMPANY'],
+    description: {
+      COMPANY: 'recruitment_description.company',
+      PERSON: null,
     },
     redirectType: 'external',
   },
