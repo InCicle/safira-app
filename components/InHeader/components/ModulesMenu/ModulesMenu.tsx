@@ -105,17 +105,17 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (
       profiles.collaborators &&
       profiles.collaborators.length > 0
     ) {
-      const currentCompany = profiles.collaborators.find(
-        (company) => company.company.id === companyId
+      const currentCollaborator = profiles.collaborators.find(
+        ({ company }) => company.id === companyId
       );
       if (
-        currentCompany &&
-        currentCompany.company.redirects &&
-        currentCompany.company.redirects.length > 0 &&
+        currentCollaborator &&
+        currentCollaborator.company.redirects &&
+        currentCollaborator.company.redirects.length > 0 &&
         redirectType
       ) {
         return findRedirectUrlByType(
-          currentCompany.company.redirects,
+          currentCollaborator.company.redirects,
           redirectType
         );
       }
