@@ -29,7 +29,7 @@ import { HeaderInStyle } from './styles';
 import { ToastUI } from '../Toast';
 import { domainName } from 'safira-app/contexts/AuthContext';
 import RenderImage from '../RenderImage';
-import { usePermissions } from '../../contexts/Permissions';
+import { usePermissions } from 'safira-app/contexts/Permissions';
 import WhatsAppButton from '../WhatsAppButton';
 import { translation } from 'safira-app/utils/translation';
 import { hasManagerPermissions } from 'safira-app/utils/hasManagerPanel';
@@ -38,7 +38,7 @@ interface props {
   user: IUser;
   me: MeProps;
   api: AxiosInstance;
-  signOut: Function;
+  signOut: () => any;
 }
 
 const INCICLE_LOGO = 'https://static-incicle.s3.amazonaws.com/logo_incicle.svg';
@@ -46,7 +46,6 @@ const INCICLE_LOGO = 'https://static-incicle.s3.amazonaws.com/logo_incicle.svg';
 function getLogoFromCompanies(companyId: string, companies: MeProps['collaborators']) {
   return companies.find(item => item.id === companyId)!?.company.logo;
 }
-
 
 const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, signOut }) => {
   // Array of search result on header
@@ -67,17 +66,14 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
   const { companyId, checkPermission, permissionsList } = usePermissions();
   const { t } = useTranslation();
 
-  const activateManagerPanel = useCallback(
-    () => {
-      if (user.type === 'COMPANY' || !me || !me?.collaborators) return;
-      const collaboratorSelected = me?.collaborators.find(col => col.company.id === companyId);
-      if (!collaboratorSelected) return;
-      const hasAuthorization = hasManagerPermissions(user, checkPermission, collaboratorSelected.company);
-      if (!hasAuthorization && permissionsList) return;
-      setActiveManagerPanel(hasAuthorization);
-    },
-    [user, checkPermission, selectedCompany, permissionsList],
-  );
+  const activateManagerPanel = useCallback(() => {
+    if (user.type === 'COMPANY' || !me || !me?.collaborators) return;
+    const collaboratorSelected = me?.collaborators.find(col => col.company.id === companyId);
+    if (!collaboratorSelected) return;
+    const hasAuthorization = hasManagerPermissions(user, checkPermission, collaboratorSelected.company);
+    if (!hasAuthorization && permissionsList) return;
+    setActiveManagerPanel(hasAuthorization);
+  }, [user, me, checkPermission, permissionsList, companyId]);
 
   useEffect(() => {
     activateManagerPanel();
@@ -231,7 +227,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
       }}
     >
       <NotificationProvider api={api} user={user}>
-        <HeaderInStyle role="heading" className="incicleheader">
+        <HeaderInStyle role="heading">
           {/* PORTAL */}
           <ToastUI />
 
@@ -350,7 +346,11 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                           size="small"
                           clickable
                           avatar={companiesAvatar()}
-                          label={<span style={{ fontSize: '13px' }}>{selectedCompany ? maxLetters(selectedCompany.company.name, 200) : null}</span>}
+                          label={
+                            <span style={{ fontSize: '13px' }}>
+                              {selectedCompany ? maxLetters(selectedCompany.company.name, 200) : null}
+                            </span>
+                          }
                           onDelete={handleOpenMenuCompanys}
                           deleteIcon={<ArrowDropDownIcon />}
                           variant="outlined"
@@ -706,13 +706,6 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                 <nav>
                   <Stack spacing={1} direction="row" sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
                     {/* NOTIFICATIONS AREA */}
-                    {/* {
-                      <IconButton size="medium" sx={{ width: 35, height: 35 }} onClick={showNotifications}>
-                        <Badge color="primary" variant="dot" invisible={badge} badgeContent=" " overlap="circular">
-                          <NotificationsIcon sx={{ width: 25, height: 25 }} />
-                        </Badge>
-                      </IconButton>
-                    } */}
                     <Notifications />
 
                     {/* AVATAR PROFILE */}
