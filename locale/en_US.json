@@ -64,7 +64,10 @@
       "manager_panel": "Manager Panel",
       "manager_panel_description": "Manage your team's information and actions.",
       "recruitment": "Recruitment",
-      "all": "All"
+      "all": "All",
+      "recruitment_description": {
+        "company": "Manage the entire talent acquisition process strategically."
+      }
     },
     "find_someone": "Find someone",
     "no_result_found": "No results found",

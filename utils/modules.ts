@@ -21,6 +21,8 @@ import ManagerIcon from '@/safira-app/components/InHeader/components/icons/Manag
 import OmbudsmanIcon from '@/safira-app/components/InHeader/components/icons/OmbudsmanIcon';
 import HRConnectIcon from '@/safira-app/components/InHeader/components/icons/HRConnectIcon';
 import ClimateResearchIcon from '@/safira-app/components/InHeader/components/icons/ClimateResearchIcon';
+import RecruitmentIcon from '@/safira-app/components/InHeader/components/icons/RecruitmentIcon';
+
 
 export type MenuModulesType = {
   title: string;
@@ -258,6 +260,19 @@ export const incicleMenuModules: MenuModulesType[] = [
     description: {
       COMPANY: 'corporative_university_description',
       PERSON: 'corporative_university_description',
+    },
+    redirectType: 'external',
+  },
+  {
+    title: 'recruitment',
+    slug: MODULE_TYPES.recruitment,
+    icon: RecruitmentIcon,
+    iconSize: 60,
+    url: 'https://app.recrutei.com.br/signin',
+    accountTypes: ['COMPANY'],
+    description: {
+      COMPANY: 'recruitment_description.company',
+      PERSON: null,
     },
     redirectType: 'external',
   },
