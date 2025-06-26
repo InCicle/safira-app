@@ -26,6 +26,7 @@ export type ModulesWeb = {
   ombudsman: string;
   hrconnect: string;
   survey: string;
+  profile_map: string;
 };
 
 export type AwsUrl = {
@@ -72,6 +73,7 @@ export const links: Modulelinks = {
     ombudsman: import.meta.env.VITE_APP_WEB_URL_OMBUDSMAN!,
     hrconnect: import.meta.env.VITE_APP_WEB_URL_HRCONNECTION!,
     survey: import.meta.env.VITE_APP_WEB_URL_SURVEY!,
+    profile_map: process.env.VITE_APP_WEB_URL_PROFILE_MAP!,
   },
   aws: {
     access_key_id: import.meta.env.VITE_APP_AWS_BUCKET_INCICLE_ACCESS_KEY_ID,

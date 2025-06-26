@@ -24,4 +24,5 @@ export enum MODULE_TYPES {
   in_point = 'in_point',
   in_check = 'in_check',
   hr_connect = 'hr_connect',
+  profile_map = 'profile_map',
 }

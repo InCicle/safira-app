@@ -26,6 +26,7 @@ declare global {
       readonly VITE_APP_WEB_URL_POLICY: string;
       readonly VITE_APP_WEB_URL_OKR: string;
       readonly VITE_APP_WEB_URL_DEPARTMENT: string;
+      readonly VITE_APP_WEB_URL_PROFILE_MAP: string;
 
       // AWS
       // Incicle
