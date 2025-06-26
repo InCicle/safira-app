@@ -91,25 +91,31 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (
     const redirectType = moduleRedirectType[moduleItem.title];
 
     if (profiles?.type === 'COMPANY') {
+
+      const redirectUrlFinded = findRedirectUrlByType(
+        redirects,
+        redirectType
+      );
+
       return redirects && redirects.length > 0 && redirectType
-        ? findRedirectUrlByType(redirects, redirectType)
+        ? redirectUrlFinded
         : socialLinkByEnvironment;
     } else if (
       profiles?.type === 'PERSON' &&
       profiles.collaborators &&
       profiles.collaborators.length > 0
     ) {
-      const currentCompany = profiles.collaborators.find(
-        (company) => company.id === companyId
+      const currentCollaborator = profiles.collaborators.find(
+        ({ company }) => company.id === companyId
       );
       if (
-        currentCompany &&
-        currentCompany.company.redirects &&
-        currentCompany.company.redirects.length > 0 &&
+        currentCollaborator &&
+        currentCollaborator.company.redirects &&
+        currentCollaborator.company.redirects.length > 0 &&
         redirectType
       ) {
         return findRedirectUrlByType(
-          currentCompany.company.redirects,
+          currentCollaborator.company.redirects,
           redirectType
         );
       }
