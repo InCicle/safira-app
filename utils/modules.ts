@@ -22,7 +22,7 @@ import OmbudsmanIcon from 'safira-app/components/InHeader/components/icons/Ombud
 import HRConnectIcon from 'safira-app/components/InHeader/components/icons/HRConnectIcon';
 import ClimateResearchIcon from 'safira-app/components/InHeader/components/icons/ClimateResearchIcon';
 import RecruitmentIcon from 'safira-app/components/InHeader/components/icons/RecruitmentIcon';
-
+import ProfileMapIcon from 'safira-app/components/InHeader/components/icons/ProfileMapIcon';
 
 export type MenuModulesType = {
   title: string;
@@ -357,6 +357,24 @@ export const incicleMenuModules: MenuModulesType[] = [
       "1e799e8d-9c81-4cb4-99b1-fbadc96a66c7",
       "b351369d-c98b-4586-a14d-26fa90ccdd6d",
       "499a4d65-0743-494d-a958-2d2c90ab83f9"
+    ],
+    redirectType: 'internal',
+  },
+  {
+    title: 'profile_map',
+    slug: MODULE_TYPES.profile_map,
+    icon: ProfileMapIcon,
+    iconSize: 60,
+    url: links.web.profile_map,
+    accountTypes: ['PERSON', 'COMPANY'],
+    description: {
+      COMPANY: 'profile_map_description.company',
+      PERSON: 'profile_map_description.person',
+    },
+    enableOnlyTo: [
+      '4d7a2110-45c5-465d-bccf-806413fc1034',
+      'c33855b1-6ffb-4cda-a499-a5c96b786b3a',
+      'ae646a29-7a75-4569-afef-5643a30dfaf3'
     ],
     redirectType: 'internal',
   },

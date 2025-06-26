@@ -61,6 +61,11 @@
         "company": "Create surveys for your employees",
         "person": "Respond to surveys created by the company"
       },
+      "profile_map": "Profile Map",
+      "profile_map_description": {
+       "company": "Mapeie perfis comportamentais com testes.",
+        "person": "Descubra seu perfil comportamental."
+      },
       "manager_panel": "Manager Panel",
       "manager_panel_description": "Manage your team's information and actions.",
       "recruitment": "Recruitment",
