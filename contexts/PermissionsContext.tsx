@@ -63,7 +63,7 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
       .then(response => {
         setPermissionsList(response);
         if (user.type === 'PERSON') {
-          const hasAuthorization = hasManagerPermissions(user, checkPermission, collaborator?.company);
+          const hasAuthorization = hasManagerPermissions(user, checkPermission, collaborator);
           setManagerPermission(hasAuthorization);
         }
 

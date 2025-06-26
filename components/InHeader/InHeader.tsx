@@ -69,7 +69,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
     if (user.type === 'COMPANY' || !me || !me?.collaborators) return;
     const collaboratorSelected = me?.collaborators.find(col => col.company.id === companyId);
     if (!collaboratorSelected) return;
-    const hasAuthorization = hasManagerPermissions(user, checkPermission, collaboratorSelected.company);
+    const hasAuthorization = hasManagerPermissions(user, checkPermission, collaboratorSelected);
     if (!hasAuthorization && permissionsList) return;
     setActiveManagerPanel(hasAuthorization);
   }, [user, me, checkPermission, permissionsList, companyId]);
