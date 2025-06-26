@@ -27,6 +27,7 @@ declare global {
       REACT_APP_WEB_URL_POLICY: string;
       REACT_APP_WEB_URL_OKR: string;
       REACT_APP_WEB_URL_DEPARTMENT: string;
+      REACT_APP_WEB_URL_PROFILE_MAP: string;
 
       // AWS
       // Incicle

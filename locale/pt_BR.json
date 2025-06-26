@@ -61,6 +61,11 @@
         "company":"Crie pesquisas para os seus colaboradores",
         "person": "Responda a pesquisas criadas pela empresa"
       },
+      "profile_map": "Mapa de Perfil",
+      "profile_map_description": {
+        "company": "Mapeie perfis comportamentais com testes.",
+        "person": "Descubra seu perfil comportamental."
+      },
       "manager_panel": "Painel do Gestor",
       "manager_panel_description": "Gerencie informações e ações da sua equipe.",
       "recruitment": "Recrutamento",
