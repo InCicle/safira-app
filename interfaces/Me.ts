@@ -14,8 +14,6 @@ export interface MeCompany {
   avatar: string;
   user_id: string;
   logo: string | null;
-  is_manager_competence: boolean;
-  is_manager_in_check?: boolean;
   user: {
     id: string;
     username: string;
@@ -62,6 +60,8 @@ export interface CollaboratorsInterface {
   level: DPItemInterface | null;
   sector: DPItemInterface | null;
   company: MeCompany;
+  is_manager_competence: boolean;
+  is_manager_in_check?: boolean;
 }
 
 export interface MeProps {
