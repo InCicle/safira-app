@@ -25,8 +25,9 @@ export interface MeCompany {
 }
 
 export interface Redirect {
-  type: number | string;
+  type: "THREEPONTO" | "STEPONE" | "RECRUITMENT";
   url: string;
+  active: boolean;
 }
 export interface ProfileConfig {
   created_at: string;

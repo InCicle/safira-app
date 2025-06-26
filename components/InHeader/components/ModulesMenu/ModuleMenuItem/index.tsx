@@ -22,7 +22,7 @@ const ModuleMenuItem: React.FC<ModuleMenuItemProps> = ({ module }) => {
     <Tooltip
       data-cy="Tooltip"
       key={module.slug}
-      title={!module.url ? 'Módulo disponível em breve' : ''}
+      title={!module.url ? 'Módulo indisponível' : ''}
       placement="top"
       arrow
       PopperProps={{
