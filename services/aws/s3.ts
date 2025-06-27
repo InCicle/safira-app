@@ -4,7 +4,7 @@ import { links } from '@/safira-app/config/links';
 export type BucketType = 'incicle' | 'projects';
 
 export type S3AttachmentArgs = Omit<GetObjectCommandInput, 'Bucket' | 'Key'> & {
-  bucket: BucketType;
+  bucket?: BucketType;
   src: string;
 };
 
@@ -40,7 +40,7 @@ async function fetchFile(src: string, bucket: string, s3: S3Client) {
   }
 }
 
-export async function getS3Object({ src, bucket }: S3AttachmentArgs) {
+export async function getS3Object({ src, bucket = 'incicle' }: S3AttachmentArgs) {
   const s3 = new S3Client({
     region: bucket === links.aws_project.bucket ? links.aws_project.region : links.aws.region,
     credentials: {
