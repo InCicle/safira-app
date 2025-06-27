@@ -30,7 +30,6 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
   const { user } = useAuth();
 
   const companySelected = Cookies.get('companySelected');
-  const companyId = user.type === 'PERSON' && companySelected ? companySelected : user.profile_id;
 
   const getAllPermissionsList = async (companyId: string) => {
     const response = await api.get(links.api.core + '/user/permissions', {
@@ -42,16 +41,17 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
     return response.data;
   };
 
-  const { shouldFetch, targetCompanyId, collaborator } = useMemo(() => {
+  const { shouldFetch, targetCompanyId, collaborator, companyId } = useMemo(() => {
     if (!me) {
-      return { shouldFetch: false, targetCompanyId: null, collaborator: null };
+      return { shouldFetch: false, targetCompanyId: null, collaborator: null, companyId: undefined };
     }
 
-    if (user.type === 'COMPANY') {
+    if (me?.type === 'COMPANY') {
       return { 
         shouldFetch: true, 
         targetCompanyId: me.profile_id, 
-        collaborator: null 
+        collaborator: null,
+        companyId: me.profile_id
       };
     }
 
@@ -60,15 +60,16 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
       (me.collaborators && me.collaborators[0] ? me.collaborators[0] : undefined);
 
     if (!foundCollaborator) {
-      return { shouldFetch: false, targetCompanyId: null, collaborator: null };
+      return { shouldFetch: false, targetCompanyId: null, collaborator: null, companyId: me.profile_id };
     }
 
     return { 
       shouldFetch: true, 
       targetCompanyId: foundCollaborator.company.id, 
-      collaborator: foundCollaborator 
+      collaborator: foundCollaborator,
+      companyId: foundCollaborator.company.id
     };
-  }, [me, user.type, companySelected]);
+  }, [me, companySelected]);
 
   const {
     data: permissionsList = null,
@@ -78,7 +79,7 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
     queryKey: ['permissions', targetCompanyId, user.type],
     queryFn: () => getAllPermissionsList(targetCompanyId!),
     enabled: shouldFetch && Boolean(targetCompanyId),
-    staleTime: 10 * 60 * 1000, // 10 minutes
+    staleTime: 1 * 60 * 1000, 
     retry: 1,
   });
 
@@ -111,7 +112,7 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
   const context = {
     companySelected,
     checkPermission,
-    companyId,
+    companyId: companyId ?? '',
     permissionsList,
     requestFinished,
     managerPermission,
