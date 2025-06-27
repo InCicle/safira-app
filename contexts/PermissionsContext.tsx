@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { api } from '@/services/api';
 import { links } from '@/safira-app/config/links';
@@ -21,7 +21,7 @@ export interface PermissionsContextProps {
   setManagerPermission: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const PermissionsContext = createContext<PermissionsContextProps>({} as PermissionsContextProps);
+const PermissionsContext = createContext<PermissionsContextProps>({} as PermissionsContextProps);
 
 const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
   const [permissionsList, setPermissionsList] = useState<PermissionObject[] | null>(null);
@@ -44,12 +44,15 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
     return response.data;
   };
 
-  const checkPermission = (slugs: string[]) => {
-    const hasPermission = slugs.every(slug => permissionsList?.some(permission => permission.slug === slug));
-    return hasPermission;
-  };
+  const checkPermission = useCallback(
+    (slugs: string[]) => {
+      const hasPermission = slugs.every(slug => permissionsList?.some(permission => permission.slug === slug));
+      return hasPermission;
+    },
+    [permissionsList]
+  );
 
-  useEffect(() => {
+  const fetchPermissions = useCallback(async () => {
     const collaborator =
       me?.collaborators?.find(collaborator => collaborator.company.id === companySelected) ||
       (me?.collaborators && me?.collaborators[0] ? me?.collaborators[0] : undefined);
@@ -59,20 +62,26 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
       return;
     }
 
-    getAllPermissionsList(collaborator?.company.id ?? user.profile_id)
-      .then(response => {
-        setPermissionsList(response);
-        if (user.type === 'PERSON') {
-          const hasAuthorization = hasManagerPermissions(user, checkPermission, collaborator);
-          setManagerPermission(hasAuthorization);
-        }
+    const companyId = me?.type === 'COMPANY' ? user.profile_id : collaborator?.company.id;
 
-        setRequestFinished(true);
-      })
-      .catch(() => {
-        setRequestFinished(true);
-      });
-  }, [companySelected, me]); // eslint-disable-line
+    try {
+      const response = await getAllPermissionsList(companyId!);
+
+      setPermissionsList(response);
+      if (user.type === 'PERSON') {
+        const hasAuthorization = hasManagerPermissions(user, checkPermission, collaborator);
+        setManagerPermission(hasAuthorization);
+      }
+
+      setRequestFinished(true);
+    } catch {
+      setRequestFinished(true);
+    }
+  }, [checkPermission, companySelected, me?.collaborators, me?.type, user]);
+
+  useEffect(() => {
+    fetchPermissions();
+  }, [fetchPermissions]); 
 
   const context = {
     companySelected,
