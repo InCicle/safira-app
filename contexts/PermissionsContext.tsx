@@ -62,7 +62,7 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
       return;
     }
 
-    const companyId = me?.type === 'COMPANY' ? user.profile_id : collaborator?.company.id;
+    const companyId = me?.type === 'COMPANY' ? me.profile_id : collaborator?.company.id;
 
     try {
       const response = await getAllPermissionsList(companyId!);
@@ -77,7 +77,7 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
     } catch {
       setRequestFinished(true);
     }
-  }, [checkPermission, companySelected, me?.collaborators, me?.type, user]);
+  }, [checkPermission, companySelected, me?.collaborators, me?.type, me?.profile_id, user]);
 
   useEffect(() => {
     fetchPermissions();
