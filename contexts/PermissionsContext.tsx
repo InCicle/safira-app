@@ -1,4 +1,5 @@
-import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useContext, useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import Cookies from 'js-cookie';
 import { api } from '@/services/api';
 import { links } from '@/safira-app/config/links';
@@ -19,16 +20,13 @@ export interface PermissionsContextProps {
   requestFinished: boolean;
   managerPermission: boolean;
   setManagerPermission: React.Dispatch<React.SetStateAction<boolean>>;
+  isLoading: boolean;
 }
 
 const PermissionsContext = createContext<PermissionsContextProps>({} as PermissionsContextProps);
 
 const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ children }) => {
-  const [permissionsList, setPermissionsList] = useState<PermissionObject[] | null>(null);
-  const [requestFinished, setRequestFinished] = useState(false);
-  const [managerPermission, setManagerPermission] = useState<boolean>(false);
   const { me } = useProfileContext();
-
   const { user } = useAuth();
 
   const companySelected = Cookies.get('companySelected');
@@ -44,44 +42,71 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
     return response.data;
   };
 
+  const { shouldFetch, targetCompanyId, collaborator } = useMemo(() => {
+    if (!me) {
+      return { shouldFetch: false, targetCompanyId: null, collaborator: null };
+    }
+
+    if (user.type === 'COMPANY') {
+      return { 
+        shouldFetch: true, 
+        targetCompanyId: me.profile_id, 
+        collaborator: null 
+      };
+    }
+
+    const foundCollaborator = 
+      me.collaborators?.find(collaborator => collaborator.company.id === companySelected) ||
+      (me.collaborators && me.collaborators[0] ? me.collaborators[0] : undefined);
+
+    if (!foundCollaborator) {
+      return { shouldFetch: false, targetCompanyId: null, collaborator: null };
+    }
+
+    return { 
+      shouldFetch: true, 
+      targetCompanyId: foundCollaborator.company.id, 
+      collaborator: foundCollaborator 
+    };
+  }, [me, user.type, companySelected]);
+
+  const {
+    data: permissionsList = null,
+    isLoading: permissionsLoading,
+    isSuccess,
+  } = useQuery({
+    queryKey: ['permissions', targetCompanyId, user.type],
+    queryFn: () => getAllPermissionsList(targetCompanyId!),
+    enabled: shouldFetch && Boolean(targetCompanyId),
+    staleTime: 10 * 60 * 1000, // 10 minutes
+    retry: 1,
+  });
+
   const checkPermission = useCallback(
     (slugs: string[]) => {
-      const hasPermission = slugs.every(slug => permissionsList?.some(permission => permission.slug === slug));
-      return hasPermission;
+      if (!permissionsList) return false;
+      return slugs.every(slug => 
+        permissionsList.some(permission => permission.slug === slug)
+      );
     },
     [permissionsList]
   );
 
-  const fetchPermissions = useCallback(async () => {
-    const collaborator =
-      me?.collaborators?.find(collaborator => collaborator.company.id === companySelected) ||
-      (me?.collaborators && me?.collaborators[0] ? me?.collaborators[0] : undefined);
-
-    if (!collaborator && user.type !== 'COMPANY') {
-      setRequestFinished(true);
-      return;
+  const managerPermission = useMemo(() => {
+    if (user.type !== 'PERSON' || !permissionsList || !collaborator) {
+      return false;
     }
+    return hasManagerPermissions(user, checkPermission, collaborator);
+  }, [user, permissionsList, collaborator, checkPermission]);
 
-    const companyId = me?.type === 'COMPANY' ? me.profile_id : collaborator?.company.id;
+  const requestFinished = useMemo(() => {
+    if (!me) return false;
+    if (!shouldFetch) return true;
+    
+    return isSuccess || (!permissionsLoading && permissionsList === null);
+  }, [shouldFetch, isSuccess, permissionsLoading, permissionsList, me]);
 
-    try {
-      const response = await getAllPermissionsList(companyId!);
-
-      setPermissionsList(response);
-      if (user.type === 'PERSON') {
-        const hasAuthorization = hasManagerPermissions(user, checkPermission, collaborator);
-        setManagerPermission(hasAuthorization);
-      }
-
-      setRequestFinished(true);
-    } catch {
-      setRequestFinished(true);
-    }
-  }, [checkPermission, companySelected, me?.collaborators, me?.type, me?.profile_id, user]);
-
-  useEffect(() => {
-    fetchPermissions();
-  }, [fetchPermissions]); 
+  const isLoading = !me || (shouldFetch && permissionsLoading);
 
   const context = {
     companySelected,
@@ -90,7 +115,8 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
     permissionsList,
     requestFinished,
     managerPermission,
-    setManagerPermission,
+    setManagerPermission: () => {}, // No longer needed with computed value
+    isLoading,
   };
 
   return <PermissionsContext.Provider value={context}>{children}</PermissionsContext.Provider>;
