@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import { useAuth } from 'safira-app/hooks/useAuth';
 import { useProfileContext } from 'contexts/ProfileContext';
 import { hasManagerPermissions } from '../utils/hasManagerPanel';
-import { MINUTE_IN_MILLISECONDS } from 'utils/constants';
+import { MINUTE_IN_MILLISECONDS } from '../utils/constants';
 import { getAllPermissionsList } from '../services/permissions/requests';
 import { PermissionObject } from '../services/permissions/types';
 
@@ -33,15 +33,15 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
     }
 
     if (me?.type === 'COMPANY') {
-      return { 
-        shouldFetch: true, 
-        targetCompanyId: me.profile_id, 
+      return {
+        shouldFetch: true,
+        targetCompanyId: me.profile_id,
         collaborator: null,
         companyId: me.profile_id
       };
     }
 
-    const foundCollaborator = 
+    const foundCollaborator =
       me.collaborators?.find(collaborator => collaborator.company.id === companySelected) ||
       (me.collaborators && me.collaborators[0] ? me.collaborators[0] : undefined);
 
@@ -49,9 +49,9 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
       return { shouldFetch: false, targetCompanyId: null, collaborator: null, companyId: undefined };
     }
 
-    return { 
-      shouldFetch: true, 
-      targetCompanyId: foundCollaborator.company.id, 
+    return {
+      shouldFetch: true,
+      targetCompanyId: foundCollaborator.company.id,
       collaborator: foundCollaborator,
       companyId: foundCollaborator.company.id
     };
@@ -65,14 +65,14 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
     queryKey: ['permissions', targetCompanyId, user.type],
     queryFn: () => getAllPermissionsList(),
     enabled: shouldFetch,
-    staleTime: MINUTE_IN_MILLISECONDS, 
+    staleTime: MINUTE_IN_MILLISECONDS,
     refetchInterval: MINUTE_IN_MILLISECONDS,
   });
 
   const checkPermission = useCallback(
     (slugs: string[]) => {
       if (!permissionsList) return false;
-      return slugs.every(slug => 
+      return slugs.every(slug =>
         permissionsList.some(permission => permission.slug === slug)
       );
     },
@@ -89,7 +89,7 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
   const requestFinished = useMemo(() => {
     if (!me) return false;
     if (!shouldFetch) return true;
-    
+
     return isSuccess || (!permissionsLoading && permissionsList === null);
   }, [shouldFetch, isSuccess, permissionsLoading, permissionsList, me]);
 
