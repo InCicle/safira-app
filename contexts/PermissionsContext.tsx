@@ -1,16 +1,12 @@
 import React, { createContext, useCallback, useContext, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Cookies from 'js-cookie';
-import { api } from '@/services/api';
-import { links } from '@/safira-app/config/links';
 import { useAuth } from '@/safira-app/hooks/useAuth';
 import { useProfileContext } from '@/contexts/ProfileContext';
 import { hasManagerPermissions } from '../utils/hasManagerPanel';
-
-export interface PermissionObject {
-  name: string;
-  slug: string;
-}
+import { MINUTE_IN_MILLISECONDS } from '@/utils/constants';
+import { getAllPermissionsList } from '../services/permissions/requests';
+import { PermissionObject } from '../services/permissions/types';
 
 export interface PermissionsContextProps {
   companySelected: string | undefined;
@@ -31,15 +27,6 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
 
   const companySelected = Cookies.get('companySelected');
 
-  const getAllPermissionsList = async (companyId: string) => {
-    const response = await api.get(links.api.core + '/user/permissions', {
-      headers: {
-        companyId,
-      },
-    });
-
-    return response.data;
-  };
 
   const { shouldFetch, targetCompanyId, collaborator, companyId } = useMemo(() => {
     if (!me) {
@@ -60,7 +47,7 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
       (me.collaborators && me.collaborators[0] ? me.collaborators[0] : undefined);
 
     if (!foundCollaborator) {
-      return { shouldFetch: false, targetCompanyId: null, collaborator: null, companyId: me.profile_id };
+      return { shouldFetch: false, targetCompanyId: null, collaborator: null, companyId: undefined };
     }
 
     return { 
@@ -77,10 +64,10 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
     isSuccess,
   } = useQuery({
     queryKey: ['permissions', targetCompanyId, user.type],
-    queryFn: () => getAllPermissionsList(targetCompanyId!),
-    enabled: shouldFetch && Boolean(targetCompanyId),
-    staleTime: 1 * 60 * 1000, 
-    retry: 1,
+    queryFn: () => getAllPermissionsList(),
+    enabled: shouldFetch,
+    staleTime: MINUTE_IN_MILLISECONDS, 
+    refetchInterval: MINUTE_IN_MILLISECONDS,
   });
 
   const checkPermission = useCallback(
