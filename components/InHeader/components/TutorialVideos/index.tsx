@@ -50,8 +50,8 @@ const Tutorials: React.FC<Props> = ({ open, setOpen }) => {
   }, []);
 
   function getCorrectKey(moduleName: string) {
-    let obj = state.filter(element => element.module === moduleName);
-    let key = obj[0] ? obj[0].is_view : false;
+    const obj = state.filter(element => element.module === moduleName);
+    const key = obj[0] ? obj[0].is_view : false;
     return key;
   }
 

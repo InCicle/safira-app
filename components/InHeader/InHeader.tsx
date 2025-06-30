@@ -44,7 +44,7 @@ interface props {
 const INCICLE_LOGO = 'https://static-incicle.s3.amazonaws.com/logo_incicle.svg';
 
 function getLogoFromCompanies(companyId: string, collaborators: MeProps['collaborators']) {
-  return collaborators.find(col => col.company.id === companyId)!?.company.logo;
+  return collaborators.find(col => col.company.id === companyId)?.company.logo;
 }
 
 const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, signOut }) => {
