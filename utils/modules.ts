@@ -398,7 +398,6 @@ export const incicleMenuModules: MenuModulesType[] = [
       "de1e338a-4222-4a6e-91af-14536d2cf22f",
       "efba6dea-4b9e-4737-a4a0-4609cbfb8108",
       "77e2fc0f-ff8b-4dc3-99db-32ef1caeaaef"
-
     ],
     redirectType: 'internal',
   },
