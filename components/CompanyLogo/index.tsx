@@ -1,7 +1,7 @@
 import React from 'react';
 import Cookies from 'js-cookie';
-import { useProfileContext } from 'contexts/ProfileContext';
-import RenderImage from 'safira-app/components/RenderImage';
+import { useProfileContext } from '@/contexts/ProfileContext';
+import RenderImage from '@/safira-app/components/RenderImage';
 
 interface CompanyLogoProps {
   height?: number;
