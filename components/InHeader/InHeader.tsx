@@ -28,23 +28,17 @@ import ProfileMenu, { ProfileMenuRef } from './components/ProfileMenu';
 import { HeaderInStyle } from './styles';
 import { ToastUI } from '../Toast';
 import { domainName } from 'safira-app/contexts/AuthContext';
-import RenderImage from '../RenderImage';
 import { usePermissions } from 'safira-app/contexts/Permissions';
 import WhatsAppButton from '../WhatsAppButton';
 import { translation } from 'safira-app/utils/translation';
 import { hasManagerPermissions } from 'safira-app/utils/hasManagerPanel';
+import CompanyLogo from '../CompanyLogo';
 
 interface props {
   user: IUser;
   me: MeProps;
   api: AxiosInstance;
   signOut: () => void;
-}
-
-const INCICLE_LOGO = 'https://static-incicle.s3.amazonaws.com/logo_incicle.svg';
-
-function getLogoFromCompanies(companyId: string, collaborators: MeProps['collaborators']) {
-  return collaborators.find(col => col.company.id === companyId)!?.company.logo;
 }
 
 const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, signOut }) => {
@@ -77,25 +71,6 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
   useEffect(() => {
     activateManagerPanel();
   }, [activateManagerPanel]);
-
-  function getLogoUrl() {
-    let isPublicUrl = true;
-    let logoUrl = '';
-
-    if (me?.type === 'PERSON' && selectedCollaborator) {
-      const companyLogo = getLogoFromCompanies(selectedCollaborator.company.id, collaborators);
-
-      logoUrl = companyLogo || INCICLE_LOGO;
-      isPublicUrl = !companyLogo;
-    } else if (me?.type === 'COMPANY') {
-      logoUrl = me?.logo || INCICLE_LOGO;
-      isPublicUrl = !me?.logo;
-    }
-
-    return { logoUrl, isPublicUrl };
-  }
-
-  const { logoUrl, isPublicUrl } = getLogoUrl();
 
   useEffect(() => {
     const contentSideBarElement = document.querySelector('.contentSidebar > div') as any;
@@ -259,17 +234,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                       },
                     }}
                   >
-                    {!isPublicUrl ? (
-                      <RenderImage
-                        src={logoUrl}
-                        bucket="incicle"
-                        className="logo"
-                        alt="logo"
-                        options={{ ResponseCacheControl: 'max-age=30000' }}
-                      />
-                    ) : (
-                      <img src={logoUrl} className="logo" alt="logo" />
-                    )}
+                    <CompanyLogo/>
                   </Link>
 
                   {/* MODULES links */}
@@ -686,17 +651,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                       },
                     }}
                   >
-                    {!isPublicUrl ? (
-                      <RenderImage
-                        src={logoUrl}
-                        bucket="incicle"
-                        className="logo"
-                        alt="logo"
-                        options={{ ResponseCacheControl: 'max-age=30000' }}
-                      />
-                    ) : (
-                      <img src={logoUrl} className="logo" alt="logo" />
-                    )}
+                    <CompanyLogo/>
                   </Link>
                 </nav>
               </section>
