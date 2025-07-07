@@ -234,7 +234,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                       },
                     }}
                   >
-                    <CompanyLogo/>
+                    <CompanyLogo />
                   </Link>
 
                   {/* MODULES links */}
@@ -651,7 +651,7 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                       },
                     }}
                   >
-                    <CompanyLogo/>
+                    <CompanyLogo />
                   </Link>
                 </nav>
               </section>
