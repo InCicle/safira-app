@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState } from 'react';
 
 export function useQuery() {
   const [forceState, setForceState] = useState(false);
@@ -13,7 +13,7 @@ export function useQuery() {
       urlSearchParams.append(key, value);
     });
     const url = `${window.location.origin}/?${urlSearchParams.toString()}`;
-    window.history.pushState("", "", url);
+    window.history.pushState('', '', url);
     updateState();
   }
 
@@ -23,18 +23,18 @@ export function useQuery() {
     let url = `${window.location.origin}/?`;
     parameters.forEach(([key, value], index, arr) => {
       const lastItem = Boolean(index + 1 === arr.length);
-      url += `${key}=${value}${!lastItem ? "&" : ""}`;
+      url += `${key}=${value}${!lastItem ? '&' : ''}`;
     });
 
-    window.history.pushState("", "", url);
+    window.history.pushState('', '', url);
     updateState();
   }
 
   function removeParam(key: string) {
     const regex = new RegExp(`${key}=.+?(?=&|$)`);
-    const url = window.location.href.replace(regex, "").replace(/&&/, "&").replace(/(\?&)/g, "?").replace(/&$/, "");
+    const url = window.location.href.replace(regex, '').replace(/&&/, '&').replace(/(\?&)/g, '?').replace(/&$/, '');
 
-    window.history.pushState("", "", url);
+    window.history.pushState('', '', url);
   }
 
   const handler = useMemo(() => {
@@ -46,7 +46,7 @@ export function useQuery() {
       overwrite,
       append,
       delete(params: string | string[]) {
-        if (typeof params === "string") {
+        if (typeof params === 'string') {
           removeParam(params);
           return;
         }

@@ -8,7 +8,6 @@ const statusMap: Record<string, string> = {
   ARCHIVED: 'Arquivado',
 };
 
-
 const notificationType = {
   TICKET_RECEIVED: 'TICKET_RECEIVED',
   TICKET_CHANGE_STATUS: 'TICKET_CHANGE_STATUS',

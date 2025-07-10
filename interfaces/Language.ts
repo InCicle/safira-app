@@ -3,6 +3,6 @@ export const LanguageType = {
   'en-US': 'en-US',
   en: 'en',
   pt: 'pt',
-} as const
+} as const;
 
 export type LanguageType = (typeof LanguageType)[keyof typeof LanguageType];

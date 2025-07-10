@@ -1,8 +1,5 @@
 import { NotificationEvent } from '@/safira-app/providers/NotificationEvent';
-import {
-  MODULE_TYPES,
-  NotificationProps,
-} from '@/safira-app/services/notifications';
+import { MODULE_TYPES, NotificationProps } from '@/safira-app/services/notifications';
 
 import { createSocialNetworkBrowserNotificationFactory } from '../Builders/socialNetwork';
 

@@ -33,29 +33,29 @@ const CompanyLogo: React.FC<CompanyLogoProps> = ({ height = 35, margin = 0 }) =>
   }
 
   return isPublic ? (
-      <img
-        src={logoUrl}
-        alt="Logo"
-        style={{
-          height,
-          margin,
-          width: 'auto',
-          objectFit: 'contain',
-        }}
-      />
+    <img
+      src={logoUrl}
+      alt="Logo"
+      style={{
+        height,
+        margin,
+        width: 'auto',
+        objectFit: 'contain',
+      }}
+    />
   ) : (
-      <RenderImage
-        src={logoUrl}
-        bucket="incicle"
-        alt="Logo"
-        style={{
-          height,
-          margin,
-          width: 'auto',
-          objectFit: 'contain',
-        }}
-        options={{ ResponseCacheControl: 'max-age=30000' }}
-      />
+    <RenderImage
+      src={logoUrl}
+      bucket="incicle"
+      alt="Logo"
+      style={{
+        height,
+        margin,
+        width: 'auto',
+        objectFit: 'contain',
+      }}
+      options={{ ResponseCacheControl: 'max-age=30000' }}
+    />
   );
 };
 

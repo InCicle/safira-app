@@ -1,7 +1,6 @@
 import { NotificationProps } from '@/safira-app/services/notifications';
 import { reduceString } from '@/safira-app/utils/reduceString';
 
-
 const converted = {
   OPEN: 'aberto',
   CLOSE: 'fechado',

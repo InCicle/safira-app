@@ -1,16 +1,16 @@
-import React, { useImperativeHandle, useState } from "react";
-import { Divider, Link as MUILink, ListItemIcon, Menu, MenuItem } from "@mui/material";
-import { links } from "@/safira-app/config/links";
-import { useHeaderProvider } from "@/safira-app/contexts/HeaderContext";
-import RenderAvatar from "@/safira-app/components/RenderAvatar";
-import TutorialVideos from "../TutorialVideos";
+import React, { useImperativeHandle, useState } from 'react';
+import { Divider, Link as MUILink, ListItemIcon, Menu, MenuItem } from '@mui/material';
+import { links } from '@/safira-app/config/links';
+import { useHeaderProvider } from '@/safira-app/contexts/HeaderContext';
+import RenderAvatar from '@/safira-app/components/RenderAvatar';
+import TutorialVideos from '../TutorialVideos';
 
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import SettingsIcon from "@mui/icons-material/Settings";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import School from "@mui/icons-material/School";
-import { translation } from "@/safira-app/utils/translation";
-import { useTranslation } from "react-i18next";
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import SettingsIcon from '@mui/icons-material/Settings';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import School from '@mui/icons-material/School';
+import { translation } from '@/safira-app/utils/translation';
+import { useTranslation } from 'react-i18next';
 
 export type ProfileMenuRef = {
   openProfileMenu: (ev: any) => void;

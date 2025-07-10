@@ -9,9 +9,9 @@ export type CurrencyOptions = {
 };
 
 const currencyCodeMap: Record<LanguageType, CurrencyCodeType> = {
-  'pt': 'BRL',
+  pt: 'BRL',
   'pt-BR': 'BRL',
-  'en': 'USD',
+  en: 'USD',
   'en-US': 'USD',
 } as const;
 
@@ -20,7 +20,7 @@ export const CurrencyHandler = {
     options = options || { locale: LanguageType.en, currencyCode: 'USD' };
     return Intl.NumberFormat(options.locale, {
       style: 'currency',
-      currency:  options.currencyCode || currencyCodeMap[options.locale],
+      currency: options.currencyCode || currencyCodeMap[options.locale],
     }).format(options.float ? value : value / 100);
   },
 

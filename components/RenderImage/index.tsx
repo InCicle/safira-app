@@ -8,9 +8,8 @@ export interface ImgProps extends React.HTMLAttributes<HTMLImageElement> {
   options?: any;
 }
 
-const RenderImage: React.FC<ImgProps> = ({ src, alt, style, bucket = "incicle", options, ...rest }) => {
+const RenderImage: React.FC<ImgProps> = ({ src, alt, style, bucket = 'incicle', options, ...rest }) => {
   const [url, setUrl] = useState('');
-
 
   const fetcher = useCallback(async () => {
     try {

@@ -87,9 +87,10 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
 
   const notificationsQuery = useQuery({
     queryKey: notificationKey,
-    queryFn: () => getNotifications(api, params, {
-      language: user.config.default_language || 'en',
-    }),
+    queryFn: () =>
+      getNotifications(api, params, {
+        language: user.config.default_language || 'en',
+      }),
     placeholderData: state => state,
     retry: false,
     refetchOnMount: false,
@@ -116,7 +117,10 @@ const NotificationProvider: React.FC<React.PropsWithChildren<NotificationSocketP
       if (!prev?.data?.data) return;
 
       const prevNotifications = prev?.data?.data || [];
-      const newNotifications = prevNotifications.map(n => ({ ...n, saw: true }));
+      const newNotifications = prevNotifications.map(n => ({
+        ...n,
+        saw: true,
+      }));
       const newData: AxiosResponse<NotificationWrapper> = {
         ...prev,
         data: { ...prev.data, data: newNotifications },

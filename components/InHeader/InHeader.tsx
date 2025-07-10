@@ -100,7 +100,9 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
       if (me?.collaborators?.length > 0) {
         const companySelected = Cookies.get('companySelected');
         if (!companySelected) {
-          Cookies.set('companySelected', me?.collaborators[0].company.id, { domain: domainName });
+          Cookies.set('companySelected', me?.collaborators[0].company.id, {
+            domain: domainName,
+          });
           setSelectedCollaborator(me?.collaborators[0]);
         } else {
           const comp = me?.collaborators.find(col => col.company.id === companySelected);
@@ -358,8 +360,14 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                             },
                           },
                         }}
-                        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                        transformOrigin={{
+                          horizontal: 'right',
+                          vertical: 'top',
+                        }}
+                        anchorOrigin={{
+                          horizontal: 'right',
+                          vertical: 'bottom',
+                        }}
                       >
                         {collaborators.map((company, index) => (
                           <MenuItem key={index} component="li" onClick={() => changeChipContent(index)}>
@@ -461,7 +469,6 @@ const InHeader: React.FC<React.PropsWithChildren<props>> = ({ user, me, api, sig
                           return <RenderSearchItem liProps={props} item={item} />;
                         }}
                         getOptionLabel={(option: any) => option.name}
-
                         onInputChange={(_, value: string) => searchFunction(value)}
                         fullWidth
                       />

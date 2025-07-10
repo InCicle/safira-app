@@ -1,9 +1,9 @@
-import React from "react";
-import { Box, IconButton, Stack, Tooltip, Typography, useTheme, Link as MUILink } from "@mui/material";
-import { MenuModulesType } from "@/safira-app/utils/modules";
-import { useAuth } from "@/safira-app/hooks/useAuth";
-import { translation } from "@/safira-app/utils/translation";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { Box, IconButton, Stack, Tooltip, Typography, useTheme, Link as MUILink } from '@mui/material';
+import { MenuModulesType } from '@/safira-app/utils/modules';
+import { useAuth } from '@/safira-app/hooks/useAuth';
+import { translation } from '@/safira-app/utils/translation';
+import { useTranslation } from 'react-i18next';
 
 interface ModuleMenuItemProps {
   module: MenuModulesType;
@@ -65,9 +65,19 @@ const ModuleMenuItem: React.FC<ModuleMenuItemProps> = ({ module }) => {
               direction="row"
               justifyContent="center"
               alignItems="center"
-              sx={{ width: `${module.iconSize}px`, height: `${module.iconSize}px`, padding: 1 }}
+              sx={{
+                width: `${module.iconSize}px`,
+                height: `${module.iconSize}px`,
+                padding: 1,
+              }}
             >
-              <module.icon style={{ width: '100%', height: 'auto', maxWidth: `${module.iconSize}px` }} />
+              <module.icon
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  maxWidth: `${module.iconSize}px`,
+                }}
+              />
             </Stack>
           </Stack>
 

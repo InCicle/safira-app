@@ -32,7 +32,10 @@ const Notifications: React.ForwardRefRenderFunction<NotificationsRef> = (_, ref)
   function handleCloseDropdown(ev?: any) {
     ev?.stopPropagation();
     markAllAsViewed();
-    fetchNotifications({ ...DEFAULT_NOTIFICATION_PARAMS, ...DEFAULT_NOTIFICATION_FILTERS });
+    fetchNotifications({
+      ...DEFAULT_NOTIFICATION_PARAMS,
+      ...DEFAULT_NOTIFICATION_FILTERS,
+    });
     NotificationEvent.emit('close_dropdown');
   }
 

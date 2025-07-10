@@ -1,13 +1,5 @@
 import React, { useImperativeHandle, useState } from 'react';
-import {
-  Box,
-  Divider,
-  IconButton,
-  Menu,
-  Stack,
-  Typography,
-  useTheme,
-} from '@mui/material';
+import { Box, Divider, IconButton, Menu, Stack, Typography, useTheme } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useHeaderProvider } from '@/safira-app/contexts/HeaderContext';
 import {
@@ -43,10 +35,7 @@ const moduleRedirectType = {
   recruitment: RedirectTypeEnum.RECRUITMENT,
 } as const;
 
-const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (
-  props,
-  ref
-) => {
+const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (props, ref) => {
   const { t } = useTranslation();
   const { user, profiles } = useHeaderProvider();
   const { breakpoints } = useTheme();
@@ -55,11 +44,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const socialLinkByEnvironment = import.meta.env.VITE_APP_WEB_URL_SOCIAL_NETWORK! || '';
 
-  const integrationTitles = [
-    'corporative_university',
-    'in_point',
-    'recruitment',
-  ];
+  const integrationTitles = ['corporative_university', 'in_point', 'recruitment'];
 
   function openDropdown(ev: any) {
     setAnchorEl(ev.currentTarget);
@@ -77,11 +62,11 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (
   });
 
   function findRedirectUrlByType(redirects, type: RedirectTypeEnum) {
-    const redirectEntry = redirects.find((redirect) => redirect.type === type);
+    const redirectEntry = redirects.find(redirect => redirect.type === type);
     return redirectEntry ? redirectEntry.url : socialLinkByEnvironment;
   }
 
-  const resolveModuleUrl = (moduleItem) => {
+  const resolveModuleUrl = moduleItem => {
     if (!integrationTitles.includes(moduleItem.title)) {
       return moduleItem.url;
     }
@@ -91,41 +76,26 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (
     const redirectType = moduleRedirectType[moduleItem.title];
 
     if (profiles?.type === 'COMPANY') {
+      const redirectUrlFinded = findRedirectUrlByType(redirects, redirectType);
 
-      const redirectUrlFinded = findRedirectUrlByType(
-        redirects,
-        redirectType
-      );
-
-      return redirects && redirects.length > 0 && redirectType
-        ? redirectUrlFinded
-        : socialLinkByEnvironment;
-    } else if (
-      profiles?.type === 'PERSON' &&
-      profiles.collaborators &&
-      profiles.collaborators.length > 0
-    ) {
-      const currentCollaborator = profiles.collaborators.find(
-        ({ company }) => company.id === companyId
-      );
+      return redirects && redirects.length > 0 && redirectType ? redirectUrlFinded : socialLinkByEnvironment;
+    } else if (profiles?.type === 'PERSON' && profiles.collaborators && profiles.collaborators.length > 0) {
+      const currentCollaborator = profiles.collaborators.find(({ company }) => company.id === companyId);
       if (
         currentCollaborator &&
         currentCollaborator.company.redirects &&
         currentCollaborator.company.redirects.length > 0 &&
         redirectType
       ) {
-        return findRedirectUrlByType(
-          currentCollaborator.company.redirects,
-          redirectType
-        );
+        return findRedirectUrlByType(currentCollaborator.company.redirects, redirectType);
       }
     }
     return socialLinkByEnvironment;
   };
 
   const filteredCollaboratorsModules = incicleCollaboratorsMenuModules
-    .filter((item) => item.accountTypes.includes(user.type))
-    .filter((moduleItem) => {
+    .filter(item => item.accountTypes.includes(user.type))
+    .filter(moduleItem => {
       if (!moduleItem.permission) return true;
       return checkPermission([moduleItem.permission]);
     });
@@ -157,12 +127,12 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (
       }}
     >
       <Stack
-        position='relative'
-        direction='row'
-        justifyContent='space-between'
-        alignItems='center'
-        width='100%'
-        padding='0 16px'
+        position="relative"
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        width="100%"
+        padding="0 16px"
         gap={2}
       >
         <Box
@@ -204,13 +174,13 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (
         }}
       >
         {incicleMenuModules
-          .filter((item) => item.accountTypes.includes(user.type))
-          .filter((itemModule) => {
+          .filter(item => item.accountTypes.includes(user.type))
+          .filter(itemModule => {
             if (!itemModule.enableOnlyTo) return true;
             if (itemModule.enableOnlyTo.includes(companyId)) return true;
             return false;
           })
-          .filter((moduleItem) => {
+          .filter(moduleItem => {
             if (!moduleItem.permission) return true;
             return checkPermission([moduleItem.permission]);
           })
@@ -272,9 +242,7 @@ const ModulesMenu: React.ForwardRefRenderFunction<ModulesMenuRef, Props> = (
               />
             ))}
 
-            {activeManagerMenu ? (
-              <ModuleMenuItem module={incicleManagerMenuModules} />
-            ) : null}
+            {activeManagerMenu ? <ModuleMenuItem module={incicleManagerMenuModules} /> : null}
           </Box>
         </>
       ) : null}

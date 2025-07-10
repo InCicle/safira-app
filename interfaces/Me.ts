@@ -23,7 +23,7 @@ export interface MeCompany {
 }
 
 export interface Redirect {
-  type: "THREEPONTO" | "STEPONE" | "RECRUITMENT";
+  type: 'THREEPONTO' | 'STEPONE' | 'RECRUITMENT';
   url: string;
   active: boolean;
 }

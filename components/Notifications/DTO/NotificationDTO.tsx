@@ -1,4 +1,3 @@
-
 import { NotificationProps } from '@/safira-app/services/notifications';
 import { NotificationImageBox } from '../SubComponents';
 

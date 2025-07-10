@@ -15,9 +15,6 @@ const ToastUI: FC = () => {
   }, []);
 
   useEffect(() => {
-    // if (!Array.from(document.body.children).some(child => child.id === "toast-root")) {
-    //   document.body.insertBefore(toastContainer, document.body.firstChild);
-    // }
     document.body.appendChild(toastContainer);
 
     return () => {
@@ -32,11 +29,11 @@ const ToastUI: FC = () => {
       toastStyle={{
         fontSize: '14px',
       }}
-      position="top-right" 
-      autoClose={5000} 
-      pauseOnHover 
-      closeButton 
-      closeOnClick={false} 
+      position="top-right"
+      autoClose={5000}
+      pauseOnHover
+      closeButton
+      closeOnClick={false}
     />,
     toastContainer,
   );

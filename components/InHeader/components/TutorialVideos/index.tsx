@@ -81,7 +81,12 @@ const Tutorials: React.FC<Props> = ({ open, setOpen }) => {
               direction={'row'}
               justifyContent={'center'}
               alignItems={'stretch'}
-              sx={{ overflowY: 'auto', maxHeight: 'calc(80vh - 50px)', paddingBottom: '36px', marginTop: '0' }}
+              sx={{
+                overflowY: 'auto',
+                maxHeight: 'calc(80vh - 50px)',
+                paddingBottom: '36px',
+                marginTop: '0',
+              }}
             >
               <Grid item xs={12} sm={6}>
                 <TutorialDoubleVideoButton

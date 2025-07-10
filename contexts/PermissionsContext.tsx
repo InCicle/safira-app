@@ -26,10 +26,14 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
 
   const companySelected = Cookies.get('companySelected');
 
-
   const { shouldFetch, targetCompanyId, collaborator, companyId } = useMemo(() => {
     if (!me) {
-      return { shouldFetch: false, targetCompanyId: null, collaborator: null, companyId: undefined };
+      return {
+        shouldFetch: false,
+        targetCompanyId: null,
+        collaborator: null,
+        companyId: undefined,
+      };
     }
 
     if (me?.type === 'COMPANY') {
@@ -37,7 +41,7 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
         shouldFetch: true,
         targetCompanyId: me.profile_id,
         collaborator: null,
-        companyId: me.profile_id
+        companyId: me.profile_id,
       };
     }
 
@@ -46,14 +50,19 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
       (me.collaborators && me.collaborators[0] ? me.collaborators[0] : undefined);
 
     if (!foundCollaborator) {
-      return { shouldFetch: false, targetCompanyId: null, collaborator: null, companyId: undefined };
+      return {
+        shouldFetch: false,
+        targetCompanyId: null,
+        collaborator: null,
+        companyId: undefined,
+      };
     }
 
     return {
       shouldFetch: true,
       targetCompanyId: foundCollaborator.company.id,
       collaborator: foundCollaborator,
-      companyId: foundCollaborator.company.id
+      companyId: foundCollaborator.company.id,
     };
   }, [me, companySelected]);
 
@@ -72,11 +81,9 @@ const PermissionsProvider: React.FC<React.PropsWithChildren<unknown>> = ({ child
   const checkPermission = useCallback(
     (slugs: string[]) => {
       if (!permissionsList) return false;
-      return slugs.every(slug =>
-        permissionsList.some(permission => permission.slug === slug)
-      );
+      return slugs.every(slug => permissionsList.some(permission => permission.slug === slug));
     },
-    [permissionsList]
+    [permissionsList],
   );
 
   const managerPermission = useMemo(() => {
