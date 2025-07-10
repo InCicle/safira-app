@@ -39,7 +39,7 @@ const CompanyLogo: React.FC<CompanyLogoProps> = ({ height = 35, margin = 0 }) =>
         style={{
           height,
           margin,
-          width: 'auto',
+          width: '100%',
           objectFit: 'contain',
         }}
       />
@@ -51,7 +51,7 @@ const CompanyLogo: React.FC<CompanyLogoProps> = ({ height = 35, margin = 0 }) =>
         style={{
           height,
           margin,
-          width: 'auto',
+          width: '100%',
           objectFit: 'contain',
         }}
         options={{ ResponseCacheControl: 'max-age=30000' }}
