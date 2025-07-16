@@ -3,6 +3,7 @@
     "modules": {
       "title": "Modules",
       "feed": "Feed",
+      "group": "Groups",
       "schedule": "Schedule",
       "schedule_description": "View your appointments.",
       "projects": "Management",
