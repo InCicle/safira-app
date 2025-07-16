@@ -165,8 +165,8 @@ export const UserMenuModules: ModulesType[] = [
     accountTypes: ['COMPANY', 'PERSON'],
     url: links.web.policy,
     description: {
-      COMPANY: 'policies_and_procedures_description',
-      PERSON: 'policies_and_procedures_description_person',
+      COMPANY: 'policies_and_procedures_description.company',
+      PERSON: 'policies_and_procedures_description.person',
     },
     redirectType: 'internal',
   },

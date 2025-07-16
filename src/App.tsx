@@ -1,4 +1,3 @@
-import '@/i18n';
 import { ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { DefaultMainLayout } from './components/DefaultMainLayout';
