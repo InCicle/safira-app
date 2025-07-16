@@ -89,6 +89,26 @@
     "tutorials": "Tutoriais",
     "configurations": "Configurações",
     "leave": "Sair",
-    "this_is_all": "Isso é tudo"
+    "this_is_all": "Isso é tudo",
+    "time_ago": {
+      "month": "1 mês atrás",
+      "months": "{{count}} meses atrás",
+      "full_day": "1 dia atrás",
+      "mini_day": "1 d",
+      "full_days": "{{count}} dias atrás",
+      "mini_days": "{{count}} d",
+      "full_hour": "1 hora atrás",
+      "mini_hour": "1 h",
+      "full_hours": "{{count}} horas atrás",
+      "mini_hours": "{{count}} h",
+      "full_minute": "1 minuto atrás",
+      "mini_minute": "1 m",
+      "full_minutes": "{{count}} minutos atrás",
+      "mini_minutes": "{{count}} m",
+      "full_second": "1 segundo atrás",
+      "mini_second": "1 s",
+      "full_seconds": "{{count}} segundos atrás",
+      "mini_seconds": "{{count}} s"
+    }
   }
 }

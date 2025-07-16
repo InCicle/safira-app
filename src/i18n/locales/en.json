@@ -88,6 +88,26 @@
     "tutorials": "Tutorials",
     "configurations": "Settings",
     "leave": "Logout",
-    "this_is_all": "This is all"
+    "this_is_all": "This is all",
+    "time_ago": {
+      "month": "1 month ago",
+      "months": "{{count}} months ago",
+      "full_day": "1 day ago",
+      "mini_day": "1 d",
+      "full_days": "{{count}} days ago",
+      "mini_days": "{{count}} d",
+      "full_hour": "1 hour ago",
+      "mini_hour": "1 h",
+      "full_hours": "{{count}} hours ago",
+      "mini_hours": "{{count}} h",
+      "full_minute": "1 minute ago",
+      "mini_minute": "1 m",
+      "full_minutes": "{{count}} minutes ago",
+      "mini_minutes": "{{count}} m",
+      "full_second": "1 second ago",
+      "mini_second": "1 s",
+      "full_seconds": "{{count}} seconds ago",
+      "mini_seconds": "{{count}} s"
+    }
   }
 }
