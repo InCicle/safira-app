@@ -8,7 +8,6 @@ import PermissionsProvider from './contexts/Permissions/Provider';
 import { createInterceptor } from './utils/interceptor';
 import { useAuth } from './hooks/useAuth';
 import { usePermissions } from './hooks/usePermissions';
-import { initOpenReplayTracking } from './config/openReplay';
 import { Settings } from 'luxon';
 
 const queryClient = new QueryClient();
@@ -32,7 +31,6 @@ function App({ children }: AppProps) {
 
   interceptRequest();
   interceptResponse();
-  initOpenReplayTracking(user);
 
   try {
     return (

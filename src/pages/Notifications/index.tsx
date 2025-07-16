@@ -1,4 +1,4 @@
-import React from 'react';
+import { forwardRef } from 'react';
 import { NotificationsController } from './controller';
 
-export default React.forwardRef(NotificationsController);
+export default forwardRef(NotificationsController);

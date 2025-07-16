@@ -172,6 +172,7 @@ export const HeaderController: React.FC = () => {
 
   useEffect(() => {
     setProfile({
+      id: me?.user_id,
       name: me?.social_name,
       avatar: me?.avatar,
       type: me?.type,
@@ -283,8 +284,8 @@ export const HeaderController: React.FC = () => {
     return profile?.type === 'PERSON'
       ? personUrl
       : profile?.type === 'COMPANY'
-      ? companyUrl
-      : '#';
+        ? companyUrl
+        : '#';
   }
 
   useImperativeHandle(profileMenuRef, () => {

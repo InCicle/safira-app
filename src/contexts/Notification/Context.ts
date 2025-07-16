@@ -25,6 +25,10 @@ interface NotificationContext {
 
   fetchNotifications(params: NotificationParamsType): void;
   markAllAsViewed(key?: any[]): void;
+
+  hasNextPage: boolean;
+  isFetchingNextPage: boolean;
+  handleCloseDropdown: () => void;
 }
 
 export const NotificationContext = createContext<NotificationContext>(

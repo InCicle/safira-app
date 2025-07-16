@@ -29,7 +29,10 @@
       "social_network": "Rede Social",
       "social_network_description": "Acompanhe a rede social e sua produtividade.",
       "policies_and_procedures": "Políticas e Procedimentos",
-      "policies_and_procedures_description": "Gerencie as políticas da sua empresa e compartilhe com seus colaboradores.",
+      "policies_and_procedures_description": {
+        "company": "Gerencie as políticas da sua empresa e compartilhe com seus colaboradores.",
+        "person": "Veja as políticas da sua empresa."
+      },
       "okr": "OKR",
       "okr_description": "Objetivos e Resultados-Chave.",
       "in_check": "InCheck",

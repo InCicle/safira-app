@@ -6,11 +6,11 @@ import { NotificationsReadOptions } from '@/services/api/notifications';
 import { MODULES } from '@/interfaces/Modules';
 
 interface NotificationsViewProps {
-  anchorRef: React.RefObject<HTMLButtonElement>;
+  anchorRef: React.RefObject<HTMLButtonElement | null>;
   badgeIsInvisible: boolean;
   open: boolean;
-  handleOpenMenu: (ev) => void;
-  handleCloseMenu: (ev) => void;
+  handleOpenMenu: (ev?: any) => void;
+  handleCloseMenu: (ev?: any) => void;
   showNotificationsLoading: boolean;
   observerNotificationsRef: React.RefObject<HTMLDivElement | null>;
   handleChangeNotificationsOption: (value: NotificationsReadOptions) => void;
@@ -36,11 +36,13 @@ export const NotificationsView: FC<NotificationsViewProps> = ({
   isLoading,
   anchorElFilter,
   badgeIsInvisible,
+  observerNotificationsRef,
   showNotificationsLoading,
   handleOpenMenu,
   handleCloseMenu,
   handleChangeNotificationsOption,
   handleCloseFilters,
+  handleLoadMoreContent,
   handleOpenFilters,
   handleSetModuleFilter,
   anchorElOptions,
@@ -71,10 +73,12 @@ export const NotificationsView: FC<NotificationsViewProps> = ({
         open={open}
         anchorRef={anchorRef}
         handleCloseMenu={handleCloseMenu}
+        observerNotificationsRef={observerNotificationsRef}
         showLoading={showNotificationsLoading}
         anchorElFilter={anchorElFilter}
         handleChangeNotificationsOption={handleChangeNotificationsOption}
         handleCloseFilters={handleCloseFilters}
+        handleLoadMoreContent={handleLoadMoreContent}
         handleOpenFilters={handleOpenFilters}
         handleSetModuleFilter={handleSetModuleFilter}
         isLoading={isLoading}

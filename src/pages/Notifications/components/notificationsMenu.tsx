@@ -14,11 +14,13 @@ import ComputerIcon from '@mui/icons-material/Computer';
 import { ListItemIcon, MenuItem } from '@mui/material';
 import { links } from '@/utils/links';
 import { MODULES } from '@/interfaces/Modules';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 interface NotificationsMenuProps {
   open: boolean;
   anchorRef: React.RefObject<HTMLButtonElement | null>;
-  handleCloseMenu: (ev) => void;
+  handleCloseMenu: () => void;
+  observerNotificationsRef: React.RefObject<HTMLDivElement | null>;
   showLoading: boolean;
   handleSetModuleFilter: (module: MODULES) => void;
   handleChangeNotificationsOption: (value: NotificationsReadOptions) => void;
@@ -28,6 +30,7 @@ interface NotificationsMenuProps {
   handleCloseFilters: () => void;
   anchorElFilter: HTMLButtonElement | null;
   isLoading: boolean;
+  handleLoadMoreContent: () => void;
   anchorElOptions: HTMLButtonElement | null;
   handleCloseOptions: () => void;
   handleCheckAllRead: () => void;
@@ -51,9 +54,18 @@ export const NotificationsMenu: React.FC<NotificationsMenuProps> = ({
   handleCloseOptions,
   handleOpenOptions,
   handleCheckAllRead,
+  handleLoadMoreContent,
+  observerNotificationsRef,
 }) => {
   const { t } = useTranslation();
-  const { params, notifications } = useNotifications();
+  const { params, notifications, hasNextPage, isFetchingNextPage } =
+    useNotifications();
+  useIntersectionObserver({
+    observerRef: observerNotificationsRef,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage: handleLoadMoreContent,
+  });
   return (
     <Menu
       open={open}

@@ -210,6 +210,15 @@ const NotificationProvider: React.FC<React.PropsWithChildren> = ({
 
         markAllAsViewed,
         fetchNotifications,
+
+        handleCloseDropdown: () => {
+          setDropdownOpened(false);
+          markAllAsViewed();
+          service.handleCloseDropdown();
+        },
+
+        hasNextPage: lastPage > params.page,
+        isFetchingNextPage: notificationsQuery.isFetching,
       }}
     >
       {children}

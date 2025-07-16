@@ -7,51 +7,51 @@ import React, {
 } from 'react';
 import { NotificationEvent } from '@/services/emitters/NotificationEvent';
 import { useNotifications } from '@/hooks/useNotifications';
+import { useURLQuery } from '@/hooks/useURLQuery';
 import { useRender } from '@/hooks/useRender';
 import { NotificationsView } from '../view';
 import {
   checkAllReadNotifications,
   NotificationsReadOptions,
 } from '@/services/api/notifications';
-import {
-  DEFAULT_NOTIFICATION_FILTERS,
-  DEFAULT_NOTIFICATION_PARAMS,
-} from '@/utils/constants';
+import { DEFAULT_NOTIFICATION_PARAMS } from '@/utils/constants';
 import { MODULES } from '@/interfaces/Modules';
-import { useURLQuery } from '@/hooks/useURLQuery';
 
 type AnchorButton = EventTarget & HTMLButtonElement;
 
 type NotificationsControllerProps = {
   openDropdown(anchorEl: AnchorButton): void;
-  closeDropdown(ev): void;
+  closeDropdown(): void;
 };
 
 export const NotificationsController: React.ForwardRefRenderFunction<
   NotificationsControllerProps
 > = (_, ref) => {
   const {
-    badgeIsInvisible,
-    dropdownOpened,
     notifications,
-    fetchNotifications,
-    markAllAsViewed,
     params,
     isLoading,
+    dropdownOpened,
+    badgeIsInvisible,
+    markAllAsViewed,
     setNotifications,
+    fetchNotifications,
+    hasNextPage,
+    isFetchingNextPage,
+    handleCloseDropdown: handleClose,
   } = useNotifications();
+  const { fn } = useRender();
+  const query = useURLQuery();
   const [anchorElFilter, setAnchorElFilter] = useState<AnchorButton | null>(
     null,
   );
   const [anchorElOptions, setAnchorElOptions] = useState<AnchorButton | null>(
     null,
   );
-  const observerNotificationsRef = useRef<HTMLDivElement | null>(null);
-  const showNotificationsLoading = isLoading;
-  const { fn } = useRender();
-  const query = useURLQuery();
-
   const anchorRef = useRef<HTMLButtonElement | null>(null);
+  const observerNotificationsRef = useRef<HTMLDivElement | null>(null);
+  const showNotificationsLoading =
+    isLoading || isFetchingNextPage || hasNextPage;
 
   function handleOpenOptions(
     ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -77,7 +77,8 @@ export const NotificationsController: React.ForwardRefRenderFunction<
   }
 
   const handleLoadMoreContent = useCallback(() => {
-    if (!isLoading) fetchNotifications({ page: params.page + 1 });
+    if (!isLoading && hasNextPage)
+      fetchNotifications({ page: params.page + 1 });
   }, [isLoading, params]); // eslint-disable-line
 
   function handleOpenFilters(
@@ -105,31 +106,15 @@ export const NotificationsController: React.ForwardRefRenderFunction<
     });
   }
 
-  useLayoutEffect(() => {
-    if (!notifications?.length) return;
-
-    fn('open dropdown by url params', () => {
-      const openNotificationDropdown = query.get('notifications') === 'open';
-
-      if (openNotificationDropdown) {
-        query.delete('notifications');
-        NotificationEvent.emit('open_dropdown');
-      }
-    });
-  }, [query, fn, notifications]);
-
-  function handleOpenDropdown(ev) {
+  function handleOpenDropdown(ev?: any) {
     ev?.stopPropagation();
     NotificationEvent.emit('open_dropdown');
   }
 
-  function handleCloseDropdown(ev) {
+  function handleCloseDropdown(ev?: any) {
     ev?.stopPropagation();
+    handleClose();
     markAllAsViewed();
-    fetchNotifications({
-      ...DEFAULT_NOTIFICATION_PARAMS,
-      ...DEFAULT_NOTIFICATION_FILTERS,
-    });
     NotificationEvent.emit('close_dropdown');
   }
 

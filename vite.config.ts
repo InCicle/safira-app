@@ -1,7 +1,7 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import federation from '@originjs/vite-plugin-federation';
-import path from 'path';
+import path from 'node:path';
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
@@ -9,13 +9,10 @@ export default defineConfig(({ mode }) => {
     plugins: [
       react(),
       federation({
-        name: 'safira-frontend', // Name of the microfrontend
-        filename: 'navbar.js', // Filename for the exposed module
+        name: 'safira-frontend',
+        filename: 'navbar.js',
         exposes: {
-          './App': './src/App.tsx', // Expose the App component
-          './contexts/AuthContext': './src/contexts/Auth/Provider.tsx',
-          './contexts/Profile': './src/contexts/Profile/Provider.tsx',
-          './contexts/Permissions': './src/contexts/Permissions/Provider.tsx',
+          './App': './src/App.tsx',
         },
         shared: [
           'react',
@@ -38,7 +35,7 @@ export default defineConfig(({ mode }) => {
           'react-toastify',
           'react-waypoint',
           'socket.io-client',
-        ], // Shared dependencies
+        ],
       }),
     ],
     resolve: {

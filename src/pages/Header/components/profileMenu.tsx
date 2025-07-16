@@ -18,6 +18,7 @@ export type ProfileMenuRef = {
 };
 
 export interface ProfileProps {
+  id: string;
   name: string;
   avatar: string;
   type: string;
@@ -95,6 +96,7 @@ const ProfileMenu: FC<ProfileMenuProps> = ({
       >
         <MenuItemLink
           href={`${links.web.social}/p/${profile?.username}`}
+          key={profile?.id}
           icon={
             <RenderAvatar
               src={profile?.avatar}
