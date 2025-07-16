@@ -582,14 +582,14 @@ export const FilterModules: FilterModulesType[] = [
   {
     title: 'climate_research',
     slug: MODULES.climate_research,
-    icon: 'https://static-incicle.s3.amazonaws.com/pesquisa-clima-disabled.svg',
+    icon: 'https://static-incicle.s3.amazonaws.com/pesquisa-de-clima.svg',
     linkKey: 'survey',
     userType: 'BOTH',
   },
   {
     title: 'disc',
     slug: MODULES.climate_research,
-    icon: 'https://static-incicle.s3.amazonaws.com/pesquisa-clima-disabled.svg',
+    icon: 'https://static-incicle.s3.amazonaws.com/disc.svg',
     linkKey: 'profile_map',
     userType: 'BOTH',
   },
