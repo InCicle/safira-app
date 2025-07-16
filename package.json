@@ -60,7 +60,6 @@
     "typescript-eslint": "^8.35.x",
     "vite": "^7.0.x",
     "vitest": "^3.2.x",
-    "@types/js-cookie": "^3.0.x",
-    "@vitejs/plugin-react": "^4.3.x"
+    "@types/js-cookie": "^3.0.x"
   }
 }
