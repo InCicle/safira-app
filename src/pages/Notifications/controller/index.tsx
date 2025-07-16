@@ -1,19 +1,10 @@
-import React, {
-  useCallback,
-  useImperativeHandle,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useImperativeHandle, useLayoutEffect, useRef, useState } from 'react';
 import { NotificationEvent } from '@/services/emitters/NotificationEvent';
 import { useNotifications } from '@/hooks/useNotifications';
 import { useURLQuery } from '@/hooks/useURLQuery';
 import { useRender } from '@/hooks/useRender';
 import { NotificationsView } from '../view';
-import {
-  checkAllReadNotifications,
-  NotificationsReadOptions,
-} from '@/services/api/notifications';
+import { checkAllReadNotifications, NotificationsReadOptions } from '@/services/api/notifications';
 import { DEFAULT_NOTIFICATION_PARAMS } from '@/utils/constants';
 import { MODULES } from '@/interfaces/Modules';
 
@@ -24,9 +15,7 @@ type NotificationsControllerProps = {
   closeDropdown(): void;
 };
 
-export const NotificationsController: React.ForwardRefRenderFunction<
-  NotificationsControllerProps
-> = (_, ref) => {
+export const NotificationsController: React.ForwardRefRenderFunction<NotificationsControllerProps> = (_, ref) => {
   const {
     notifications,
     params,
@@ -39,23 +28,17 @@ export const NotificationsController: React.ForwardRefRenderFunction<
     hasNextPage,
     isFetchingNextPage,
     handleCloseDropdown: handleClose,
+    handleOpenDropdown: handleOpen,
   } = useNotifications();
   const { fn } = useRender();
   const query = useURLQuery();
-  const [anchorElFilter, setAnchorElFilter] = useState<AnchorButton | null>(
-    null,
-  );
-  const [anchorElOptions, setAnchorElOptions] = useState<AnchorButton | null>(
-    null,
-  );
+  const [anchorElFilter, setAnchorElFilter] = useState<AnchorButton | null>(null);
+  const [anchorElOptions, setAnchorElOptions] = useState<AnchorButton | null>(null);
   const anchorRef = useRef<HTMLButtonElement | null>(null);
   const observerNotificationsRef = useRef<HTMLDivElement | null>(null);
-  const showNotificationsLoading =
-    isLoading || isFetchingNextPage || hasNextPage;
+  const showNotificationsLoading = isLoading || isFetchingNextPage || hasNextPage;
 
-  function handleOpenOptions(
-    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) {
+  function handleOpenOptions(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     setAnchorElOptions(ev.currentTarget);
   }
 
@@ -68,8 +51,8 @@ export const NotificationsController: React.ForwardRefRenderFunction<
      * This function is used to check all notifications as readed
      */
     checkAllReadNotifications();
-    setNotifications((old) =>
-      old?.map((notification) => {
+    setNotifications(old =>
+      old?.map(notification => {
         notification.read = true;
         return notification;
       }),
@@ -77,13 +60,10 @@ export const NotificationsController: React.ForwardRefRenderFunction<
   }
 
   const handleLoadMoreContent = useCallback(() => {
-    if (!isLoading && hasNextPage)
-      fetchNotifications({ page: params.page + 1 });
+    if (!isLoading && hasNextPage) fetchNotifications({ page: params.page + 1 });
   }, [isLoading, params]); // eslint-disable-line
 
-  function handleOpenFilters(
-    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) {
+  function handleOpenFilters(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     setAnchorElFilter(ev.currentTarget);
   }
 
@@ -108,14 +88,13 @@ export const NotificationsController: React.ForwardRefRenderFunction<
 
   function handleOpenDropdown(ev?: any) {
     ev?.stopPropagation();
-    NotificationEvent.emit('open_dropdown');
+    handleOpen();
   }
 
   function handleCloseDropdown(ev?: any) {
     ev?.stopPropagation();
     handleClose();
     markAllAsViewed();
-    NotificationEvent.emit('close_dropdown');
   }
 
   useLayoutEffect(() => {

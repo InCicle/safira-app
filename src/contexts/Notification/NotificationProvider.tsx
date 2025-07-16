@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Cookies from 'js-cookie';
 import { Manager } from 'socket.io-client';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -15,19 +15,14 @@ import {
   NotificationWrapper,
 } from '@/services/api/notifications';
 import NotificationService from '@/services/notifications';
-import {
-  DEFAULT_NOTIFICATION_PARAMS,
-  NOTIFICATION_REQUEST_KEY,
-} from '@/utils/constants';
+import { DEFAULT_NOTIFICATION_PARAMS, NOTIFICATION_REQUEST_KEY } from '@/utils/constants';
 import { NotificationContext } from './Context';
 import { useAuth } from '@/hooks/useAuth';
 
 const manager = new Manager(links.api.notifications_v1);
 const socket = manager.socket('/');
 
-const NotificationProvider: React.FC<React.PropsWithChildren> = ({
-  children,
-}) => {
+const NotificationProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { fn } = useRender();
   const { user } = useAuth();
   const { defineFavicon, definePageTitle } = useHTMLHead();
@@ -36,16 +31,10 @@ const NotificationProvider: React.FC<React.PropsWithChildren> = ({
   const [dropdownOpened, setDropdownOpened] = useState(false);
   const [badgeIsInvisible, setBadgeIsInvisible] = useState(true);
   const [notificationViewCount, setNotificationViewCount] = useState(0);
-  const [allNotifications, setAllNotifications] = useState<NotificationProps[]>(
-    [],
-  );
-  const [params, setParams] = useState<NotificationParamsType>(
-    DEFAULT_NOTIFICATION_PARAMS,
-  );
+  const [allNotifications, setAllNotifications] = useState<NotificationProps[]>([]);
+  const [params, setParams] = useState<NotificationParamsType>(DEFAULT_NOTIFICATION_PARAMS);
 
-  const paramsFallbackRef = useRef<NotificationParamsType>(
-    DEFAULT_NOTIFICATION_PARAMS,
-  );
+  const paramsFallbackRef = useRef<NotificationParamsType>(DEFAULT_NOTIFICATION_PARAMS);
 
   const service = new NotificationService({
     dropdownOpened,
@@ -66,7 +55,7 @@ const NotificationProvider: React.FC<React.PropsWithChildren> = ({
       getNotifications(params, {
         language: user.config.default_language || 'en',
       }),
-    placeholderData: (state) => state,
+    placeholderData: state => state,
     retry: false,
     refetchOnMount: false,
     refetchOnReconnect: false,
@@ -81,50 +70,40 @@ const NotificationProvider: React.FC<React.PropsWithChildren> = ({
 
   function fetchNotifications(newParams: NotificationParamsType) {
     paramsFallbackRef.current = { ...params };
-    setParams((prev) => ({ ...prev, ...newParams }));
+    setParams(prev => ({ ...prev, ...newParams }));
   }
 
   function markAllAsViewed(key?: any[]) {
-    const queryKey = key || [
-      NOTIFICATION_REQUEST_KEY,
-      DEFAULT_NOTIFICATION_PARAMS,
-    ];
+    const queryKey = key || [NOTIFICATION_REQUEST_KEY, DEFAULT_NOTIFICATION_PARAMS];
 
-    queryClient.setQueryData(
-      queryKey,
-      (previous: AxiosResponse<NotificationWrapper>) => {
-        const prev: AxiosResponse<NotificationWrapper> = previous;
-        if (!prev?.data?.data) return;
+    queryClient.setQueryData(queryKey, (previous: AxiosResponse<NotificationWrapper>) => {
+      const prev: AxiosResponse<NotificationWrapper> = previous;
+      if (!prev?.data?.data) return;
 
-        const prevNotifications = prev?.data?.data || [];
-        const newNotifications = prevNotifications.map((n) => ({
-          ...n,
-          saw: true,
-        }));
-        const newData: AxiosResponse<NotificationWrapper> = {
-          ...prev,
-          data: { ...prev.data, data: newNotifications },
-        };
+      const prevNotifications = prev?.data?.data || [];
+      const newNotifications = prevNotifications.map(n => ({
+        ...n,
+        saw: true,
+      }));
+      const newData: AxiosResponse<NotificationWrapper> = {
+        ...prev,
+        data: { ...prev.data, data: newNotifications },
+      };
 
-        return newData;
-      },
-    );
+      return newData;
+    });
   }
 
   function notifier(notification: NotificationProps) {
     const queryKey = [NOTIFICATION_REQUEST_KEY, DEFAULT_NOTIFICATION_PARAMS];
 
     service.notify(notification);
-    queryClient.setQueryData(
-      queryKey,
-      (previous: AxiosResponse<NotificationWrapper>) => {
-        const prev: AxiosResponse<NotificationWrapper> = previous;
-        if (!prev?.data?.data?.length)
-          return { data: { data: [notification] } };
-        prev.data.data.unshift(notification);
-        return prev;
-      },
-    );
+    queryClient.setQueryData(queryKey, (previous: AxiosResponse<NotificationWrapper>) => {
+      const prev: AxiosResponse<NotificationWrapper> = previous;
+      if (!prev?.data?.data?.length) return { data: { data: [notification] } };
+      prev.data.data.unshift(notification);
+      return prev;
+    });
   }
 
   function createSocketConnection() {
@@ -156,8 +135,7 @@ const NotificationProvider: React.FC<React.PropsWithChildren> = ({
 
   // handle request error
   useEffect(() => {
-    const sameParams =
-      JSON.stringify(paramsFallbackRef.current) === JSON.stringify(params);
+    const sameParams = JSON.stringify(paramsFallbackRef.current) === JSON.stringify(params);
 
     if (error && !sameParams) {
       setParams(paramsFallbackRef.current);
@@ -167,14 +145,8 @@ const NotificationProvider: React.FC<React.PropsWithChildren> = ({
   // concat new notifications
   useEffect(() => {
     const paramsFallback = paramsFallbackRef.current;
-    const resetState =
-      params.module !== paramsFallback.module ||
-      params.read !== paramsFallback.read;
-    service.update(
-      notifications,
-      notificationsResponse?.data?.saw,
-      resetState ? 'reset' : 'none',
-    );
+    const resetState = params.module !== paramsFallback.module || params.read !== paramsFallback.read;
+    service.update(notifications, notificationsResponse?.data?.saw, resetState ? 'reset' : 'none');
   }, [notifications]); // eslint-disable-line
 
   // on notification load
@@ -188,6 +160,17 @@ const NotificationProvider: React.FC<React.PropsWithChildren> = ({
   useEffect(() => {
     fn('first load', () => service.requestPermission());
   }, []); // eslint-disable-line
+
+  const handleOpenDropdown = useCallback(() => {
+    setDropdownOpened(true);
+    service.handleOpenDropdown();
+  }, [setDropdownOpened]);
+
+  const handleCloseDropdown = useCallback(() => {
+    setDropdownOpened(false);
+    markAllAsViewed();
+    service.handleCloseDropdown();
+  }, [setDropdownOpened]);
 
   return (
     <NotificationContext.Provider
@@ -211,11 +194,8 @@ const NotificationProvider: React.FC<React.PropsWithChildren> = ({
         markAllAsViewed,
         fetchNotifications,
 
-        handleCloseDropdown: () => {
-          setDropdownOpened(false);
-          markAllAsViewed();
-          service.handleCloseDropdown();
-        },
+        handleOpenDropdown,
+        handleCloseDropdown,
 
         hasNextPage: lastPage > params.page,
         isFetchingNextPage: notificationsQuery.isFetching,

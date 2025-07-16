@@ -21,7 +21,6 @@
     "push.js": "^1.0.x",
     "react-i18next": "^15.0.x",
     "react-modal": "^3.16.x",
-    "react-waypoint": "^10.3.x",
     "socket.io-client": "^4.7.x",
     "@hookform/resolvers": "^5.1.x",
     "@originjs/vite-plugin-federation": "^1.4.x",

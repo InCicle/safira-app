@@ -1,8 +1,5 @@
 import { ISetState } from '@/interfaces/SetState';
-import {
-  NotificationParamsType,
-  NotificationProps,
-} from '@/services/api/notifications';
+import { NotificationParamsType, NotificationProps } from '@/services/api/notifications';
 import { createContext } from 'react';
 
 interface NotificationContext {
@@ -28,9 +25,9 @@ interface NotificationContext {
 
   hasNextPage: boolean;
   isFetchingNextPage: boolean;
+
+  handleOpenDropdown: () => void;
   handleCloseDropdown: () => void;
 }
 
-export const NotificationContext = createContext<NotificationContext>(
-  {} as NotificationContext,
-);
+export const NotificationContext = createContext<NotificationContext>({} as NotificationContext);

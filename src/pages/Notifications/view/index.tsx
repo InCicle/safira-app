@@ -15,17 +15,13 @@ interface NotificationsViewProps {
   observerNotificationsRef: React.RefObject<HTMLDivElement | null>;
   handleChangeNotificationsOption: (value: NotificationsReadOptions) => void;
   anchorElFilter: HTMLButtonElement | null;
-  handleOpenFilters: (
-    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => void;
+  handleOpenFilters: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   handleCloseFilters: () => void;
   handleSetModuleFilter: (module: MODULES) => void;
   anchorElOptions: HTMLButtonElement | null;
   handleCloseOptions: () => void;
   handleCheckAllRead: () => void;
-  handleOpenOptions: (
-    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => void;
+  handleOpenOptions: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   isLoading: boolean;
   handleLoadMoreContent: () => void;
 }
@@ -52,19 +48,8 @@ export const NotificationsView: FC<NotificationsViewProps> = ({
 }) => {
   return (
     <>
-      <IconButton
-        ref={anchorRef}
-        size="medium"
-        sx={{ width: 35, height: 35 }}
-        onClick={handleOpenMenu}
-      >
-        <Badge
-          color="error"
-          variant="dot"
-          invisible={badgeIsInvisible}
-          badgeContent=" "
-          overlap="circular"
-        >
+      <IconButton ref={anchorRef} size="medium" sx={{ width: 35, height: 35 }} onClick={handleOpenMenu}>
+        <Badge color="error" variant="dot" invisible={badgeIsInvisible} badgeContent=" " overlap="circular">
           <NotificationsIcon sx={{ width: 25, height: 25 }} />
         </Badge>
       </IconButton>

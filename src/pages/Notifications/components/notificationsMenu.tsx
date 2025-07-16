@@ -24,9 +24,7 @@ interface NotificationsMenuProps {
   showLoading: boolean;
   handleSetModuleFilter: (module: MODULES) => void;
   handleChangeNotificationsOption: (value: NotificationsReadOptions) => void;
-  handleOpenFilters: (
-    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => void;
+  handleOpenFilters: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   handleCloseFilters: () => void;
   anchorElFilter: HTMLButtonElement | null;
   isLoading: boolean;
@@ -34,9 +32,7 @@ interface NotificationsMenuProps {
   anchorElOptions: HTMLButtonElement | null;
   handleCloseOptions: () => void;
   handleCheckAllRead: () => void;
-  handleOpenOptions: (
-    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => void;
+  handleOpenOptions: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 export const NotificationsMenu: React.FC<NotificationsMenuProps> = ({
@@ -58,8 +54,7 @@ export const NotificationsMenu: React.FC<NotificationsMenuProps> = ({
   observerNotificationsRef,
 }) => {
   const { t } = useTranslation();
-  const { params, notifications, hasNextPage, isFetchingNextPage } =
-    useNotifications();
+  const { params, notifications, hasNextPage, isFetchingNextPage } = useNotifications();
   useIntersectionObserver({
     observerRef: observerNotificationsRef,
     hasNextPage,
@@ -110,7 +105,7 @@ export const NotificationsMenu: React.FC<NotificationsMenuProps> = ({
         },
       }}
     >
-      {open && (
+      {true && (
         <>
           <Stack
             direction="row"
@@ -124,32 +119,17 @@ export const NotificationsMenu: React.FC<NotificationsMenuProps> = ({
               {translation(t, 'notifications')}
             </Typography>
 
-            <MoreOptionsMenu
-              anchorEl={anchorElOptions}
-              handleClose={handleCloseOptions}
-              handleOpen={handleOpenOptions}
-            >
-              <MenuItem
-                key={uuid()}
-                sx={{ fontSize: '14px' }}
-                onClick={handleCheckAllRead}
-              >
+            <MoreOptionsMenu anchorEl={anchorElOptions} handleClose={handleCloseOptions} handleOpen={handleOpenOptions}>
+              <MenuItem key={uuid()} sx={{ fontSize: '14px' }} onClick={handleCheckAllRead}>
                 <ListItemIcon>
                   <DoneIcon fontSize="small" sx={{ width: 18, height: 18 }} />
                 </ListItemIcon>
                 Marcar todas como lidas
               </MenuItem>
 
-              <MenuItem
-                component="a"
-                href={`${links.web.social}/notifications`}
-                sx={{ fontSize: '14px' }}
-              >
+              <MenuItem component="a" href={`${links.web.social}/notifications`} sx={{ fontSize: '14px' }}>
                 <ListItemIcon>
-                  <ComputerIcon
-                    fontSize="small"
-                    sx={{ width: 18, height: 18 }}
-                  />
+                  <ComputerIcon fontSize="small" sx={{ width: 18, height: 18 }} />
                 </ListItemIcon>
                 Abrir notificações
               </MenuItem>
@@ -166,19 +146,11 @@ export const NotificationsMenu: React.FC<NotificationsMenuProps> = ({
           />
 
           <NotificationWrapper>
-            <Typography
-              variant="body2"
-              sx={{ padding: '0 15px', color: '#959595', fontSize: '11px' }}
-            >
-              {translation(
-                t,
-                params.read === NotificationsReadOptions.UNREAD
-                  ? 'unread'
-                  : 'all',
-              )}
+            <Typography variant="body2" sx={{ padding: '0 15px', color: '#959595', fontSize: '11px' }}>
+              {translation(t, params.read === NotificationsReadOptions.UNREAD ? 'unread' : 'all')}
             </Typography>
 
-            {notifications.map((item) => (
+            {notifications.map(item => (
               <NotificationItem key={item.id} data={item} />
             ))}
 
@@ -195,39 +167,19 @@ export const NotificationsMenu: React.FC<NotificationsMenuProps> = ({
               </Typography>
             )}
 
-            <Stack
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-              padding={1.5}
-              height={70}
-            >
+            <Stack direction="row" justifyContent="center" alignItems="center" padding={1.5} height={70}>
               {showLoading ? (
                 <Stack direction="row" gap={1} alignItems="center">
                   <Stack>
                     <Skeleton variant="circular" width={42} height={42} />
                   </Stack>
                   <Stack gap={1}>
-                    <Skeleton
-                      variant="rectangular"
-                      width={270}
-                      height={8}
-                      sx={{ borderRadius: 50 }}
-                    />
-                    <Skeleton
-                      variant="rectangular"
-                      width={100}
-                      height={8}
-                      sx={{ borderRadius: 50 }}
-                    />
+                    <Skeleton variant="rectangular" width={270} height={8} sx={{ borderRadius: 50 }} />
+                    <Skeleton variant="rectangular" width={100} height={8} sx={{ borderRadius: 50 }} />
                   </Stack>
                 </Stack>
               ) : (
-                <Stack
-                  direction="row"
-                  justifyContent="center"
-                  alignItems="center"
-                >
+                <Stack direction="row" justifyContent="center" alignItems="center">
                   <Typography
                     sx={{
                       fontSize: '1.5rem',
