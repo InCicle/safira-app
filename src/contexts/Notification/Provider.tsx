@@ -17,14 +17,14 @@ import {
 import NotificationService from '@/services/notifications';
 import { DEFAULT_NOTIFICATION_PARAMS, NOTIFICATION_REQUEST_KEY } from '@/utils/constants';
 import { NotificationContext } from './Context';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuthStore } from '@/store/useAuthStore';
 
 const manager = new Manager(links.api.notifications_v1);
 const socket = manager.socket('/');
 
 const NotificationProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { fn } = useRender();
-  const { user } = useAuth();
+  const { user } = useAuthStore();
   const { defineFavicon, definePageTitle } = useHTMLHead();
   const queryClient = useQueryClient();
 
@@ -53,7 +53,7 @@ const NotificationProvider: React.FC<React.PropsWithChildren> = ({ children }) =
     queryKey: notificationKey,
     queryFn: () =>
       getNotifications(params, {
-        language: user.config.default_language || 'en',
+        language: user?.config.default_language || 'en',
       }),
     placeholderData: state => state,
     retry: false,
@@ -113,6 +113,7 @@ const NotificationProvider: React.FC<React.PropsWithChildren> = ({ children }) =
   }
 
   function addSocketEvents() {
+    if (!user?.id) return;
     socket.on(user?.id, notifier);
   }
 

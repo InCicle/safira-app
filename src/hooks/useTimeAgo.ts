@@ -33,6 +33,7 @@ export function useTimeAgo({ date, timeStyle }: Partial<TimeAgoUseCaseProps>) {
       controller.timerInterval = setInterval(Timer.timer, ms);
     },
     stopCounter() {
+      if (!controller.timerInterval) return;
       clearInterval(controller.timerInterval);
     },
     onCountChange(cb: (message: string) => void) {
@@ -42,11 +43,7 @@ export function useTimeAgo({ date, timeStyle }: Partial<TimeAgoUseCaseProps>) {
       const { initialDate } = controller;
       const now = new Date();
       const difference = now.getTime() - initialDate.getTime();
-      const daysInMonth = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        0,
-      ).getDate();
+      const daysInMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
 
       controller.count = {
         seconds: Math.floor((difference / 1000) % 60),
@@ -64,7 +61,7 @@ export function useTimeAgo({ date, timeStyle }: Partial<TimeAgoUseCaseProps>) {
       const { count } = controller;
       const order = ['months', 'days', 'hours', 'minutes', 'seconds'];
       const keysToStopTimeout = ['months', 'days', 'hours'];
-      const arrAcounter = order.map((timeUnit) => [timeUnit, count[timeUnit]]);
+      const arrAcounter = order.map(timeUnit => [timeUnit, count[timeUnit]]);
 
       for (const [key, value] of arrAcounter) {
         if (value > 0) {

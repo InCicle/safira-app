@@ -13,15 +13,6 @@ export default defineConfig(({ mode }) => {
         filename: 'navbar.js',
         exposes: {
           './App': './src/App.tsx',
-          './hooks/useAuth': './src/hooks/useAuth.ts',
-          './hooks/useProfile': './src/hooks/useProfile.ts',
-          './hooks/usePermissions': './src/hooks/usePermissions.ts',
-          './pages/Header': './src/pages/Header/index.tsx',
-          './context/AuthContext': './src/contexts/Auth/Provider.tsx',
-          './context/ProfileContext': './src/contexts/Profile/Provider.tsx',
-          './context/PermissionsContext': './src/contexts/Permissions/Provider.tsx',
-          './i18n/pt': './src/i18n/locales/pt.json',
-          './i18n/en': './src/i18n/locales/en.json',
         },
         shared: [
           'react',
@@ -32,7 +23,6 @@ export default defineConfig(({ mode }) => {
           '@aws-sdk/client-s3',
           '@emotion/react',
           '@emotion/styled',
-          '@mui/icons-material',
           '@tanstack/react-query',
           'crypto-js',
           'i18next',

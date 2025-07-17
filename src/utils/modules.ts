@@ -587,7 +587,7 @@ export const FilterModules: FilterModulesType[] = [
     userType: 'BOTH',
   },
   {
-    title: 'disc',
+    title: 'profile_map',
     slug: MODULES.climate_research,
     icon: 'https://static-incicle.s3.amazonaws.com/disc.svg',
     linkKey: 'profile_map',

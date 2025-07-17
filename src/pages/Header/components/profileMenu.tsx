@@ -10,7 +10,7 @@ import { links } from '@/utils/links';
 import { translation } from '@/utils/translation';
 import { RenderAvatar } from '@/components/renderAvatar';
 import { MenuItemLink } from './menuItemLink';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuthStore } from '@/store/useAuthStore';
 
 export type ProfileMenuRef = {
   openProfileMenu: (ev) => void;
@@ -43,12 +43,10 @@ const ProfileMenu: FC<ProfileMenuProps> = ({
   closeProfileMenu,
 }) => {
   const { t } = useTranslation();
-  const { signOut } = useAuth();
+  const { signOut } = useAuthStore();
   return (
     <>
-      {openTutorial && (
-        <TutorialVideos open={openTutorial} setOpen={setOpenTutorial} />
-      )}
+      {openTutorial && <TutorialVideos open={openTutorial} setOpen={setOpenTutorial} />}
       <Menu
         data-testid="profile-menu"
         anchorEl={anchorProfileMenuEl}
@@ -109,19 +107,11 @@ const ProfileMenu: FC<ProfileMenuProps> = ({
             />
           }
         >
-          {profile?.name && profile.name.length > 40
-            ? `${profile.name.substring(0, 40)}...`
-            : profile?.name}
+          {profile?.name && profile.name.length > 40 ? `${profile.name.substring(0, 40)}...` : profile?.name}
         </MenuItemLink>
         <Divider />
-        <MenuItemLink
-          href={menuItemUrl}
-          icon={<PeopleAltIcon fontSize="small" />}
-        >
-          {translation(
-            t,
-            profile?.type === 'PERSON' ? 'friends' : 'collaborators',
-          )}
+        <MenuItemLink href={menuItemUrl} icon={<PeopleAltIcon fontSize="small" />}>
+          {translation(t, profile?.type === 'PERSON' ? 'friends' : 'collaborators')}
         </MenuItemLink>
         <Divider />
         <MenuItem
@@ -141,10 +131,7 @@ const ProfileMenu: FC<ProfileMenuProps> = ({
           </ListItemIcon>
           <span>{translation(t, 'tutorials')}</span>
         </MenuItem>
-        <MenuItemLink
-          href={links.web.settings}
-          icon={<SettingsIcon fontSize="small" />}
-        >
+        <MenuItemLink href={links.web.settings} icon={<SettingsIcon fontSize="small" />}>
           {translation(t, 'configurations')}
         </MenuItemLink>
         <MenuItem

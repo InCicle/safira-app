@@ -1,10 +1,10 @@
-import { PermissionsContext } from '@/contexts/Permissions/Context';
-import { useContext } from 'react';
+import { useEffect } from 'react';
+import { useGetPermissionsQuery } from '../services/api/permissions';
 
 export function usePermissions() {
-  const context = useContext(PermissionsContext);
-  if (!context) {
-    throw new Error('usePermissions must be used within a PermissionsProvider');
-  }
-  return context;
+  const { refetch } = useGetPermissionsQuery();
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 }

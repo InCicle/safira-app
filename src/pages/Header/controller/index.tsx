@@ -1,37 +1,25 @@
-import {
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from 'react';
+import { useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { ModulesMenuRef } from '@/pages/Header/components/modulesMenu';
-import {
-  ProfileMenuRef,
-  ProfileProps,
-} from '@/pages/Header/components/profileMenu';
+import { ProfileMenuRef, ProfileProps } from '@/pages/Header/components/profileMenu';
 import { HeaderView } from '../view';
-import { CollaboratorsInterface } from '@/interfaces/Me';
+import { IMeCollaborators } from '@/interfaces/Me';
 import { IProfile } from '@/interfaces/Profile';
-import { useAuth } from '@/hooks/useAuth';
-import { useProfile } from '@/hooks/useProfile';
-import { usePermissions } from '@/hooks/usePermissions';
+import { useAuthStore } from '@/store/useAuthStore';
+import { useProfileStore } from '@/store/useProfileStore';
+import { usePermissionsStore } from '@/store/usePermissionsStore';
 import { getProfile } from '@/services/api/profile/requests';
-import NotificationProvider from '@/contexts/Notification';
-import {
-  CollaboratorsMenuModules,
-  ModulesType,
-  UserMenuModules,
-} from '@/utils/modules';
+import NotificationProvider from '@/contexts/Notification/Provider';
+import { CollaboratorsMenuModules, ModulesType, UserMenuModules } from '@/utils/modules';
 import { links } from '@/utils/links';
 import { URL_STEP_ONE } from '@/utils/constants';
 import Cookies from 'js-cookie';
 import { domainName } from '@/utils/auth';
+import { hasManagerPermissions } from '@/utils/hasManagerPanel';
 
 export const HeaderController: React.FC = () => {
-  const { user } = useAuth();
-  const { me } = useProfile();
-  const { checkPermission, permissions, companyId } = usePermissions();
+  const { user } = useAuthStore();
+  const { me, companyId, setCompanyId } = useProfileStore();
+  const { checkPermission, permissions } = usePermissionsStore();
 
   const anchorRef = useRef<HTMLFormElement | null>(null);
   const modulesMenuRef = useRef<ModulesMenuRef | null>(null);
@@ -44,29 +32,18 @@ export const HeaderController: React.FC = () => {
   const [resultSearch, setResultSearch] = useState<IProfile[]>([]);
   const [profile, setProfile] = useState<ProfileProps | null>(null);
   const [activeManagerMenu, setActiveManagerPanel] = useState(false);
-  const [filteredUserModules, setFilteredUserModules] = useState<ModulesType[]>(
-    [],
-  );
-  const [collaborators, setCollaborators] = useState<CollaboratorsInterface[]>(
-    [],
-  );
+  const [filteredUserModules, setFilteredUserModules] = useState<ModulesType[]>([]);
+  const [collaborators, setCollaborators] = useState<IMeCollaborators[]>([]);
   const [accountType, setAccountType] = useState('');
-  const [selectedCollaborator, setSelectedCollaborator] =
-    useState<CollaboratorsInterface>();
-  const [anchorMenuModulesEl, setAnchorModulesMenuEl] =
-    useState<HTMLButtonElement | null>(null);
-  const [anchorProfileMenuEl, setAnchorProfileMenuEl] =
-    useState<HTMLButtonElement | null>(null);
-  const [filteredCollaboratorsModules, setFilteredCollaboratorsModules] =
-    useState<ModulesType[]>([]);
+  const [selectedCollaborator, setSelectedCollaborator] = useState<IMeCollaborators>();
+  const [anchorMenuModulesEl, setAnchorModulesMenuEl] = useState<HTMLButtonElement | null>(null);
+  const [anchorProfileMenuEl, setAnchorProfileMenuEl] = useState<HTMLButtonElement | null>(null);
+  const [filteredCollaboratorsModules, setFilteredCollaboratorsModules] = useState<ModulesType[]>([]);
 
-  const contentSideBarElement = document.querySelector(
-    '.contentSidebar > div',
-  ) as HTMLDivElement | null;
+  const contentSideBarElement = document.querySelector('.contentSidebar > div') as HTMLDivElement | null;
 
   const clearInputClassName = useCallback(() => {
-    if (window.innerWidth > 1200 && inputBoxClassName.length)
-      setInputBoxClassName('');
+    if (window.innerWidth > 1200 && inputBoxClassName.length) setInputBoxClassName('');
   }, [inputBoxClassName]);
 
   const changeSidebarDisplay = useCallback(() => {
@@ -88,59 +65,50 @@ export const HeaderController: React.FC = () => {
         Cookies.set('companySelected', me?.collaborators[0].company.id, {
           domain: domainName,
         });
+        setCompanyId(me?.collaborators[0].company.id);
         setSelectedCollaborator(me?.collaborators[0]);
       } else {
-        const comp = me?.collaborators.find(
-          (col) => col.company.id === companySelected,
-        );
+        const comp = me?.collaborators.find(col => col.company.id === companySelected);
         setSelectedCollaborator(comp);
       }
     }
 
     setCollaborators(me?.collaborators);
-  }, [me, companyId]);
+  }, [me]);
 
   const getManagerPermission = useCallback(() => {
     if (!user || user.type === 'COMPANY' || !me || !me?.collaborators) return;
-    const companySelected = me.collaborators.find(
-      ({ company }) => company.id === companyId,
-    );
+    const companySelected = me.collaborators.find(({ company }) => company.id === companyId);
     if (!companySelected) return;
-    if (
-      !!companySelected.is_manager_competence ||
-      checkPermission(['managers_vacations_list']) ||
-      checkPermission(['managers_list_occurrences']) ||
-      checkPermission(['in_check'])
-    ) {
-      setActiveManagerPanel(true);
-    }
+    const isManager = hasManagerPermissions(user, checkPermission, companySelected);
+    setActiveManagerPanel(isManager);
   }, [user, me, companyId, checkPermission]);
 
   useEffect(() => {
     setFilteredUserModules(
-      UserMenuModules.filter((item) => {
+      UserMenuModules.filter(item => {
         if (!user) return false;
         return item.accountTypes.includes(user.type);
       })
-        .filter((itemModule) => {
+        .filter(itemModule => {
           if (!itemModule.enableOnlyTo || !companyId) return true;
           return itemModule.enableOnlyTo.includes(companyId);
         })
-        .filter((moduleItem) => {
+        .filter(moduleItem => {
           if (!moduleItem.permission) return true;
           return checkPermission([moduleItem.permission]);
         }),
     );
     setFilteredCollaboratorsModules(
-      CollaboratorsMenuModules.filter((item) => {
+      CollaboratorsMenuModules.filter(item => {
         if (!user) return false;
         return item.accountTypes.includes(user.type);
       })
-        .filter((moduleItem) => {
+        .filter(moduleItem => {
           if (!moduleItem.enableOnlyTo || !companyId) return true;
           return moduleItem.enableOnlyTo.includes(companyId);
         })
-        .filter((moduleItem) => {
+        .filter(moduleItem => {
           if (!moduleItem.permission) return true;
           return checkPermission([moduleItem.permission]);
         }),
@@ -180,20 +148,25 @@ export const HeaderController: React.FC = () => {
     });
   }, [me]);
 
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   function searchFunction(username: string) {
     setResultSearch([]);
     setHasResult(false);
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
     if (username.trim().length < 3) return;
-    getProfile(username)
-      .then((response) => {
-        setResultSearch(response?.data);
-        setHasResult(true);
-      })
-      .catch(() => {
-        setHasResult(false);
-      });
-
-    setHasResult(false);
+    searchTimeoutRef.current = setTimeout(() => {
+      getProfile(username)
+        .then(response => {
+          setResultSearch(response?.data);
+          setHasResult(true);
+        })
+        .catch(() => {
+          setHasResult(false);
+        });
+    }, 300);
   }
 
   function handleOpenMenuCompanies(ev) {
@@ -204,15 +177,11 @@ export const HeaderController: React.FC = () => {
     setAnchorCompanyEl(null);
   }
 
-  function handleOpenMenuProfile(
-    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) {
+  function handleOpenMenuProfile(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     profileMenuRef.current?.openProfileMenu(ev);
   }
 
-  function handleOpenModulesMenu(
-    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) {
+  function handleOpenModulesMenu(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     modulesMenuRef.current?.openModulesMenu(ev);
   }
 
@@ -222,9 +191,8 @@ export const HeaderController: React.FC = () => {
     Cookies.set('companySelected', companyId, {
       domain: domainName,
     });
-    if (typeof window !== 'undefined') {
-      window.location.reload();
-    }
+    setCompanyId(companyId);
+    window.location.reload();
   }
 
   function openModulesMenu(ev) {
@@ -236,9 +204,7 @@ export const HeaderController: React.FC = () => {
   }
 
   function getUrlStepOne(redirects) {
-    const redirecionamentoStepOne = redirects.find(
-      (redirect) => redirect.type === 1 || redirect.type === 'STEPONE',
-    );
+    const redirecionamentoStepOne = redirects.find(redirect => redirect.type === 1 || redirect.type === 'STEPONE');
     return redirecionamentoStepOne ? redirecionamentoStepOne.url : URL_STEP_ONE;
   }
 
@@ -248,17 +214,9 @@ export const HeaderController: React.FC = () => {
     }
 
     if (me?.type === 'COMPANY') {
-      return me.redirects && me.redirects.length > 0
-        ? getUrlStepOne(me.redirects)
-        : URL_STEP_ONE;
-    } else if (
-      me?.type === 'PERSON' &&
-      me.collaborators &&
-      me.collaborators.length > 0
-    ) {
-      const currentCollaborator = me.collaborators.find(
-        ({ company }) => company.id === companyId,
-      );
+      return me.redirects && me.redirects.length > 0 ? getUrlStepOne(me.redirects) : URL_STEP_ONE;
+    } else if (me?.type === 'PERSON' && me.collaborators && me.collaborators.length > 0) {
+      const currentCollaborator = me.collaborators.find(({ company }) => company.id === companyId);
       if (
         currentCollaborator &&
         currentCollaborator.company.redirects &&
@@ -281,11 +239,7 @@ export const HeaderController: React.FC = () => {
   function getMenuItemUrl() {
     const personUrl = `${links.web.social}/friends`;
     const companyUrl = `${links.web.department}/#/collaborators`;
-    return profile?.type === 'PERSON'
-      ? personUrl
-      : profile?.type === 'COMPANY'
-        ? companyUrl
-        : '#';
+    return profile?.type === 'PERSON' ? personUrl : profile?.type === 'COMPANY' ? companyUrl : '#';
   }
 
   useImperativeHandle(profileMenuRef, () => {

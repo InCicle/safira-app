@@ -105,8 +105,8 @@ export const NotificationsMenu: React.FC<NotificationsMenuProps> = ({
         },
       }}
     >
-      {true && (
-        <>
+      {open && (
+        <div>
           <Stack
             direction="row"
             justifyContent="space-between"
@@ -194,7 +194,7 @@ export const NotificationsMenu: React.FC<NotificationsMenuProps> = ({
               )}
             </Stack>
           </NotificationWrapper>
-        </>
+        </div>
       )}
     </Menu>
   );

@@ -20,7 +20,7 @@ export type TimeOptions = {
 export type Controller = {
   timeStyle: TimeStyle;
   initialDate: Date;
-  timerInterval: null | any;
+  timerInterval: null | NodeJS.Timeout;
   count: {
     months: number;
     days: number;

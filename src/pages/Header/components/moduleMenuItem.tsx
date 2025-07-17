@@ -1,32 +1,21 @@
 import React from 'react';
-import {
-  Box,
-  IconButton,
-  Stack,
-  Tooltip,
-  Typography,
-  useTheme,
-  Link as MUILink,
-} from '@mui/material';
+import { Box, IconButton, Stack, Tooltip, Typography, useTheme, Link as MUILink } from '@mui/material';
 import { ModulesType } from '@/utils/modules';
 import { translation } from '@/utils/translation';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuthStore } from '@/store/useAuthStore';
 
 interface ModuleMenuItemProps {
   module: ModulesType;
 }
 
 export const ModuleMenuItem: React.FC<ModuleMenuItemProps> = ({ module }) => {
-  const { user } = useAuth();
+  const { user } = useAuthStore();
   const { t } = useTranslation();
   const { breakpoints } = useTheme();
 
   const breakpointValue = 700;
-  const linkProps =
-    module.redirectType === 'external'
-      ? { target: '_blank', rel: 'noopener noreferrer' }
-      : {};
+  const linkProps = module.redirectType === 'external' ? { target: '_blank', rel: 'noopener noreferrer' } : {};
 
   return (
     <Tooltip
@@ -72,11 +61,7 @@ export const ModuleMenuItem: React.FC<ModuleMenuItemProps> = ({ module }) => {
             pointerEvents: !module.url ? 'none' : '',
           }}
         >
-          <Stack
-            justifyContent="center"
-            alignItems="center"
-            sx={{ minWidth: 60, minHeight: 60 }}
-          >
+          <Stack justifyContent="center" alignItems="center" sx={{ minWidth: 60, minHeight: 60 }}>
             <Stack
               direction="row"
               justifyContent="center"
@@ -119,10 +104,7 @@ export const ModuleMenuItem: React.FC<ModuleMenuItemProps> = ({ module }) => {
               }}
             >
               {user?.type && module.description
-                ? translation(
-                    t,
-                    'modules.'.concat(module?.description[user?.type] ?? ''),
-                  )
+                ? translation(t, 'modules.'.concat(module?.description[user?.type] ?? ''))
                 : ''}
             </Typography>
           </Box>

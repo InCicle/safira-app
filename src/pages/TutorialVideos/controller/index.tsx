@@ -1,10 +1,8 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import { TutorialsVideosView } from '../view';
-import {
-  getViewedTutorialsData,
-  modifyViewedTutorialsData,
-} from '@/services/api/tutorials/requests';
-import { useAuth } from '@/hooks/useAuth';
+import { getViewedTutorialsData, modifyViewedTutorialsData } from '@/services/api/tutorials/requests';
+import { useAuthStore } from '@/store/useAuthStore';
+import { COMPANY_LINK, PERSON_LINK } from '@/utils/constants';
 
 const initialState = [
   { module: 'social_network', is_view: false },
@@ -21,15 +19,12 @@ interface TutorialVideosControllerProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const TutorialVideosController: FC<TutorialVideosControllerProps> = ({
-  open,
-  setOpen,
-}) => {
-  const { user } = useAuth();
+export const TutorialVideosController: FC<TutorialVideosControllerProps> = ({ open, setOpen }) => {
+  const { user } = useAuthStore();
   const [state, setState] = useState(initialState);
 
   useEffect(() => {
-    getViewedTutorialsData().then((response) => {
+    getViewedTutorialsData().then(response => {
       setState(response.data);
     });
   }, []);
@@ -39,7 +34,7 @@ export const TutorialVideosController: FC<TutorialVideosControllerProps> = ({
   }, []);
 
   function getCorrectKey(moduleName: string) {
-    const obj = state.filter((element) => element.module === moduleName);
+    const obj = state.filter(element => element.module === moduleName);
     const key = obj[0] ? obj[0].is_view : false;
     return key;
   }
@@ -47,10 +42,8 @@ export const TutorialVideosController: FC<TutorialVideosControllerProps> = ({
   const handleOpenMoreTutorials = () => {
     if (!user || typeof window === 'undefined') return;
     const { type } = user;
-    const personLink = 'https://www.incicle.com/tutoriais-de-suporte-person/';
-    const companyLink = 'https://www.incicle.com/tutoriais-de-suporte-company/';
 
-    const urlLink = type === 'COMPANY' ? companyLink : personLink;
+    const urlLink = type === 'COMPANY' ? COMPANY_LINK : PERSON_LINK;
 
     window.open(urlLink, '_blank');
   };

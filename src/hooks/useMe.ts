@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useGetMeQuery } from '../services/api/profile';
-import { useProfile } from '../hooks/useProfile';
+import { useProfileStore } from '../store/useProfileStore';
 
 export function useMe() {
-  const { me } = useProfile();
+  const { me } = useProfileStore();
   const { isLoading, refetch } = useGetMeQuery();
   const hasMe = me && Object.keys(me).length > 0;
 
@@ -11,8 +11,4 @@ export function useMe() {
     if (hasMe || isLoading) return;
     refetch();
   }, [hasMe, isLoading, refetch]);
-
-  return {
-    isLoadingMe: isLoading,
-  };
 }

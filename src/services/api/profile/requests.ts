@@ -1,11 +1,11 @@
 import { IMe } from '@/interfaces/Me';
 import { api } from '@/services/api';
 import { links } from '@/utils/links';
+import { AxiosResponse } from 'axios';
 
-export async function getMe(): Promise<{
-  data: IMe;
-}> {
-  return api.get(`http://localhost:3000/api/me`);
+export async function getMe(): Promise<IMe> {
+  const response: AxiosResponse<IMe> = await api.get(`${links.api.schedule}/auth/me`);
+  return response.data;
 }
 
 export async function getProfile(username: string) {

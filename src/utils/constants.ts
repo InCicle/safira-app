@@ -1,7 +1,4 @@
-import {
-  NotificationFiltersType,
-  NotificationParamsType,
-} from '@/services/api/notifications';
+import { NotificationFiltersType, NotificationParamsType } from '@/services/api/notifications';
 
 export const MINUTE_IN_MILLISECONDS = 60 * 1000;
 
@@ -21,5 +18,7 @@ export const MODULE_PERMISSIONS = 'module_permissions';
 
 export const URL_STEP_ONE = 'https://lp.stepone.com.br/';
 
-export const INCICLE_LOGO =
-  'https://static-incicle.s3.amazonaws.com/logo_incicle.svg';
+export const INCICLE_LOGO = 'https://static-incicle.s3.amazonaws.com/logo_incicle.svg';
+
+export const PERSON_LINK = 'https://www.incicle.com/tutoriais-de-suporte-person/';
+export const COMPANY_LINK = 'https://www.incicle.com/tutoriais-de-suporte-company/';

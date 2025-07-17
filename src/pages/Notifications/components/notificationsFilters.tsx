@@ -8,7 +8,7 @@ import { translation } from '@/utils/translation';
 import { NotificationsReadOptions } from '@/services/api/notifications';
 import { useNotifications } from '@/hooks/useNotifications';
 import { MODULES } from '@/interfaces/Modules';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuthStore } from '@/store/useAuthStore';
 
 interface NotificationsFiltersProps {
   isLoading: boolean;
@@ -28,7 +28,7 @@ export const NotificationsFilters: React.FC<NotificationsFiltersProps> = ({
   handleSetModuleFilter,
 }) => {
   const { t } = useTranslation();
-  const { user } = useAuth();
+  const { user } = useAuthStore();
   const { params } = useNotifications();
 
   return (
@@ -42,18 +42,14 @@ export const NotificationsFilters: React.FC<NotificationsFiltersProps> = ({
         <Stack direction="row" spacing={1}>
           <ButtonNotification
             disabled={isLoading}
-            onClick={() =>
-              handleChangeReadOptionReader(NotificationsReadOptions.ALL)
-            }
+            onClick={() => handleChangeReadOptionReader(NotificationsReadOptions.ALL)}
             active={params.read !== NotificationsReadOptions.UNREAD ? 1 : 0}
           >
             {translation(t, 'all')}
           </ButtonNotification>
           <ButtonNotification
             disabled={isLoading}
-            onClick={() =>
-              handleChangeReadOptionReader(NotificationsReadOptions.UNREAD)
-            }
+            onClick={() => handleChangeReadOptionReader(NotificationsReadOptions.UNREAD)}
             active={params.read === NotificationsReadOptions.UNREAD ? 1 : 0}
           >
             {translation(t, 'unread')}
@@ -63,11 +59,7 @@ export const NotificationsFilters: React.FC<NotificationsFiltersProps> = ({
         <ButtonNotification disabled={isLoading} onClick={handleOpen}>
           {translation(
             t,
-            `modules.${
-              FilterModules.find(
-                (module) => module.slug === (params.module || MODULES.all),
-              )?.title ?? ''
-            }`,
+            `modules.${FilterModules.find(module => module.slug === (params.module || MODULES.all))?.title ?? ''}`,
           )}
           <ArrowDropDownIcon
             fontSize="small"
@@ -97,10 +89,7 @@ export const NotificationsFilters: React.FC<NotificationsFiltersProps> = ({
           if (module.linkKey === 'disabled') {
             return <React.Fragment key={index}></React.Fragment>;
           }
-          if (
-            module.userType === 'BOTH' ||
-            (user && user.type === module.userType)
-          ) {
+          if (module.userType === 'BOTH' || (user && user.type === module.userType)) {
             return (
               <MenuItem
                 key={module.slug}
@@ -110,11 +99,7 @@ export const NotificationsFilters: React.FC<NotificationsFiltersProps> = ({
                 value={module.slug}
               >
                 <ListItemIcon>
-                  <img
-                    src={module.icon}
-                    style={{ width: 24, height: 24 }}
-                    alt={module.icon}
-                  />
+                  <img src={module.icon} style={{ width: 24, height: 24 }} alt={module.icon} />
                 </ListItemIcon>
                 {translation(t, 'modules.'.concat(module.title))}
               </MenuItem>

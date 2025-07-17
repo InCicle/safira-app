@@ -8,7 +8,7 @@ import {
   ShowProjects,
 } from '@/utils/enums';
 
-export interface MeCompany {
+export interface IMeCompany {
   id: string;
   name: string;
   avatar: string;
@@ -54,13 +54,13 @@ export interface UserConfig {
   user_id: string;
 }
 
-export interface CollaboratorsInterface {
+export interface IMeCollaborators {
   id: string;
   job: HierarchyInterface | null;
   unit: HierarchyInterface | null;
   level: HierarchyInterface | null;
   sector: HierarchyInterface | null;
-  company: MeCompany;
+  company: IMeCompany;
   is_manager_competence: boolean;
   is_manager_in_check?: boolean;
 }
@@ -79,7 +79,7 @@ export interface IMe {
   cover: string | null;
   profile_id: string;
   avatar: string;
-  collaborators: CollaboratorsInterface[];
+  collaborators: IMeCollaborators[];
   redirects?: Redirect[];
   profile_config: ProfileConfig;
   user_config: UserConfig;

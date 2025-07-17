@@ -1,13 +1,10 @@
 import { ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { DefaultMainLayout } from './components/DefaultMainLayout';
-import AuthProvider from './contexts/Auth/Provider';
-import ProfileProvider from './contexts/Profile/Provider';
-import PermissionsProvider from './contexts/Permissions/Provider';
 import { createInterceptor } from './utils/interceptor';
-import { useAuth } from './hooks/useAuth';
-import { usePermissions } from './hooks/usePermissions';
 import { Settings } from 'luxon';
+import { useAuthStore } from './store/useAuthStore';
+import { useProfileStore } from './store/useProfileStore';
 
 const queryClient = new QueryClient();
 
@@ -16,8 +13,8 @@ interface AppProps {
 }
 
 function App({ children }: AppProps) {
-  const { companyId } = usePermissions();
-  const { signOut, refreshToken, user } = useAuth();
+  const { companyId } = useProfileStore();
+  const { signOut, refreshToken, user } = useAuthStore();
 
   const { interceptRequest, interceptResponse } = createInterceptor({
     signOut,
@@ -34,13 +31,7 @@ function App({ children }: AppProps) {
   try {
     return (
       <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <ProfileProvider>
-            <PermissionsProvider>
-              <DefaultMainLayout>{children}</DefaultMainLayout>
-            </PermissionsProvider>
-          </ProfileProvider>
-        </AuthProvider>
+        <DefaultMainLayout>{children}</DefaultMainLayout>
       </QueryClientProvider>
     );
   } catch (error) {

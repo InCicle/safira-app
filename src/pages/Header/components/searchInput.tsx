@@ -1,12 +1,6 @@
 import RenderSearchItem from '@/components/RenderSearchItem';
 import { translation } from '@/utils/translation';
-import {
-  Autocomplete,
-  Box,
-  IconButton,
-  Paper,
-  Typography,
-} from '@mui/material';
+import { Autocomplete, Box, IconButton, Paper, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import { FC } from 'react';
@@ -31,7 +25,7 @@ export const SearchInput: FC<SearchCardModalProps> = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <>
+    <div>
       <Paper
         elevation={0}
         className="incicleheader-inputbutton"
@@ -69,9 +63,7 @@ export const SearchInput: FC<SearchCardModalProps> = ({
           options={resultSearch}
           open={hasResult}
           noOptionsText={
-            <Typography sx={{ fontSize: '13px !important' }}>
-              {translation(t, 'no_result_found')}
-            </Typography>
+            <Typography sx={{ fontSize: '13px !important' }}>{translation(t, 'no_result_found')}</Typography>
           }
           sx={{
             '& input': {
@@ -80,7 +72,7 @@ export const SearchInput: FC<SearchCardModalProps> = ({
               outline: 'none',
             },
           }}
-          renderInput={(params) => (
+          renderInput={params => (
             <Box
               ref={params.InputProps.ref}
               sx={{
@@ -93,7 +85,7 @@ export const SearchInput: FC<SearchCardModalProps> = ({
               }}
             >
               {inputBoxClassName && (
-                <>
+                <div>
                   <IconButton onClick={() => setInputBoxClassName('')}>
                     <CloseIcon
                       sx={{
@@ -102,7 +94,7 @@ export const SearchInput: FC<SearchCardModalProps> = ({
                       }}
                     />
                   </IconButton>
-                </>
+                </div>
               )}
               <input
                 type="text"
@@ -133,6 +125,6 @@ export const SearchInput: FC<SearchCardModalProps> = ({
           />
         </IconButton>
       </Paper>
-    </>
+    </div>
   );
 };

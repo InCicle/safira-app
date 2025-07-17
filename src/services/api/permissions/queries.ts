@@ -1,27 +1,26 @@
 import { useQuery } from '@tanstack/react-query';
 import { getAllPermissions } from '.';
-import { getUser } from '@/utils/getUser';
-import { usePermissions } from '@/hooks/usePermissions';
+import { useProfileStore } from '@/store/useProfileStore';
+import { usePermissionsStore } from '@/store/usePermissionsStore';
+import { useAuthStore } from '@/store/useAuthStore';
+import { MINUTE_IN_MILLISECONDS } from '@/utils/constants';
 
 export function useGetPermissionsQuery() {
-  const user = getUser();
-  const { permissions, companyId } = usePermissions();
+  const user = useAuthStore(state => state.user);
+  const { companyId } = useProfileStore();
+  const { permissions, setPermissions } = usePermissionsStore();
   const isPersonWithoutCompany = user?.type === 'PERSON' && !companyId;
 
-  const { data = [], isLoading } = useQuery({
+  return useQuery({
     queryKey: ['permissions', companyId],
     queryFn: () =>
-      getAllPermissions(companyId || user?.profile_id).then((response) => {
+      getAllPermissions().then(response => {
+        setPermissions(response);
         return response;
       }),
     enabled: !isPersonWithoutCompany,
-    staleTime: 1000 * 60 * 1,
-    refetchInterval: 1000 * 60 * 1,
+    staleTime: MINUTE_IN_MILLISECONDS * 3,
+    refetchInterval: MINUTE_IN_MILLISECONDS * 3,
     initialData: permissions ? permissions : undefined,
   });
-
-  return {
-    data,
-    isLoading,
-  };
 }

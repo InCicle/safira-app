@@ -1,6 +1,6 @@
 import React from 'react';
 import Cookies from 'js-cookie';
-import { useProfile } from '@/hooks/useProfile';
+import { useProfileStore } from '@/store/useProfileStore';
 import RenderImage from '../RenderImage';
 import { INCICLE_LOGO } from '@/utils/constants';
 
@@ -9,11 +9,8 @@ interface CompanyLogoProps {
   margin?: string | number;
 }
 
-const CompanyLogo: React.FC<CompanyLogoProps> = ({
-  height = 35,
-  margin = 0,
-}) => {
-  const { me } = useProfile();
+const CompanyLogo: React.FC<CompanyLogoProps> = ({ height = 35, margin = 0 }) => {
+  const { me } = useProfileStore();
 
   if (!me) return null;
 
@@ -26,11 +23,8 @@ const CompanyLogo: React.FC<CompanyLogoProps> = ({
   }
 
   if (me.type === 'PERSON' && me.collaborators?.length) {
-    const selectedCompanyId =
-      Cookies.get('companySelected') || me.collaborators[0].company.id;
-    const selected = me.collaborators.find(
-      (col) => col.company.id === selectedCompanyId,
-    );
+    const selectedCompanyId = Cookies.get('companySelected') || me.collaborators[0].company.id;
+    const selected = me.collaborators.find(col => col.company.id === selectedCompanyId);
     if (selected?.company.logo) {
       logoUrl = selected.company.logo;
       isPublic = false;
