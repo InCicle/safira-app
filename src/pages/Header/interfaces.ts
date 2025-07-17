@@ -1,4 +1,4 @@
-import { CollaboratorsInterface } from '@/interfaces/Me';
+import { IMeCollaborators } from '@/interfaces/Me';
 import { RefObject } from 'react';
 
 export interface HeaderMobileProps {
@@ -9,19 +9,15 @@ export interface HeaderMobileProps {
   anchorRef: RefObject<HTMLFormElement | null>;
   setInputBoxClassName: (className: string) => void;
   searchFunction: (value: string) => void;
-  handleOpenModulesMenu: (
-    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => void;
-  handleOpenMenuProfile: (
-    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => void;
+  handleOpenModulesMenu: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  handleOpenMenuProfile: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 export interface HeaderDesktopProps extends HeaderMobileProps {
   accountType: string;
   openMenuCompanies: boolean;
-  collaborators: CollaboratorsInterface[];
-  selectedCollaborator?: CollaboratorsInterface;
+  collaborators: IMeCollaborators[];
+  selectedCollaborator?: IMeCollaborators;
   anchorCompaniesEl: HTMLElement | null;
   handleOpenMenuCompanies: (ev: any) => void;
   handleCloseMenuCompanies: () => void;

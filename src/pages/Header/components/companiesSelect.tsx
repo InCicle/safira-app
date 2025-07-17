@@ -4,11 +4,11 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import WorkIcon from '@mui/icons-material/Work';
 import { maxLetters } from '@/utils/maxLetters';
 import { companiesAvatar } from './companiesAvatar';
-import { CollaboratorsInterface } from '@/interfaces/Me';
+import { IMeCollaborators } from '@/interfaces/Me';
 
 interface CompaniesSelectProps {
-  collaborators: CollaboratorsInterface[];
-  selectedCollaborator?: CollaboratorsInterface;
+  collaborators: IMeCollaborators[];
+  selectedCollaborator?: IMeCollaborators;
   accountType: string;
   openMenuCompanies: boolean;
   anchorCompaniesEl: null | HTMLElement;
@@ -27,8 +27,7 @@ export const CompaniesSelect: FC<CompaniesSelectProps> = ({
   openMenuCompanies,
   selectedCollaborator,
 }) => {
-  const isPersonWithCompanies =
-    collaborators.length > 0 && accountType === 'PERSON';
+  const isPersonWithCompanies = collaborators.length > 0 && accountType === 'PERSON';
   return (
     <div className="incicleheader-companies">
       {isPersonWithCompanies && (
@@ -38,11 +37,7 @@ export const CompaniesSelect: FC<CompaniesSelectProps> = ({
           size="small"
           clickable
           avatar={companiesAvatar()}
-          label={
-            <span style={{ fontSize: '13px' }}>
-              {maxLetters(selectedCollaborator?.company.name ?? '', 200)}
-            </span>
-          }
+          label={<span style={{ fontSize: '13px' }}>{maxLetters(selectedCollaborator?.company.name ?? '', 200)}</span>}
           onDelete={handleOpenMenuCompanies}
           deleteIcon={<ArrowDropDownIcon />}
           variant="outlined"

@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuthStore } from '@/store/useAuthStore';
 
 export function DateZoneHandler(dateValue: string) {
-  const { user } = useAuth();
+  const { user } = useAuthStore();
 
   function getDateTime() {
     const now = new Date(dateValue);
@@ -21,8 +21,7 @@ export function DateZoneHandler(dateValue: string) {
     return now.toLocaleString();
   }
 
-  const withFormat = (format: string) =>
-    DateTime.fromJSDate(new Date(getDateTime())).toFormat(format);
+  const withFormat = (format: string) => DateTime.fromJSDate(new Date(getDateTime())).toFormat(format);
 
   return {
     withFormat,
