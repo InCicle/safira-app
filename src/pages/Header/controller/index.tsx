@@ -11,10 +11,22 @@ import { getProfile } from '@/services/api/profile/requests';
 import NotificationProvider from '@/contexts/Notification/Provider';
 import { CollaboratorsMenuModules, ModulesType, UserMenuModules } from '@/utils/modules';
 import { links } from '@/utils/links';
-import { URL_STEP_ONE } from '@/utils/constants';
 import Cookies from 'js-cookie';
 import { domainName } from '@/utils/auth';
 import { hasManagerPermissions } from '@/utils/hasManagerPanel';
+
+const RedirectType = {
+  STEPONE: 1,
+  INPOINT: 2,
+  RECRUITMENT: 3,
+};
+type RedirectTypeEnum = (typeof RedirectType)[keyof typeof RedirectType];
+
+const moduleRedirectType = {
+  in_point: RedirectType.INPOINT,
+  recruitment: RedirectType.RECRUITMENT,
+  corporative_university: RedirectType.STEPONE,
+} as const;
 
 export const HeaderController: React.FC = () => {
   const { user } = useAuthStore();
@@ -41,6 +53,8 @@ export const HeaderController: React.FC = () => {
   const [filteredCollaboratorsModules, setFilteredCollaboratorsModules] = useState<ModulesType[]>([]);
 
   const contentSideBarElement = document.querySelector('.contentSidebar > div') as HTMLDivElement | null;
+  const integrationTitles = ['corporative_university', 'in_point', 'recruitment'];
+  const socialLinkByEnvironment = import.meta.env.VITE_APP_WEB_URL_SOCIAL_NETWORK;
 
   const clearInputClassName = useCallback(() => {
     if (window.innerWidth > 1200 && inputBoxClassName.length) setInputBoxClassName('');
@@ -57,7 +71,10 @@ export const HeaderController: React.FC = () => {
   }, [contentSideBarElement]);
 
   const getCompany = useCallback(() => {
-    if (me?.type !== 'PERSON') return;
+    if (me?.type !== 'PERSON') {
+      setCompanyId(me?.profile_id);
+      return;
+    }
     setAccountType('PERSON');
     if (me?.collaborators?.length > 0) {
       const companySelected = Cookies.get('companySelected');
@@ -203,30 +220,37 @@ export const HeaderController: React.FC = () => {
     setAnchorModulesMenuEl(null);
   }
 
-  function getUrlStepOne(redirects) {
-    const redirecionamentoStepOne = redirects.find(redirect => redirect.type === 1 || redirect.type === 'STEPONE');
-    return redirecionamentoStepOne ? redirecionamentoStepOne.url : URL_STEP_ONE;
+  function findRedirectUrlByType(redirects, type: RedirectTypeEnum) {
+    const redirectEntry = redirects.find(redirect => redirect.type === type);
+    return redirectEntry ? redirectEntry.url : socialLinkByEnvironment;
   }
 
-  function getModuleUrl(moduleItem: ModulesType) {
-    if (moduleItem.title !== 'corporative_university') {
+  const resolveModuleUrl = moduleItem => {
+    if (!integrationTitles.includes(moduleItem.title)) {
       return moduleItem.url;
     }
 
+    const redirects = me?.redirects;
+
+    const redirectType = moduleRedirectType[moduleItem.title];
+
     if (me?.type === 'COMPANY') {
-      return me.redirects && me.redirects.length > 0 ? getUrlStepOne(me.redirects) : URL_STEP_ONE;
+      const redirectUrlFinded = findRedirectUrlByType(redirects, redirectType);
+
+      return redirects && redirects.length > 0 && redirectType ? redirectUrlFinded : socialLinkByEnvironment;
     } else if (me?.type === 'PERSON' && me.collaborators && me.collaborators.length > 0) {
       const currentCollaborator = me.collaborators.find(({ company }) => company.id === companyId);
       if (
         currentCollaborator &&
         currentCollaborator.company.redirects &&
-        currentCollaborator.company.redirects.length > 0
+        currentCollaborator.company.redirects.length > 0 &&
+        redirectType
       ) {
-        return getUrlStepOne(currentCollaborator.company.redirects);
+        return findRedirectUrlByType(currentCollaborator.company.redirects, redirectType);
       }
     }
-    return URL_STEP_ONE;
-  }
+    return socialLinkByEnvironment;
+  };
 
   function openProfileMenu(ev) {
     setAnchorProfileMenuEl(ev.currentTarget);
@@ -280,7 +304,7 @@ export const HeaderController: React.FC = () => {
         closeModulesMenu={closeModulesMenu}
         filteredCollaboratorsModules={filteredCollaboratorsModules}
         filteredUserModules={filteredUserModules}
-        getModuleUrl={getModuleUrl}
+        getModuleUrl={resolveModuleUrl}
         closeProfileMenu={closeProfileMenu}
         menuItemUrl={getMenuItemUrl()}
         profile={profile}
