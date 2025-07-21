@@ -6,7 +6,7 @@ import { useAuthStore } from '@/store/useAuthStore';
 
 export function useGetMeQuery() {
   const { user } = useAuthStore();
-  const { me, companyId, setMe } = useProfileStore();
+  const { companyId, setMe } = useProfileStore();
 
   return useQuery({
     queryKey: ['auth', companyId],
@@ -18,6 +18,5 @@ export function useGetMeQuery() {
     enabled: Boolean(user),
     staleTime: MINUTE_IN_MILLISECONDS * 3,
     refetchInterval: MINUTE_IN_MILLISECONDS * 3,
-    initialData: me,
   });
 }

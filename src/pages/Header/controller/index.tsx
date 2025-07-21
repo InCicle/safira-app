@@ -1,19 +1,19 @@
-import { useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { ModulesMenuRef } from '@/pages/Header/components/modulesMenu';
 import { ProfileMenuRef, ProfileProps } from '@/pages/Header/components/profileMenu';
 import { HeaderView } from '../view';
-import { IMeCollaborators } from '@/interfaces/Me';
+import { IMe, IMeCollaborators } from '@/interfaces/Me';
 import { IProfile } from '@/interfaces/Profile';
-import { useAuthStore } from '@/store/useAuthStore';
-import { useProfileStore } from '@/store/useProfileStore';
-import { usePermissionsStore } from '@/store/usePermissionsStore';
-import { getProfile } from '@/services/api/profile/requests';
 import NotificationProvider from '@/contexts/Notification/Provider';
 import { CollaboratorsMenuModules, ModulesType, UserMenuModules } from '@/utils/modules';
 import { links } from '@/utils/links';
 import Cookies from 'js-cookie';
 import { domainName } from '@/utils/auth';
+import { IUser } from '@/interfaces/User';
 import { hasManagerPermissions } from '@/utils/hasManagerPanel';
+import { getProfile } from '@/services/api/profile/requests';
+import { IPermission } from '@/services/api/permissions';
+import { IHttpClient } from '@/clients/Http';
 
 const RedirectType = {
   STEPONE: 1,
@@ -28,11 +28,36 @@ const moduleRedirectType = {
   corporative_university: RedirectType.STEPONE,
 } as const;
 
-export const HeaderController: React.FC = () => {
-  const { user } = useAuthStore();
-  const { me, companyId, setCompanyId } = useProfileStore();
-  const { checkPermission, permissions } = usePermissionsStore();
+interface HeaderControllerProps {
+  user: IUser | null;
+  me: IMe | null;
+  companyId: string | null;
+  setCompanyId: (companyId: string) => void;
+  checkPermission: (permissions: string[]) => boolean;
+  permissions: IPermission[];
+  apiClient?: IHttpClient;
+}
 
+const integrationTitles = ['corporative_university', 'in_point', 'recruitment'];
+
+export const HeaderController: React.FC<HeaderControllerProps> = ({
+  me,
+  user,
+  companyId,
+  apiClient,
+  permissions,
+  setCompanyId,
+  checkPermission,
+}) => {
+  const api = useMemo(() => apiClient || undefined, [apiClient]);
+
+  console.log({
+    user,
+    me,
+    companyId,
+    permissions,
+    api,
+  });
   const anchorRef = useRef<HTMLFormElement | null>(null);
   const modulesMenuRef = useRef<ModulesMenuRef | null>(null);
   const profileMenuRef = useRef<ProfileMenuRef | null>(null);
@@ -53,7 +78,6 @@ export const HeaderController: React.FC = () => {
   const [filteredCollaboratorsModules, setFilteredCollaboratorsModules] = useState<ModulesType[]>([]);
 
   const contentSideBarElement = document.querySelector('.contentSidebar > div') as HTMLDivElement | null;
-  const integrationTitles = ['corporative_university', 'in_point', 'recruitment'];
   const socialLinkByEnvironment = import.meta.env.VITE_APP_WEB_URL_SOCIAL_NETWORK;
 
   const clearInputClassName = useCallback(() => {
@@ -71,12 +95,12 @@ export const HeaderController: React.FC = () => {
   }, [contentSideBarElement]);
 
   const getCompany = useCallback(() => {
-    if (me?.type !== 'PERSON') {
+    if (me?.type !== 'PERSON' && me?.profile_id) {
       setCompanyId(me?.profile_id);
       return;
     }
     setAccountType('PERSON');
-    if (me?.collaborators?.length > 0) {
+    if (me?.collaborators && me?.collaborators?.length > 0) {
       const companySelected = Cookies.get('companySelected');
       if (!companySelected) {
         Cookies.set('companySelected', me?.collaborators[0].company.id, {
@@ -90,8 +114,8 @@ export const HeaderController: React.FC = () => {
       }
     }
 
-    setCollaborators(me?.collaborators);
-  }, [me]);
+    setCollaborators(me?.collaborators ?? []);
+  }, [me, setCompanyId]);
 
   const getManagerPermission = useCallback(() => {
     if (!user || user.type === 'COMPANY' || !me || !me?.collaborators) return;
@@ -156,6 +180,7 @@ export const HeaderController: React.FC = () => {
   }, [changeSidebarDisplay, clearInputClassName]);
 
   useEffect(() => {
+    if (!me) return;
     setProfile({
       id: me?.user_id,
       name: me?.social_name,
@@ -167,104 +192,115 @@ export const HeaderController: React.FC = () => {
 
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  function searchFunction(username: string) {
-    setResultSearch([]);
-    setHasResult(false);
-    if (searchTimeoutRef.current) {
-      clearTimeout(searchTimeoutRef.current);
-    }
-    if (username.trim().length < 3) return;
-    searchTimeoutRef.current = setTimeout(() => {
-      getProfile(username)
-        .then(response => {
-          setResultSearch(response?.data);
-          setHasResult(true);
-        })
-        .catch(() => {
-          setHasResult(false);
-        });
-    }, 300);
-  }
-
-  function handleOpenMenuCompanies(ev) {
-    setAnchorCompanyEl(ev.currentTarget);
-  }
-
-  function handleCloseMenuCompanies() {
-    setAnchorCompanyEl(null);
-  }
-
-  function handleOpenMenuProfile(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    profileMenuRef.current?.openProfileMenu(ev);
-  }
-
-  function handleOpenModulesMenu(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    modulesMenuRef.current?.openModulesMenu(ev);
-  }
-
-  function changeChipContent(index: number) {
-    const companyId = collaborators[index].company.id;
-    Cookies.remove('companySelected', { domain: domainName });
-    Cookies.set('companySelected', companyId, {
-      domain: domainName,
-    });
-    setCompanyId(companyId);
-    window.location.reload();
-  }
-
-  function openModulesMenu(ev) {
-    setAnchorModulesMenuEl(ev.currentTarget);
-  }
-
-  function closeModulesMenu() {
-    setAnchorModulesMenuEl(null);
-  }
-
-  function findRedirectUrlByType(redirects, type: RedirectTypeEnum) {
-    const redirectEntry = redirects.find(redirect => redirect.type === type);
-    return redirectEntry ? redirectEntry.url : socialLinkByEnvironment;
-  }
-
-  const resolveModuleUrl = moduleItem => {
-    if (!integrationTitles.includes(moduleItem.title)) {
-      return moduleItem.url;
-    }
-
-    const redirects = me?.redirects;
-
-    const redirectType = moduleRedirectType[moduleItem.title];
-
-    if (me?.type === 'COMPANY') {
-      const redirectUrlFinded = findRedirectUrlByType(redirects, redirectType);
-
-      return redirects && redirects.length > 0 && redirectType ? redirectUrlFinded : socialLinkByEnvironment;
-    } else if (me?.type === 'PERSON' && me.collaborators && me.collaborators.length > 0) {
-      const currentCollaborator = me.collaborators.find(({ company }) => company.id === companyId);
-      if (
-        currentCollaborator &&
-        currentCollaborator.company.redirects &&
-        currentCollaborator.company.redirects.length > 0 &&
-        redirectType
-      ) {
-        return findRedirectUrlByType(currentCollaborator.company.redirects, redirectType);
+  const searchFunction = useCallback(
+    (username: string) => {
+      setResultSearch([]);
+      setHasResult(false);
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
       }
-    }
-    return socialLinkByEnvironment;
-  };
+      if (username.trim().length < 3) return;
+      searchTimeoutRef.current = setTimeout(() => {
+        getProfile(username, api)
+          .then(response => {
+            setResultSearch(response?.data ?? []);
+            setHasResult(true);
+          })
+          .catch(() => {
+            setHasResult(false);
+          });
+      }, 300);
+    },
+    [api],
+  );
 
-  function openProfileMenu(ev) {
+  const handleOpenMenuCompanies = useCallback(ev => {
+    setAnchorCompanyEl(ev.currentTarget);
+  }, []);
+
+  const handleCloseMenuCompanies = useCallback(() => {
+    setAnchorCompanyEl(null);
+  }, []);
+
+  const handleOpenMenuProfile = useCallback((ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    profileMenuRef.current?.openProfileMenu(ev);
+  }, []);
+
+  const handleOpenModulesMenu = useCallback((ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    modulesMenuRef.current?.openModulesMenu(ev);
+  }, []);
+
+  const changeChipContent = useCallback(
+    (index: number) => {
+      const companyId = collaborators[index].company.id;
+      Cookies.remove('companySelected', { domain: domainName });
+      Cookies.set('companySelected', companyId, {
+        domain: domainName,
+      });
+      setCompanyId(companyId);
+      window.location.reload();
+    },
+    [collaborators, setCompanyId],
+  );
+
+  const openModulesMenu = useCallback(ev => {
+    setAnchorModulesMenuEl(ev.currentTarget);
+  }, []);
+
+  const closeModulesMenu = useCallback(() => {
+    setAnchorModulesMenuEl(null);
+  }, []);
+
+  const findRedirectUrlByType = useCallback(
+    (redirects, type: RedirectTypeEnum) => {
+      const redirectEntry = redirects.find(redirect => redirect.type === type);
+      return redirectEntry ? redirectEntry.url : socialLinkByEnvironment;
+    },
+    [socialLinkByEnvironment],
+  );
+
+  const resolveModuleUrl = useCallback(
+    moduleItem => {
+      if (!integrationTitles.includes(moduleItem.title)) {
+        return moduleItem.url;
+      }
+
+      const redirects = me?.redirects;
+      const redirectType = moduleRedirectType[moduleItem.title];
+
+      if (me?.type === 'COMPANY') {
+        const redirectUrlFinded = findRedirectUrlByType(redirects, redirectType);
+
+        return redirects && redirects.length > 0 && redirectType ? redirectUrlFinded : socialLinkByEnvironment;
+      } else if (me?.type === 'PERSON' && me.collaborators && me.collaborators.length > 0) {
+        const currentCollaborator = me.collaborators.find(({ company }) => company.id === companyId);
+        if (
+          currentCollaborator &&
+          currentCollaborator.company.redirects &&
+          currentCollaborator.company.redirects.length > 0 &&
+          redirectType
+        ) {
+          return findRedirectUrlByType(currentCollaborator.company.redirects, redirectType);
+        }
+      }
+      return socialLinkByEnvironment;
+    },
+    [me, companyId, socialLinkByEnvironment, findRedirectUrlByType],
+  );
+
+  const openProfileMenu = useCallback(ev => {
     setAnchorProfileMenuEl(ev.currentTarget);
-  }
+  }, []);
 
-  function closeProfileMenu() {
+  const closeProfileMenu = useCallback(() => {
     setAnchorProfileMenuEl(null);
-  }
+  }, []);
 
-  function getMenuItemUrl() {
+  const getMenuItemUrl = useCallback(() => {
     const personUrl = `${links.web.social}/friends`;
     const companyUrl = `${links.web.department}/#/collaborators`;
     return profile?.type === 'PERSON' ? personUrl : profile?.type === 'COMPANY' ? companyUrl : '#';
-  }
+  }, [profile]);
 
   useImperativeHandle(profileMenuRef, () => {
     return {
@@ -281,12 +317,12 @@ export const HeaderController: React.FC = () => {
   });
 
   return (
-    <NotificationProvider>
+    <NotificationProvider apiClient={api}>
       <HeaderView
         anchorRef={anchorRef}
         hasResult={hasResult}
         collaborators={collaborators}
-        userAvatar={me?.avatar}
+        userAvatar={me?.avatar ?? ''}
         accountType={accountType}
         resultSearch={resultSearch}
         searchFunction={searchFunction}

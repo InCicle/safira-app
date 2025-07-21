@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Cookies from 'js-cookie';
 import { Manager } from 'socket.io-client';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -18,11 +18,16 @@ import NotificationService from '@/services/notifications';
 import { DEFAULT_NOTIFICATION_PARAMS, NOTIFICATION_REQUEST_KEY } from '@/utils/constants';
 import { NotificationContext } from './Context';
 import { useAuthStore } from '@/store/useAuthStore';
+import { IHttpClient } from '@/clients/Http';
 
 const manager = new Manager(links.api.notifications_v1);
 const socket = manager.socket('/');
 
-const NotificationProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
+const NotificationProvider: React.FC<
+  React.PropsWithChildren<{
+    apiClient?: IHttpClient;
+  }>
+> = ({ children, apiClient }) => {
   const { fn } = useRender();
   const { user } = useAuthStore();
   const { defineFavicon, definePageTitle } = useHTMLHead();
@@ -48,13 +53,13 @@ const NotificationProvider: React.FC<React.PropsWithChildren> = ({ children }) =
   });
 
   const notificationKey = [NOTIFICATION_REQUEST_KEY, params];
+  const headers = {
+    language: user?.config.default_language || 'en',
+  };
 
   const notificationsQuery = useQuery({
     queryKey: notificationKey,
-    queryFn: () =>
-      getNotifications(params, {
-        language: user?.config.default_language || 'en',
-      }),
+    queryFn: () => getNotifications(params, headers, apiClient),
     placeholderData: state => state,
     retry: false,
     refetchOnMount: false,
@@ -65,34 +70,40 @@ const NotificationProvider: React.FC<React.PropsWithChildren> = ({ children }) =
 
   const { error, isLoading } = notificationsQuery;
   const notificationsResponse = notificationsQuery.data;
-  const notifications = notificationsResponse?.data?.data || [];
+  const notifications = useMemo(() => notificationsResponse?.data?.data || [], [notificationsResponse]);
   const lastPage = notificationsQuery.data?.data?.totalPage || 0;
 
-  function fetchNotifications(newParams: NotificationParamsType) {
-    paramsFallbackRef.current = { ...params };
-    setParams(prev => ({ ...prev, ...newParams }));
-  }
+  const fetchNotifications = useCallback(
+    (newParams: NotificationParamsType) => {
+      paramsFallbackRef.current = { ...params };
+      setParams(prev => ({ ...prev, ...newParams }));
+    },
+    [params],
+  );
 
-  function markAllAsViewed(key?: any[]) {
-    const queryKey = key || [NOTIFICATION_REQUEST_KEY, DEFAULT_NOTIFICATION_PARAMS];
+  const markAllAsViewed = useCallback(
+    (key?: unknown[]) => {
+      const queryKey = key || [NOTIFICATION_REQUEST_KEY, DEFAULT_NOTIFICATION_PARAMS];
 
-    queryClient.setQueryData(queryKey, (previous: AxiosResponse<NotificationWrapper>) => {
-      const prev: AxiosResponse<NotificationWrapper> = previous;
-      if (!prev?.data?.data) return;
+      queryClient.setQueryData(queryKey, (previous: AxiosResponse<NotificationWrapper>) => {
+        const prev: AxiosResponse<NotificationWrapper> = previous;
+        if (!prev?.data?.data) return;
 
-      const prevNotifications = prev?.data?.data || [];
-      const newNotifications = prevNotifications.map(n => ({
-        ...n,
-        saw: true,
-      }));
-      const newData: AxiosResponse<NotificationWrapper> = {
-        ...prev,
-        data: { ...prev.data, data: newNotifications },
-      };
+        const prevNotifications = prev?.data?.data || [];
+        const newNotifications = prevNotifications.map(n => ({
+          ...n,
+          saw: true,
+        }));
+        const newData: AxiosResponse<NotificationWrapper> = {
+          ...prev,
+          data: { ...prev.data, data: newNotifications },
+        };
 
-      return newData;
-    });
-  }
+        return newData;
+      });
+    },
+    [queryClient],
+  );
 
   function notifier(notification: NotificationProps) {
     const queryKey = [NOTIFICATION_REQUEST_KEY, DEFAULT_NOTIFICATION_PARAMS];
@@ -173,38 +184,46 @@ const NotificationProvider: React.FC<React.PropsWithChildren> = ({ children }) =
     service.handleCloseDropdown();
   }, [setDropdownOpened]);
 
-  return (
-    <NotificationContext.Provider
-      value={{
-        notificationViewCount,
-        dropdownOpened,
-        error,
-        isLoading,
-        lastPage,
-        notificationsReqData: notifications,
-
-        badgeIsInvisible,
-        setBadgeIsInvisible,
-
-        notifications: allNotifications,
-        setNotifications: setAllNotifications,
-
-        params,
-        setParams,
-
-        markAllAsViewed,
-        fetchNotifications,
-
-        handleOpenDropdown,
-        handleCloseDropdown,
-
-        hasNextPage: lastPage > params.page,
-        isFetchingNextPage: notificationsQuery.isFetching,
-      }}
-    >
-      {children}
-    </NotificationContext.Provider>
+  const contextValue = useMemo(
+    () => ({
+      notificationViewCount,
+      dropdownOpened,
+      error,
+      isLoading,
+      lastPage,
+      notificationsReqData: notifications,
+      badgeIsInvisible,
+      setBadgeIsInvisible,
+      notifications: allNotifications,
+      setNotifications: setAllNotifications,
+      params,
+      setParams,
+      markAllAsViewed,
+      fetchNotifications,
+      handleOpenDropdown,
+      handleCloseDropdown,
+      hasNextPage: lastPage > params.page,
+      isFetchingNextPage: notificationsQuery.isFetching,
+    }),
+    [
+      notificationViewCount,
+      dropdownOpened,
+      error,
+      isLoading,
+      lastPage,
+      notifications,
+      badgeIsInvisible,
+      allNotifications,
+      params,
+      markAllAsViewed,
+      fetchNotifications,
+      handleOpenDropdown,
+      handleCloseDropdown,
+      notificationsQuery.isFetching,
+    ],
   );
+
+  return <NotificationContext.Provider value={contextValue}>{children}</NotificationContext.Provider>;
 };
 
 export default NotificationProvider;

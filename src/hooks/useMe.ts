@@ -10,5 +10,5 @@ export function useMe() {
   useEffect(() => {
     if (hasMe || isLoading) return;
     refetch();
-  }, [hasMe, isLoading, refetch]);
+  }, [hasMe, isLoading, refetch, me]);
 }

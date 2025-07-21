@@ -1,6 +1,8 @@
+import { IHttpClient } from '@/clients/Http';
 import { IMe } from '@/interfaces/Me';
-import { api } from '@/services/api';
+import { IProfile } from '@/interfaces/Profile';
 import { links } from '@/utils/links';
+import { api } from '..';
 import { AxiosResponse } from 'axios';
 
 export async function getMe(): Promise<IMe> {
@@ -8,6 +10,10 @@ export async function getMe(): Promise<IMe> {
   return response.data;
 }
 
-export async function getProfile(username: string) {
-  return api.get(`${links.api.social}/profile/name/search?search=${username}`);
+export async function getProfile(username: string, apiClient?: IHttpClient) {
+  if (apiClient)
+    return await apiClient.get<{ data: IProfile[] }>({
+      url: `${links.api.social}/profile/name/search?search=${username}`,
+    });
+  return await api.get<IProfile[]>(`${links.api.social}/profile/name/search?search=${username}`);
 }

@@ -1,21 +1,13 @@
 import { FC } from 'react';
 import { HeaderInStyle } from '../components/headerInStyle';
-import { WhatsAppButton } from '@/pages/Header/components/whatsAppButton';
 import { Toast } from '@/pages/Header/components/toast';
 import { HeaderMobile } from '@/pages/Header/components/headerMobile';
 import { HeaderDesktop } from '@/pages/Header/components/headerDesktop';
-import ModulesMenu, {
-  ModulesMenuProps,
-} from '@/pages/Header/components/modulesMenu';
-import ProfileMenu, {
-  ProfileMenuProps,
-} from '@/pages/Header/components/profileMenu';
+import ModulesMenu, { ModulesMenuProps } from '@/pages/Header/components/modulesMenu';
+import ProfileMenu, { ProfileMenuProps } from '@/pages/Header/components/profileMenu';
 import { HeaderDesktopProps } from '../interfaces';
 
-export interface HeaderViewProps
-  extends HeaderDesktopProps,
-    ModulesMenuProps,
-    ProfileMenuProps {}
+export interface HeaderViewProps extends HeaderDesktopProps, ModulesMenuProps, ProfileMenuProps {}
 
 export const HeaderView: FC<HeaderViewProps> = ({
   profile,
@@ -47,8 +39,7 @@ export const HeaderView: FC<HeaderViewProps> = ({
   closeProfileMenu,
   setOpenTutorial,
 }) => {
-  const isDesktop =
-    typeof window !== 'undefined' ? window.innerWidth > 600 : true;
+  const isDesktop = typeof window !== 'undefined' ? window.innerWidth > 600 : true;
   return (
     <>
       <HeaderInStyle role="heading">
@@ -103,7 +94,6 @@ export const HeaderView: FC<HeaderViewProps> = ({
           />
         )}
       </HeaderInStyle>
-      <WhatsAppButton />
     </>
   );
 };

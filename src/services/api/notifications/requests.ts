@@ -1,26 +1,30 @@
 import { links } from '@/utils/links';
-import {
-  NotificationHeadersType,
-  NotificationParamsType,
-  NotificationWrapper,
-} from './types';
-import { api } from '@/services/api';
+import { NotificationHeadersType, NotificationParamsType, NotificationWrapper } from './types';
+import { IHttpClient } from '@/clients/Http';
+import { api } from '..';
 
 export function getNotifications(
   params: NotificationParamsType,
   headers: NotificationHeadersType,
+  apiClient?: IHttpClient,
 ) {
   const { page, perPage, ...rest } = params;
   const { language } = headers;
-  return api.get<NotificationWrapper>(
-    `${links.api.notifications_v2}/notifications/me`,
-    {
+  if (apiClient)
+    return apiClient.get<{ data: NotificationWrapper }>({
+      url: `${links.api.notifications_v2}/notifications/me`,
       params: { ...rest, page, size: perPage },
       headers: {
         'accept-language': language,
       },
+    });
+
+  return api.get<NotificationWrapper>(`${links.api.notifications_v2}/notifications/me`, {
+    params: { ...rest, page, size: perPage },
+    headers: {
+      'accept-language': language,
     },
-  );
+  });
 }
 
 export function updateSawNotifications(arg?: any) {

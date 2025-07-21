@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NotificationWrapper } from './styles';
 import { NotificationItem } from './notificationItem';
@@ -61,6 +61,13 @@ export const NotificationsMenu: React.FC<NotificationsMenuProps> = ({
     isFetchingNextPage,
     fetchNextPage: handleLoadMoreContent,
   });
+
+  useEffect(() => {
+    if (open) {
+      handleLoadMoreContent();
+    }
+  }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <Menu
       open={open}

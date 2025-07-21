@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { DefaultMainLayout } from './components/DefaultMainLayout';
-import { createInterceptor } from './utils/interceptor';
 import { Settings } from 'luxon';
 import { useAuthStore } from './store/useAuthStore';
+import { createInterceptor } from './utils/interceptor';
 import { useProfileStore } from './store/useProfileStore';
+import { ApplicationProvider } from './contexts/Application';
 
 const queryClient = new QueryClient();
 
@@ -31,7 +31,7 @@ function App({ children }: AppProps) {
   try {
     return (
       <QueryClientProvider client={queryClient}>
-        <DefaultMainLayout>{children}</DefaultMainLayout>
+        <ApplicationProvider>{children}</ApplicationProvider>
       </QueryClientProvider>
     );
   } catch (error) {

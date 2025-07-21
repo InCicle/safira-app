@@ -1,12 +1,9 @@
 import React from 'react';
-import { MenuItem, Stack, Box } from '@mui/material';
-import CircleIcon from '@mui/icons-material/Circle';
-import {
-  markAsReadNotification,
-  NotificationProps,
-} from '@/services/api/notifications';
-import { RenderAvatar } from '@/components/renderAvatar';
 import { FilterModules } from '@/utils/modules';
+import CircleIcon from '@mui/icons-material/Circle';
+import { MenuItem, Stack, Box } from '@mui/material';
+import { RenderAvatar } from '@/components/renderAvatar';
+import { markAsReadNotification, NotificationProps } from '@/services/api/notifications';
 
 interface NotificationContainerProps {
   notification?: NotificationProps;
@@ -14,15 +11,17 @@ interface NotificationContainerProps {
   onClick?: (ev?: any) => void;
 }
 
-export const NotificationContainer: React.FC<
-  React.PropsWithChildren<NotificationContainerProps>
-> = ({ url, onClick, children, notification }) => {
+export const NotificationContainer: React.FC<React.PropsWithChildren<NotificationContainerProps>> = ({
+  url,
+  onClick,
+  children,
+  notification,
+}) => {
   function markAsRead(e: any, notification: NotificationProps, url?: string) {
     e.preventDefault();
     markAsReadNotification(notification.id)
       .then((response: any) => {
-        if (response.status === 204 && url && typeof window !== 'undefined')
-          window.location.href = url;
+        if (response.status === 204 && url && typeof window !== 'undefined') window.location.href = url;
       })
       .catch(() => {
         if (typeof window === 'undefined' || !url) return;
@@ -37,20 +36,6 @@ export const NotificationContainer: React.FC<
 
     if (notification) {
       markAsRead(ev, notification, url);
-    }
-
-    if (!url || typeof window === 'undefined') return;
-
-    // TODO: remove this when we have a better solution
-    const currentUrl = new URL(window.location.href);
-    const notificationUrl = new URL(url);
-
-    const currentDomain = `${currentUrl.hostname}`;
-    const notificationDomain = `${notificationUrl.hostname}`;
-    if (currentDomain === notificationDomain) {
-      ev.preventDefault();
-      const newUrl = `${notificationUrl.origin}${notificationUrl.pathname}`;
-      window.history.replaceState(null, '', newUrl);
     }
   }
 
@@ -73,9 +58,7 @@ export const NotificationContainer: React.FC<
     >
       <Stack direction="row" style={{ width: '100%' }} alignItems="center">
         <Box sx={{ position: 'relative' }}>
-          {notification && (
-            <RenderAvatar src={notification?.sender.avatar_url} />
-          )}
+          {notification && <RenderAvatar src={notification?.sender.avatar_url} />}
 
           {Boolean(notification?.module) && (
             <Box
@@ -94,27 +77,17 @@ export const NotificationContainer: React.FC<
               }}
             >
               <img
-                src={
-                  FilterModules.find(
-                    (module) => module.slug === notification?.module,
-                  )?.icon
-                }
+                src={FilterModules.find(module => module.slug === notification?.module)?.icon}
                 alt={notification?.module}
                 style={{ width: '100%', height: 'auto' }}
               />
             </Box>
           )}
         </Box>
-        <Stack
-          direction="column"
-          spacing={1}
-          style={{ width: '100%', marginRight: '10px' }}
-        >
+        <Stack direction="column" spacing={1} style={{ width: '100%', marginRight: '10px' }}>
           {children}
         </Stack>
-        {!notification?.read && (
-          <CircleIcon sx={{ fill: '#00adcb', width: 10 }} />
-        )}
+        {!notification?.read && <CircleIcon sx={{ fill: '#00adcb', width: 10 }} />}
       </Stack>
     </MenuItem>
   );

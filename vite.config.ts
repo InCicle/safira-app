@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
         name: 'safira-frontend',
         filename: 'navbar.js',
         exposes: {
-          './App': './src/App.tsx',
+          './Header': './src/pages/Header/index.tsx',
         },
         shared: [
           'react',
