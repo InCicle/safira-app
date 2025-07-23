@@ -5,7 +5,6 @@ export const routesPaths = {
   DEFAULT: '/',
   HOME: '/home',
   PERSON_HOME: '/person/home',
-  LOGIN: '/login',
   NOT_FOUND: '/*',
   SOCIAL: '/social',
 };

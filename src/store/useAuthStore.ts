@@ -6,7 +6,6 @@ import { encode, decode } from '@/utils/crypto';
 import { domainName } from '@/utils/domainName';
 import { IToken } from '@/interfaces/Token';
 import { removeAuth } from '@/utils/removeAuth';
-import { routesPaths } from '@/routes/types';
 import { getRefreshToken } from '@/services/api/token/requests';
 import { getUser } from '@/utils/getUser';
 
@@ -35,7 +34,7 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
     window.localStorage.removeItem('avatar');
     window.localStorage.removeItem('logo');
     const urlToRedirect = window.location.pathname;
-    window.location.href = `${routesPaths.LOGIN}/?redirect_to=${urlToRedirect}`;
+    window.location.href = `${import.meta.env.VITE_APP_API_URL_CORE}/?redirect_to=${urlToRedirect}`;
     set({ token: null, expiresIn: null, user: null });
   },
   updateUser: (user: IUser) => {

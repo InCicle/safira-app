@@ -41,59 +41,57 @@ export const HeaderView: FC<HeaderViewProps> = ({
 }) => {
   const isDesktop = typeof window !== 'undefined' ? window.innerWidth > 600 : true;
   return (
-    <>
-      <HeaderInStyle role="heading">
-        <Toast />
-        <ModulesMenu
-          activeManagerMenu={activeManagerMenu}
-          anchorMenuModulesEl={anchorMenuModulesEl}
-          closeModulesMenu={closeModulesMenu}
-          filteredCollaboratorsModules={filteredCollaboratorsModules}
-          filteredUserModules={filteredUserModules}
-          getModuleUrl={getModuleUrl}
+    <HeaderInStyle role="heading">
+      <Toast />
+      <ModulesMenu
+        activeManagerMenu={activeManagerMenu}
+        anchorMenuModulesEl={anchorMenuModulesEl}
+        closeModulesMenu={closeModulesMenu}
+        filteredCollaboratorsModules={filteredCollaboratorsModules}
+        filteredUserModules={filteredUserModules}
+        getModuleUrl={getModuleUrl}
+      />
+      <ProfileMenu
+        anchorProfileMenuEl={anchorProfileMenuEl}
+        closeProfileMenu={closeProfileMenu}
+        menuItemUrl={menuItemUrl}
+        openTutorial={openTutorial}
+        setOpenTutorial={setOpenTutorial}
+        profile={profile}
+      />
+      {isDesktop ? (
+        <HeaderDesktop
+          collaborators={collaborators}
+          hasResult={hasResult}
+          anchorRef={anchorRef}
+          userAvatar={userAvatar}
+          accountType={accountType}
+          resultSearch={resultSearch}
+          selectedCollaborator={selectedCollaborator}
+          inputBoxClassName={inputBoxClassName}
+          anchorCompaniesEl={anchorCompaniesEl}
+          openMenuCompanies={Boolean(anchorCompaniesEl)}
+          searchFunction={searchFunction}
+          changeChipContent={changeChipContent}
+          setInputBoxClassName={setInputBoxClassName}
+          handleOpenModulesMenu={handleOpenModulesMenu}
+          handleOpenMenuProfile={handleOpenMenuProfile}
+          handleOpenMenuCompanies={handleOpenMenuCompanies}
+          handleCloseMenuCompanies={handleCloseMenuCompanies}
         />
-        <ProfileMenu
-          anchorProfileMenuEl={anchorProfileMenuEl}
-          closeProfileMenu={closeProfileMenu}
-          menuItemUrl={menuItemUrl}
-          openTutorial={openTutorial}
-          setOpenTutorial={setOpenTutorial}
-          profile={profile}
+      ) : (
+        <HeaderMobile
+          userAvatar={userAvatar}
+          anchorRef={anchorRef}
+          hasResult={hasResult}
+          inputBoxClassName={inputBoxClassName}
+          resultSearch={resultSearch}
+          handleOpenModulesMenu={handleOpenModulesMenu}
+          setInputBoxClassName={setInputBoxClassName}
+          searchFunction={searchFunction}
+          handleOpenMenuProfile={handleOpenMenuProfile}
         />
-        {isDesktop ? (
-          <HeaderDesktop
-            collaborators={collaborators}
-            hasResult={hasResult}
-            anchorRef={anchorRef}
-            userAvatar={userAvatar}
-            accountType={accountType}
-            resultSearch={resultSearch}
-            selectedCollaborator={selectedCollaborator}
-            inputBoxClassName={inputBoxClassName}
-            anchorCompaniesEl={anchorCompaniesEl}
-            openMenuCompanies={Boolean(anchorCompaniesEl)}
-            searchFunction={searchFunction}
-            changeChipContent={changeChipContent}
-            setInputBoxClassName={setInputBoxClassName}
-            handleOpenModulesMenu={handleOpenModulesMenu}
-            handleOpenMenuProfile={handleOpenMenuProfile}
-            handleOpenMenuCompanies={handleOpenMenuCompanies}
-            handleCloseMenuCompanies={handleCloseMenuCompanies}
-          />
-        ) : (
-          <HeaderMobile
-            userAvatar={userAvatar}
-            anchorRef={anchorRef}
-            hasResult={hasResult}
-            inputBoxClassName={inputBoxClassName}
-            resultSearch={resultSearch}
-            handleOpenModulesMenu={handleOpenModulesMenu}
-            setInputBoxClassName={setInputBoxClassName}
-            searchFunction={searchFunction}
-            handleOpenMenuProfile={handleOpenMenuProfile}
-          />
-        )}
-      </HeaderInStyle>
-    </>
+      )}
+    </HeaderInStyle>
   );
 };
