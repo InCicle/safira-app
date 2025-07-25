@@ -404,7 +404,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       '77e2fc0f-ff8b-4dc3-99db-32ef1caeaaef',
       'ff10a931-e804-48c2-becf-19b7d133c183',
       '83182346-e156-4f9a-884d-e4195636a94a',
-      'd8ee082a-24e9-4da2-8316-7b07fff56141'
+      'd8ee082a-24e9-4da2-8316-7b07fff56141',
     ],
     redirectType: 'internal',
   },
@@ -584,13 +584,6 @@ export const incicleNotificationModules: FilterModulesType[] = [
     userType: 'BOTH',
   },
   {
-    title: 'climate_research',
-    slug: MODULE_TYPES.climate_research,
-    icon: 'https://static-incicle.s3.amazonaws.com/pesquisa-clima-disabled.svg',
-    linkKey: 'disabled',
-    userType: 'COMPANY',
-  },
-  {
     title: 'policies_and_procedures',
     slug: MODULE_TYPES.policy,
     icon: 'https://static-incicle.s3.amazonaws.com/policies.svg',
@@ -604,7 +597,7 @@ export const incicleNotificationModules: FilterModulesType[] = [
     linkKey: 'okr',
     userType: 'BOTH',
   },
-   {
+  {
     title: 'climate_research',
     slug: MODULE_TYPES.climate_research,
     icon: 'https://static-incicle.s3.amazonaws.com/pesquisa-de-clima.svg',
