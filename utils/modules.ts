@@ -362,6 +362,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       '7b66cd39-4837-4ad6-a9ff-41f1b2e0301e',
       'c33855b1-6ffb-4cda-a499-a5c96b786b3a',
       '89f19f4c-d5cb-40f9-ad50-5f5aaea04181',
+      'de057efd-2ea7-46b8-80f2-7a2f152e8a98',
     ],
     redirectType: 'internal',
   },
@@ -403,6 +404,7 @@ export const incicleMenuModules: MenuModulesType[] = [
       '77e2fc0f-ff8b-4dc3-99db-32ef1caeaaef',
       'ff10a931-e804-48c2-becf-19b7d133c183',
       '83182346-e156-4f9a-884d-e4195636a94a',
+      'd8ee082a-24e9-4da2-8316-7b07fff56141'
     ],
     redirectType: 'internal',
   },
