@@ -604,4 +604,18 @@ export const incicleNotificationModules: FilterModulesType[] = [
     linkKey: 'okr',
     userType: 'BOTH',
   },
+   {
+    title: 'climate_research',
+    slug: MODULE_TYPES.climate_research,
+    icon: 'https://static-incicle.s3.amazonaws.com/pesquisa-de-clima.svg',
+    linkKey: 'survey',
+    userType: 'BOTH',
+  },
+  {
+    title: 'profile_map',
+    slug: MODULE_TYPES.profile_map,
+    icon: 'https://static-incicle.s3.amazonaws.com/disc.svg',
+    linkKey: 'profile_map',
+    userType: 'BOTH',
+  },
 ];
