@@ -1,0 +1,114 @@
+{
+  "safira-app": {
+    "modules": {
+      "title": "Modules",
+      "feed": "Feed",
+      "group": "Groups",
+      "schedule": "Schedule",
+      "schedule_description": "View your appointments.",
+      "projects": "Management",
+      "projects_description": "Manage your personal and professional projects.",
+      "feedback": "Feedback",
+      "feedback_description": {
+        "company": "Receive, send, and create feedback events.",
+        "person": "Receive, send, and request feedback."
+      },
+      "tasks": "Tasks",
+      "tasks_description": "Manage your tasks and track your overall performance.",
+      "admission": "Digital Admission",
+      "admission_description": {
+        "company": "Receive documents from employees.",
+        "person": "Send documents to the company.",
+        "permission": "Manage the company's hiring processes you are linked to."
+      },
+      "personal_department": "Personal Department",
+      "personal_department_description": "Register employees, sectors, positions, and levels.",
+      "endomarketing": "Internal Marketing",
+      "endomarketing_description": "Accelerate communication in your company.",
+      "evaluation": "Competency Management",
+      "evaluation_description": "Evaluations and development plans.",
+      "social_network": "Social Network",
+      "social_network_description": "Follow the social network and your productivity.",
+      "policies_and_procedures_description": {
+        "company": "Manage your company's policies and share them with your employees.",
+        "person": "View your company's policies and procedures."
+      },
+      "okr": "OKR",
+      "okr_description": "Objectives and Key Results.",
+      "in_check": "InCheck",
+      "in_check_description": {
+        "company": "Create checklists, action plans, and reports.",
+        "person": "Respond to checklists, create actions, and reports."
+      },
+      "system_configurations": "System Configurations",
+      "system_configurations_description": {
+        "company": "Manage permissions and other preferences.",
+        "person": "Manage your account preferences."
+      },
+      "in_point": "InPonto",
+      "in_point_description": "Control where and how you want",
+      "corporative_university": "Corporate University",
+      "corporative_university_description": "Develop talents and manage knowledge.",
+      "ombudsman": "Ombudsman",
+      "ombudsman_description": {
+        "company": "Receive evaluations, suggestions, and complaints.",
+        "person": "Send evaluations, suggestions, and complaints."
+      },
+      "hrconnect": "Connects HR",
+      "hrconnect_description": {
+        "person": "Send and receive documents and streamline your relationship with the company."
+      },
+      "climate_research": "Climate Survey",
+      "climate_research_description": {
+        "company": "Create surveys for your employees",
+        "person": "Respond to surveys created by the company"
+      },
+      "profile_map": "Profile Map",
+      "profile_map_description": {
+        "company": "Map behavioral profiles with tests.",
+        "person": "Discover your behavioral profile."
+      },
+      "manager_panel": "Manager Panel",
+      "manager_panel_description": "Manage your team's information and actions.",
+      "recruitment": "Recruitment",
+      "all": "All",
+      "recruitment_description": {
+        "company": "Manage the entire talent acquisition process strategically."
+      }
+    },
+    "find_someone": "Find someone",
+    "no_result_found": "No results found",
+    "company": "Company",
+    "unread": "Unread",
+    "all": "All",
+    "notifications": "Notifications",
+    "no_notifications_yet": "No notifications at the moment",
+    "module_available_soon": "Module available soon",
+    "friends": "Friends",
+    "collaborators": "Collaborators",
+    "tutorials": "Tutorials",
+    "configurations": "Settings",
+    "leave": "Logout",
+    "this_is_all": "This is all",
+    "time_ago": {
+      "month": "1 month ago",
+      "months": "{{count}} months ago",
+      "full_day": "1 day ago",
+      "mini_day": "1 d",
+      "full_days": "{{count}} days ago",
+      "mini_days": "{{count}} d",
+      "full_hour": "1 hour ago",
+      "mini_hour": "1 h",
+      "full_hours": "{{count}} hours ago",
+      "mini_hours": "{{count}} h",
+      "full_minute": "1 minute ago",
+      "mini_minute": "1 m",
+      "full_minutes": "{{count}} minutes ago",
+      "mini_minutes": "{{count}} m",
+      "full_second": "1 second ago",
+      "mini_second": "1 s",
+      "full_seconds": "{{count}} seconds ago",
+      "mini_seconds": "{{count}} s"
+    }
+  }
+}

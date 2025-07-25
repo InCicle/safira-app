@@ -1,1 +1,0 @@
-export const MINUTE_IN_MILLISECONDS = 60 * 1000;
