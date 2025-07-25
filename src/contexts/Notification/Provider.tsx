@@ -25,7 +25,7 @@ const socket = manager.socket('/');
 
 const NotificationProvider: React.FC<
   React.PropsWithChildren<{
-    apiClient?: IHttpClient;
+    apiClient: IHttpClient;
   }>
 > = ({ children, apiClient }) => {
   const { fn } = useRender();
@@ -50,6 +50,7 @@ const NotificationProvider: React.FC<
     setNotificationViewCount,
     defineFavicon,
     definePageTitle,
+    api: apiClient,
   });
 
   const notificationKey = [NOTIFICATION_REQUEST_KEY, params];
@@ -70,8 +71,8 @@ const NotificationProvider: React.FC<
 
   const { error, isLoading } = notificationsQuery;
   const notificationsResponse = notificationsQuery.data;
-  const notifications = useMemo(() => notificationsResponse?.data?.data || [], [notificationsResponse]);
-  const lastPage = notificationsQuery.data?.data?.totalPage || 0;
+  const notifications = notificationsResponse?.data;
+  const lastPage = notificationsQuery.data?.totalPage || 0;
 
   const fetchNotifications = useCallback(
     (newParams: NotificationParamsType) => {
@@ -158,7 +159,7 @@ const NotificationProvider: React.FC<
   useEffect(() => {
     const paramsFallback = paramsFallbackRef.current;
     const resetState = params.module !== paramsFallback.module || params.read !== paramsFallback.read;
-    service.update(notifications, notificationsResponse?.data?.saw, resetState ? 'reset' : 'none');
+    service.update(notifications, notificationsResponse?.saw, resetState ? 'reset' : 'none');
   }, [notifications]); // eslint-disable-line
 
   // on notification load
@@ -191,7 +192,7 @@ const NotificationProvider: React.FC<
       error,
       isLoading,
       lastPage,
-      notificationsReqData: notifications,
+      notificationsReqData: notifications ?? [],
       badgeIsInvisible,
       setBadgeIsInvisible,
       notifications: allNotifications,
@@ -204,6 +205,7 @@ const NotificationProvider: React.FC<
       handleCloseDropdown,
       hasNextPage: lastPage > params.page,
       isFetchingNextPage: notificationsQuery.isFetching,
+      apiClient,
     }),
     [
       notificationViewCount,
@@ -220,6 +222,7 @@ const NotificationProvider: React.FC<
       handleOpenDropdown,
       handleCloseDropdown,
       notificationsQuery.isFetching,
+      apiClient,
     ],
   );
 

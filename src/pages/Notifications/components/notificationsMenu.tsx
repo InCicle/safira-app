@@ -63,10 +63,10 @@ export const NotificationsMenu: React.FC<NotificationsMenuProps> = ({
   });
 
   useEffect(() => {
-    if (open) {
-      handleLoadMoreContent();
-    }
+    if (open) handleLoadMoreContent();
   }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  console.log(isFetchingNextPage);
 
   return (
     <Menu
@@ -176,7 +176,7 @@ export const NotificationsMenu: React.FC<NotificationsMenuProps> = ({
 
             <Stack direction="row" justifyContent="center" alignItems="center" padding={1.5} height={70}>
               {showLoading ? (
-                <Stack direction="row" gap={1} alignItems="center">
+                <Stack direction="row" gap={1} alignItems="center" ref={observerNotificationsRef}>
                   <Stack>
                     <Skeleton variant="circular" width={42} height={42} />
                   </Stack>

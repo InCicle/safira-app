@@ -1,3 +1,4 @@
+import { IHttpClient } from '@/clients/Http';
 import { ISetState } from '@/interfaces/SetState';
 import { NotificationParamsType, NotificationProps } from '@/services/api/notifications';
 import { createContext } from 'react';
@@ -28,6 +29,8 @@ interface NotificationContext {
 
   handleOpenDropdown: () => void;
   handleCloseDropdown: () => void;
+
+  apiClient: IHttpClient;
 }
 
 export const NotificationContext = createContext<NotificationContext>({} as NotificationContext);

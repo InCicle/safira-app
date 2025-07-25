@@ -25,7 +25,7 @@ export function removeAuthCookies() {
 
   Cookies.remove('user', { domain: domainName });
 
-  Cookies.remove('companySelected', { domain: domainName });
+  Cookies.remove('companyId', { domain: domainName });
 }
 
 export function redirectToCore() {
@@ -35,9 +35,7 @@ export function redirectToCore() {
   window.location.href = `${links.web.core}/?redirect_to=${urlToRedirect}`;
 }
 
-export async function validateToken(
-  verifyTokenData: VerifyTokenData,
-): Promise<boolean> {
+export async function validateToken(verifyTokenData: VerifyTokenData): Promise<boolean> {
   try {
     const response = await axios.post(`${links.api.core}/account/verify`, {
       email: verifyTokenData.email,
@@ -50,6 +48,7 @@ export async function validateToken(
 
     return false;
   } catch (error) {
+    console.error('Error validating token:', error);
     return false;
   }
 }
@@ -65,6 +64,7 @@ export function getSignedUser(): IUser | false {
 
     return false;
   } catch (error) {
+    console.error('Error decoding user cookie:', error);
     return false;
   }
 }

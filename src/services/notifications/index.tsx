@@ -6,11 +6,9 @@ import { addToast } from '@/components/Toast';
 import { NotificationDTO } from './DTO';
 import { links } from '@/utils/links';
 import { NotificationEvent } from '@/providers/NotificationEvent';
-import {
-  NotificationProps,
-  updateSawNotifications,
-} from '../api/notifications';
+import { NotificationProps, updateSawNotifications } from '../api/notifications';
 import { ISetState } from '@/interfaces/SetState';
+import { IHttpClient } from '@/clients/Http';
 
 type NotificationOptionsType = {
   dropdownOpened: boolean;
@@ -23,6 +21,7 @@ type NotificationOptionsType = {
 
   defineFavicon(icon: FaviconOptionType): void;
   definePageTitle(content: string | ((title: string) => string)): void;
+  api: IHttpClient;
 };
 
 let DROPDOWN_TIMEOUT: ReturnType<typeof setTimeout> | null = null;
@@ -33,35 +32,28 @@ export default class NotificationService {
 
   private dropdownOpened: boolean = false;
   private notificationViewCount: number = 0;
+  api: IHttpClient;
 
   private defineFavicon: NotificationOptionsType['defineFavicon'] = () => {};
-  private definePageTitle: NotificationOptionsType['definePageTitle'] =
-    () => {};
+  private definePageTitle: NotificationOptionsType['definePageTitle'] = () => {};
 
-  private setBadgeIsInvisible: NotificationOptionsType['setBadgeIsInvisible'] =
-    () => {};
-  private setDropdownOpened: NotificationOptionsType['setDropdownOpened'] =
-    () => {};
-  private setAllNotifications: NotificationOptionsType['setAllNotifications'] =
-    () => {};
-  private setNotificationViewCount: NotificationOptionsType['setNotificationViewCount'] =
-    () => {};
+  private setBadgeIsInvisible: NotificationOptionsType['setBadgeIsInvisible'] = () => {};
+  private setDropdownOpened: NotificationOptionsType['setDropdownOpened'] = () => {};
+  private setAllNotifications: NotificationOptionsType['setAllNotifications'] = () => {};
+  private setNotificationViewCount: NotificationOptionsType['setNotificationViewCount'] = () => {};
 
   // local  ------------------------------------------ // --------------------------------------------------------- //
 
-  private replacer = (title: string) =>
-    title.replace(/\+/, '').replace(/\([\d]+\)\s/g, '');
+  private replacer = (title: string) => title.replace(/\+/, '').replace(/\([\d]+\)\s/g, '');
 
-  private checkIfNotAbleToNotify = () =>
-    links.production && window.location.origin !== links.web.social;
+  private checkIfNotAbleToNotify = () => links.production && window.location.origin !== links.web.social;
 
   private preventScopeLoss() {
     this.executeBrowserTab = this.executeBrowserTab.bind(this);
     this.executeToastNotification = this.executeToastNotification.bind(this);
     this.initializeEvents = this.initializeEvents.bind(this);
     this.clearEvents = this.clearEvents.bind(this);
-    this.executeBrowserNotification =
-      this.executeBrowserNotification.bind(this);
+    this.executeBrowserNotification = this.executeBrowserNotification.bind(this);
     this.handleOpenDropdown = this.handleOpenDropdown.bind(this);
     this.handleCloseDropdown = this.handleCloseDropdown.bind(this);
     this.requestPermission = this.requestPermission.bind(this);
@@ -81,6 +73,7 @@ export default class NotificationService {
     setDropdownOpened,
     setNotificationViewCount,
     setAllNotifications,
+    api,
   }: NotificationOptionsType) {
     this.dropdownOpened = dropdownOpened;
     this.notificationViewCount = notificationViewCount;
@@ -93,30 +86,27 @@ export default class NotificationService {
     this.setAllNotifications = setAllNotifications;
 
     this.preventScopeLoss();
+    this.api = api;
   }
 
   // update notification -------------------------- // ------------------------------------------------------------ //
 
-  public update(
-    newNotifications: NotificationProps[],
-    viewCount?: number,
-    action: 'none' | 'reset' = 'none',
-  ) {
+  public update(newNotifications?: NotificationProps[], viewCount?: number, action: 'none' | 'reset' = 'none') {
     if (!this.dropdownOpened) {
       this.setNotificationViewCount(viewCount || 0);
     }
 
-    if (action === 'reset') {
+    if (action === 'reset' && newNotifications) {
       this.setAllNotifications(newNotifications);
       return;
     }
 
-    this.setAllNotifications((old) => [...old, ...newNotifications]);
+    this.setAllNotifications(old => [...old, ...(newNotifications || [])]);
   }
 
   public appendNew(notification: NotificationProps) {
-    this.setNotificationViewCount((old) => old + 1);
-    this.setAllNotifications((old) => [notification, ...old]);
+    this.setNotificationViewCount(old => old + 1);
+    this.setAllNotifications(old => [notification, ...old]);
   }
 
   // browser permission --------------------------- // ------------------------------------------------------------ //
@@ -131,7 +121,9 @@ export default class NotificationService {
       if (!Push.Permission.has()) {
         Push.Permission.request();
       }
-    } catch {}
+    } catch (error) {
+      console.error('Error requesting notification permission:', error);
+    }
   }
 
   // notifiers ------------------------------------ // ------------------------------------------------------------ //
@@ -139,7 +131,7 @@ export default class NotificationService {
   public notify(notification: NotificationProps) {
     // handle new notification when dropdown is open
     if (this.dropdownOpened) {
-      updateSawNotifications();
+      updateSawNotifications(this.api);
     } else {
       this.executeBrowserTab(this.notificationViewCount + 1);
     }
@@ -168,17 +160,13 @@ export default class NotificationService {
     }
 
     this.defineFavicon('new-notification-icon');
-    this.definePageTitle(
-      (title) =>
-        `(${viewCount > 99 ? '+99' : viewCount}) ${this.replacer(title)}`,
-    );
+    this.definePageTitle(title => `(${viewCount > 99 ? '+99' : viewCount}) ${this.replacer(title)}`);
     this.setBadgeIsInvisible(false);
   }
 
   public executeToastNotification(notification: NotificationProps) {
     const factory = new NotificationDTO(notification);
-    const { NotificationImageBox, NotificationComponent } =
-      factory.toToast() || {};
+    const { NotificationImageBox, NotificationComponent } = factory.toToast() || {};
 
     if (document.hidden) return;
 
@@ -203,8 +191,7 @@ export default class NotificationService {
 
       const factory = new NotificationDTO(notification);
       const notificationMessage = factory.toBrowserAPI();
-      const { title } =
-        UserMenuModules.find((item) => item.slug === notification.module) || {};
+      const { title } = UserMenuModules.find(item => item.slug === notification.module) || {};
 
       const notif = new Notification(`${title || ''}`, {
         icon: notificationLogoImg,
@@ -237,7 +224,7 @@ export default class NotificationService {
     clearTimeout(DROPDOWN_TIMEOUT!);
 
     DROPDOWN_TIMEOUT = setTimeout(() => {
-      updateSawNotifications();
+      updateSawNotifications(this.api);
     }, DROPDOWN_DELAY);
   }
 
@@ -248,27 +235,16 @@ export default class NotificationService {
   // apply events --------------------------------- // ------------------------------------------------------------ //
 
   public initializeEvents() {
-    const [openDropdownKey] = NotificationEvent.on(
-      'open_dropdown',
-      this.handleOpenDropdown,
-    );
-    const [closeDropdownKey] = NotificationEvent.on(
-      'close_dropdown',
-      this.handleCloseDropdown,
-    );
+    const [openDropdownKey] = NotificationEvent.on('open_dropdown', this.handleOpenDropdown);
+    const [closeDropdownKey] = NotificationEvent.on('close_dropdown', this.handleCloseDropdown);
 
     return { openDropdownKey, closeDropdownKey };
   }
 
-  public clearEvents(keys: {
-    openDropdownKey?: string;
-    closeDropdownKey?: string;
-  }) {
+  public clearEvents(keys: { openDropdownKey?: string; closeDropdownKey?: string }) {
     const { openDropdownKey, closeDropdownKey } = keys;
 
-    if (openDropdownKey)
-      NotificationEvent.off('open_dropdown', openDropdownKey);
-    if (closeDropdownKey)
-      NotificationEvent.off('close_dropdown', closeDropdownKey);
+    if (openDropdownKey) NotificationEvent.off('open_dropdown', openDropdownKey);
+    if (closeDropdownKey) NotificationEvent.off('close_dropdown', closeDropdownKey);
   }
 }

@@ -29,6 +29,7 @@ export const NotificationsController: React.ForwardRefRenderFunction<Notificatio
     isFetchingNextPage,
     handleCloseDropdown: handleClose,
     handleOpenDropdown: handleOpen,
+    apiClient,
   } = useNotifications();
   const { fn } = useRender();
   const query = useURLQuery();
@@ -50,7 +51,7 @@ export const NotificationsController: React.ForwardRefRenderFunction<Notificatio
     /**
      * This function is used to check all notifications as readed
      */
-    checkAllReadNotifications();
+    checkAllReadNotifications(apiClient);
     setNotifications(old =>
       old?.map(notification => {
         notification.read = true;

@@ -14,21 +14,9 @@ import { hasManagerPermissions } from '@/utils/hasManagerPanel';
 import { getProfile } from '@/services/api/profile/requests';
 import { IPermission } from '@/services/api/permissions';
 import { IHttpClient } from '@/clients/Http';
+import { integrationTitles, moduleRedirectType, RedirectTypeEnum } from '../utils';
 
-const RedirectType = {
-  STEPONE: 1,
-  INPOINT: 2,
-  RECRUITMENT: 3,
-};
-type RedirectTypeEnum = (typeof RedirectType)[keyof typeof RedirectType];
-
-const moduleRedirectType = {
-  in_point: RedirectType.INPOINT,
-  recruitment: RedirectType.RECRUITMENT,
-  corporative_university: RedirectType.STEPONE,
-} as const;
-
-interface HeaderControllerProps {
+export interface HeaderControllerProps {
   user: IUser | null;
   me: IMe | null;
   companyId: string | null;
@@ -37,8 +25,6 @@ interface HeaderControllerProps {
   permissions: IPermission[];
   apiClient?: IHttpClient;
 }
-
-const integrationTitles = ['corporative_university', 'in_point', 'recruitment'];
 
 export const HeaderController: React.FC<HeaderControllerProps> = ({
   me,
@@ -51,13 +37,6 @@ export const HeaderController: React.FC<HeaderControllerProps> = ({
 }) => {
   const api = useMemo(() => apiClient || undefined, [apiClient]);
 
-  console.log({
-    user,
-    me,
-    companyId,
-    permissions,
-    api,
-  });
   const anchorRef = useRef<HTMLFormElement | null>(null);
   const modulesMenuRef = useRef<ModulesMenuRef | null>(null);
   const profileMenuRef = useRef<ProfileMenuRef | null>(null);
@@ -101,9 +80,9 @@ export const HeaderController: React.FC<HeaderControllerProps> = ({
     }
     setAccountType('PERSON');
     if (me?.collaborators && me?.collaborators?.length > 0) {
-      const companySelected = Cookies.get('companySelected');
+      const companySelected = Cookies.get('companyId');
       if (!companySelected) {
-        Cookies.set('companySelected', me?.collaborators[0].company.id, {
+        Cookies.set('companyId', me?.collaborators[0].company.id, {
           domain: domainName,
         });
         setCompanyId(me?.collaborators[0].company.id);
@@ -233,8 +212,8 @@ export const HeaderController: React.FC<HeaderControllerProps> = ({
   const changeChipContent = useCallback(
     (index: number) => {
       const companyId = collaborators[index].company.id;
-      Cookies.remove('companySelected', { domain: domainName });
-      Cookies.set('companySelected', companyId, {
+      Cookies.remove('companyId', { domain: domainName });
+      Cookies.set('companyId', companyId, {
         domain: domainName,
       });
       setCompanyId(companyId);

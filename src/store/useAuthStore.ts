@@ -34,7 +34,7 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
     window.localStorage.removeItem('avatar');
     window.localStorage.removeItem('logo');
     const urlToRedirect = window.location.pathname;
-    window.location.href = `${import.meta.env.VITE_APP_API_URL_CORE}/?redirect_to=${urlToRedirect}`;
+    window.location.href = `${import.meta.env.VITE_APP_WEB_URL_CORE}/?signout=true&redirect_to=${urlToRedirect}`;
     set({ token: null, expiresIn: null, user: null });
   },
   updateUser: (user: IUser) => {

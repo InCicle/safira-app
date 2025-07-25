@@ -23,7 +23,7 @@ const CompanyLogo: React.FC<CompanyLogoProps> = ({ height = 35, margin = 0 }) =>
   }
 
   if (me.type === 'PERSON' && me.collaborators?.length) {
-    const selectedCompanyId = Cookies.get('companySelected') || me.collaborators[0].company.id;
+    const selectedCompanyId = Cookies.get('companyId') || me.collaborators[0].company.id;
     const selected = me.collaborators.find(col => col.company.id === selectedCompanyId);
     if (selected?.company.logo) {
       logoUrl = selected.company.logo;
